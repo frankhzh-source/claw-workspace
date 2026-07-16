@@ -1,5 +1,14 @@
 # 记忆系统自动备份到 GitHub — 执行记录
 
+## 2026-07-16 12:11
+
+- **PULL workbuddy-sync**: Already up to date，恢复 5 个用户文件 + skills/（0 个技能）
+- **PULL claw-workspace**: Already up to date
+- **PUSH workbuddy-sync**: 成功（LF/CRLF 警告不影响）
+- **PUSH claw-workspace**: sync_all.py 内 `git pull --rebase` 因 __pycache__ 瞬时差异报错；commit 成功但 `git push` 在 PowerShell 下无输出（exit 128），切 Git Bash 后 push `0256e64` → master 成功
+- **踩坑新发现**: PowerShell 的 `git push` 不输出错误信息且 exit 128，Git Bash 正常
+- **状态**: 全部同步完成 ✓
+
 ## 2026-07-16 11:14
 
 - **PULL**: 两个仓库均 Already up to date（另一台电脑无待同步内容）
