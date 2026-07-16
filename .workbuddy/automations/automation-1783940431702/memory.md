@@ -1,5 +1,14 @@
 # 记忆系统自动备份到 GitHub — 执行记录
 
+## 2026-07-16 10:17
+
+- **PULL workbuddy-sync**: Already up to date（无远程新变更）
+- **PULL claw-workspace**: Already up to date（无远程新变更）
+- **PUSH workbuddy-sync**: 成功（LF/CRLF 警告不影响提交），skills/ 0 个技能
+- **PUSH claw-workspace**: sync_all.py 的 git pull --rebase 因工作树干净仍报错，手动 git push commit `521cb24` → master 成功
+- **踩坑重复**: PowerShell 运行 sync_all.py 时，claw 的 git pull --rebase 在 clean 状态下仍报 "unstaged changes"（疑似 .pyc 重生成造成瞬时差异），需手动 push
+- **状态**: 全部同步完成 ✓
+
 ## 2026-07-16 09:25
 
 - **PULL workbuddy-sync**: Already up to date（无远程新变更），恢复 5 个用户文件 + skills/
