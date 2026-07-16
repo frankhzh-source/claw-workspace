@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一个框架看懂AI产业 — 客户代际范式理论</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+    color: #222;
+    background: #fff;
+    line-height: 1.8;
+    font-size: 15px;
+  }
+  h1 { font-size: 20px; font-weight: 600; line-height: 1.5; margin-bottom: 8px; }
+  h2 { font-size: 17px; font-weight: 600; margin-top: 28px; margin-bottom: 10px; }
+  .meta { color: #888; font-size: 13px; margin-bottom: 20px; }
+  .header-img { width: 100%; border-radius: 12px; margin: 16px 0 20px; display: block; background: #08081a; }
+  .divider { border: none; border-top: 1px solid #eee; margin: 20px 0; }
+  .highlight-box {
+    background: #f5f5f4;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .highlight-box strong { color: #185FA5; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 14px 0;
+  }
+  th, td {
+    border: 0.5px solid #d3d1c7;
+    padding: 8px 10px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  th { background: #f5f5f4; font-weight: 500; }
+  .insight { color: #993C1D; font-weight: 500; }
+  .tag { display: inline-block; background: #E6F1FB; color: #185FA5; font-size: 12px; padding: 2px 8px; border-radius: 4px; margin-right: 4px; }
+  .tag-green { background: #EAF3DE; color: #3B6D11; }
+  .tag-amber { background: #FAEEDA; color: #854F0B; }
+  .tag-purple { background: #EEEDFE; color: #3C3489; }
+  .interactive-box {
+    background: #fafaf8;
+    border: 0.5px solid #d3d1c7;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 20px 0;
+    text-align: center;
+    font-size: 14px;
+  }
+  .previous { font-size: 13px; color: #5f5e5a; margin-top: 24px; }
+  .previous a { color: #185FA5; text-decoration: none; }
+  .footer { margin-top: 24px; font-size: 13px; color: #888; text-align: center; }
+  .vis-center { text-align: center; margin: 16px 0; }
+  .vis-center svg { max-width: 100%; height: auto; border: 0.5px solid #d3d1c7; border-radius: 8px; }
+</style>
+</head>
+<body>
+
+<h1>一个框架看懂AI产业：算力成本崩塌是G4的第一推动力</h1>
+
+<div class="meta">海风老师 · 客户代际范式理论 · 2026年6月</div>
+
+<!-- ====== 未来城市题图 ====== -->
+<img class="header-img" src="客户代际范式_题图_未来城市赛博.svg" alt="客户代际范式四层价值链·未来城市赛博与机器人交互" width="100%"/>%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2308081a'/%3E%3Cstop offset='35%25' stop-color='%230b0b2e'/%3E%3Cstop offset='65%25' stop-color='%23150826'/%3E%3Cstop offset='100%25' stop-color='%2308081a'/%3E%3C/linearGradient%3E%3ClinearGradient id='sky' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ff6b35' stop-opacity='0.25'/%3E%3Cstop offset='25%25' stop-color='%23d63384' stop-opacity='0.12'/%3E%3Cstop offset='100%25' stop-color='transparent'/%3E%3C/linearGradient%3E%3ClinearGradient id='goldC' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop offset='0%25' stop-color='%23ffd700' stop-opacity='0.15'/%3E%3Cstop offset='20%25' stop-color='%23ffb347' stop-opacity='0.5'/%3E%3Cstop offset='50%25' stop-color='%23ffd700' stop-opacity='0.9'/%3E%3Cstop offset='80%25' stop-color='%23ffec80' stop-opacity='0.7'/%3E%3Cstop offset='100%25' stop-color='%23ff6b35' stop-opacity='0.3'/%3E%3C/linearGradient%3E%3ClinearGradient id='cBlue' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2300d4ff' stop-opacity='0.5'/%3E%3Cstop offset='100%25' stop-color='%230066cc' stop-opacity='0.15'/%3E%3C/linearGradient%3E%3ClinearGradient id='cPurple' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%239b59b6' stop-opacity='0.5'/%3E%3Cstop offset='100%25' stop-color='%235b2f8e' stop-opacity='0.15'/%3E%3C/linearGradient%3E%3ClinearGradient id='cGreen' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%232ecc71' stop-opacity='0.45'/%3E%3Cstop offset='100%25' stop-color='%231a8c5c' stop-opacity='0.15'/%3E%3C/linearGradient%3E%3ClinearGradient id='cRed' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23e74c3c' stop-opacity='0.45'/%3E%3Cstop offset='100%25' stop-color='%23a93226' stop-opacity='0.15'/%3E%3C/linearGradient%3E%3Cfilter id='nb'%3E%3CfeGaussianBlur stdDeviation='4' result='b'/%3E%3CfeMerge%3E%3CfeMergeNode in='b'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/feMerge%3E%3C/filter%3E%3Cfilter id='ng'%3E%3CfeGaussianBlur stdDeviation='5' result='b'/%3E%3CfeMerge%3E%3CfeMergeNode in='b'/%3E%3CfeMergeNode in='b'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Crect width='1200' height='630' fill='url(%23bg)'/%3E%3Crect width='1200' height='630' fill='url(%23sky)'/%3E%3Cg opacity='0.04'%3E%3Cpattern id='grid' width='60' height='60' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 60 0 L 0 0 0 60' fill='none' stroke='%2300d4ff' stroke-width='0.5'/%3E%3C/pattern%3E%3Crect width='1200' height='630' fill='url(%23grid)'/%3E%3C/g%3E%3Cg opacity='0.06'%3E%3Crect x='30' y='500' width='40' height='130' fill='%231a1a4e'/%3E%3Crect x='80' y='480' width='35' height='150' fill='%231a1a4e'/%3E%3Crect x='125' y='510' width='60' height='120' fill='%231a1a4e'/%3E%3Crect x='200' y='460' width='28' height='170' fill='%231a1a4e'/%3E%3Crect x='240' y='490' width='50' height='140' fill='%231a1a4e'/%3E%3Crect x='310' y='440' width='25' height='190' fill='%231a1a4e'/%3E%3Crect x='350' y='470' width='42' height='160' fill='%231a1a4e'/%3E%3Crect x='410' y='430' width='30' height='200' fill='%231a1a4e'/%3E%3Crect x='455' y='465' width='35' height='165' fill='%231a1a4e'/%3E%3Crect x='510' y='450' width='28' height='180' fill='%231a1a4e'/%3E%3Crect x='550' y='480' width='45' height='150' fill='%231a1a4e'/%3E%3Crect x='610' y='420' width='22' height='210' fill='%231a1a4e'/%3E%3Crect x='645' y='460' width='38' height='170' fill='%231a1a4e'/%3E%3Crect x='700' y='445' width='32' height='185' fill='%231a1a4e'/%3E%3Crect x='750' y='475' width='48' height='155' fill='%231a1a4e'/%3E%3Crect x='815' y='455' width='26' height='175' fill='%231a1a4e'/%3E%3Crect x='855' y='485' width='40' height='145' fill='%231a1a4e'/%3E%3Crect x='910' y='440' width='30' height='190' fill='%231a1a4e'/%3E%3Crect x='955' y='470' width='35' height='160' fill='%231a1a4e'/%3E%3Crect x='1005' y='495' width='50' height='135' fill='%231a1a4e'/%3E%3Crect x='1070' y='460' width='28' height='170' fill='%231a1a4e'/%3E%3Crect x='1110' y='490' width='45' height='140' fill='%231a1a4e'/%3E%3Crect x='1160' y='510' width='40' height='120' fill='%231a1a4e'/%3E%3C/g%3E%3Cg opacity='0.25'%3E%3Cline x1='200' y1='0' x2='280' y2='630' stroke='%2300d4ff' stroke-width='0.5'/%3E%3Cline x1='230' y1='0' x2='310' y2='630' stroke='%2300d4ff' stroke-width='0.5' opacity='0.5'/%3E%3Cline x1='260' y1='0' x2='340' y2='630' stroke='%237b2ff7' stroke-width='0.5'/%3E%3Cline x1='170' y1='0' x2='250' y2='630' stroke='%237b2ff7' stroke-width='0.5' opacity='0.4'/%3E%3C/g%3E%3Ccircle cx='220' cy='60' r='2' fill='%2300d4ff' class='da'/%3E%3Ccircle cx='250' cy='90' r='1.5' fill='%237b2ff7' class='db'/%3E%3Cg filter='url(%23ng)'%3E%3Cpath d='M-20,610 Q140,590 300,580 Q440,540 510,460 Q560,390 600,310 Q630,250 660,200 Q690,160 730,130 Q780,100 850,85 Q950,68 1080,55 Q1150,48 1220,45' stroke='url(%23goldC)' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3C/g%3E%3Ccircle cx='510' cy='460' r='6' fill='%23ffd700' opacity='0.9' class='pulse'/%3E%3Ctext x='495' y='445' text-anchor='end' fill='%23ffd700' font-size='12' opacity='0.8' font-family='monospace'%3E%E6%8B%90%E7%82%B9%3C/text%3E%3Cg transform='translate(600,60)'%3E%3Crect x='-180' y='-28' width='360' height='56' rx='6' fill='%230a0a2e' stroke='%2300d4ff' stroke-width='0.8' opacity='0.8'/%3E%3Ctext x='0' y='2' text-anchor='middle' fill='%2300d4ff' font-size='22' font-family='monospace' font-weight='bold' filter='url(%23nb)'%3E%E5%AE%A2%E6%88%B7%E4%BB%A3%E9%99%85%E8%8C%83%E5%BC%8F%E7%90%86%E8%AE%BA%3C/text%3E%3Ctext x='0' y='20' text-anchor='middle' fill='%23888' font-size='11' font-family='sans-serif' opacity='0.7'%3E%E7%AE%97%E5%8A%9B%E6%88%90%E6%9C%AC%E8%B6%85%E6%8C%87%E6%95%B0%E5%B4%A9%E5%A1%8C%E9%A9%B1%E5%8A%A8%E4%BA%A7%E4%B8%9A%E4%BB%A3%E9%99%85%E6%9B%B4%E6%9B%BF%3C/text%3E%3C/g%3E%3Cg transform='translate(340,185)'%3E%3Crect x='-130' y='-24' width='260' height='48' rx='5' fill='%2308082a' stroke='%2300d4ff' stroke-width='1.2' opacity='0.95'/%3E%3Crect x='-128' y='-22' width='256' height='44' rx='4' fill='url(%23cBlue)' opacity='0.5'/%3E%3Ctext x='0' y='4' text-anchor='middle' fill='%2300d4ff' font-size='15' font-weight='bold' filter='url(%23nb)'%3EL1 %E8%8A%AF%E7%89%87%E5%B1%82%20%C2%B7%20%E7%88%86%E5%8F%91%E5%88%9D%E6%9C%9F%3C/text%3E%3Ctext x='0' y='18' text-anchor='middle' fill='%2366d9ff' font-size='10' opacity='0.6'%3ENVIDIA %C2%B7 AMD %C2%B7 %E5%8D%8E%E4%B8%BA%E6%98%87%E8%85%BE%3C/text%3E%3C/g%3E%3Cg transform='translate(340,278)'%3E%3Crect x='-130' y='-24' width='260' height='48' rx='5' fill='%230a0a2e' stroke='%239b59b6' stroke-width='1.2' opacity='0.95'/%3E%3Crect x='-128' y='-22' width='256' height='44' rx='4' fill='url(%23cPurple)' opacity='0.5'/%3E%3Ctext x='0' y='4' text-anchor='middle' fill='%23be74e0' font-size='15' font-weight='bold' filter='url(%23nb)'%3EL2 %E6%A8%A1%E5%9E%8B%E5%B1%82%20%C2%B7%20%E7%88%86%E5%8F%91%E4%B8%AD%E6%9C%9F%3C/text%3E%3Ctext x='0' y='18' text-anchor='middle' fill='%23be74e0' font-size='10' opacity='0.6'%3EOpenAI %C2%B7 Anthropic %C2%B7 DeepSeek %C2%B7 Google%3C/text%3E%3C/g%3E%3Cg transform='translate(340,371)'%3E%3Crect x='-130' y='-24' width='260' height='48' rx='5' fill='%23081a0a' stroke='%232ecc71' stroke-width='1.2' opacity='0.95'/%3E%3Crect x='-128' y='-22' width='256' height='44' rx='4' fill='url(%23cGreen)' opacity='0.5'/%3E%3Ctext x='0' y='4' text-anchor='middle' fill='%232ecc71' font-size='15' font-weight='bold' filter='url(%23nb)'%3EL3a AIGC %C2%B7 %E8%B6%85%E6%8C%87%E6%95%B0%E7%88%86%E5%8F%91%E6%9C%9F%3C/text%3E%3Ctext x='0' y='18' text-anchor='middle' fill='%232ecc71' font-size='10' opacity='0.6'%3E%E5%86%85%E5%AE%B9%E5%B9%B3%E5%8F%B0%20%C2%B7%20%E7%94%B5%E5%95%86%20%C2%B7%20%E8%A7%86%E9%A2%91%E7%94%9F%E6%88%90%3C/text%3E%3C/g%3E%3Cg transform='translate(620,385)' opacity='0.55'%3E%3Cline x1='-60' y1='0' x2='0' y2='0' stroke='%23d35400' stroke-width='0.5'/%3E%3Ctext x='-65' y='4' text-anchor='end' fill='%23d35400' font-size='11'%3EL3b %E9%80%9A%E7%94%A8AI%20%C2%B7%20%E7%A8%B3%E6%80%81%E5%A2%9E%E9%95%BF%3C/text%3E%3C/g%3E%3Cg transform='translate(340,464)'%3E%3Crect x='-130' y='-24' width='260' height='48' rx='5' fill='%231a0808' stroke='%23e74c3c' stroke-width='1.2' opacity='0.95'/%3E%3Crect x='-128' y='-22' width='256' height='44' rx='4' fill='url(%23cRed)' opacity='0.5'/%3E%3Ctext x='0' y='4' text-anchor='middle' fill='%23e74c3c' font-size='15' font-weight='bold' filter='url(%23nb)'%3EL4 %E5%B9%BF%E4%B9%89%E6%9C%BA%E5%99%A8%E4%BA%BA%20%C2%B7%20%E8%90%8C%E8%8A%BD%E6%9C%9F%3C/text%3E%3Ctext x='0' y='18' text-anchor='middle' fill='%23e74c3c' font-size='10' opacity='0.6'%3E%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%20%C2%B7%20%E4%BA%BA%E5%BD%A2%E6%9C%BA%E5%99%A8%E4%BA%BA%20%C2%B7%20%E5%B7%A5%E4%B8%9A%E6%9C%BA%E5%99%A8%E4%BA%BA%3C/text%3E%3C/g%3E%3Cg opacity='0.2'%3E%3Cpath d='M680,500 Q920,460 1020,360 Q1070,310 1050,260' stroke='%2300d4ff' stroke-width='0.6' fill='none' stroke-dasharray='5,4'/%3E%3Ctext x='920' y='420' fill='%2300d4ff' font-size='10' opacity='0.7'%3E%E6%95%B0%E6%8D%AE%E5%9B%9E%E6%B5%81%20%C2%B7%20%E9%94%99%E4%BD%8D4-8%E5%B9%B4%3C/text%3E%3C/g%3E%3Cg opacity='0.25'%3E%3Ctext x='30' y='615' fill='%23888' font-size='10'%3E2026 %C2%B7 G4%3C/text%3E%3Ctext x='1170' y='615' text-anchor='end' fill='%23888' font-size='10'%3E%E5%AE%A2%E6%88%B7%E4%BB%A3%E9%99%85%E8%8C%83%E5%BC%8F v5.2%3C/text%3E%3C/g%3E%3C/svg%3E" alt="客户代际范式四层价值链·赛博朋克题图">
+
+<p>当所有人都盯着英伟达股价、OpenAI融资、DeepSeek降本时，很少有人问一个根本问题：AI产业这盘棋，到底在按什么规则下？</p>
+
+<p>花三年时间拆了四层价值链、做了六维逻辑推演后，我发现所有AI新闻都可以用一个框架来理解。</p>
+
+<hr class="divider">
+
+<h2>这个框架长什么样</h2>
+
+<p>一句话：<strong>算力成本沿超指数曲线崩塌，驱动产业链从芯片到机器人逐级重构。</strong></p>
+
+<p>这不是什么"时代滚滚向前"的鸡汤。它是四条因果链相互咬合的结构现实：</p>
+
+<!-- ====== 核心配图：四层价值链映射图 ====== -->
+<div class="vis-center">
+<svg viewBox="0 0 680 560" width="100%" role="img" aria-label="四层价值链映射图">
+  <title>客户代际范式四层价值链映射</title>
+  <desc>L1芯片层到L4广义机器人层的四层价值传导</desc>
+  <defs>
+    <marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#378ADD" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="ap" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#534AB7" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="ac" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#D85A30" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#639922" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="ay" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#BA7517" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="340" y="30" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#222">客户代际范式 v5.2：四层价值链</text>
+
+  <!-- Core proposition -->
+  <rect x="40" y="46" width="600" height="40" rx="6" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.5"/>
+  <text x="56" y="62" font-family="sans-serif" font-size="11" font-weight="500" fill="#3C3489">核心命题</text>
+  <text x="56" y="78" font-family="sans-serif" font-size="11" fill="#534AB7">算力成本沿超指数曲线崩塌 → 新决策主体经济性成立 → 全栈重构 → 价值重分配</text>
+
+  <!-- Four layers row -->
+  <line x1="170" y1="160" x2="255" y2="160" stroke="#378ADD" stroke-width="1.5" marker-end="url(#ab)"/>
+  <line x1="340" y1="160" x2="390" y2="160" stroke="#534AB7" stroke-width="1.5" marker-end="url(#ap)"/>
+  <line x1="518" y1="160" x2="578" y2="160" stroke="#D85A30" stroke-width="1.5" marker-end="url(#ac)"/>
+
+  <!-- L1 -->
+  <rect x="40" y="130" width="130" height="60" rx="6" fill="#E6F1FB" stroke="#85B7EB" stroke-width="0.5"/>
+  <text x="105" y="150" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="500" fill="#185FA5">L1 芯片层</text>
+  <text x="105" y="165" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5f5e5a">AI专用芯片架构</text>
+  <text x="105" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5f5e5a">~1.4-1.8x/代</text>
+
+  <!-- L2 -->
+  <rect x="258" y="130" width="160" height="60" rx="6" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.5"/>
+  <text x="338" y="150" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="500" fill="#3C3489">L2 模型层</text>
+  <text x="338" y="165" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5f5e5a">预训练×推理优化×蒸馏</text>
+  <text x="338" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5f5e5a">~2.69x/年</text>
+
+  <!-- L3a -->
+  <rect x="393" y="130" width="126" height="60" rx="6" fill="#EAF3DE" stroke="#97C459" stroke-width="0.5"/>
+  <text x="456" y="150" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="500" fill="#3B6D11">L3a AIGC</text>
+  <text x="456" y="165" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5f5e5a">内容+电商</text>
+  <text x="456" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5f5e5a">~2-5x/月</text>
+
+  <!-- L4 -->
+  <rect x="582" y="130" width="78" height="60" rx="6" fill="#FAECE7" stroke="#F0997B" stroke-width="0.5"/>
+  <text x="621" y="150" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="500" fill="#993C1D">L4</text>
+  <text x="621" y="165" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#993C1D">机器人</text>
+  <text x="621" y="180" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#5f5e5a">~2030+</text>
+
+  <!-- L3b -->
+  <polyline points="395,190 395,230 200,230" fill="none" stroke="#BA7517" stroke-width="1" stroke-dasharray="4,3"/>
+  <rect x="40" y="210" width="158" height="36" rx="6" fill="#FAEEDA" stroke="#FAC775" stroke-width="0.5"/>
+  <text x="119" y="228" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="500" fill="#854F0B">L3b 通用AI（制造/教育/医疗）</text>
+  <text x="119" y="242" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#5f5e5a">无超指数 · 天-月级反馈</text>
+
+  <!-- Feedback loop -->
+  <path d="M621 190 Q660 190 660 260 Q660 290 340 290 Q20 290 20 260 Q20 220 105 190" fill="none" stroke="#888780" stroke-width="0.8" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <text x="340" y="302" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#5f5e5a">四层反馈闭环：应用回流 → 模型进化 → 芯片迭代 → AI辅助设计</text>
+  <text x="340" y="314" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#5f5e5a">各层启动错位 4-8 年</text>
+
+  <!-- Metrics row -->
+  <rect x="40" y="330" width="146" height="38" rx="6" fill="#f5f5f4"/>
+  <text x="113" y="344" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5f5e5a">系数最快</text>
+  <text x="113" y="360" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="500" fill="#3B6D11">L3a AIGC (2-5x/月)</text>
+
+  <rect x="192" y="330" width="146" height="38" rx="6" fill="#f5f5f4"/>
+  <text x="265" y="344" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5f5e5a">窗口最长</text>
+  <text x="265" y="360" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="500" fill="#185FA5">L1 芯片 (8-12年)</text>
+
+  <rect x="344" y="330" width="146" height="38" rx="6" fill="#f5f5f4"/>
+  <text x="417" y="344" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5f5e5a">无超指数层</text>
+  <text x="417" y="360" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="500" fill="#854F0B">L3b 通用AI</text>
+
+  <rect x="496" y="330" width="144" height="38" rx="6" fill="#f5f5f4"/>
+  <text x="568" y="344" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5f5e5a">当前AI芯片阶段</text>
+  <text x="568" y="360" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="500" fill="#993C1D">类比 PC的1995年</text>
+
+  <!-- Stage timeline -->
+  <text x="340" y="390" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="500" fill="#222">各层当前阶段</text>
+
+  <rect x="40" y="400" width="145" height="28" rx="6" fill="#E6F1FB" stroke="#85B7EB" stroke-width="0.5"/>
+  <text x="112" y="418" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#185FA5">L1: 爆发初期</text>
+
+  <rect x="193" y="400" width="145" height="28" rx="6" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.5"/>
+  <text x="265" y="418" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#3C3489">L2: 爆发中期</text>
+
+  <rect x="346" y="400" width="145" height="28" rx="6" fill="#EAF3DE" stroke="#97C459" stroke-width="0.5"/>
+  <text x="418" y="418" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#3B6D11">L3a: 爆发早期</text>
+
+  <rect x="499" y="400" width="141" height="28" rx="6" fill="#FAECE7" stroke="#F0997B" stroke-width="0.5"/>
+  <text x="569" y="418" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#993C1D">L4: 萌芽期</text>
+
+  <!-- Laws -->
+  <text x="340" y="450" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="500" fill="#222">15条核心规律</text>
+  <text x="40" y="468" font-family="sans-serif" font-size="9" fill="#185FA5">基础律: 客户更替间隔 · 需求频率跃迁 · 系统重构 · 代际加速</text>
+  <text x="40" y="484" font-family="sans-serif" font-size="9" fill="#3B6D11">超指数专属: 自终结 · 系数接力 · 反馈时延 · 格式扩张</text>
+  <text x="40" y="500" font-family="sans-serif" font-size="9" fill="#3C3489">层专属+跨层: 时间壁垒 · 多界面共存 · 双轨错位 · 物理先行 · 层级错位 · 多极化 · 跨层反馈</text>
+</svg>
+</div>
+
+<p><strong>L1 芯片层 → L2 模型层 → L3 应用层(AIGC+通用AI) → L4 广义机器人层(含自动驾驶)</strong></p>
+
+<p>每一层有自己的节奏、自己的系数、自己的约束界面。各层的启动时间错位4-8年——这个"错位"本身，就是G4当前最大的结构性特征。</p>
+
+<table>
+<thead><tr><th>层级</th><th>启动时间</th><th>当前阶段</th><th>类比</th></tr></thead>
+<tbody>
+<tr><td>L1 芯片</td><td>2022+</td><td>爆发初期</td><td>像PC的1995年</td></tr>
+<tr><td>L2 模型</td><td>2020+</td><td>爆发中期</td><td>像PC的2000年</td></tr>
+<tr><td>L3a AIGC</td><td>2024+</td><td>爆发早期</td><td>像移动的2010年</td></tr>
+<tr><td>L3b 通用AI</td><td>2025+</td><td>萌芽-试点期</td><td>像移动的2008年</td></tr>
+<tr><td>L4 机器人</td><td>2028+(预测)</td><td>萌芽期</td><td>像移动的2007年</td></tr>
+</tbody>
+</table>
+
+<hr class="divider">
+
+<h2>超指数增长：不是大号的指数</h2>
+
+<p>大多数人分不清"指数"和"超指数"。</p>
+
+<div class="highlight-box">
+<strong>指数增长</strong>：f(n+1) = f(n) × 常数。比如每年翻倍。<br>
+<strong>超指数增长</strong>：f(n+1) = f(n) × C(n)，C(n)本身在增长。
+</div>
+
+<p>它们的区别不是"快一点"和"快很多"——是质变。</p>
+
+<p>月度增长系数公式给出了一条量化边界：<strong>月度系数 > 2.0 且持续3个月以上 = 达到超指数拐点</strong>。</p>
+
+<p>AIGC领域第一个月跑出5.2×系数的案例是真实存在的。不是吹牛，是公式算出来的。</p>
+
+<hr class="divider">
+
+<h2>四层，各自的算法不同</h2>
+
+<p>每一层有自己的超指数公式。</p>
+
+<table>
+<thead><tr><th>层级</th><th>核心公式</th><th>当前系数</th><th>窗口长度</th></tr></thead>
+<tbody>
+<tr><td>L1 芯片</td><td>制程×架构×AI辅助设计</td><td>~1.4-1.8x/代</td><td>8-12年</td></tr>
+<tr><td>L2 模型</td><td>预训练×推理优化×蒸馏×数据回流</td><td>~2.69x/年</td><td>3-6年</td></tr>
+<tr><td>L3a AIGC</td><td>模型×数据×流程×<strong>格式扩张</strong></td><td>~2-5x/月</td><td>12-48月</td></tr>
+<tr><td>L3b 通用AI</td><td>模型×数据×行业集成(无格式扩张)</td><td>无超指数</td><td>不存在</td></tr>
+<tr><td>L4 机器人</td><td>仿真×真实数据×硬件迭代</td><td>无超指数</td><td>2030+</td></tr>
+</tbody>
+</table>
+
+<p>重点看L3b——<strong>通用AI（制造/教育/医疗）不可能有真正的超指数</strong>。不是因为技术不够，是因为反馈时延是天-月级，这是物理约束。公式算死了，不是努力能突破的。</p>
+
+<p>这就是为什么干内容的和干医疗的，时间是不同维度的东西。</p>
+
+<hr class="divider">
+
+<h2>关键玩家：谁在什么层打仗</h2>
+
+<p><span class="tag">L1 芯片层</span> 英伟达有CUDA壁垒（400万开发者），但AI芯片层才到1995年——格局远未定型。终端推理芯片（手机、PC、IoT）才是最大增量市场。</p>
+
+<p><span class="tag-purple">L2 模型层</span> 3-5家共存格局：OpenAI占高端认知、Anthropic走安全溢价、DeepSeek打成本效率、Google做全栈嵌入、Meta做开源。不会单一赢家通吃——模型层会变成一种"商品化+差异化"的双层市场。</p>
+
+<p><span class="tag-green">L3a AIGC 应用层</span> 最可能被率先引爆的是内容平台（字节、快手），不是模型公司。因为约束界面不在模型，在推荐算法和创作者锁定。</p>
+
+<p><span class="tag-amber">L3b 通用AI 应用层</span> 慢启动、永锁定。每个行业3-5年窗口，先跑通ROI的供应商不可替代。没有超指数红利，但有稳定现金流。</p>
+
+<p><span class="tag" style="background:#FAECE7;color:#993C1D;">L4 广义机器人层</span> 特斯拉是唯一有数据飞轮的玩家（FSD每天数百万辆车的真实数据）。人形机器人数据稀缺——除非仿真技术出现数量级突破。</p>
+
+<hr class="divider">
+
+<h2>三个逆向反推的结论</h2>
+
+<p>把一个框架真正有价值的检验方法，不是看它解释了多少已知事实，而是看它能否<strong>推翻常识</strong>。</p>
+
+<div class="highlight-box">
+<p><strong>结论一：</strong>英伟达的超溢价窗口不超过3-5年。不是因为它不优秀，是因为多架构并存的格局尚未出现。</p>
+<p><strong>结论二：</strong>内容平台的G4价值可能超过任何模型公司。因为三个维度叠加——秒级反馈、10¹²/天数据量、48个月格式扩张窗口——它就是三个飞轮中跑得最快的那一个。</p>
+<p><strong>结论三：</strong>通用AI不会出现"独角兽一夜爆发"。天-月级的反馈时延决定了超指数不可能发生。谁不接受这个边界，谁就会在估值模型中犯错。</p>
+</div>
+
+<hr class="divider">
+
+<h2>15条核心规律速查</h2>
+
+<table>
+<thead><tr><th>分类</th><th>规律</th></tr></thead>
+<tbody>
+<tr><td rowspan="4">基础律</td><td>客户更替间隔律</td></tr>
+<tr><td>需求频率跃迁律</td></tr>
+<tr><td>系统重构律</td></tr>
+<tr><td>代际加速律</td></tr>
+<tr><td rowspan="4">超指数专属律</td><td>自终结律</td></tr>
+<tr><td>系数接力律</td></tr>
+<tr><td>反馈时延律</td></tr>
+<tr><td>格式扩张律</td></tr>
+<tr><td rowspan="3">层专属律</td><td>时间壁垒律(L1) · 多界面共存律(L2) · 双轨错位律(L3) · 物理先行律(L4)</td></tr>
+<tr><td colspan="2">层级错位启动律 · 芯片层多极化律 · 跨层反馈律</td></tr>
+</tbody>
+</table>
+
+<hr class="divider">
+
+<div class="highlight-box" style="background:#EEEDFE;border:0.5px solid #AFA9EC;">
+<p style="margin:0;"><strong>一个框架给你什么</strong></p>
+<p style="font-size:13px;margin:6px 0 0;">有了这个坐标系，你再看到任何AI新闻时，你不需要"预测未来"——你只需要知道自己在哪一层、当前系数如何、窗口还剩多久。这就够了。</p>
+</div>
+
+<div class="interactive-box">
+<p><strong>📮 分享给一个做投资或做产品的朋友</strong><br>看看他们能不能一眼看出自己公司在哪一层。</p>
+<p><strong>💬 今日话题</strong><br>你觉得自己所在的业务，对应四层中的哪一层？它的约束界面是什么？</p>
+<p><strong>👀 点个"在看"</strong><br>让更多人学会用这个框架做判断，比追着新闻跑强得多。</p>
+</div>
+
+<div class="previous">
+<p><strong>往期精选</strong></p>
+<p>· <a href="#">训练FLUX避坑指南：以Klein 4B为锚点的6大陷阱</a></p>
+<p>· <a href="#">超指数增长：为什么内容AIGC的窗口比电商长一倍</a></p>
+<p>· <a href="#">从算力成本崩塌看G4：AGI并非最大的变革</a></p>
+</div>
+
+<div class="footer">
+<p>海风老师 | 企业AI培训师，专注AI落地咨询与商业架构分析。</p>
+<p>微信：frankhzheng · 公众号：海风AI实战笔记</p>
+</div>
+
+</body>
+</html>

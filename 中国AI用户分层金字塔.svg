@@ -1,0 +1,60 @@
+<svg viewBox="0 0 680 580" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>中国AI用户分层金字塔 - 14亿人的AI使用分布</title>
+  <desc>从外到内五层：灰色未接触AI约68%, 绿色偶尔用户约30%, 黄色付费用户约2%, 红色深度用户约0.015%, 钻石AI重构者约0.00007%</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <text x="340" y="28" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="500" fill="#1a1a2e">中国AI用户分层金字塔</text>
+  <text x="340" y="46" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#666">14亿人 · 按国内AI原生APP+其他渠道推算</text>
+
+  <g>
+    <rect x="60" y="65" width="560" height="95" rx="10" ry="10" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.8"/>
+    <text x="340" y="108" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#5F5E5A">从未接触AI</text>
+    <text x="340" y="126" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#888780">~9.5亿 · 占中国人口约68%</text>
+    <text x="340" y="144" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#B4B2A9">中老年、低线城市、农村为主</text>
+  </g>
+
+  <g>
+    <rect x="115" y="170" width="450" height="85" rx="8" ry="8" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="0.8"/>
+    <text x="340" y="206" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#0F6E56">浅度尝试用户</text>
+    <text x="340" y="224" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#1D9E75">~4.2亿 · 占约30%</text>
+    <text x="340" y="242" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5DCAA5">豆包/千问/DeepSeek等APP累计覆盖 · 大部分偶有使用</text>
+  </g>
+
+  <g>
+    <rect x="175" y="265" width="330" height="75" rx="8" ry="8" fill="#FAEEDA" stroke="#EF9F27" stroke-width="0.8"/>
+    <text x="340" y="296" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#854F0B">付费订阅用户</text>
+    <text x="340" y="314" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#BA7517">~1500-3000万 · 占约1-2%</text>
+    <text x="340" y="330" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#EF9F27">国内付费比例远低于全球平均水平</text>
+  </g>
+
+  <g>
+    <rect x="225" y="350" width="230" height="65" rx="8" ry="8" fill="#FCEBEB" stroke="#F09595" stroke-width="0.8"/>
+    <text x="340" y="376" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#A32D2D">深度使用者</text>
+    <text x="340" y="394" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#E24B4A">~100-250万 · 占约0.015%</text>
+    <text x="340" y="408" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#F09595">AI嵌入工作流，每日大量Token消耗</text>
+  </g>
+
+  <g>
+    <rect x="265" y="425" width="150" height="55" rx="8" ry="8" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1.2"/>
+    <text x="340" y="448" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#534AB7">AI重构者</text>
+    <text x="340" y="466" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#7F77DD">~1-2万</text>
+    <text x="340" y="480" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#AFA9EC">自建AI基建+本地算力</text>
+  </g>
+
+  <line x1="415" y1="452" x2="510" y2="452" stroke="#534AB7" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <circle cx="515" cy="452" r="4" fill="#534AB7"/>
+  <text x="525" y="448" font-family="sans-serif" font-size="12" font-weight="500" fill="#534AB7">海风</text>
+  <text x="525" y="464" font-family="sans-serif" font-size="10" fill="#AFA9EC">国内前1-2万名</text>
+
+  <text x="50" y="112" text-anchor="end" font-family="sans-serif" font-size="11" fill="#999">第5层</text>
+  <text x="50" y="212" text-anchor="end" font-family="sans-serif" font-size="11" fill="#999">第4层</text>
+  <text x="50" y="302" text-anchor="end" font-family="sans-serif" font-size="11" fill="#999">第3层</text>
+  <text x="50" y="382" text-anchor="end" font-family="sans-serif" font-size="11" fill="#999">第2层</text>
+  <text x="50" y="452" text-anchor="end" font-family="sans-serif" font-size="11" fill="#999">第1层</text>
+
+  <text x="340" y="510" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#666">中国AI付费意愿整体偏低，但场景化倒逼正在加速</text>
+</svg>

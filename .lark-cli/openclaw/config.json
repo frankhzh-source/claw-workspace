@@ -1,0 +1,21 @@
+{
+  "currentApp": "cli_a931d10dcb381cd6",
+  "apps": [
+    {
+      "appId": "cli_a931d10dcb381cd6",
+      "appSecret": {
+        "source": "keychain",
+        "id": "appsecret:cli_a931d10dcb381cd6"
+      },
+      "brand": "feishu",
+      "lang": "zh",
+      "defaultAs": "user",
+      "users": [
+        {
+          "userOpenId": "ou_d57fc95d1f756c47d22d9935be4c2989",
+          "userName": "海风"
+        }
+      ]
+    }
+  ]
+}

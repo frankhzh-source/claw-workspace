@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LMM + FFmpeg 视频分析管线</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #0a0e17;
+    color: #e0e6f0;
+    min-height: 100vh;
+    padding: 24px 32px;
+  }
+  
+  /* Header */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 32px;
+  }
+  .header h1 {
+    font-size: 22px; font-weight: 700;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .header .subtitle {
+    font-size: 13px; color: #6b7a99;
+    -webkit-text-fill-color: #6b7a99;
+    margin-top: 4px;
+  }
+  .header .badge {
+    background: rgba(96,165,250,0.15); color: #60a5fa;
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 12px; border: 1px solid rgba(96,165,250,0.25);
+  }
+
+  /* Pipeline Overview */
+  .pipeline-overview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .pipeline-step {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .pipeline-step:hover { border-color: rgba(96,165,250,0.4); }
+  .pipeline-step.active {
+    border-color: #60a5fa;
+    background: rgba(96,165,250,0.08);
+    box-shadow: 0 0 20px rgba(96,165,250,0.1);
+  }
+  .pipeline-step .step-num {
+    display: inline-block;
+    width: 28px; height: 28px; line-height: 28px;
+    border-radius: 50%;
+    background: rgba(96,165,250,0.15);
+    color: #60a5fa;
+    font-size: 12px; font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .pipeline-step.active .step-num { background: #60a5fa; color: #fff; }
+  .pipeline-step .step-icon { font-size: 24px; margin-bottom: 6px; }
+  .pipeline-step .step-name { font-size: 13px; font-weight: 600; color: #c8d0e0; }
+  .pipeline-step .step-tools { font-size: 11px; color: #6b7a99; margin-top: 4px; }
+  .pipeline-step .arrow {
+    position: absolute; right: -16px; top: 50%; transform: translateY(-50%);
+    color: #2a3a5a; font-size: 18px;
+  }
+  .pipeline-step:last-child .arrow { display: none; }
+
+  /* Main Grid */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .card.full-width { grid-column: 1 / -1; }
+  .card-title {
+    font-size: 14px; font-weight: 600; color: #a0b0d0;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-title .count {
+    font-size: 11px; color: #6b7a99;
+    background: rgba(255,255,255,0.05);
+    padding: 2px 8px; border-radius: 10px;
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    height: 64px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 8px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .timeline-track {
+    display: flex;
+    height: 100%;
+    position: relative;
+  }
+  .timeline-segment {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: all 0.2s;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+  }
+  .timeline-segment:last-child { border-right: none; }
+  .timeline-segment:hover { filter: brightness(1.2); }
+  .timeline-segment .label {
+    position: absolute;
+    bottom: 4px;
+    font-size: 9px;
+    color: rgba(255,255,255,0.4);
+    white-space: nowrap;
+  }
+  .timeline-segment .scene-label {
+    position: absolute;
+    top: 4px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .timeline-markers {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+  }
+  .timeline-marker {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* Scene Cards */
+  .scene-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .scene-grid::-webkit-scrollbar { width: 4px; }
+  .scene-grid::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+  .scene-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .scene-card:hover {
+    border-color: rgba(96,165,250,0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(96,165,250,0.1);
+  }
+  .scene-card .thumb {
+    height: 90px;
+    background: linear-gradient(135deg, #1a2540, #0f1a30);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    position: relative;
+  }
+  .scene-card .thumb .scene-id {
+    position: absolute;
+    top: 6px; left: 6px;
+    background: rgba(0,0,0,0.6);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+  }
+  .scene-card .info {
+    padding: 10px;
+  }
+  .scene-card .info .name {
+    font-size: 13px; font-weight: 600; color: #c8d0e0;
+    margin-bottom: 4px;
+  }
+  .scene-card .info .meta {
+    font-size: 11px; color: #6b7a99;
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .scene-card .info .meta span {
+    background: rgba(255,255,255,0.04);
+    padding: 1px 6px; border-radius: 4px;
+  }
+
+  /* Keyframe Detail */
+  .keyframe-detail {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 20px;
+  }
+  .keyframe-viewer {
+    aspect-ratio: 9/16;
+    max-height: 340px;
+    background: linear-gradient(135deg, #1a2540, #0f1a30);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .keyframe-viewer .overlay-text {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    padding: 16px 12px 10px;
+    font-size: 12px; color: rgba(255,255,255,0.7);
+  }
+  .keyframe-analysis {
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .analysis-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 8px;
+  }
+  .analysis-row .label { font-size: 12px; color: #6b7a99; }
+  .analysis-row .value { font-size: 13px; color: #c8d0e0; font-weight: 500; }
+  .analysis-row .tag {
+    padding: 2px 10px; border-radius: 4px;
+    font-size: 11px;
+  }
+  .tag-composition { background: rgba(96,165,250,0.15); color: #60a5fa; }
+  .tag-motion { background: rgba(167,139,250,0.15); color: #a78bfa; }
+  .tag-color { background: rgba(251,191,36,0.15); color: #fbbf24; }
+  .tag-timing { background: rgba(52,211,153,0.15); color: #34d399; }
+
+  /* Commands */
+  .command-block {
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-family: "SF Mono", "Fira Code", "Source Code Pro", monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #a0b0d0;
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }
+  .command-block .cmd { color: #60a5fa; }
+  .command-block .flag { color: #fbbf24; }
+  .command-block .str { color: #34d399; }
+  .command-block .comment { color: #4a5a7a; }
+
+  /* Analysis JSON */
+  .analysis-json {
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    padding: 16px;
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #a0b0d0;
+    max-height: 200px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+  }
+
+  /* Tab bar */
+  .tab-bar {
+    display: flex; gap: 4px;
+    margin-bottom: 16px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    padding: 4px;
+  }
+  .tab-btn {
+    padding: 8px 16px;
+    border: none; background: transparent;
+    color: #6b7a99;
+    font-size: 12px; font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: #a0b0d0; background: rgba(255,255,255,0.05); }
+  .tab-btn.active {
+    background: rgba(96,165,250,0.12);
+    color: #60a5fa;
+  }
+
+  /* Bottom panel */
+  .bottom-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  /* Stats */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .stat-box {
+    background: rgba(255,255,255,0.02);
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+  }
+  .stat-box .num {
+    font-size: 24px; font-weight: 700;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-box .desc { font-size: 11px; color: #6b7a99; margin-top: 4px; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    body { padding: 16px; }
+    .pipeline-overview { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .main-grid { grid-template-columns: 1fr; }
+    .keyframe-detail { grid-template-columns: 1fr; }
+    .bottom-panel { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* Loading animation for segments */
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  .generating { animation: pulse 1.5s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>🎬 LMM + FFmpeg 视频分析管线</h1>
+    <div class="subtitle">爆款视频结构级复刻 · 分析引擎</div>
+  </div>
+  <div class="badge">⏱ 实时分析 · 演示数据</div>
+</div>
+
+<!-- Pipeline Overview -->
+<div class="pipeline-overview">
+  <div class="pipeline-step active" onclick="switchPhase(0)">
+    <div class="step-icon">🔍</div>
+    <div class="step-num">Phase 0</div>
+    <div class="step-name">分析</div>
+    <div class="step-tools">LMM + FFmpeg</div>
+    <div class="arrow">→</div>
+  </div>
+  <div class="pipeline-step" onclick="switchPhase(1)">
+    <div class="step-icon">✂️</div>
+    <div class="step-num">Phase 1</div>
+    <div class="step-name">拆解</div>
+    <div class="step-tools">FFmpeg</div>
+    <div class="arrow">→</div>
+  </div>
+  <div class="pipeline-step" onclick="switchPhase(2)">
+    <div class="step-icon">🎨</div>
+    <div class="step-num">Phase 2</div>
+    <div class="step-name">生成</div>
+    <div class="step-tools">LibTV 参考图</div>
+    <div class="arrow">→</div>
+  </div>
+  <div class="pipeline-step" onclick="switchPhase(3)">
+    <div class="step-icon">🎵</div>
+    <div class="step-num">Phase 3</div>
+    <div class="step-name">音频</div>
+    <div class="step-tools">Demucs + LibTV</div>
+    <div class="arrow">→</div>
+  </div>
+  <div class="pipeline-step" onclick="switchPhase(4)">
+    <div class="step-icon">🎞️</div>
+    <div class="step-num">Phase 4</div>
+    <div class="step-name">合成</div>
+    <div class="step-tools">video-clip + FFmpeg</div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-row" id="statsRow">
+  <div class="stat-box"><div class="num">12</div><div class="desc">总镜头</div></div>
+  <div class="stat-box"><div class="num">4</div><div class="desc">场景类型</div></div>
+  <div class="stat-box"><div class="num">7</div><div class="desc">运镜模式</div></div>
+  <div class="stat-box"><div class="num">8.2s</div><div class="desc">平均镜头</div></div>
+</div>
+
+<!-- Main Grid -->
+<div class="main-grid">
+
+  <!-- Timeline -->
+  <div class="card full-width">
+    <div class="card-title">⏱ 时间线 · 场景检测 <span class="count">scene threshold: 0.3</span></div>
+    <div class="timeline" id="timeline">
+      <div class="timeline-track" id="timelineTrack"></div>
+    </div>
+  </div>
+
+  <!-- Scene List -->
+  <div class="card">
+    <div class="card-title">🎬 场景列表 <span class="count" id="sceneCount">12 个镜头</span></div>
+    <div class="scene-grid" id="sceneGrid"></div>
+  </div>
+
+  <!-- Detail Panel -->
+  <div class="card" id="detailCard">
+    <div class="card-title">🔎 场景详情 · <span id="detailSceneName">Scene 001</span></div>
+    <div id="detailContent">
+      <div class="keyframe-detail">
+        <div class="keyframe-viewer" id="keyframeViewer">
+          🎬
+          <div class="overlay-text">关键帧 · 起始构图</div>
+        </div>
+        <div class="keyframe-analysis" id="analysisContent">
+          <div class="analysis-row">
+            <span class="label">📐 构图类型</span>
+            <span class="value tag tag-composition" id="aComposition">居中 · 产品特写</span>
+          </div>
+          <div class="analysis-row">
+            <span class="label">🎨 主色调</span>
+            <span class="value" id="aColor"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#2B5EA7;vertical-align:middle;margin-right:6px;"></span>#2B5EA7 深海蓝</span>
+          </div>
+          <div class="analysis-row">
+            <span class="label">🎥 运镜</span>
+            <span class="value tag tag-motion" id="aMotion">固定机位 · 推近</span>
+          </div>
+          <div class="analysis-row">
+            <span class="label">⏱ 时长</span>
+            <span class="value tag tag-timing" id="aTiming">2.3s</span>
+          </div>
+          <div class="analysis-row">
+            <span class="label">🔗 转场</span>
+            <span class="value" id="aTransition"><span style="color:#34d399;">硬切 →</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom Panel -->
+<div class="bottom-panel">
+  <!-- LMM Analysis Output -->
+  <div class="card">
+    <div class="card-title">🧠 LMM 分析输出 · composition.json</div>
+    <div class="analysis-json" id="lmmOutput">{
+  "video_analysis": {
+    "duration_sec": 15.2,
+    "total_scenes": 12,
+    "fps": 30,
+    "resolution": "1080x1920",
+    "color_palette": { "primary": "#2B5EA7", "accent": "#F5A623" }
+  },
+  "scenes": [
+    {
+      "scene_id": 1,
+      "range": "0.0-2.3s",
+      "type": "opening",
+      "composition": { "main": "product", "position": "center", "size": "70%" },
+      "camera_motion": "push_in",
+      "transition": "cut"
+    }
+  ]
+}</div>
+  </div>
+
+  <!-- FFmpeg Commands -->
+  <div class="card">
+    <div class="card-title">💻 FFmpeg 命令执行</div>
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchCmdTab('scene', this)">场景检测</button>
+      <button class="tab-btn" onclick="switchCmdTab('frames', this)">逐帧导出</button>
+      <button class="tab-btn" onclick="switchCmdTab('audio', this)">音频分离</button>
+    </div>
+    <div class="command-block" id="cmdDisplay"><span class="comment"># 场景检测（按画面变化自动切镜头）</span>
+<span class="cmd">ffmpeg</span> -i <span class="str">source.mp4</span> \
+  -filter:v <span class="str">"select='gt(scene,0.3)',showinfo"</span> \
+  -vsync v2 -f null <span class="str">/dev/null</span>
+
+<span class="comment"># 输出：每分钟约 200 行 scene change 日志</span>
+<span class="comment"># ↓ 提取时间点 → pacing.json</span>
+<span class="cmd">ffprobe</span> -i <span class="str">source.mp4</span> \
+  -show_entries <span class="str">"format=duration"</span> \
+  -of <span class="str">compact</span></div>
+  </div>
+</div>
+
+<script>
+// ======== Demo Data ========
+const SCENES = [
+  { id: 1, name: '开场·标题', start: 0.0, end: 2.3, duration: 2.3, type: 'opening', thumb: '📺',
+    composition: '居中·产品特写', color: { hex: '#2B5EA7', name: '深海蓝' }, motion: '固定机位·推近',
+    transition: '硬切 →', timing: '2.3s', bg: 'linear-gradient(135deg, #1a2540, #2B5EA7)' },
+  { id: 2, name: '产品展示A', start: 2.3, end: 5.8, duration: 3.5, type: 'detail', thumb: '📱',
+    composition: '左三分·产品45°', color: { hex: '#1A365D', name: '藏蓝' }, motion: '环绕·慢速',
+    transition: '硬切 →', timing: '3.5s', bg: 'linear-gradient(135deg, #0f1a30, #1A365D)' },
+  { id: 3, name: '使用场景', start: 5.8, end: 8.0, duration: 2.2, type: 'lifestyle', thumb: '🙋',
+    composition: '居中·手持演示', color: { hex: '#F5A623', name: '暖橙' }, motion: '跟随·平移',
+    transition: '淡入 →', timing: '2.2s', bg: 'linear-gradient(135deg, #1a1a2e, #F5A623)' },
+  { id: 4, name: '细节特写', start: 8.0, end: 10.1, duration: 2.1, type: 'macro', thumb: '🔍',
+    composition: '居中·材质特写', color: { hex: '#60A5FA', name: '亮蓝' }, motion: '固定·微距',
+    transition: '硬切 →', timing: '2.1s', bg: 'linear-gradient(135deg, #0a1628, #60A5FA)' },
+  { id: 5, name: '对比展示', start: 10.1, end: 12.0, duration: 1.9, type: 'comparison', thumb: '⚔️',
+    composition: '左右分割·对比', color: { hex: '#9333EA', name: '紫色' }, motion: '推拉切换',
+    transition: '滑动 →', timing: '1.9s', bg: 'linear-gradient(135deg, #1a0a2e, #9333EA)' },
+  { id: 6, name: '收尾·CTA', start: 12.0, end: 15.2, duration: 3.2, type: 'closing', thumb: '🎯',
+    composition: '下方·CTA按钮', color: { hex: '#10B981', name: '翠绿' }, motion: '拉远·定格',
+    transition: '—', timing: '3.2s', bg: 'linear-gradient(135deg, #0a1a14, #10B981)' }
+];
+
+// Additional scenes for demo (fill to 12)
+for (let i = 7; i <= 12; i++) {
+  const idx = i - 1;
+  SCENES.push({ id: i, name: `场景·${String(i).padStart(3,'0')}`,
+    start: SCENES[idx-1].end, end: SCENES[idx-1].end + (2.0 + Math.random()*2),
+    duration: (2.0 + Math.random()*2).toFixed(1),
+    type: ['detail','lifestyle','macro'][idx % 3],
+    thumb: ['📸','🎬','✨','🌟','💡','🎪'][idx % 6],
+    composition: ['居中·展示','左三分·讲解','特写·局部','俯拍·操作'][idx % 4],
+    color: { hex: ['#6366F1','#EC4899','#F59E0B','#14B8A6','#8B5CF6','#F43F5E'][idx % 6], name: '' },
+    motion: ['推近','拉远','平移·左','平移·右','环绕','固定'][idx % 6],
+    transition: '硬切 →', timing: (2.0 + Math.random()*2).toFixed(1) + 's',
+    bg: `linear-gradient(135deg, #0f1a2e, ${['#6366F1','#EC4899','#F59E0B','#14B8A6','#8B5CF6','#F43F5E'][idx % 6]})`
+  });
+}
+
+// ======== Initialize ========
+function initTimeline() {
+  const track = document.getElementById('timelineTrack');
+  const totalDuration = SCENES[SCENES.length - 1].end;
+  track.innerHTML = '';
+  SCENES.forEach((s, i) => {
+    const pct = ((s.end - s.start) / totalDuration) * 100;
+    const left = (s.start / totalDuration) * 100;
+    const seg = document.createElement('div');
+    seg.className = 'timeline-segment';
+    seg.style.cssText = `width:${pct}%;background:${s.bg};`;
+    seg.innerHTML = `<span class="scene-label">S${String(s.id).padStart(2,'0')}</span>
+      <span class="label">${s.duration}s</span>`;
+    seg.onclick = () => selectScene(i);
+    track.appendChild(seg);
+  });
+}
+
+function initScenes() {
+  const grid = document.getElementById('sceneGrid');
+  grid.innerHTML = '';
+  SCENES.forEach((s, i) => {
+    const card = document.createElement('div');
+    card.className = 'scene-card';
+    card.id = `scene-${i}`;
+    card.innerHTML = `
+      <div class="thumb" style="background:${s.bg}">
+        <span class="scene-id">S${String(s.id).padStart(2,'0')}</span>
+        ${s.thumb}
+      </div>
+      <div class="info">
+        <div class="name">${s.name}</div>
+        <div class="meta">
+          <span>${s.duration}s</span>
+          <span>${s.motion}</span>
+          <span>${s.composition}</span>
+        </div>
+      </div>`;
+    card.onclick = () => selectScene(i);
+    grid.appendChild(card);
+  });
+  document.getElementById('sceneCount').textContent = SCENES.length + ' 个镜头';
+}
+
+function selectScene(idx) {
+  const s = SCENES[idx];
+  // highlight
+  document.querySelectorAll('.scene-card').forEach(el => el.style.borderColor = '');
+  const card = document.getElementById(`scene-${idx}`);
+  if (card) card.style.borderColor = '#60a5fa';
+
+  document.getElementById('detailSceneName').textContent = `${s.name} · S${String(s.id).padStart(2,'0')}`;
+
+  // Update viewer
+  const viewer = document.getElementById('keyframeViewer');
+  viewer.style.background = s.bg;
+
+  // Update analysis
+  document.getElementById('aComposition').textContent = s.composition;
+  document.getElementById('aColor').innerHTML = `<span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:${s.color.hex};vertical-align:middle;margin-right:6px;"></span>${s.color.hex} ${s.color.name}`;
+  document.getElementById('aMotion').textContent = s.motion;
+  document.getElementById('aTiming').textContent = s.timing;
+  document.getElementById('aTransition').innerHTML = `<span style="color:#34d399;">${s.transition}</span>`;
+}
+
+function switchPhase(phase) {
+  document.querySelectorAll('.pipeline-step').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.pipeline-step')[phase].classList.add('active');
+
+  const phaseNames = ['分析', '拆解', '生成', '音频', '合成'];
+  const phaseCmds = [
+    `<span class="comment"># Phase 0：LMM + FFmpeg 分析</span>
+<span class="cmd">ffmpeg</span> -i <span class="str">source.mp4</span> -filter:v <span class="str">"select='gt(scene,0.3)',showinfo"</span> -vsync v2 -f null <span class="str">/dev/null</span>
+
+<span class="comment"># LMM 分析（GPT-4o / Claude）</span>
+<span class="comment"># 输入：每个镜头的首帧+中间帧+末帧</span>
+<span class="comment"># 输出：composition.json（构图/色调/运镜）</span>`,
+
+    `<span class="comment"># Phase 1：FFmpeg 拆解</span>
+<span class="cmd">ffmpeg</span> -i <span class="str">source.mp4</span> -q:v 2 <span class="str">1_source/source_frames/%05d.png</span>
+
+<span class="comment"># 按场景分组</span>
+<span class="cmd">mkdir -p</span> <span class="str">2_scenes/scene_{001..012}</span>
+<span class="cmd">mv</span> <span class="str">source_frames/00001.png</span> <span class="str">scene_001/</span>
+
+<span class="comment"># 音频分离</span>
+<span class="cmd">demucs</span> --two-stems=vocals <span class="str">source.mp4</span>`,
+
+    `<span class="comment"># Phase 2：LibTV 参考图生成</span>
+<span class="cmd">libtv</span> project use <span class="str">&lt;画布UUID&gt;</span>
+<span class="cmd">libtv</span> upload <span class="str">"原场景_镜头1"</span> -t image --resource <span class="str">./scene_001/keyframe.png</span>
+<span class="cmd">libtv</span> upload <span class="str">"新人物_正面"</span> -t image --resource <span class="str">./new_person.png</span>
+
+<span class="cmd">libtv</span> node create <span class="str">"替换帧"</span> -t image \\
+  <span class="flag">--prompt</span> <span class="str">"新人物保持原构图"</span> \\
+  <span class="flag">--left</span> <span class="str">"原场景_镜头1"</span> <span class="flag">--left</span> <span class="str">"新人物_正面"</span>`,
+
+    `<span class="comment"># Phase 3：音频制作</span>
+<span class="cmd"># 人声替换（TTS / 真人配音）</span>
+<span class="cmd">libtv</span> upload <span class="str">"新配音"</span> -t audio --resource <span class="str">./voiceover_new.mp3</span>
+
+<span class="cmd"># 新BGM对齐原节奏</span>
+<span class="cmd">libtv</span> upload <span class="str">"新BGM"</span> -t audio --resource <span class="str">./bgm_new.mp3</span>`,
+
+    `<span class="comment"># Phase 4：合成</span>
+<span class="cmd"># LibTV video-clip 时间线编排</span>
+<span class="cmd">libtv</span> node create <span class="str">"最终合成"</span> -t video-clip \\
+  <span class="flag">--left</span> <span class="str">"片段1"</span> <span class="flag">--left</span> <span class="str">"片段2"</span> \\
+  <span class="flag">--left</span> <span class="str">"新配音"</span> <span class="flag">--left</span> <span class="str">"新BGM"</span>
+<span class="cmd">libtv</span> node <span class="str">"最终合成"</span> --run
+
+<span class="comment"># FFmpeg 定版调色</span>
+<span class="cmd">ffmpeg</span> -i <span class="str">output.mp4</span> -vf <span class="str">"eq=brightness=0.02:contrast=1.1:saturation=1.1"</span> \\
+  -c:v libx264 -preset slow -crf 18 <span class="str">final_output.mp4</span>`
+  ];
+  document.getElementById('cmdDisplay').innerHTML = phaseCmds[phase];
+}
+
+function switchCmdTab(tab, btn) {
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  btn.classList.add('active');
+  const cmds = {
+    scene: `<span class="comment"># 场景检测（按画面变化自动切镜头）</span>
+<span class="cmd">ffmpeg</span> -i <span class="str">source.mp4</span> \\
+  -filter:v <span class="str">"select='gt(scene,0.3)',showinfo"</span> \\
+  -vsync v2 -f null <span class="str">/dev/null</span>
+
+<span class="comment"># 输出：12 个场景变化点</span>
+<span class="comment"># Parsed_showinfo: pts:0 t:0.0 | pts:69 t:2.3 | pts:174 t:5.8 ...</span>`,
+    frames: `<span class="comment"># 逐帧导出（高质量 PNG）</span>
+<span class="cmd">ffmpeg</span> -i <span class="str">source.mp4</span> -q:v 2 \\
+  <span class="str">1_source/source_frames/%05d.png</span>
+
+<span class="comment"># 15.2s × 30fps = 456 帧 → 按场景分组</span>
+<span class="cmd">mkdir -p</span> <span class="str">2_scenes/scene_001/frames</span>
+<span class="cmd">mv</span> <span class="str">source_frames/00001.png</span> <span class="str">2_scenes/scene_001/frames/</span>`,
+    audio: `<span class="comment"># Demucs 音频分离（人声/BGM）</span>
+<span class="cmd">demucs</span> --two-stems=vocals <span class="str">source.mp4</span>
+
+<span class="comment"># 产出：</span>
+<span class="comment">#   separated/vocals.wav（人声）</span>
+<span class="comment">#   separated/no_vocals.wav（BGM+音效）</span>
+
+<span class="comment"># FFmpeg 提取独立音效</span>
+<span class="cmd">ffmpeg</span> -i <span class="str">source.mp4</span> -vn -acodec copy <span class="str">1_source/audio/audio_full.aac</span>`
+  };
+  document.getElementById('cmdDisplay').innerHTML = cmds[tab] || cmds.scene;
+}
+
+// Init
+initTimeline();
+initScenes();
+selectScene(0);
+</script>
+</body>
+</html>

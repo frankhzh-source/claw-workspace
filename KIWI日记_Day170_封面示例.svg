@@ -1,0 +1,24 @@
+<svg viewBox="0 0 680 420" width="100%" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>KIWI日记 Day 170 封面</title>
+  <desc>Day 170封面：AI裁掉7.3万人的文章只有0阅读</desc>
+  <rect x="0" y="0" width="680" height="420" rx="0" fill="#0A1628"/>
+  <rect x="0" y="0" width="60" height="420" fill="#0D1F3C"/>
+  <line x1="60" y1="0" x2="60" y2="420" stroke="#1A3555" stroke-width="0.5"/>
+  <line x1="0" y1="0" x2="680" y2="0" stroke="#1A3555" stroke-width="0.5" opacity="0.3"/>
+  <line x1="0" y1="420" x2="680" y2="420" stroke="#1A3555" stroke-width="0.5" opacity="0.3"/>
+  <!-- KIWI 标识 -->
+  <text x="620" y="60" text-anchor="end" font-size="12" fill="#85B7EB" font-family="sans-serif" letter-spacing="3">KIWI 观察日记</text>
+  <line x1="380" y1="68" x2="620" y2="68" stroke="#85B7EB" stroke-width="0.5" opacity="0.4"/>
+  <!-- Day -->
+  <text x="620" y="150" text-anchor="end" font-size="72" font-weight="bold" fill="#FFFFFF" font-family="sans-serif" letter-spacing="4">Day</text>
+  <text x="620" y="235" text-anchor="end" font-size="96" font-weight="bold" fill="#85B7EB" font-family="sans-serif">170</text>
+  <line x1="400" y1="260" x2="620" y2="260" stroke="#378ADD" stroke-width="1.5"/>
+  <!-- 标题 -->
+  <text x="620" y="295" text-anchor="end" font-size="16" fill="#FFFFFF" font-family="sans-serif">AI裁掉7.3万人的文章只有0阅读</text>
+  <text x="620" y="318" text-anchor="end" font-size="14" fill="#B4B2A9" font-family="sans-serif">我发现了比写作更残酷的事</text>
+  <text x="620" y="380" text-anchor="end" font-size="11" fill="#5F5E5A" font-family="sans-serif">2026 · 海风</text>
+  <circle cx="600" cy="340" r="1.5" fill="#378ADD" opacity="0.3"/>
+  <circle cx="610" cy="355" r="1" fill="#378ADD" opacity="0.2"/>
+  <circle cx="620" cy="370" r="0.8" fill="#85B7EB" opacity="0.15"/>
+  <text x="75" y="395" font-size="10" fill="#3C3489" font-family="sans-serif" opacity="0.5">来自2031年的善意</text>
+</svg>

@@ -1,0 +1,153 @@
+<svg viewBox="0 0 680 780" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" font-family="&quot;PingFang SC&quot;,&quot;Microsoft YaHei&quot;,sans-serif">
+  <title>LoRA训练后续流程路线图</title>
+  <desc>从CLIP向量就绪到推理验收的6步流程，标注海风需要参与的决策节点</desc>
+  
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arr-dash" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#639922" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#D85A30" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- 标题 -->
+  <text x="340" y="32" text-anchor="middle" font-size="15" font-weight="500" fill="#3C3489">LoRA训练 · 后续流程路线图</text>
+  <text x="340" y="50" text-anchor="middle" font-size="12" fill="#5F5E5A">CLIP 向量已就绪（126K × 1024） → 第一轮训练 → 迭代</text>
+
+  <!-- 已完成状态条 -->
+  <rect x="40" y="65" width="600" height="36" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text x="60" y="88" font-size="13" font-weight="500" fill="#085041" dominant-baseline="central">已完成</text>
+  <text x="120" y="88" font-size="13" fill="#0F6E56" dominant-baseline="central">Stage 1-2 全量扫描 + Stage B2 CLIP 提取（126,394 PCS）</text>
+  <text x="610" y="88" text-anchor="end" font-size="12" fill="#1D9E75" dominant-baseline="central">494MB 向量已就位</text>
+
+  <!-- Arrow: 已完成 → Step 1 -->
+  <path d="M340 101 L340 120" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- ===== Step 1: UMAP 聚类降维 ===== -->
+  <rect x="240" y="125" width="200" height="52" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+  <text x="340" y="146" text-anchor="middle" font-size="13" font-weight="500" fill="#3C3489" dominant-baseline="central">UMAP 聚类降维</text>
+  <text x="340" y="166" text-anchor="middle" font-size="12" fill="#534AB7" dominant-baseline="central">126K → 2D 可视图</text>
+  
+  <!-- 步骤序号 -->
+  <circle cx="225" cy="151" r="12" fill="#7F77DD"/>
+  <text x="225" y="151" text-anchor="middle" font-size="12" font-weight="500" fill="#fff" dominant-baseline="central">1</text>
+
+  <!-- 产出标签 -->
+  <rect x="445" y="134" width="110" height="34" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+  <text x="500" y="151" text-anchor="middle" font-size="11" fill="#444441" dominant-baseline="central">品类分组散点图</text>
+
+  <!-- Arrow: Step 1 → Step 2 -->
+  <path d="M340 177 L340 198" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- ===== Step 2: 品类审核（你决策） ===== -->
+  <rect x="240" y="203" width="200" height="52" rx="8" fill="#CECBF6" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="340" y="224" text-anchor="middle" font-size="13" font-weight="500" fill="#3C3489" dominant-baseline="central">品类审核</text>
+  <text x="340" y="244" text-anchor="middle" font-size="12" fill="#534AB7" dominant-baseline="central">你审：品类拆分/合并 → 定标签</text>
+
+  <circle cx="225" cy="229" r="12" fill="#534AB7"/>
+  <text x="225" y="229" text-anchor="middle" font-size="12" font-weight="500" fill="#fff" dominant-baseline="central">2</text>
+
+  <!-- 决策标记 -->
+  <rect x="445" y="212" width="180" height="34" rx="6" fill="#FBEAF0" stroke="#D4537E" stroke-width="0.5"/>
+  <text x="535" y="222" text-anchor="middle" font-size="11" font-weight="500" fill="#993556" dominant-baseline="central">需要你参与</text>
+  <text x="535" y="238" text-anchor="middle" font-size="11" fill="#993556" dominant-baseline="central">约 15-30 分钟</text>
+  <path d="M440 229 L445 229" stroke="#D4537E" stroke-width="1" marker-end="url(#arr-dash)" fill="none" stroke-dasharray="4,3"/>
+
+  <!-- Arrow: Step 2 → Step 3 -->
+  <path d="M340 255 L340 276" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- ===== Step 3: 品类内精选 ===== -->
+  <rect x="240" y="281" width="200" height="52" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+  <text x="340" y="302" text-anchor="middle" font-size="13" font-weight="500" fill="#3C3489" dominant-baseline="central">品类内精选</text>
+  <text x="340" y="322" text-anchor="middle" font-size="12" fill="#534AB7" dominant-baseline="central">每品类 30-200 张</text>
+
+  <circle cx="225" cy="307" r="12" fill="#7F77DD"/>
+  <text x="225" y="307" text-anchor="middle" font-size="12" font-weight="500" fill="#fff" dominant-baseline="central">3</text>
+
+  <rect x="445" y="290" width="110" height="34" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+  <text x="500" y="307" text-anchor="middle" font-size="11" fill="#444441" dominant-baseline="central">品类专属子集</text>
+
+  <!-- Arrow: Step 3 → Step 4 -->
+  <path d="M340 333 L340 354" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- ===== Step 4: AI Caption 生成 ===== -->
+  <rect x="240" y="359" width="200" height="52" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+  <text x="340" y="380" text-anchor="middle" font-size="13" font-weight="500" fill="#3C3489" dominant-baseline="central">AI Caption 批量生成</text>
+  <text x="340" y="400" text-anchor="middle" font-size="12" fill="#534AB7" dominant-baseline="central">FLUX 自然语言描述</text>
+
+  <circle cx="225" cy="385" r="12" fill="#7F77DD"/>
+  <text x="225" y="385" text-anchor="middle" font-size="12" font-weight="500" fill="#fff" dominant-baseline="central">4</text>
+
+  <rect x="445" y="368" width="110" height="34" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+  <text x="500" y="385" text-anchor="middle" font-size="11" fill="#444441" dominant-baseline="central">train/val 拆分</text>
+
+  <!-- Arrow: Step 4 → Step 5 -->
+  <path d="M340 411 L340 432" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- ===== Step 5: diffusers 训练 ===== -->
+  <rect x="240" y="437" width="200" height="52" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <text x="340" y="458" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C" dominant-baseline="central">diffusers 训练</text>
+  <text x="340" y="478" text-anchor="middle" font-size="12" fill="#185FA5" dominant-baseline="central">5090D FLUX LoRA · 约 15-30 分</text>
+
+  <circle cx="225" cy="463" r="12" fill="#378ADD"/>
+  <text x="225" y="463" text-anchor="middle" font-size="12" font-weight="500" fill="#fff" dominant-baseline="central">5</text>
+
+  <rect x="445" y="446" width="110" height="34" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+  <text x="500" y="463" text-anchor="middle" font-size="11" fill="#444441" dominant-baseline="central">.safetensors</text>
+
+  <!-- Arrow: Step 5 → Step 6 -->
+  <path d="M340 489 L340 510" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- ===== Step 6: 推理测试（你决策） ===== -->
+  <rect x="240" y="515" width="200" height="52" rx="8" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="340" y="536" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C" dominant-baseline="central">推理测试</text>
+  <text x="340" y="556" text-anchor="middle" font-size="12" fill="#185FA5" dominant-baseline="central">你验：推理效果 + Loss 诊断</text>
+
+  <circle cx="225" cy="541" r="12" fill="#185FA5"/>
+  <text x="225" y="541" text-anchor="middle" font-size="12" font-weight="500" fill="#fff" dominant-baseline="central">6</text>
+
+  <!-- 决策标记 -->
+  <rect x="445" y="524" width="180" height="34" rx="6" fill="#FBEAF0" stroke="#D4537E" stroke-width="0.5"/>
+  <text x="535" y="534" text-anchor="middle" font-size="11" font-weight="500" fill="#993556" dominant-baseline="central">需要你参与</text>
+  <text x="535" y="550" text-anchor="middle" font-size="11" fill="#993556" dominant-baseline="central">约 10-20 分钟</text>
+  <path d="M440 541 L445 541" stroke="#D4537E" stroke-width="1" marker-end="url(#arr-dash)" fill="none" stroke-dasharray="4,3"/>
+
+  <!-- Arrow: Step 6 → 分支 -->
+  <path d="M340 567 L340 590" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- ===== 分支：通过 / 不通过 ===== -->
+
+  <!-- 通过 → 下一品类 -->
+  <rect x="140" y="600" width="200" height="44" rx="8" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+  <text x="240" y="622" text-anchor="middle" font-size="13" font-weight="500" fill="#3B6D11" dominant-baseline="central">通过 → 下一品类迭代</text>
+
+  <path d="M340 590 L340 600 L240 600 L240 598" stroke="#639922" stroke-width="1.5" marker-end="url(#arr-green)" fill="none"/>
+
+  <!-- 不通过 → 回退改参 -->
+  <rect x="340" y="600" width="200" height="44" rx="8" fill="#FAECE7" stroke="#D85A30" stroke-width="0.5"/>
+  <text x="440" y="622" text-anchor="middle" font-size="13" font-weight="500" fill="#993C1D" dominant-baseline="central">不通过 → 回退改参</text>
+
+  <path d="M340 590 L340 600 L440 600 L440 598" stroke="#D85A30" stroke-width="1.5" marker-end="url(#arr-red)" fill="none"/>
+
+  <!-- ===== 底部状态栏 ===== -->
+  <rect x="40" y="665" width="600" height="60" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+  
+  <text x="60" y="682" font-size="12" font-weight="500" fill="#444441" dominant-baseline="central">你参与的节点</text>
+  <text x="60" y="700" font-size="11" fill="#5F5E5A" dominant-baseline="central">品类审核 + 推理验收</text>
+
+  <rect x="200" y="673" width="14" height="14" rx="3" fill="#CECBF6" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="220" y="682" font-size="11" fill="#444441" dominant-baseline="central">数据工程（我负责）</text>
+
+  <rect x="370" y="673" width="14" height="14" rx="3" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="390" y="682" font-size="11" fill="#444441" dominant-baseline="central">训练执行（我负责）</text>
+
+  <rect x="530" y="673" width="14" height="14" rx="3" fill="#FBEAF0" stroke="#D4537E" stroke-width="0.5"/>
+  <text x="550" y="682" font-size="11" fill="#444441" dominant-baseline="central">决策验收（你负责）</text>
+</svg>

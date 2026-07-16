@@ -1,0 +1,63 @@
+<svg viewBox="0 0 680 540" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>LoRA训练数据组织从品类为中心到人物矩阵为中心的方案对比</title>
+  <desc>展示旧方案品类为中心 vs 新方案人物矩阵为中心的核心差异和三层布局参数</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <text class="th" x="340" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="500" fill="#1f2937">两种LoRA数据组织方案的差异</text>
+  <text class="ts" x="340" y="44" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#6b7280">旧：品类聚类训练 → 新：商品×人物×场景矩阵</text>
+  <rect x="30" y="60" width="295" height="150" rx="12" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+  <text class="th" x="177" y="84" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#2C2C2A">旧方案：品类为中心</text>
+  <rect x="42" y="94" width="271" height="1" rx="1" fill="#D3D1C7"/>
+  <text class="ts" x="177" y="114" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#5F5E5A">126K大库 → CLIP聚类 →</text>
+  <text class="ts" x="177" y="132" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#5F5E5A">按品类精选 → 训练</text>
+  <text class="ts" x="177" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#6b7280">❌ 不同人物混在一起训练</text>
+  <text class="ts" x="177" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#6b7280">❌ 人物特征与服饰特征绑死</text>
+  <text class="ts" x="177" y="198" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#6b7280">❌ 无法区分A穿vsB穿</text>
+  <path d="M325 135 L345 135" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="355" y="60" width="295" height="150" rx="12" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text class="th" x="502" y="84" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#085041">新方案：人物矩阵为中心</text>
+  <rect x="367" y="94" width="271" height="1" rx="1" fill="#9FE1CB"/>
+  <text class="ts" x="502" y="114" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#0F6E56">商品正反图 → 人物三视图</text>
+  <text class="ts" x="502" y="132" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#0F6E56">→ 多模特多场景</text>
+  <text class="ts" x="502" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1D9E75">✅ 同一人物=同一LoRA触发词</text>
+  <text class="ts" x="502" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1D9E75">✅ 不同人物用不同trigger</text>
+  <text class="ts" x="502" y="198" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1D9E75">✅ 可区分A穿这件vsB穿这件</text>
+  <rect x="30" y="228" width="620" height="290" rx="12" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+  <text class="th" x="340" y="252" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="500" fill="#3C3489">三层布局参数</text>
+  <rect x="38" y="262" width="604" height="1" rx="1" fill="#CECBF6"/>
+  <text class="th" x="46" y="280" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#3C3489">L1 商品正反图</text>
+  <rect x="46" y="294" width="255" height="50" rx="8" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.4"/>
+  <text class="ts" x="173" y="314" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#3C3489">2-4张/SKU · 正+背面平铺无模特</text>
+  <text class="ts" x="173" y="332" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#534AB7">用途：ControlNet参考 + 结构学习基线</text>
+  <rect x="316" y="294" width="100" height="50" rx="8" fill="#AFA9EC" stroke="#534AB7" stroke-width="0.4"/>
+  <text class="tw" x="366" y="316" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="white" font-weight="500">占比15%</text>
+  <text class="tw" x="366" y="332" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="white">P0 必须</text>
+  <rect x="431" y="294" width="207" height="50" rx="8" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.3" stroke-dasharray="4,2"/>
+  <text class="ts" x="534" y="316" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#3C3489">但影响所有后续层</text>
+  <text class="ts" x="534" y="332" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#3C3489">L1质量决定一切</text>
+  <line x1="46" y1="352" x2="634" y2="352" stroke="#CECBF6" stroke-width="0.3"/>
+  <text class="th" x="46" y="370" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#085041">L2 人物三视图（按人物划分）</text>
+  <rect x="46" y="384" width="255" height="50" rx="8" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.4"/>
+  <text class="ts" x="173" y="404" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#085041">21-55张/SKU · 3-5人物</text>
+  <text class="ts" x="173" y="422" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#0F6E56">每人7-11张=正面3-5+侧面2-3+背面2-3</text>
+  <rect x="316" y="384" width="100" height="50" rx="8" fill="#5DCAA5" stroke="#0F6E56" stroke-width="0.5"/>
+  <text class="tw" x="366" y="406" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="white" font-weight="500">占比50%</text>
+  <text class="tw" x="366" y="422" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="white">P0 核心</text>
+  <rect x="431" y="384" width="207" height="50" rx="8" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.3" stroke-dasharray="4,2"/>
+  <text class="ts" x="534" y="404" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#085041">每人独立trigger word</text>
+  <text class="ts" x="534" y="422" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#085041">Caption:40-100词自然语言</text>
+  <line x1="46" y1="442" x2="634" y2="442" stroke="#CECBF6" stroke-width="0.3"/>
+  <text class="th" x="46" y="460" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#633806">L3 多模特多场景（扩展层）</text>
+  <rect x="46" y="474" width="255" height="50" rx="8" fill="#FAC775" stroke="#BA7517" stroke-width="0.4"/>
+  <text class="ts" x="173" y="494" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#633806">45-150张/SKU</text>
+  <text class="ts" x="173" y="512" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#854F0B">姿态6-9+场景4-8+色板N×2-3张</text>
+  <rect x="316" y="474" width="100" height="50" rx="8" fill="#EF9F27" stroke="#854F0B" stroke-width="0.5"/>
+  <text class="tw" x="366" y="496" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="white" font-weight="500">占比35%</text>
+  <text class="tw" x="366" y="512" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="white">P1 迭代</text>
+  <rect x="431" y="474" width="207" height="50" rx="8" fill="#FAC775" stroke="#BA7517" stroke-width="0.3" stroke-dasharray="4,2"/>
+  <text class="ts" x="534" y="496" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#633806">可分批迭代</text>
+  <text class="ts" x="534" y="512" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#633806">姿态→场景→色板</text>
+</svg>

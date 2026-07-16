@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FDE电商AI落地 — 完整学习手册</title>
+<style>
+  :root {
+    --bg: #0d1117; --card: #161b22; --border: #30363d;
+    --text: #c9d1d9; --dim: #8b949e;
+    --red: #ff6b6b; --orange: #f0a500; --blue: #58a6ff;
+    --green: #3fb950; --purple: #bc8cff; --cyan: #39d4c5;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.75; padding: 40px 24px 80px; max-width: 960px; margin: 0 auto;
+  }
+  h1 { font-size: 26px; color: #fff; margin-bottom: 4px; }
+  .sub { color: var(--dim); font-size: 13px; margin-bottom: 32px; }
+
+  .toc {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 36px; font-size: 13px; column-count: 2;
+  }
+  .toc a { color: var(--blue); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+
+  .section {
+    margin: 40px 0; padding-top: 20px; border-top: 2px solid var(--border);
+  }
+  .section h2 { font-size: 20px; color: #fff; margin-bottom: 8px; }
+  .section .meta { font-size: 12px; color: var(--dim); margin-bottom: 20px; }
+
+  h3 { font-size: 16px; color: #e6edf3; margin: 24px 0 10px; padding-left: 8px; border-left: 3px solid var(--blue); }
+  h3.phase1 { border-color: var(--red); }
+  h3.scene2a { border-color: var(--red); }
+  h3.scene2b { border-color: var(--orange); }
+  h3.scene2c { border-color: var(--dim); }
+  h3.scene2d { border-color: var(--purple); }
+  h3.scene2e { border-color: var(--cyan); }
+  h3.scene2f { border-color: var(--blue); }
+  h3.phase3 { border-color: var(--green); }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 16px 20px; margin: 12px 0;
+    font-size: 13.5px;
+  }
+  .card h4 { font-size: 14px; color: #e6edf3; margin-bottom: 8px; }
+
+  .card ul { padding-left: 18px; }
+  .card li { margin: 3px 0; color: var(--dim); }
+  .card li strong { color: var(--text); }
+
+  .code-block {
+    background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+    padding: 14px 16px; margin: 10px 0; font-size: 12.5px; font-family: "SF Mono","Fira Code",monospace;
+    color: var(--dim); overflow-x: auto; white-space: pre-wrap; word-break: break-all;
+  }
+  .code-block .kw { color: var(--orange); }
+  .code-block .str { color: var(--green); }
+  .code-block .cm { color: var(--dim); font-style: italic; }
+
+  table {
+    width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0 16px;
+  }
+  th { background: var(--card); color: var(--dim); font-weight: 500; text-align: left; padding: 8px 10px; border: 1px solid var(--border); }
+  td { padding: 7px 10px; border: 1px solid var(--border); }
+  .tag {
+    display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px;
+    margin-left: 6px; font-weight: 600;
+  }
+  .tag.tool { background: rgba(57,212,197,0.15); color: var(--cyan); }
+  .tag.pit { background: rgba(255,107,107,0.15); color: var(--red); }
+  .tag.rec { background: rgba(63,185,80,0.15); color: var(--green); }
+
+  .resources {
+    background: rgba(88,166,255,0.06); border: 1px solid rgba(88,166,255,0.2);
+    border-radius: 6px; padding: 12px 16px; margin: 12px 0; font-size: 13px;
+  }
+  .resources h4 { color: var(--blue); font-size: 13px; margin-bottom: 6px; }
+
+  .example-box {
+    background: rgba(63,185,80,0.06); border: 1px solid rgba(63,185,80,0.2);
+    border-radius: 6px; padding: 14px 16px; margin: 10px 0; font-size: 13px;
+  }
+  .example-box h4 { color: var(--green); font-size: 13px; margin-bottom: 6px; }
+
+  .formula {
+    background: var(--card); border-left: 3px solid var(--orange);
+    padding: 10px 14px; margin: 10px 0; font-size: 13px; font-family: "SF Mono",monospace;
+  }
+</style>
+</head>
+<body>
+
+<h1>FDE电商AI落地 — 完整学习手册</h1>
+<p class="sub">按海风FDE路线图展开 | 每个模块可直接学习 | 2026-05-31</p>
+
+<!-- ===== 目录 ===== -->
+<div class="toc">
+  <strong>Phase 1 基础能力</strong><br>
+  <a href="#p1.1">1.1 分步推理 Prompt</a><br>
+  <a href="#p1.2">1.2 AI 图片基础</a><br>
+  <a href="#p1.3">1.3 数据工具</a><br>
+  <a href="#p1.4">1.4 工具选型方法论</a><br><br>
+  <strong>Phase 2 单场景精通</strong><br>
+  <a href="#p2a">2A 文生图</a><br>
+  <a href="#p2b">2B 文生视频</a><br>
+  <a href="#p2c">2C 智能客服</a><br>
+  <a href="#p2d">2D 直播运营</a><br>
+  <a href="#p2e">2E 数字人</a><br>
+  <a href="#p2f">2F 电商运营</a><br><br>
+  <strong>Phase 3 闭环</strong><br>
+  <a href="#p3.1">3.1 数据闭环</a><br>
+  <a href="#p3.2">3.2 ROI核算</a><br>
+  <a href="#p3.3">3.3 流程标准化</a>
+</div>
+
+<!-- ==================== PHASE 1 ==================== -->
+<div class="section">
+<h2>Phase 1：基础能力</h2>
+<p class="meta">不依赖任何场景，所有方向通用</p>
+
+<!-- 1.1 -->
+<h3 class="phase1" id="p1.1">1.1 分步推理 Prompt 工程</h3>
+
+<div class="card">
+  <h4>核心知识</h4>
+  <ul>
+    <li><strong>Prompt = 指令 + 上下文 + 输出格式。</strong>三者缺一不可，缺指令模型乱猜，缺上下文模型瞎编，缺格式输出不可控</li>
+    <li><strong>Few-shot（示例引导）：</strong>给2-5个示例告诉模型"长什么样"。示例比指令更管用——模型更擅长模仿而非遵循规则</li>
+    <li><strong>Chain-of-Thought（分步推理）：</strong>让模型先分析再回答，不要一步到位。加一句"请逐步分析，列出思考过程，最后给出结论"可以显著提升准确率</li>
+    <li><strong>角色设定：</strong>"你是XX领域的专家，有10年经验"不是废话。角色设定会影响模型的用词风格和知识范围</li>
+    <li><strong>约束条件：</strong>字数限制、禁用词、必须包含的要素——越具体越好。"写200-300字，包含至少3个卖点，不用'超值''限时'等过度营销词"</li>
+    <li><strong>输出格式控制：</strong>要求JSON/Markdown表格/列表格式。如果模型不听话，加一句"只输出JSON，不要任何解释"</li>
+  </ul>
+</div>
+
+<div class="example-box">
+  <h4>实战示例：同一产品写5个平台文案</h4>
+  <div class="code-block"><span class="cm"># 系统指令（System Prompt）</span>
+你是一个电商文案专家。你的任务是根据商品信息，为不同平台撰写适配的文案。
+
+<span class="cm"># 商品信息</span>
+产品：便携式挂烫机
+核心卖点：①30秒快速预热 ②迷你便携，出差可用 ③干湿两用 ④价格149元
+目标人群：25-35岁职场女性
+
+<span class="cm"># 任务：为以下平台各写一段文案，符合各平台风格</span>
+<span class="kw">格式要求</span>：用Markdown表格输出，列名：平台 | 文案 | 字数
+
+各平台要求：
+- <span class="str">淘宝标题</span>：30字以内，堆核心关键词，突出搜索权重
+- <span class="str">抖音口播文案</span>：100-150字，口语化，有钩子+痛点+解决方案+CTA
+- <span class="str">小红书</span>：轻松种草风，50-80字，带场景描述
+- <span class="str">拼多多</span>：30字标题+一行描述，走"便宜实用"路线
+- <span class="str">微信朋友圈</span>：60-80字，带人设感，像朋友推荐</div>
+</div>
+
+<div class="example-box">
+  <h4>进阶技巧：Chain-of-Thought 应用于电商场景</h4>
+  <div class="code-block"><span class="cm"># 不用 CoT 的问法（差）</span>
+"这个产品怎么定价？"
+
+<span class="cm"># 用 CoT 的问法（好）</span>
+"请分三步分析这个产品的定价策略：
+第一步：分析竞品价格区间和市场定位
+第二步：计算我们产品的成本结构和利润空间
+第三步：给出3个定价方案，并说明每种方案的适用场景和风险"</div>
+</div>
+
+<div class="resources">
+  <h4>学习资源</h4>
+  <ul>
+    <li>OpenAI Prompt Engineering Guide <span class="tag rec">必读</span></li>
+    <li>Anthropic 的 Prompt 设计文档 — 偏实用，比OpenAI的更场景化</li>
+    <li>动手：用同一产品在5个平台各写10条文案，对比效果，建立自己的数据感</li>
+  </ul>
+</div>
+
+<!-- 1.2 -->
+<h3 class="phase1" id="p1.2">1.2 AI 图片基础</h3>
+
+<div class="card">
+  <h4>核心知识</h4>
+  <ul>
+    <li><strong>两大流派：</strong>MidJourney（傻瓜式，月费制，审美天花板） vs Stable Diffusion（开源本地部署，完全可控，需要显卡）</li>
+    <li><strong>Prompt 公式（五要素法）：</strong>主体 + 场景/环境 + 风格/材质 + 光照 + 画质/比例。缺哪一项就不可控哪一项</li>
+    <li><strong>负向提示词（Negative Prompt）：</strong>告诉模型"不要什么"。SD必用，MJ不需要。常见负向词：low quality, blurry, extra fingers, watermark, text</li>
+    <li><strong>CFG Scale（引导强度，SD专用）：</strong>数值越高越遵从Prompt，太高会过饱和/失真。商品图建议5-8，艺术创作7-12</li>
+    <li><strong>采样器（Sampler，SD专用）：</strong>Euler A 快速但随机性强，DPM++ 2M Karras 细节多但慢，选一个稳定用</li>
+    <li><strong>Steps（步数，SD专用）：</strong>20-30步足够，超过35步收益递减，纯烧时间</li>
+    <li><strong>图像尺寸：</strong>水平构图的图用横版，模特/单品用竖版。常见电商尺寸：800x800（主图）、750x1000（详情页首图）、1080x1920（抖音竖版）</li>
+    <li><strong>商品抠图换背景：</strong>用 Remove.bg（在线）/ Rembg（Python库）/ PS AI / Segment Anything 抠出商品，再放到AI生成的场景图中</li>
+  </ul>
+</div>
+
+<div class="example-box">
+  <h4>实战 Prompt 模板</h4>
+  <div class="code-block"><span class="cm"># 白底商品图（适合主图）</span>
+主体：[产品名称，如：白色陶瓷咖啡杯]
+Prompt: A [产品], product photography, white background, studio lighting, 8k, high detail, commercial photography, centered, isolated
+Negative: shadow on product, reflection, dark background, watermark
+
+<span class="cm"># 场景图（适合详情页/广告）</span>
+Prompt: A [产品] placed on a wooden table near a sunny window, morning light, cozy home atmosphere, lifestyle photography, 4k, shallow depth of field, minimalist interior style
+Negative: blurry, dark, cluttered, text, watermark
+
+<span class="cm"># 模特展示图</span>
+Prompt: A young woman wearing [服装名称], full body shot, walking on a city street, natural sunlight, fashion photography style, clean background, 8k
+Negative: deformed face, extra limbs, bad anatomy, watermark</div>
+</div>
+
+<div class="resources">
+  <h4>学习资源</h4>
+  <ul>
+    <li>MidJourney 官方文档 + 社区画廊（看别人的Prompt和结果，学习怎么写）</li>
+    <li>Stable Diffusion WebUI (A1111) 安装教程 — B站搜"秋叶SD整合包" <span class="tag rec">中文首选</span></li>
+    <li>civitai.com — 下载SD模型和LoRA，看示例图的Prompt</li>
+    <li>动手：选自己熟悉的3个商品，各出5张图，对比不同Prompt/不同平台的出图质量</li>
+  </ul>
+</div>
+
+<!-- 1.3 -->
+<h3 class="phase1" id="p1.3">1.3 数据工具</h3>
+
+<div class="card">
+  <h4>核心知识</h4>
+  <ul>
+    <li><strong>生意参谋（淘宝天猫）：</strong>看"流量-商品来源"知道搜索/推荐/付费占比；看"品类-商品排行"知道哪个款在起量/掉量；看"竞争-竞品分析"对标竞品流量结构</li>
+    <li><strong>抖店罗盘（抖音电商）：</strong>看"直播-直播大屏"实时监控GPM/转化率/停留时长；看"商品-商品卡"分析搜索曝光→点击→转化的漏斗；看"人群-人群画像"了解谁在买</li>
+    <li><strong>关键指标速查：</strong>
+      <table>
+        <tr><td>CTR（点击率）</td><td>= 点击数 / 曝光数</td><td>主图/标题好不好的第一指标</td></tr>
+        <tr><td>CVR（转化率）</td><td>= 订单数 / 点击数</td><td>详情页/价格/信任感好不好的指标</td></tr>
+        <tr><td>GPM（千次观看成交额）</td><td>= GMV / 观看次数 × 1000</td><td>抖音直播核心指标</td></tr>
+        <tr><td>客单价</td><td>= GMV / 订单数</td><td>人群质量 + 连带率</td></tr>
+        <tr><td>ROI（投产比）</td><td>= GMV / 广告花费</td><td>花钱效率</td></tr>
+      </table>
+    </li>
+    <li><strong>Excel + AI 分析三板斧：</strong>①把数据导入Excel → ②让AI写分析脚本（Python/VBA）→ ③让AI解读结果并给出建议</li>
+  </ul>
+</div>
+
+<div class="example-box">
+  <h4>实操：用AI辅助诊断店铺问题</h4>
+  <p>给AI发以下内容，让它诊断：</p>
+  <div class="code-block"><span class="cm">"我有以下店铺数据，请帮我做诊断分析：</span>
+
+近7天数据：
+- 曝光：50,000（上周45,000，涨11%）
+- 点击：1,500（上周1,350，涨11%）
+- 加购：150（上周180，降17%）<span class="str">← 关键异常</span>
+- 下单：45（上周60，降25%）<span class="str">← 关键异常</span>
+- 广告花费：3,000元
+- 行业平均CTR：3.2%，CVR：3.5%
+
+请分析：
+1. 流量来了但转化掉了，可能的原因有哪些？
+2. 加购率下降说明什么问题？
+3. 给出3条优先级最高的行动建议"</div>
+</div>
+
+<!-- 1.4 -->
+<h3 class="phase1" id="p1.4">1.4 工具选型方法论</h3>
+
+<div class="card">
+  <h4>评估框架：五维度打分法</h4>
+  <table>
+    <tr><th>维度</th><th>评分标准（1-5）</th><th>权重建议</th></tr>
+    <tr><td>效果质量</td><td>1=不可用，3=可用但需人工修，5=超过人工水平</td><td>35%</td></tr>
+    <tr><td>使用成本</td><td>1=每月上万，3=几百，5=免费/极低</td><td>25%</td></tr>
+    <tr><td>上手难度</td><td>1=需要专业技术背景，3=看文档能搞定，5=打开即用</td><td>15%</td></tr>
+    <tr><td>稳定性/速度</td><td>1=频繁掉线/慢，3=偶尔卡，5=秒级响应</td><td>15%</td></tr>
+    <tr><td>平台适配</td><td>1=完全不兼容，3=需要额外转换，5=原生支持</td><td>10%</td></tr>
+  </table>
+  <p style="margin-top:8px; color:var(--dim);">选型铁律：没有完美工具，只有最适合当前场景的工具。一个工具选好了用一年，选错了浪费两周。</p>
+</div>
+
+<div class="example-box">
+  <h4>实战示例：文生图工具对比报告</h4>
+  <table>
+    <tr><th>工具</th><th>效果</th><th>成本</th><th>上手</th><th>稳定</th><th>适配</th><th>总分</th><th>适用场景</th></tr>
+    <tr><td>MidJourney</td><td>5</td><td>3</td><td>5</td><td>4</td><td>4</td><td>4.3</td><td>快速出创意图、概念图</td></tr>
+    <tr><td>SD+ComfyUI</td><td>4</td><td>5</td><td>2</td><td>4</td><td>5</td><td>4.0</td><td>批量生产、商品图、风格控制</td></tr>
+    <tr><td>DALL-E 3</td><td>4</td><td>4</td><td>5</td><td>3</td><td>3</td><td>3.95</td><td>ChatGPT用户顺手用</td></tr>
+    <tr><td>通义万相</td><td>3</td><td>5</td><td>4</td><td>4</td><td>4</td><td>3.85</td><td>中文场景、免费替代</td></tr>
+  </table>
+</div>
+
+</div>
+
+<!-- ==================== PHASE 2 ==================== -->
+<div class="section">
+<h2>Phase 2：单场景精通</h2>
+
+<!-- 2A -->
+<h3 class="scene2a" id="p2a">2A 文生图（电商视觉）</h3>
+
+<div class="card">
+  <h4>入门：选型 + Prompt 模板库</h4>
+  <ul>
+    <li><strong>选型决策树：</strong>做概念图/效果图→MJ | 做批量商品图/品牌风格控制→SD+ComfyUI | 只是偶尔用用→通义万相/DALL-E | 预算充足但不想折腾→MidJourney</li>
+    <li><strong>Prompt 模板库搭建方法：</strong>按"品类+构图+风格+光照"四标签分文件夹，每次用过的Prompt存下来，标注效果好坏。一个月后你就有自己的武器库</li>
+    <li><strong>商品图常用的构图：</strong>正面特写（主图）、45度角（细节展示）、场景融入（详情页）、手持/上身（模特展示）、配件搭配（连带推荐）</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h4>进阶A：本地部署 Stable Diffusion</h4>
+  <ul>
+    <li><strong>选择 A1111 WebUI 还是 ComfyUI？</strong>A1111 界面直观、教程多，适合入门；ComfyUI 节点化、批处理和管线更强大，适合量产 <span class="tag rec">推荐A1111入门→ComfyUI进阶</span></li>
+    <li><strong>GPU 要求：</strong>SD 1.5 最低4GB显存，SDXL 最低8GB，FLUX 最低16GB。建议至少RTX 3060 12G起步 <span class="tag pit">苹果M系列Mac也能跑，慢但不挑</span></li>
+    <li><strong>模型文件位置：</strong>SD模型(.safetensors)放 models/Stable-diffusion/，LoRA(.safetensors)放 models/Lora/，VAE放 models/VAE/</li>
+    <li><strong>基础模型推荐：</strong>SDXL 写实用 Juggernaut XL / RealVisXL，动漫/风格化用 Animagine XL，电商通用 SD 1.5 的 majicMIX realistic</li>
+    <li><strong>踩坑清单：</strong>①CUDA Out of Memory→降低分辨率或换小模型 ②生成纯黑图→VAE没放对 ③颜色失真→关闭VAE或换VAE</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h4>进阶B：LoRA 训练 + ControlNet 控制</h4>
+  <ul>
+    <li><strong>LoRA 训练核心参数：</strong>数据集建议20-30张高质量图片，分辨率512x512或768x768，epoch 10-20，学习率1e-4左右。数据质量 > 数量——10张好图比100张糊图强</li>
+    <li><strong>训练工具：</strong>kohya_ss GUI（主流，图形界面）/ OneTrainer（更现代）/ 秋叶整合包内置 <span class="tag rec">推荐kohya_ss</span></li>
+    <li><strong>ControlNet 常用模式：</strong>Canny（边缘检测，保持物体形状）| Depth（深度图，保持空间透视）| OpenPose（骨架，控制人物姿势）| Lineart（线稿，电商用这个最多）</li>
+    <li><strong>电商场景最佳实践：</strong>产品白底图→Canny提取轮廓→用ControlNet保持形状不变→换背景/场景/模特</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h4>实战：批量自动化生产</h4>
+  <ul>
+    <li><strong>ComfyUI 工作流自动化：</strong>读CSV商品列表→切换LoRA→生成多张→自动保存→人工质检。用ComfyUI的API接口 + Python脚本触发</li>
+    <li><strong>质检标准：</strong>①主体完整（无残缺/变形/多余）②色彩准确（与实物一致）③构图可用（留白足够放文字）④风格统一（同批次不跳跃）</li>
+    <li><strong>人工审核降50%的秘诀：</strong>每个SKU生成5张选1张，而不是生成1张修1张。多生成+快筛选 > 精修</li>
+  </ul>
+</div>
+
+<div class="resources">
+  <h4>2A 学习资源</h4>
+  <ul>
+    <li>ComfyUI 官方 Examples — 自带几十个工作流模板，直接导入学习</li>
+    <li>civitai.com 看 LoRA 效果 — 搜"product""e-commerce""fashion"</li>
+    <li>B站"秋叶aaaki"系列教程 — 中文最全SD教程 <span class="tag rec">必看</span></li>
+    <li>kohya_ss LoRA 训练教程 — GitHub README 足够详细</li>
+  </ul>
+</div>
+
+<!-- 2B -->
+<h3 class="scene2b" id="p2b">2B 文生视频</h3>
+
+<div class="card">
+  <h4>入门：工具选型 + 模板</h4>
+  <ul>
+    <li><strong>主流工具对比：</strong>
+      <table>
+        <tr><th>工具</th><th>时长</th><th>质量</th><th>价格</th><th>适合场景</th></tr>
+        <tr><td>可灵 (Kling)</td><td>5-10秒</td><td>高</td><td>会员制</td><td>中文Prompt友好，人物动作自然</td></tr>
+        <tr><td>即梦 (Jimeng)</td><td>3-5秒</td><td>中高</td><td>免费额度多</td><td>字节系，抖音生态最好</td></tr>
+        <tr><td>Runway Gen-3</td><td>5-10秒</td><td>高</td><td>按秒计费</td><td>画质最好，风格最多</td></tr>
+        <tr><td>Pika</td><td>3秒</td><td>中</td><td>免费/订阅</td><td>快速出片，适合社交媒体</td></tr>
+        <tr><td>Sora (即将开放)</td><td>60秒</td><td>最高</td><td>未定价</td><td>长视频，叙事型内容</td></tr>
+      </table>
+    </li>
+    <li><strong>15s/30s/60s 模板结构：</strong>15s（3秒钩子+8秒展示+4秒CTA）| 30s（3秒钩子+20秒展示+7秒CTA+品牌）| 60s（5秒钩子+15秒场景痛点+30秒产品解决+10秒CTA）</li>
+    <li><strong>视频 Prompt 写法：</strong>时间轴描述法——"0-3秒：XX动作。3-8秒：镜头推进到XX。8-15秒：XX特写。" 越具体AI越听话</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h4>进阶：图生视频 + 混剪</h4>
+  <ul>
+    <li><strong>图生视频最佳场景：</strong>①静态商品图→旋转/展示动画 ②产品场景图→镜头推拉/光影变化 ③人物+产品图→简单动作（穿/用/拿）</li>
+    <li><strong>实拍+AI混剪黄金比例：</strong>AI视频占30-40%（场景氛围/特效/过渡），实拍占60-70%（产品特写/人物口播/使用演示）。AI太重会让观众觉得"假"</li>
+    <li><strong>后期工具链：</strong>AI生成片段→剪映/CapCut拼接→AI配音（剪映内置/魔音工坊）→AI字幕→调色统一</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h4>实战：信息流投流素材 + 平台算法</h4>
+  <ul>
+    <li><strong>AB测试框架：</strong>同一个产品出10条素材，每条只有1个变量不同（钩子文案/画面风格/时长），投500元测CTR，筛出TOP3再放大预算</li>
+    <li><strong>抖音信息流核心逻辑（嵌入学习）：</strong>
+      <ul>
+        <li>ECPM = 出价 × 预估CTR × 预估CVR × 1000。你的出价一样，CTR决定生死</li>
+        <li>完播率权重 > 点赞权重：让观众看完比让观众点赞更重要</li>
+        <li>3秒完播率（前3秒没划走的比例）：决定冷启动流量池大小，低于30%几乎不可能跑量</li>
+        <li>15s视频的完播率要求 > 60s：越长的视频，完播率天然越低，平台会按比例折算</li>
+      </ul>
+    </li>
+    <li><strong>素材优化的5个杠杆：</strong>钩子（0-3秒）> 画面冲击力 > 产品卖点清晰度 > BGM > 口播语速。前两个定生死，后三个定转化</li>
+  </ul>
+</div>
+
+<div class="resources">
+  <h4>2B 学习资源</h4>
+  <ul>
+    <li>可灵官方教程 — prompt 写法 + 案例库 <span class="tag rec">必看</span></li>
+    <li>Runway Academy — 进阶技巧和风格控制</li>
+    <li>抖音创作者学习中心 — 了解平台对视频内容的推荐机制</li>
+    <li>剪映教程 — 后期必备，AI生成到成片的最后一步</li>
+  </ul>
+</div>
+
+<!-- 2C -->
+<h3 class="scene2c" id="p2c">2C 智能客服</h3>
+
+<div class="card">
+  <h4>入门：知识库 + 意图分类</h4>
+  <ul>
+    <li><strong>知识库搭建步骤：</strong>①收集高频问题（翻最近1个月客服聊天记录）→ ②归类（按售前/售后/物流/投诉）→ ③每类写标准答案（不要抄文档，要用客服真实话术）→ ④RAG注入</li>
+    <li><strong>意图分类体系（电商版）：</strong>
+      <table>
+        <tr><th>大类</th><th>子意图</th><th>典型话术</th><th>策略</th></tr>
+        <tr><td>售前咨询</td><td>商品信息/尺寸/材质</td><td>"这个多大？"</td><td>RAG直接回答</td></tr>
+        <tr><td>售前咨询</td><td>比价/议价</td><td>"能便宜点吗？"</td><td>话术引导+优惠券</td></tr>
+        <tr><td>售前咨询</td><td>推荐/选择困难</td><td>"A和B哪个好？"</td><td>对比分析+引导决策</td></tr>
+        <tr><td>订单查询</td><td>物流/发货/改地址</td><td>"到哪了？"</td><td>API实时查询</td></tr>
+        <tr><td>售后问题</td><td>退换货/质量问题</td><td>"收到了坏的"</td><td>安抚+标准化流程</td></tr>
+        <tr><td>售后问题</td><td>投诉/差评</td><td>"我要投诉"</td><td>升级转人工</td></tr>
+      </table>
+    </li>
+    <li><strong>FAQ结构化原则：</strong>一个问题对应一个确切答案，不要多个问题混一起。问题用客户原话（不是你的话），答案要包含具体参数（尺寸/政策/链接）</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h4>进阶A：平台客服API基础</h4>
+  <ul>
+    <li><strong>抖音小店开放平台：</strong>主要接口 — 获取会话列表/发送消息/查询订单/查询物流。接入方式：创建应用→获取授权→调用API <span class="tag rec">自研应用模式</span></li>
+    <li><strong>淘宝开放平台（TOP）：</strong>接口最全但准入最严，需要企业资质和API权限申请。核心接口：taobao.trade.get(查订单)、taobao.logistics.trace.search(查物流)</li>
+    <li><strong>京麦开放平台：</strong>通过京东商家后台→服务市场→自研应用接入，接口风格类似淘宝TOP</li>
+    <li><strong>关键坑：</strong>每个平台的API限频（QPS限制）不同，抖音最松、淘宝最严。大促期间可能临时收紧限频，需要熔断机制</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h4>进阶B：对话流程 + 情绪检测 + 人工接管</h4>
+  <ul>
+    <li><strong>多轮对话流程图设计：</strong>用流程图工具（Mermaid/Draw.io）画出每个意图的对话分支——用户说了X→AI应该问Y或执行Z→用户回复A/B/C→分别处理。不设计就直接上线=百分之百翻车</li>
+    <li><strong>情绪检测信号：</strong>感叹号连续(!!) / 反问句 / 辱骂词 / 重复同一问题3次以上 / "人工""投诉""差评"关键词。检测到任一信号→启动安抚话术+准备转人工</li>
+    <li><strong>人工接管策略：</strong>不要等到用户说"转人工"才转，AI检测到情绪上升时主动提议"需要我帮您转接人工客服吗？"——用户感觉被尊重，转接率反而降低</li>
+    <li><strong>转人工率公式：</strong>= 转人工次数 / 总会话数。业内标杆<10%，初期<15%可接受</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h4>实战：质检自动化</h4>
+  <ul>
+    <li><strong>质检维度：</strong>①准确性（答错/误导）②完整性（漏回答/答非所问）③态度（生硬/冷漠）④合规（虚假承诺/泄露隐私）</li>
+    <li><strong>自动化方案：</strong>用另一个LLM（不同模型，防止"自己审自己"）抽检10%的对话，按上述4维度打分。低于阈值标记人工复核</li>
+  </ul>
+</div>
+
+<div class="resources">
+  <h4>2C 学习资源</h4>
+  <ul>
+    <li>抖音开放平台文档 — 客服消息接口 <span class="tag rec">必读</span></li>
+    <li>LangChain / LlamaIndex RAG 教程 — 知识库搭建的技术基础</li>
+    <li>Coze/Dify 平台实战 — 零代码搭建客服Agent，快速验证想法</li>
+  </ul>
+</div>
+
+<!-- 2D -->
+<h3 class="scene2d" id="p2d">2D 直播运营</h3>
+
+<div class="card">
+  <h4>入门：直播脚本结构 + AI生成</h4>
+  <ul>
+    <li><strong>5分钟切片法：</strong>把2小时直播切成24个5分钟单元，每个单元 = 钩子(30秒) + 产品讲解(2分钟) + 逼单(1分钟) + 互动/福利(1分钟) + 过渡(30秒)</li>
+    <li><strong>脚本Prompt模板：</strong>给AI"产品信息+直播时长+排品顺序+主播风格"，让它按5分钟切片法生成完整脚本。例如："你是一个抖音带货主播'海风'，风格真实直接，不做作。今晚直播2小时，排品：①引流款-9.9元袜子（前30分钟）②利润款-149元挂烫机（30-90分钟）③福利款-59元T恤（90-120分钟）。请按5分钟切片法生成完整脚本"</li>
+    <li><strong>排品策略黄金公式：</strong>引流款（低客单拉人）→ 利润款（中客单做GMV）→ 福利款（限量逼单）→ 引流款（再次拉人）→ 利润款... 循环</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h4>进阶：实时数据 + 弹幕 + 话术优化</h4>
+  <ul>
+    <li><strong>直播核心数据指标：</strong>
+      <table>
+        <tr><th>指标</th><th>含义</th><th>健康值</th><th>低了怎么办</th></tr>
+        <tr><td>在线人数</td><td>当前在直播间的人数</td><td>越高越好</td><td>检查推流/投放/内容</td></tr>
+        <tr><td>停留时长</td><td>人均观看时长（秒）</td><td>>90秒</td><td>钩子不够强，换话术</td></tr>
+        <tr><td>互动率</td><td>评论/点赞/分享人数/在线</td><td>>3%</td><td>主动点名互动、发福利</td></tr>
+        <tr><td>GPM</td><td>千次观看成交额</td><td>>500元</td><td>逼单力度不够，话术优化</td></tr>
+        <tr><td>商品点击率</td><td>点小黄车的比例</td><td>>5%</td><td>讲解不到位，重新展示</td></tr>
+      </table>
+    </li>
+    <li><strong>实时提词系统搭建：</strong>后台监控弹幕高频词→AI自动生成回复→推到主播面前的iPad/提词器→主播照读即可。核心是"快"——从弹幕出现到提词出现不超过5秒</li>
+    <li><strong>流失节点识别：</strong>每5分钟看一次在线人数变化。如果某5分钟在线陡降→回放那个时段的录播→分析是不是话术/产品/画面出了问题</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h4>实战：AI切片 + AB话术</h4>
+  <ul>
+    <li><strong>AI切片流程：</strong>录播文件→AI识别高能时刻（在线峰值/互动爆发/成交密集）→截取15-30秒→自动加字幕+BGM→批量发布到账号。这是把2B文生视频能力复用到直播场景</li>
+    <li><strong>AB话术测试：</strong>同一个产品，准备A版话术和B版话术（只改1-2个变量），在两场直播中分别使用，对比转化率。累计10场数据后，你有自己的话术方法论</li>
+  </ul>
+</div>
+
+<div class="resources">
+  <h4>2D 学习资源</h4>
+  <ul>
+    <li>抖音电商学习中心 — 直播运营基础 <span class="tag rec">必读</span></li>
+    <li>看10场头部带货直播间录播 — 不是学话术，是学节奏和排品结构</li>
+    <li>飞瓜/蝉妈妈 — 数据工具，看大盘和竞品直播数据</li>
+  </ul>
+</div>
+
+<!-- 2E -->
+<h3 class="scene2e" id="p2e">2E 数字人主播</h3>
+
+<div class="card">
+  <h4>选型搭建：平台对比 + 形象克隆 + 推流</h4>
+  <ul>
+    <li><strong>主流平台对比：</strong>
+      <table>
+        <tr><th>平台</th><th>优势</th><th>劣势</th><th>价格</th></tr>
+        <tr><td>硅基智能</td><td>中文形象最多、定制流程成熟</td><td>形象偏"AI感"</td><td>按分钟/年费</td></tr>
+        <tr><td>闪剪</td><td>图文转视频、模板多</td><td>不支持实时直播互动</td><td>订阅制</td></tr>
+        <tr><td>腾讯智影</td><td>腾讯生态、合规性最好</td><td>功能较少</td><td>按量</td></tr>
+        <tr><td>快手数字人</td><td>平台原生、推流稳定</td><td>仅快手生态</td><td>免费/分成</td></tr>
+        <tr><td>HeyGen</td><td>英文效果最好、形象最自然</td><td>中文口型一般、贵</td><td>按分钟</td></tr>
+      </table>
+    </li>
+    <li><strong>形象克隆流程：</strong>录制3-5分钟正脸视频（光线均匀、背景纯色、语速正常）→上传到平台→AI训练（1-24小时不等）→生成数字人→测试口型和动作→迭代优化</li>
+    <li><strong>推流全流程：</strong>数字人软件→虚拟摄像头(OBS)→推流地址(抖音/淘宝的RTMP地址)→开始直播。关键：帧率>25fps、分辨率>720p、码率>2000kbps</li>
+    <li><strong>声音克隆：</strong>GPT-SoVITS（开源免费，中文效果最好）| CosyVoice（阿里开源，速度快）| ElevenLabs（付费，英文效果最好但中文口型不自然）</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h4>优化运营：数据 + 协作</h4>
+  <ul>
+    <li><strong>数字人特有指标：</strong>①场观流失率（多少人在前30秒走了）>真人主播，因为AI感 ②互动率 << 真人，必须用弹幕互动弥补 ③挂机稳定性——数字人核心优势，7x24不累</li>
+    <li><strong>真人+数字人协作排班：</strong>黄金时段（晚7-11点）用真人 → 白天/凌晨用数字人 → 数字人跑不动的品换真人 → 真人AB测试后的话术喂给数字人</li>
+    <li><strong>合规要点（嵌入式学习）：</strong>抖音要求数字人直播间必须标注"虚拟主播"，淘宝要求标注"AI生成"，不标注会被限流/封禁。各平台政策不同且经常更新，需要每月确认 <span class="tag pit">高风险管理</span></li>
+  </ul>
+</div>
+
+<div class="card">
+  <h4>矩阵扩展：多账号 + ROI</h4>
+  <ul>
+    <li><strong>一拖多模式：</strong>一个数字人形象 + 一套话术 + 多个账号 = 同时覆盖不同品类/时段。每个账号做微调（封面/标题/开场白），避免平台判定为重复内容</li>
+    <li><strong>ROI核算公式：</strong>数字人月成本（平台费+电费+设备折旧） v.s. 带来的GMV增量 - 真人主播在该时段可能产生的GMV。数字人覆盖的是真人做不到的时段，增量GMV才是真ROI</li>
+  </ul>
+</div>
+
+<div class="resources">
+  <h4>2E 学习资源</h4>
+  <ul>
+    <li>硅基智能/腾讯智影官网 — 直接看产品文档和案例</li>
+    <li>GPT-SoVITS GitHub — 声音克隆开源方案 <span class="tag rec">推荐</span></li>
+    <li>OBS Studio 推流教程 — 所有数字人方案的底层推流工具</li>
+    <li>各平台数字人政策 — 抖音/淘宝/快手/视频号，各搜一遍</li>
+  </ul>
+</div>
+
+<!-- 2F -->
+<h3 class="scene2f" id="p2f">2F 电商运营 AI 化</h3>
+
+<div class="card">
+  <h4>入门：AI选品 + 标题 + 详情页</h4>
+  <ul>
+    <li><strong>AI选品四步法：</strong>①数据源对接（生意参谋市场洞察/抖音罗盘行业数据/拼多多热搜词）→②AI分析趋势（哪些品类搜索量上升/哪些在掉）→③交叉验证（数据趋势 × 供应链可行性 × 利润率）→④AI生成选品报告</li>
+    <li><strong>消费者洞察嵌入：</strong>选品本质是选"人"不是选"品"。分析竞品评论区高频词 = 消费者需求；分析搜索词 = 消费者痛点；分析竞品差评 = 市场空白 <span class="tag rec">这是5B消费者洞察的实战化</span></li>
+    <li><strong>标题优化公式：</strong>核心词 + 属性词 + 场景词 + 人群词 + 品牌词。例如"【海风优选】便携挂烫机 迷你出差手持熨斗 小型家用宿舍蒸汽电熨斗"。AI生成10版→人工筛选3版→AB测试1周→锁定最优版</li>
+    <li><strong>详情页AI化：</strong>AI提取产品卖点→按"痛点-解决方案-产品优势-信任背书-行动号召"结构化→配图标注位置→批量生成→人工校对</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h4>进阶：定价 + 库存 + 竞品监控</h4>
+  <ul>
+    <li><strong>动态定价模型：</strong>基于竞品价格 + 自身成本 + 转化率弹性，AI给出建议价。不是"AI定价"，是"AI建议→人决策"</li>
+    <li><strong>库存预测：</strong>用过去90天的销量数据 + 大促日历 + 季节性因子，AI预测未来30天各SKU的销量，指导备货。关键：AI不知道供应链突然断了，必须人工复核</li>
+    <li><strong>竞品自动化监控：</strong>Python脚本定时爬竞品价格/主图/标题/销量变化→AI分析变化趋势→发现竞品降价/换主图/上新→自动推送到飞书/钉钉</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h4>实战：全链路闭环</h4>
+  <ul>
+    <li><strong>全链路 = 选品→视觉→上架→推广→客服→复购。</strong>每个环节AI化后串联起来，实现"一个新品从选品到复购，AI参与每个节点的建议或执行"</li>
+    <li><strong>效率提升衡量：</strong>选品时间（人天） / 上架时间 / 客服响应时间 / 复购率。上线前后各测一周，对比差值</li>
+    <li><strong>踩坑清单：</strong>①AI全取代→效果差→要人机协作 ②只看效率不看效果→为了快牺牲转化 ③数据没打通→各环节数据孤岛，AI只能局部优化</li>
+  </ul>
+</div>
+
+<div class="resources">
+  <h4>2F 学习资源</h4>
+  <ul>
+    <li>生意参谋/抖店罗盘的官方教程 — 读懂数据是所有运营AI化的前提</li>
+    <li>Python + 电商API 实战 — 用代码自动化你原来手工做的事</li>
+    <li>关注3-5个做得好的AI电商案例 — 不是看"别人做了AI"，是看"别人用AI解决了什么具体问题"</li>
+  </ul>
+</div>
+
+</div>
+
+<!-- ==================== PHASE 3 ==================== -->
+<div class="section">
+<h2>Phase 3：闭环体系化</h2>
+
+<h3 class="phase3" id="p3.1">3.1 数据闭环</h3>
+
+<div class="card">
+  <h4>落地效果测量框架</h4>
+  <ul>
+    <li><strong>每个场景的核心KPI（不可再简化版）：</strong>
+      <table>
+        <tr><th>场景</th><th>效率指标</th><th>质量指标</th><th>商业指标</th></tr>
+        <tr><td>2A 文生图</td><td>单图耗时</td><td>主图CTR</td><td>图均成本</td></tr>
+        <tr><td>2B 文生视频</td><td>单视频耗时</td><td>完播率</td><td>素材CTR</td></tr>
+        <tr><td>2C 智能客服</td><td>响应时间</td><td>满意度</td><td>转人工率</td></tr>
+        <tr><td>2D 直播运营</td><td>视频产出数</td><td>停留时长</td><td>GPM</td></tr>
+        <tr><td>2E 数字人</td><td>挂机时长</td><td>场观</td><td>ROI</td></tr>
+        <tr><td>2F 电商运营</td><td>上架速度</td><td>CVR</td><td>全链路效率</td></tr>
+      </table>
+    </li>
+    <li><strong>数据看板搭建：</strong>用飞书多维表格/Google Sheets + API自动拉数据 + 条件格式自动标红/绿。每天打开一眼看到哪些指标红了</li>
+  </ul>
+</div>
+
+<h3 class="phase3" id="p3.2">3.2 ROI 核算</h3>
+
+<div class="card">
+  <h4>ROI 计算模板</h4>
+  <ul>
+    <li><strong>公式：ROI = (AI带来的增量价值 - AI成本) / AI成本</strong></li>
+    <li><strong>增量价值 ≠ 省了多少人工。</strong>AI 24小时在线的增量、AI批量的增量、AI从0到1做新场景的增量，都要算进去</li>
+    <li><strong>不可量化的价值也要列出来：</strong>响应速度提升、品牌调性统一、团队AI能力积累、客户体验优化</li>
+  </ul>
+  <div class="formula">
+    # 2A 文生图月ROI
+    月增量价值 = (AI出图数 - 原人工出图数) × 单图价值 + 省掉的拍摄费用
+    AI月成本 = API调用费 + 本地GPU电费 + 人均操作时间
+    月ROI = (月增量价值 - AI月成本) / AI月成本
+
+    # 示例
+    月增量价值 = (500图-200图)×20元 + 省拍摄费5000元 = 11000元
+    AI月成本 = 200元API + 300元电费 + 50小时×50元 = 3000元
+    月ROI = (11000-3000)/3000 = 2.67（投资1元回报2.67元）
+  </div>
+</div>
+
+<h3 class="phase3" id="p3.3">3.3 流程标准化（SOP）</h3>
+
+<div class="card">
+  <h4>SOP 标准模板</h4>
+  <ul>
+    <li><strong>SOP必备要素：</strong>①前置条件（开始前需要什么）②操作步骤（每一步做什么+截图/录屏）③常见问题（FAQ）④交付标准（做到什么程度算完成）⑤检查清单</li>
+    <li><strong>2A文生图SOP示例结构：</strong>环境准备（SD已启动+模型已加载）→接收需求（SKU编号+品类+风格要求）→生成（Prompt模板+生成5张）→质检（按4项标准打分）→输出（命名+归档+上传）</li>
+    <li><strong>SOP不是写一次就完的。</strong>每次操作发现有更好的方法，立即更新SOP。SOP就像代码，需要维护和迭代</li>
+  </ul>
+</div>
+
+</div>
+
+<!-- ===== 底部 ===== -->
+<div style="margin-top:48px; padding:20px; background:var(--card); border:1px solid var(--border); border-radius:8px; font-size:13px; color:var(--dim);">
+  <strong style="color:var(--text);">使用建议</strong><br>
+  1. 这份手册对应海风FDE路线图的每个模块，按 Phase 1→2→3 顺序学习即可<br>
+  2. 每个模块学完后，回到路线图检查考核标准是否达标<br>
+  3. 手册中的"实战示例"是最重要的部分——边看边动手，不要只看不动<br>
+  4. 工具会变，方法论不会。重点关注"为什么这样做"而非"用什么工具做"
+</div>
+
+</body>
+</html>

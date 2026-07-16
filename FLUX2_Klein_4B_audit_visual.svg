@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 940" width="100%">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+<rect x="30" y="20" width="620" height="38" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="340" y="39" text-anchor="middle" font-size="15" font-weight="500" fill="#3C3489" dominant-baseline="central">Flux.2 Klein 4B LoRA 训练方案 · 审核报告</text>
+<text x="340" y="52" text-anchor="middle" font-size="11" fill="#534AB7" dominant-baseline="central">信源优先级：HuggingFace > diffusers > NVIDIA > DeepWiki > AI-Toolkit</text>
+
+<rect x="30" y="68" width="300" height="30" rx="6" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+<text x="180" y="83" text-anchor="middle" font-size="13" font-weight="500" fill="#791F1F" dominant-baseline="central">P0 严重问题（4项）</text>
+
+<rect x="340" y="68" width="300" height="30" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+<text x="490" y="83" text-anchor="middle" font-size="13" font-weight="500" fill="#633806" dominant-baseline="central">P1 重要问题（4项）</text>
+
+<rect x="30" y="104" width="300" height="76" rx="8" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+<text x="180" y="120" text-anchor="middle" font-size="12" font-weight="500" fill="#791F1F" dominant-baseline="central">1. 训练工具推荐错误</text>
+<text x="46" y="137" font-size="11" fill="#A32D2D" dominant-baseline="central">文档推荐 AI-Toolkit，但 AI-Toolkit config</text>
+<text x="46" y="152" font-size="11" fill="#A32D2D" dominant-baseline="central">针对 ostris/Flex.2-preview（社区模型）</text>
+<text x="46" y="167" font-size="11" fill="#A32D2D" dominant-baseline="central">而 diffusers 有原生 FLUX.2 Klein 支持</text>
+
+<rect x="340" y="104" width="300" height="76" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+<text x="490" y="120" text-anchor="middle" font-size="12" font-weight="500" fill="#633806" dominant-baseline="central">5. 训练步数偏高</text>
+<text x="356" y="137" font-size="11" fill="#854F0B" dominant-baseline="central">文档 2000-3000 步，官方示例 500 步</text>
+<text x="356" y="152" font-size="11" fill="#854F0B" dominant-baseline="central">120 张图建议压缩至 800-1500 步</text>
+<text x="356" y="167" font-size="11" fill="#854F0B" dominant-baseline="central">配合 Weight Decay + Caption Dropout</text>
+
+<rect x="30" y="186" width="300" height="76" rx="8" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+<text x="180" y="202" text-anchor="middle" font-size="12" font-weight="500" fill="#791F1F" dominant-baseline="central">2. 模型变体混淆</text>
+<text x="46" y="219" font-size="11" fill="#A32D2D" dominant-baseline="central">FLUX.2 Klein 4B 有蒸馏版(Distilled)和</text>
+<text x="46" y="234" font-size="11" fill="#A32D2D" dominant-baseline="central">基础版(Base)两个变体。LoRA 训练</text>
+<text x="46" y="249" font-size="11" fill="#A32D2D" dominant-baseline="central">必须使用 Base 版，蒸馏版不支持</text>
+
+<rect x="340" y="186" width="300" height="76" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+<text x="490" y="202" text-anchor="middle" font-size="12" font-weight="500" fill="#633806" dominant-baseline="central">6. 缺失必须参数</text>
+<text x="356" y="219" font-size="11" fill="#854F0B" dominant-baseline="central">缺少 --cache_latents（预编码 VAE）</text>
+<text x="356" y="234" font-size="11" fill="#854F0B" dominant-baseline="central">缺少 --guidance_scale=1</text>
+<text x="356" y="249" font-size="11" fill="#854F0B" dominant-baseline="central">这两个参数官方训练命令明确指定</text>
+
+<rect x="30" y="268" width="300" height="76" rx="8" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+<text x="180" y="284" text-anchor="middle" font-size="12" font-weight="500" fill="#791F1F" dominant-baseline="central">3. 模型 ID 错误</text>
+<text x="46" y="301" font-size="11" fill="#A32D2D" dominant-baseline="central">文档写 FLUX.2-klein-4B 指向蒸馏版</text>
+<text x="46" y="316" font-size="11" fill="#A32D2D" dominant-baseline="central">训练应使用 FLUX.2-klein-base-4B</text>
+<text x="46" y="331" font-size="11" fill="#A32D2D" dominant-baseline="central">蒸馏版固定 guidance=1.0 / 4步推理</text>
+
+<rect x="340" y="268" width="300" height="76" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+<text x="490" y="284" text-anchor="middle" font-size="12" font-weight="500" fill="#633806" dominant-baseline="central">7. Rank 表述模糊</text>
+<text x="356" y="301" font-size="11" fill="#854F0B" dominant-baseline="central">文档写 Rank=16（或32）表述模糊</text>
+<text x="356" y="316" font-size="11" fill="#854F0B" dominant-baseline="central">官方命令默认 Rank=16</text>
+<text x="356" y="331" font-size="11" fill="#854F0B" dominant-baseline="central">4B 参数量 Rank=16 足够捕获特征</text>
+
+<rect x="30" y="350" width="300" height="76" rx="8" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+<text x="180" y="366" text-anchor="middle" font-size="12" font-weight="500" fill="#791F1F" dominant-baseline="central">4. 训练精度建议错误</text>
+<text x="46" y="383" font-size="11" fill="#A32D2D" dominant-baseline="central">文档建议 bf16，官方命令明确使用</text>
+<text x="46" y="398" font-size="11" fill="#A32D2D" dominant-baseline="central">--do_fp8_training 推荐 FP8</text>
+<text x="46" y="413" font-size="11" fill="#A32D2D" dominant-baseline="central">bf16 理论上行但无官方验证</text>
+
+<rect x="340" y="350" width="300" height="76" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+<text x="490" y="366" text-anchor="middle" font-size="12" font-weight="500" fill="#633806" dominant-baseline="central">8. VRAM 数据低估</text>
+<text x="356" y="383" font-size="11" fill="#854F0B" dominant-baseline="central">文档写"整权重约 8GB"仅计扩散部分</text>
+<text x="356" y="398" font-size="11" fill="#854F0B" dominant-baseline="central">含 Qwen3-4B 文本编码器总计约 16GB</text>
+<text x="356" y="413" font-size="11" fill="#854F0B" dominant-baseline="central">FP16 推理 ~13GB，5090D(24GB)仍有余量</text>
+
+<rect x="30" y="442" width="620" height="30" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="340" y="457" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C" dominant-baseline="central">核心参数修正对比</text>
+
+<rect x="30" y="478" width="200" height="44" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="130" y="500" text-anchor="middle" font-size="12" font-weight="500" fill="#444441" dominant-baseline="central">参数</text>
+
+<rect x="235" y="478" width="200" height="44" rx="6" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+<text x="335" y="500" text-anchor="middle" font-size="12" font-weight="500" fill="#791F1F" dominant-baseline="central">旧文档（错误）</text>
+
+<rect x="440" y="478" width="210" height="44" rx="6" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+<text x="545" y="500" text-anchor="middle" font-size="12" font-weight="500" fill="#27500A" dominant-baseline="central">修正后（正确）</text>
+
+<rect x="30" y="526" width="200" height="34" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.3"/>
+<text x="130" y="543" text-anchor="middle" font-size="12" fill="#444441" dominant-baseline="central">训练工具</text>
+<rect x="235" y="526" width="200" height="34" rx="4" fill="#FCEBEB" stroke="#F09595" stroke-width="0.3"/>
+<text x="335" y="543" text-anchor="middle" font-size="12" fill="#791F1F" dominant-baseline="central">AI-Toolkit</text>
+<rect x="440" y="526" width="210" height="34" rx="4" fill="#EAF3DE" stroke="#97C459" stroke-width="0.3"/>
+<text x="545" y="543" text-anchor="middle" font-size="12" fill="#27500A" dominant-baseline="central">diffusers（首选）</text>
+
+<rect x="30" y="564" width="200" height="34" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.3"/>
+<text x="130" y="581" text-anchor="middle" font-size="12" fill="#444441" dominant-baseline="central">模型 ID</text>
+<rect x="235" y="564" width="200" height="34" rx="4" fill="#FCEBEB" stroke="#F09595" stroke-width="0.3"/>
+<text x="335" y="581" text-anchor="middle" font-size="12" fill="#791F1F" dominant-baseline="central">-klein-4B（蒸馏版）</text>
+<rect x="440" y="564" width="210" height="34" rx="4" fill="#EAF3DE" stroke="#97C459" stroke-width="0.3"/>
+<text x="545" y="581" text-anchor="middle" font-size="12" fill="#27500A" dominant-baseline="central">-klein-base-4B</text>
+
+<rect x="30" y="602" width="200" height="34" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.3"/>
+<text x="130" y="619" text-anchor="middle" font-size="12" fill="#444441" dominant-baseline="central">Rank</text>
+<rect x="235" y="602" width="200" height="34" rx="4" fill="#FAEEDA" stroke="#FAC775" stroke-width="0.3"/>
+<text x="335" y="619" text-anchor="middle" font-size="12" fill="#633806" dominant-baseline="central">32（或16）模糊</text>
+<rect x="440" y="602" width="210" height="34" rx="4" fill="#EAF3DE" stroke="#97C459" stroke-width="0.3"/>
+<text x="545" y="619" text-anchor="middle" font-size="12" fill="#27500A" dominant-baseline="central">16（官方默认）</text>
+
+<rect x="30" y="640" width="200" height="34" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.3"/>
+<text x="130" y="657" text-anchor="middle" font-size="12" fill="#444441" dominant-baseline="central">学习率</text>
+<rect x="235" y="640" width="200" height="34" rx="4" fill="#FCEBEB" stroke="#F09595" stroke-width="0.3"/>
+<text x="335" y="657" text-anchor="middle" font-size="12" fill="#791F1F" dominant-baseline="central">1e-3（针对32B模型）</text>
+<rect x="440" y="640" width="210" height="34" rx="4" fill="#EAF3DE" stroke="#97C459" stroke-width="0.3"/>
+<text x="545" y="657" text-anchor="middle" font-size="12" fill="#27500A" dominant-baseline="central">1e-4</text>
+
+<rect x="30" y="678" width="200" height="34" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.3"/>
+<text x="130" y="695" text-anchor="middle" font-size="12" fill="#444441" dominant-baseline="central">训练精度</text>
+<rect x="235" y="678" width="200" height="34" rx="4" fill="#FCEBEB" stroke="#F09595" stroke-width="0.3"/>
+<text x="335" y="695" text-anchor="middle" font-size="12" fill="#791F1F" dominant-baseline="central">bf16</text>
+<rect x="440" y="678" width="210" height="34" rx="4" fill="#EAF3DE" stroke="#97C459" stroke-width="0.3"/>
+<text x="545" y="695" text-anchor="middle" font-size="12" fill="#27500A" dominant-baseline="central">FP8（官方推荐）</text>
+
+<rect x="30" y="716" width="200" height="34" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.3"/>
+<text x="130" y="733" text-anchor="middle" font-size="12" fill="#444441" dominant-baseline="central">训练步数</text>
+<rect x="235" y="716" width="200" height="34" rx="4" fill="#FAEEDA" stroke="#FAC775" stroke-width="0.3"/>
+<text x="335" y="733" text-anchor="middle" font-size="12" fill="#633806" dominant-baseline="central">2000-3000（偏高）</text>
+<rect x="440" y="716" width="210" height="34" rx="4" fill="#EAF3DE" stroke="#97C459" stroke-width="0.3"/>
+<text x="545" y="733" text-anchor="middle" font-size="12" fill="#27500A" dominant-baseline="central">800-1500</text>
+
+<rect x="30" y="754" width="200" height="34" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.3"/>
+<text x="130" y="771" text-anchor="middle" font-size="12" fill="#444441" dominant-baseline="central">120张图处理</text>
+<rect x="235" y="754" width="200" height="34" rx="4" fill="#FAEEDA" stroke="#FAC775" stroke-width="0.3"/>
+<text x="335" y="771" text-anchor="middle" font-size="12" fill="#633806" dominant-baseline="central">压缩到40-60张</text>
+<rect x="440" y="754" width="210" height="34" rx="4" fill="#EAF3DE" stroke="#97C459" stroke-width="0.3"/>
+<text x="545" y="771" text-anchor="middle" font-size="12" fill="#27500A" dominant-baseline="central">全量训（推荐范围内）</text>
+
+<rect x="30" y="804" width="620" height="30" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="340" y="819" text-anchor="middle" font-size="13" font-weight="500" fill="#3C3489" dominant-baseline="central">修正后执行流程</text>
+
+<rect x="40" y="844" width="112" height="52" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+<text x="96" y="862" text-anchor="middle" font-size="11" font-weight="500" fill="#0C447C" dominant-baseline="central">装 diffusers</text>
+<text x="96" y="878" text-anchor="middle" font-size="11" fill="#185FA5" dominant-baseline="central">训练依赖</text>
+
+<path d="M152 870 L162 870" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+<rect x="164" y="844" width="112" height="52" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+<text x="220" y="862" text-anchor="middle" font-size="11" font-weight="500" fill="#0C447C" dominant-baseline="central">下载基座模型</text>
+<text x="220" y="878" text-anchor="middle" font-size="11" fill="#185FA5" dominant-baseline="central">klein-base-4B</text>
+
+<path d="M276 870 L286 870" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+<rect x="288" y="844" width="112" height="52" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+<text x="344" y="862" text-anchor="middle" font-size="11" font-weight="500" fill="#0C447C" dominant-baseline="central">编训练脚本</text>
+<text x="344" y="878" text-anchor="middle" font-size="11" fill="#185FA5" dominant-baseline="central">Rank=16 / FP8</text>
+
+<path d="M400 870 L410 870" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+<rect x="412" y="844" width="112" height="52" rx="8" fill="#CECBF6" stroke="#534AB7" stroke-width="0.5"/>
+<text x="468" y="862" text-anchor="middle" font-size="11" font-weight="500" fill="#3C3489" dominant-baseline="central">先跑知性简约</text>
+<text x="468" y="878" text-anchor="middle" font-size="11" fill="#534AB7" dominant-baseline="central">120张 / 30-45min</text>
+
+<path d="M524 870 L534 870" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+<rect x="536" y="844" width="104" height="52" rx="8" fill="#FBEAF0" stroke="#D4537E" stroke-width="0.5"/>
+<text x="588" y="862" text-anchor="middle" font-size="11" font-weight="500" fill="#72243E" dominant-baseline="central">推理测试</text>
+<text x="588" y="878" text-anchor="middle" font-size="11" fill="#993556" dominant-baseline="central">你来验收</text>
+</svg>

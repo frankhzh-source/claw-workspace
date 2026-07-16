@@ -1,0 +1,73 @@
+<svg viewBox="0 0 680 480" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" style="background:transparent;font-family:sans-serif;">
+  <title>LoRA本地模型对接AI素材工作台三层架构</title>
+  <desc>展示三层架构：PRD平台层 → 模型通道适配器 → LoRA本地推理服务，以及PRD四大任务类型映射到L1/L2/L3的对应关系</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arr_green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#0F6E56" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arr_back" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#D85A30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <text x="340" y="28" text-anchor="middle" font-size="15" font-weight="500" fill="#2C2C2A">LoRA本地模型对接AI素材工作台 — 架构总览</text>
+
+  <rect x="80" y="48" width="520" height="52" rx="10" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <text x="340" y="66" text-anchor="middle" font-size="14" font-weight="500" fill="#0C447C">1. AI素材工作台（平台方）</text>
+  <text x="340" y="84" text-anchor="middle" font-size="12" fill="#185FA5">上传商品 → 选参数 → 提交任务 → 看结果 → 评分 → 审核</text>
+
+  <rect x="340" y="106" width="140" height="22" rx="6" fill="#FAECE7" stroke="#D85A30" stroke-width="0.5"/>
+  <text x="410" y="121" text-anchor="middle" font-size="11" fill="#993C1D">POST /generate</text>
+
+  <line x1="340" y1="100" x2="340" y2="134" stroke="#534AB7" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="80" y="140" width="520" height="52" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="340" y="158" text-anchor="middle" font-size="14" font-weight="500" fill="#3C3489">2. 模型通道适配器（中间层）</text>
+  <text x="340" y="176" text-anchor="middle" font-size="12" fill="#534AB7">统一接口 → 路由到你的本地模型 → 回调收结果</text>
+
+  <line x1="340" y1="192" x2="340" y2="226" stroke="#534AB7" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="340" y="198" width="140" height="22" rx="6" fill="#FAECE7" stroke="#D85A30" stroke-width="0.5"/>
+  <text x="410" y="213" text-anchor="middle" font-size="11" fill="#993C1D">POST /generate</text>
+
+  <rect x="80" y="232" width="520" height="52" rx="10" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text x="340" y="250" text-anchor="middle" font-size="14" font-weight="500" fill="#085041">3. 你的LoRA本地推理服务</text>
+  <text x="340" y="268" text-anchor="middle" font-size="12" fill="#0F6E56">FastAPI :5080 → 加载FLUX+LoRA → 推理 → 回调平台</text>
+
+  <path d="M600 256 Q650 256 650 170 Q650 150 600 150" fill="none" stroke="#D85A30" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr_back)"/>
+  <text x="656" y="210" font-size="11" fill="#993C1D" transform="rotate(90,656,210)">回调callback</text>
+
+  <line x1="40" y1="304" x2="640" y2="304" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4,4"/>
+
+  <text x="340" y="328" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A">你内部的4个模块</text>
+
+  <rect x="36" y="342" width="144" height="56" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+  <text x="108" y="360" text-anchor="middle" font-size="13" font-weight="500" fill="#633806">训练流水线</text>
+  <text x="108" y="380" text-anchor="middle" font-size="11" fill="#854F0B">L1+L2 LoRA训练</text>
+
+  <line x1="180" y1="370" x2="204" y2="370" stroke="#0F6E56" stroke-width="1.5" marker-end="url(#arr_green)"/>
+
+  <rect x="208" y="342" width="144" height="56" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text x="280" y="360" text-anchor="middle" font-size="13" font-weight="500" fill="#085041">模型仓库</text>
+  <text x="280" y="380" text-anchor="middle" font-size="11" fill="#0F6E56">.safetensors + manifest</text>
+
+  <line x1="352" y1="370" x2="376" y2="370" stroke="#0F6E56" stroke-width="1.5" marker-end="url(#arr_green)"/>
+
+  <rect x="380" y="342" width="144" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="452" y="360" text-anchor="middle" font-size="13" font-weight="500" fill="#3C3489">推理HTTP服务</text>
+  <text x="452" y="380" text-anchor="middle" font-size="11" fill="#534AB7">接收→推理→回调</text>
+
+  <line x1="524" y1="370" x2="548" y2="370" stroke="#0F6E56" stroke-width="1.5" marker-end="url(#arr_green)"/>
+
+  <rect x="552" y="342" width="104" height="56" rx="8" fill="#FBEAF0" stroke="#D4537E" stroke-width="0.5"/>
+  <text x="604" y="360" text-anchor="middle" font-size="13" font-weight="500" fill="#72243E">迭代优化</text>
+  <text x="604" y="380" text-anchor="middle" font-size="11" fill="#993556">审核→重训</text>
+
+  <line x1="40" y1="418" x2="640" y2="418" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4,4"/>
+
+  <text x="340" y="442" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A">PRD任务类型映射</text>
+  <text x="340" y="462" text-anchor="middle" font-size="12" fill="#5F5E5A">上身/三视图 → L2人物三视图 | 商品主图 → L3场景 | 详情图 → L3场景 | 细节图 → L3场景</text>
+</svg>

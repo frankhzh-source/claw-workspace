@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 780" width="100%">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <style>
+    .t{font-family:system-ui,-apple-system,sans-serif;font-size:14px;fill:#1f2937}
+    .ts{font-family:system-ui,-apple-system,sans-serif;font-size:12px;fill:#6b7280}
+    .th{font-family:system-ui,-apple-system,sans-serif;font-size:14px;font-weight:500;fill:#1f2937}
+  </style>
+</defs>
+<rect width="680" height="620" fill="white"/>
+<text class="th" x="340" y="30" text-anchor="middle">传统 LoRA 训练完整流程</text>
+<text class="ts" x="340" y="48" text-anchor="middle">Page 3 / 3 — Phase 4 测试 + Phase 5 交付 + 核心原则 + 参数速查</text>
+
+<!-- Phase 4 -->
+<rect x="40" y="70" width="600" height="170" rx="12" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+<text class="th" x="340" y="96" text-anchor="middle" fill="#185FA5">Phase 4  测试验证（最容易被跳过）</text>
+
+<rect x="56" y="112" width="280" height="56" rx="8" fill="#B5D4F4" stroke="#378ADD" stroke-width="0.5"/>
+<text class="th" x="196" y="134" text-anchor="middle" fill="#0C447C">推理测试</text>
+<text class="ts" x="196" y="152" text-anchor="middle" fill="#185FA5">每个检查点（CP）用统一 prompt 生成 8 张图</text>
+
+<rect x="352" y="112" width="260" height="56" rx="8" fill="#B5D4F4" stroke="#378ADD" stroke-width="0.5"/>
+<text class="th" x="482" y="134" text-anchor="middle" fill="#0C447C">五维评分筛选</text>
+<text class="ts" x="482" y="152" text-anchor="middle" fill="#185FA5">一致性 / 细节 / 背景 / 提示跟随 / 材质</text>
+
+<path d="M336 140 L352 140" stroke="#378ADD" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+<rect x="56" y="182" width="550" height="44" rx="8" fill="#85B7EB" stroke="#378ADD" stroke-width="0.5"/>
+<text class="th" x="331" y="200" text-anchor="middle" fill="#0C447C">选优流程</text>
+<text class="ts" x="331" y="218" text-anchor="middle" fill="#0F6E56">每个 CP 生成 8 张 → 五维打分 → 选总分最高的权重</text>
+
+<!-- Arrow Phase 4→5 -->
+<path d="M340 246 L340 270" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrow)" fill="none"/>
+
+<!-- Phase 5 -->
+<rect x="40" y="280" width="600" height="130" rx="12" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+<text class="th" x="340" y="306" text-anchor="middle" fill="#3B6D11">Phase 5  交付与迭代</text>
+
+<rect x="56" y="322" width="175" height="56" rx="8" fill="#C0DD97" stroke="#639922" stroke-width="0.5"/>
+<text class="th" x="143" y="344" text-anchor="middle" fill="#27500A">权重归档</text>
+<text class="ts" x="143" y="362" text-anchor="middle" fill="#3B6D11">最优 .safetensors 备份</text>
+
+<rect x="247" y="322" width="175" height="56" rx="8" fill="#C0DD97" stroke="#639922" stroke-width="0.5"/>
+<text class="th" x="334" y="344" text-anchor="middle" fill="#27500A">参数可复现</text>
+<text class="ts" x="334" y="362" text-anchor="middle" fill="#3B6D11">保留完整 config.yaml</text>
+
+<rect x="438" y="322" width="175" height="56" rx="8" fill="#C0DD97" stroke="#639922" stroke-width="0.5"/>
+<text class="th" x="525" y="344" text-anchor="middle" fill="#27500A">训练日志</text>
+<text class="ts" x="525" y="362" text-anchor="middle" fill="#3B6D11">loss 曲线 + 踩坑记录</text>
+
+<path d="M231 350 L247 350" stroke="#639922" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+<path d="M422 350 L438 350" stroke="#639922" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+<!-- Core principle -->
+<rect x="40" y="430" width="600" height="70" rx="12" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+<text class="th" x="340" y="454" text-anchor="middle" fill="#A32D2D">核心原则：局部完成 ≠ 整体完成</text>
+<text class="ts" x="340" y="476" text-anchor="middle" fill="#A32D2D">定标准 → 逐级验收 → 通过 → 下一步 — 跳过任一阶段 = 返工</text>
+
+<!-- Params -->
+<rect x="40" y="516" width="600" height="160" rx="12" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text class="th" x="340" y="540" text-anchor="middle" fill="#444441">训练参数速查（FLUX LoRA）</text>
+
+<rect x="56" y="554" width="275" height="26" rx="6" fill="#D3D1C7" stroke="#888780" stroke-width="0.3"/>
+<text class="ts" x="60" y="572" fill="#444441">resolution: 1024x1024</text>
+
+<rect x="345" y="554" width="275" height="26" rx="6" fill="#D3D1C7" stroke="#888780" stroke-width="0.3"/>
+<text class="ts" x="349" y="572" fill="#444441">batch_size: 2-4</text>
+
+<rect x="56" y="586" width="275" height="26" rx="6" fill="#D3D1C7" stroke="#888780" stroke-width="0.3"/>
+<text class="ts" x="60" y="604" fill="#444441">learning_rate: 1e-4</text>
+
+<rect x="345" y="586" width="275" height="26" rx="6" fill="#D3D1C7" stroke="#888780" stroke-width="0.3"/>
+<text class="ts" x="349" y="604" fill="#444441">lr_scheduler: cosine</text>
+
+<rect x="56" y="618" width="275" height="26" rx="6" fill="#D3D1C7" stroke="#888780" stroke-width="0.3"/>
+<text class="ts" x="60" y="636" fill="#444441">train_steps: 800-2000</text>
+
+<rect x="345" y="618" width="275" height="26" rx="6" fill="#D3D1C7" stroke="#888780" stroke-width="0.3"/>
+<text class="ts" x="349" y="636" fill="#444441">rank: 32-64</text>
+
+<rect x="56" y="650" width="275" height="26" rx="6" fill="#D3D1C7" stroke="#888780" stroke-width="0.3"/>
+<text class="ts" x="60" y="668" fill="#444441">optimizer: AdamW8bit</text>
+
+<rect x="345" y="650" width="275" height="26" rx="6" fill="#D3D1C7" stroke="#888780" stroke-width="0.3"/>
+<text class="ts" x="349" y="668" fill="#444441">precision: bf16</text>
+
+<!-- Author full block -->
+<rect x="40" y="690" width="600" height="56" rx="8" fill="white" stroke="#D3D1C7" stroke-width="0.3"/>
+<text class="ts" x="340" y="714" text-anchor="middle" fill="#5F5E5A">作者信息</text>
+<text class="th" x="340" y="734" text-anchor="middle" fill="#444441">海风老师 | AI技术咨询 / LoRA模型训练 / 电商AI落地</text>
+<text class="ts" x="340" y="756" text-anchor="middle" fill="#888780">微信：frankhzheng</text>
+</svg>

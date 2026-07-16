@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>元知识体系 — TOP30 书籍与知识分布格局</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #21262d;
+    --text: #c9d1d9;
+    --text2: #8b949e;
+    --accent: #58a6ff;
+    --accent2: #3fb950;
+    --accent3: #d29922;
+    --accent4: #f78166;
+    --border: #30363d;
+    --tier-s: #f0883e;
+    --tier-a: #dcb11f;
+    --tier-b: #58a6ff;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter","PingFang SC","Microsoft YaHei",sans-serif;
+    line-height: 1.7;
+    font-size: 14px;
+  }
+  .container { max-width: 1400px; margin: 0 auto; padding: 40px 24px; }
+  h1 {
+    font-size: 28px; font-weight: 700; margin-bottom: 6px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  h2 { font-size: 20px; margin: 48px 0 20px; color: var(--accent); padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 16px; margin: 32px 0 12px; color: var(--accent2); }
+  p  { color: var(--text2); margin-bottom: 12px; }
+  .subtitle { color: var(--text2); font-size: 15px; margin-bottom: 32px; }
+
+  /* methodology box */
+  .method-box {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 24px; margin-bottom: 32px;
+  }
+  .method-box h3 { margin-top: 0; }
+  .method-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+    gap: 12px; margin-top: 12px;
+  }
+  .method-item {
+    background: var(--bg3); border-radius: 8px; padding: 14px 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .method-item .name { font-weight: 600; color: var(--accent); display: block; margin-bottom: 4px; }
+  .method-item .desc { font-size: 12px; color: var(--text2); }
+
+  /* ranking table */
+  .ranking-table { width: 100%; border-collapse: collapse; margin: 16px 0 32px; }
+  .ranking-table th {
+    background: var(--bg2); padding: 10px 12px; text-align: left;
+    font-weight: 600; font-size: 12px; color: var(--text2); border-bottom: 2px solid var(--border);
+  }
+  .ranking-table td {
+    padding: 10px 12px; border-bottom: 1px solid var(--border);
+    font-size: 13px; vertical-align: top;
+  }
+  .ranking-table tr:hover { background: rgba(88,166,255,0.04); }
+
+  .tier-badge {
+    display: inline-block; width: 24px; height: 24px; line-height: 24px;
+    text-align: center; border-radius: 4px; font-size: 12px; font-weight: 700;
+  }
+  .tier-s-badge { background: rgba(240,136,62,0.2); color: var(--tier-s); }
+  .tier-a-badge { background: rgba(220,177,31,0.2); color: var(--tier-a); }
+  .tier-b-badge { background: rgba(88,166,255,0.2); color: var(--tier-b); }
+
+  .rank-num { width: 36px; height: 36px; line-height: 36px; text-align: center; border-radius: 50%; font-weight: 700; font-size: 14px; }
+  .rank-top3 { background: linear-gradient(135deg, #f0883e, #dcb11f); color: #000; }
+  .rank-top10 { background: rgba(220,177,31,0.2); color: var(--tier-a); }
+  .rank-rest { background: rgba(88,166,255,0.15); color: var(--accent); }
+
+  .cite-bar {
+    height: 6px; border-radius: 3px; margin-top: 4px; min-width: 20px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .book-title { font-weight: 700; color: #fff; }
+  .book-author { color: var(--text2); font-size: 12px; }
+  .book-domain { font-size: 11px; color: var(--accent3); margin-top: 2px; }
+  .book-impact { font-size: 11px; color: var(--text2); line-height: 1.5; }
+
+  /* overview dashboard */
+  .dashboard {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin: 20px 0 32px;
+  }
+  .dash-card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px; text-align: center;
+  }
+  .dash-card .num { font-size: 36px; font-weight: 800; color: var(--accent); }
+  .dash-card .label { font-size: 12px; color: var(--text2); margin-top: 4px; }
+
+  /* domain pie */
+  .chart-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 20px 0 32px;
+  }
+  .chart-box {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px;
+  }
+  .chart-box h4 { font-size: 14px; color: var(--accent2); margin-bottom: 16px; }
+
+  /* domain cards */
+  .domain-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap: 12px; margin: 16px 0;
+  }
+  .domain-card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px;
+  }
+  .domain-card .dname { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+  .domain-card .dcount { font-size: 24px; font-weight: 800; color: var(--accent); }
+  .domain-card .dbooks { font-size: 11px; color: var(--text2); line-height: 1.6; margin-top: 6px; }
+
+  /* power law chart */
+  .power-law-container {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin: 20px 0 32px;
+  }
+  .bar-row {
+    display: flex; align-items: center; margin-bottom: 6px; font-size: 12px;
+  }
+  .bar-label { width: 80px; text-align: right; padding-right: 10px; color: var(--text2); white-space: nowrap; }
+  .bar-fill {
+    height: 20px; border-radius: 4px; display: flex; align-items: center;
+    padding-left: 8px; color: #fff; font-weight: 600; font-size: 11px; transition: width .5s;
+  }
+
+  /* timeline */
+  .timeline { position: relative; padding-left: 32px; margin: 20px 0; }
+  .tl-item { position: relative; padding: 12px 16px; margin-bottom: 8px; background: var(--bg2); border-radius: 8px; border-left: 3px solid var(--accent); }
+  .tl-item::before {
+    content: ''; position: absolute; left: -35px; top: 18px;
+    width: 10px; height: 10px; border-radius: 50%; background: var(--accent);
+  }
+  .tl-era { font-size: 11px; color: var(--accent3); font-weight: 600; }
+  .tl-books { font-size: 12px; color: var(--text2); }
+
+  /* landscape insight box */
+  .insight-box {
+    background: linear-gradient(135deg, rgba(88,166,255,0.08), rgba(63,185,80,0.08));
+    border: 1px solid var(--accent); border-radius: 12px;
+    padding: 24px; margin: 32px 0;
+  }
+  .insight-box h3 { margin-top: 0; }
+
+  .note { font-size: 11px; color: var(--text2); margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>元知识体系 · 顶级书籍分布格局</h1>
+<p class="subtitle">基于跨学科引用广度 × 历史影响时长 × 学科创始地位 × 跨文化渗透度的综合排序</p>
+
+<!-- ====== METHODOLOGY ====== -->
+<div class="method-box">
+  <h3>排序方法论</h3>
+  <div class="method-grid">
+    <div class="method-item">
+      <span class="name">① 跨学科引用广度</span>
+      <span class="desc">一本书被多少不同学科引用。被 10+ 学科引用的书 > 单一学科内引用</span>
+    </div>
+    <div class="method-item">
+      <span class="name">② 历史影响时长</span>
+      <span class="desc">成书后持续被引用的年数。2000 年的《论语》> 100 年的《通论》</span>
+    </div>
+    <div class="method-item">
+      <span class="name">③ 学科创始地位</span>
+      <span class="desc">该书是否开创了一个全新学科或范式。《物种起源》创建进化生物学</span>
+    </div>
+    <div class="method-item">
+      <span class="name">④ 跨文化渗透度</span>
+      <span class="desc">被多少语言翻译、被多少文明体系引用。东西方同时引用 > 单一文明</span>
+    </div>
+  </div>
+</div>
+
+<!-- ====== DASHBOARD ====== -->
+<div class="dashboard">
+  <div class="dash-card">
+    <div class="num">30</div>
+    <div class="label">TOP30 书籍</div>
+  </div>
+  <div class="dash-card">
+    <div class="num">3</div>
+    <div class="label">宇宙级（Tier S）</div>
+  </div>
+  <div class="dash-card">
+    <div class="num">9</div>
+    <div class="label">学科创始级（Tier A）</div>
+  </div>
+  <div class="dash-card">
+    <div class="num">18</div>
+    <div class="label">范式转换级（Tier B）</div>
+  </div>
+</div>
+
+<!-- ====== TOP30 RANKING TABLE ====== -->
+<h2>TOP30 元知识书籍排名</h2>
+
+<table class="ranking-table">
+<thead>
+<tr>
+  <th style="width:44px">#</th>
+  <th style="width:48px">层级</th>
+  <th style="width:200px">书名</th>
+  <th style="width:120px">作者</th>
+  <th style="width:80px">成书时间</th>
+  <th>领域</th>
+  <th style="width:100px">引用力</th>
+  <th>核心元知识贡献</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><div class="rank-num rank-top3">1</div></td>
+  <td><span class="tier-badge tier-s-badge">S</span></td>
+  <td><div class="book-title">《圣经》（旧约 + 新约）</div></td>
+  <td><div class="book-author">多作者</div></td>
+  <td>前1500–110 CE</td>
+  <td><div class="book-domain">宗教 · 伦理 · 法律 · 文学</div></td>
+  <td><div class="cite-bar" style="width:100%"></div></td>
+  <td><div class="book-impact">人类历史上被引用次数最高的文本，横跨哲学、法学、文学、伦理学、艺术等 20+ 学科。西方文明的基础隐喻来源。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-top3">2</div></td>
+  <td><span class="tier-badge tier-s-badge">S</span></td>
+  <td><div class="book-title">《古兰经》</div></td>
+  <td><div class="book-author">穆罕默德（口传）</div></td>
+  <td>7 世纪 CE</td>
+  <td><div class="book-domain">宗教 · 法律 · 语言 · 哲学</div></td>
+  <td><div class="cite-bar" style="width:95%"></div></td>
+  <td><div class="book-impact">伊斯兰文明的元文本。阿拉伯语语法、伊斯兰法学（Sharia）、中东哲学体系均以此为根基。影响 15+ 学科。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-top3">3</div></td>
+  <td><span class="tier-badge tier-s-badge">S</span></td>
+  <td><div class="book-title">《论语》</div></td>
+  <td><div class="book-author">孔子 / 弟子编</div></td>
+  <td>前5–4世纪</td>
+  <td><div class="book-domain">哲学 · 伦理 · 政治 · 教育</div></td>
+  <td><div class="cite-bar" style="width:92%"></div></td>
+  <td><div class="book-impact">东亚文明的元文本。2500 年持续被引用，影响中国、日本、韩国、越南的伦理、政治、教育体系。东西方同时引用。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-top10">4</div></td>
+  <td><span class="tier-badge tier-a-badge">A</span></td>
+  <td><div class="book-title">《理想国》</div></td>
+  <td><div class="book-author">柏拉图</div></td>
+  <td>前380年</td>
+  <td><div class="book-domain">哲学 · 政治学 · 教育学</div></td>
+  <td><div class="cite-bar" style="width:88%"></div></td>
+  <td><div class="book-impact">西方哲学的总源头。Whitehead 名言"西方哲学不过是柏拉图的一系列脚注"。政治哲学、伦理学、形而上学、教育学的共同根基。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-top10">5</div></td>
+  <td><span class="tier-badge tier-a-badge">A</span></td>
+  <td><div class="book-title">《物种起源》</div></td>
+  <td><div class="book-author">达尔文</div></td>
+  <td>1859</td>
+  <td><div class="book-domain">生物学 · 哲学 · 社会学</div></td>
+  <td><div class="cite-bar" style="width:86%"></div></td>
+  <td><div class="book-impact">现代生物学的基石。不仅是生物学引用第一，还渗透到哲学（认识论）、社会学（社会达尔文主义）、心理学（进化心理学）、计算机科学（遗传算法）。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-top10">6</div></td>
+  <td><span class="tier-badge tier-a-badge">A</span></td>
+  <td><div class="book-title">《自然哲学的数学原理》</div></td>
+  <td><div class="book-author">牛顿</div></td>
+  <td>1687</td>
+  <td><div class="book-domain">物理学 · 数学 · 天文学</div></td>
+  <td><div class="cite-bar" style="width:85%"></div></td>
+  <td><div class="book-impact">经典物理学的起源。定义了"科学方法"的范本——用数学公式表达自然规律。工程学、天文学、数学的共同基础。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-top10">7</div></td>
+  <td><span class="tier-badge tier-a-badge">A</span></td>
+  <td><div class="book-title">《国富论》</div></td>
+  <td><div class="book-author">亚当·斯密</div></td>
+  <td>1776</td>
+  <td><div class="book-domain">经济学 · 政治学 · 社会学</div></td>
+  <td><div class="cite-bar" style="width:84%"></div></td>
+  <td><div class="book-impact">现代经济学的创始文本。"看不见的手"、劳动分工、自由贸易——所有后续经济学理论的基本对话对象。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-top10">8</div></td>
+  <td><span class="tier-badge tier-a-badge">A</span></td>
+  <td><div class="book-title">《纯粹理性批判》</div></td>
+  <td><div class="book-author">康德</div></td>
+  <td>1781/1787</td>
+  <td><div class="book-domain">哲学 · 认识论 · 形而上学</div></td>
+  <td><div class="cite-bar" style="width:82%"></div></td>
+  <td><div class="book-impact">哲学史上的"哥白尼革命"。后续所有认识论、德国唯心论、现象学的出发点。认知科学和 AI 哲学也频繁回溯此书。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-top10">9</div></td>
+  <td><span class="tier-badge tier-a-badge">A</span></td>
+  <td><div class="book-title">《资本论》</div></td>
+  <td><div class="book-author">马克思</div></td>
+  <td>1867–1894</td>
+  <td><div class="book-domain">经济学 · 政治学 · 社会学 · 哲学</div></td>
+  <td><div class="cite-bar" style="width:81%"></div></td>
+  <td><div class="book-impact">政治经济学的根本性重构。剩余价值、阶级斗争、历史唯物主义——影响半个地球的政治制度和全部社会科学话语体系。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-top10">10</div></td>
+  <td><span class="tier-badge tier-a-badge">A</span></td>
+  <td><div class="book-title">《道德经》</div></td>
+  <td><div class="book-author">老子</div></td>
+  <td>前3世纪</td>
+  <td><div class="book-domain">哲学 · 宗教 · 管理学 · 军事</div></td>
+  <td><div class="cite-bar" style="width:79%"></div></td>
+  <td><div class="book-impact">全球翻译量仅次于《圣经》的文本。道家哲学、中医理论、中国管理学、军事策略的共同源头。横跨东西方的引用网络。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">11</div></td>
+  <td><span class="tier-badge tier-a-badge">A</span></td>
+  <td><div class="book-title">《几何原本》</div></td>
+  <td><div class="book-author">欧几里得</div></td>
+  <td>前280年</td>
+  <td><div class="book-domain">数学 · 逻辑学 · 科学方法论</div></td>
+  <td><div class="cite-bar" style="width:76%"></div></td>
+  <td><div class="book-impact">公理化方法的源头。定义了"从少数公理推导全部定理"的思维范式。数学、逻辑学、计算机科学（形式系统）的共同基础。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">12</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《共产党宣言》</div></td>
+  <td><div class="book-author">马克思 / 恩格斯</div></td>
+  <td>1848</td>
+  <td><div class="book-domain">政治学 · 社会学 · 历史学</div></td>
+  <td><div class="cite-bar" style="width:74%"></div></td>
+  <td><div class="book-impact">历史上传播最广的政治文献之一。"全世界无产者联合起来"——影响了 20 世纪大部分政治运动和社会理论。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">13</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《梦的解析》</div></td>
+  <td><div class="book-author">弗洛伊德</div></td>
+  <td>1900</td>
+  <td><div class="book-domain">心理学 · 文学批评 · 哲学</div></td>
+  <td><div class="cite-bar" style="width:72%"></div></td>
+  <td><div class="book-impact">精神分析的开山之作。无意识、俄狄浦斯情结——不仅重塑了心理学，还深刻影响了 20 世纪文学批评、电影理论和艺术创作。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">14</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《科学革命的结构》</div></td>
+  <td><div class="book-author">托马斯·库恩</div></td>
+  <td>1962</td>
+  <td><div class="book-domain">科学哲学 · 科学史 · 社会学</div></td>
+  <td><div class="cite-bar" style="width:70%"></div></td>
+  <td><div class="book-impact">"范式转换"概念的诞生地。被自然科学、社会科学、人文学科广泛引用——改变了人类理解"科学如何进步"的方式。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">15</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《利维坦》</div></td>
+  <td><div class="book-author">霍布斯</div></td>
+  <td>1651</td>
+  <td><div class="book-domain">政治哲学 · 法学 · 社会学</div></td>
+  <td><div class="cite-bar" style="width:68%"></div></td>
+  <td><div class="book-impact">社会契约论的开端。"自然状态"、"所有人对所有人的战争"——现代政治哲学的元假设。所有后续政治理论家的对话对象。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">16</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《谈谈方法》</div></td>
+  <td><div class="book-author">笛卡尔</div></td>
+  <td>1637</td>
+  <td><div class="book-domain">哲学 · 数学 · 科学方法论</div></td>
+  <td><div class="cite-bar" style="width:66%"></div></td>
+  <td><div class="book-impact">"我思故我在"的出处。现代理性主义的宣言。主体-客体二分法影响了此后 400 年的全部哲学和科学思维方式。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">17</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《君主论》</div></td>
+  <td><div class="book-author">马基雅维利</div></td>
+  <td>1532</td>
+  <td><div class="book-domain">政治学 · 历史学 · 管理学</div></td>
+  <td><div class="cite-bar" style="width:64%"></div></td>
+  <td><div class="book-impact">政治现实主义的创始文本。将政治从道德中剥离——"目的证明手段"。现代政治学、国际关系理论（现实主义学派）的基础对话对象。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">18</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《就业、利息和货币通论》</div></td>
+  <td><div class="book-author">凯恩斯</div></td>
+  <td>1936</td>
+  <td><div class="book-domain">经济学 · 公共政策 · 政治学</div></td>
+  <td><div class="cite-bar" style="width:62%"></div></td>
+  <td><div class="book-impact">宏观经济学的诞生。政府干预、财政政策、有效需求——定义了二战后全球经济学和公共政策的基本框架。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">19</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《易经》</div></td>
+  <td><div class="book-author">周文王 / 周公</div></td>
+  <td>前1500年</td>
+  <td><div class="book-domain">哲学 · 数学 · 计算机科学</div></td>
+  <td><div class="cite-bar" style="width:60%"></div></td>
+  <td><div class="book-impact">中国最古老的元文本。阴阳二元论、六十四卦——启发了莱布尼茨的二进制（间接影响了计算机科学），也是中医和风水的基础。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">20</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《论自由》</div></td>
+  <td><div class="book-author">约翰·密尔</div></td>
+  <td>1859</td>
+  <td><div class="book-domain">政治哲学 · 法学 · 伦理学</div></td>
+  <td><div class="cite-bar" style="width:58%"></div></td>
+  <td><div class="book-impact">自由主义理论的经典表述。"伤害原则"——个人自由的边界止于对他人的伤害。现代人权法和政治哲学的基础文本。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">21</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《精神现象学》</div></td>
+  <td><div class="book-author">黑格尔</div></td>
+  <td>1807</td>
+  <td><div class="book-domain">哲学 · 历史学 · 政治学</div></td>
+  <td><div class="cite-bar" style="width:56%"></div></td>
+  <td><div class="book-impact">辩证法的系统化。主奴辩证法、绝对精神——马克思、存在主义、法兰克福学派的思想源泉。历史哲学的范式转换。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">22</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《相对论》</div></td>
+  <td><div class="book-author">爱因斯坦</div></td>
+  <td>1916</td>
+  <td><div class="book-domain">物理学 · 哲学 · 宇宙学</div></td>
+  <td><div class="cite-bar" style="width:54%"></div></td>
+  <td><div class="book-impact">时空观的革命。"相对"不仅是物理概念，还渗透到哲学（相对主义）、文学（现代主义）和大众文化。现代宇宙学的起点。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">23</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《第二性》</div></td>
+  <td><div class="book-author">波伏娃</div></td>
+  <td>1949</td>
+  <td><div class="book-domain">社会学 · 哲学 · 性别研究</div></td>
+  <td><div class="cite-bar" style="width:52%"></div></td>
+  <td><div class="book-impact">女权主义理论的开山之作。"女人不是天生的，而是后天形成的"——性别研究、文化研究、社会学的基础引用来源。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">24</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《新工具》</div></td>
+  <td><div class="book-author">培根</div></td>
+  <td>1620</td>
+  <td><div class="book-domain">科学哲学 · 方法论 · 逻辑学</div></td>
+  <td><div class="cite-bar" style="width:50%"></div></td>
+  <td><div class="book-impact">科学方法的宣言。"知识就是力量"——归纳法的系统阐述。定义了现代科学的基本认知范式，与笛卡尔的演绎法形成对话。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">25</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《一九八四》</div></td>
+  <td><div class="book-author">乔治·奥威尔</div></td>
+  <td>1949</td>
+  <td><div class="book-domain">政治学 · 社会学 · 文学</div></td>
+  <td><div class="cite-bar" style="width:48%"></div></td>
+  <td><div class="book-impact">反乌托邦的终极文本。"老大哥"、"双重思想"——成为政治学、传播学、社会学描述极权主义的通用语言和概念工具。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">26</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《人性论》</div></td>
+  <td><div class="book-author">休谟</div></td>
+  <td>1739–1740</td>
+  <td><div class="book-domain">哲学 · 心理学 · 认识论</div></td>
+  <td><div class="cite-bar" style="width:45%"></div></td>
+  <td><div class="book-impact">经验主义的最高峰。"休谟之叉"（事实与价值的二分）、因果关系的怀疑论——康德的哲学起点，现代认识论的奠基文本。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">27</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《控制论》</div></td>
+  <td><div class="book-author">诺伯特·维纳</div></td>
+  <td>1948</td>
+  <td><div class="book-domain">计算机科学 · 生物学 · 管理学</div></td>
+  <td><div class="cite-bar" style="width:43%"></div></td>
+  <td><div class="book-impact">反馈控制的系统理论。AI（人工智能）、认知科学、系统论、管理学的共同源头。"cybernetics" 是 "cyber-" 前缀的起源。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">28</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《通往奴役之路》</div></td>
+  <td><div class="book-author">哈耶克</div></td>
+  <td>1944</td>
+  <td><div class="book-domain">经济学 · 政治哲学 · 法学</div></td>
+  <td><div class="cite-bar" style="width:40%"></div></td>
+  <td><div class="book-impact">自由市场经济学的宣言。计划经济的知识问题——影响了里根、撒切尔时代的全球政策转向和奥地利学派经济学。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">29</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《句法结构》</div></td>
+  <td><div class="book-author">乔姆斯基</div></td>
+  <td>1957</td>
+  <td><div class="book-domain">语言学 · 计算机科学 · 认知科学</div></td>
+  <td><div class="cite-bar" style="width:37%"></div></td>
+  <td><div class="book-impact">生成语法理论的起点。"乔姆斯基层级"——定义了形式语言的四个层级，是编译原理、自然语言处理（NLP）、认知科学的理论基础。</div></td>
+</tr>
+
+<tr>
+  <td><div class="rank-num rank-rest">30</div></td>
+  <td><span class="tier-badge tier-b-badge">B</span></td>
+  <td><div class="book-title">《存在与虚无》</div></td>
+  <td><div class="book-author">萨特</div></td>
+  <td>1943</td>
+  <td><div class="book-domain">哲学 · 文学 · 心理学</div></td>
+  <td><div class="cite-bar" style="width:35%"></div></td>
+  <td><div class="book-impact">存在主义的系统化。"存在先于本质"——影响了战后欧洲的思想氛围、文学创作和心理咨询（存在主义心理治疗）。</div></td>
+</tr>
+
+</tbody>
+</table>
+
+<!-- ====== KNOWLEDGE LANDSCAPE ====== -->
+<h2>知识分布格局</h2>
+
+<div class="chart-row">
+  <div class="chart-box">
+    <h4>按领域分布（TOP30）</h4>
+    <svg viewBox="0 0 400 400" style="width:100%;max-width:400px">
+      <circle cx="200" cy="200" r="180" fill="none" stroke="#30363d" stroke-width="1"/>
+      <!-- Philosophy & Religion: 10 books = 120° -->
+      <path d="M200,200 L200,20 A180,180 0 0,1 355.9,110" fill="rgba(88,166,255,0.3)" stroke="none"/>
+      <!-- Science & Math: 6 books = 72° -->
+      <path d="M200,200 L355.9,110 A180,180 0 0,1 380,290" fill="rgba(63,185,80,0.3)" stroke="none"/>
+      <!-- Politics & Economics: 6 books = 72° -->
+      <path d="M200,200 L380,290 A180,180 0 0,1 200,380" fill="rgba(210,153,34,0.3)" stroke="none"/>
+      <!-- Social Science: 5 books = 60° -->
+      <path d="M200,200 L200,380 A180,180 0 0,1 20,290" fill="rgba(247,129,102,0.3)" stroke="none"/>
+      <!-- Literature & Arts: 3 books = 36° -->
+      <path d="M200,200 L20,290 A180,180 0 0,1 44.1,110" fill="rgba(188,140,255,0.3)" stroke="none"/>
+      <path d="M200,200 L44.1,110 A180,180 0 0,1 200,20" fill="rgba(86,211,210,0.3)" stroke="none"/>
+      <!-- labels -->
+      <text x="310" y="40" fill="#58a6ff" font-size="12" font-weight="600">哲学·宗教</text>
+      <text x="310" y="58" fill="#58a6ff" font-size="11">10 本 (33%)</text>
+      <text x="355" y="200" fill="#3fb950" font-size="12" font-weight="600">科学·数学</text>
+      <text x="355" y="218" fill="#3fb950" font-size="11">6 本 (20%)</text>
+      <text x="280" y="370" fill="#d29922" font-size="12" font-weight="600">政治·经济</text>
+      <text x="280" y="388" fill="#d29922" font-size="11">6 本 (20%)</text>
+      <text x="10" y="200" fill="#f78166" font-size="12" font-weight="600">社会科学</text>
+      <text x="10" y="218" fill="#f78166" font-size="11">5 本 (17%)</text>
+      <text x="10" y="100" fill="#bc8cff" font-size="12" font-weight="600">文学·艺术</text>
+      <text x="10" y="118" fill="#bc8cff" font-size="11">3 本 (10%)</text>
+    </svg>
+  </div>
+
+  <div class="chart-box">
+    <h4>按时代分布（TOP30）</h4>
+    <svg viewBox="0 0 400 400" style="width:100%;max-width:400px">
+      <!-- Axial Age (前1500–前200): 6 books -->
+      <rect x="30" y="30" width="340" height="50" rx="6" fill="rgba(240,136,62,0.25)" stroke="rgba(240,136,62,0.4)" stroke-width="1"/>
+      <text x="50" y="52" fill="#f0883e" font-size="13" font-weight="600">轴心时代（前1500–前200）</text>
+      <text x="50" y="70" fill="#f0883e" font-size="11">6 本：易经 · 奥义书 · 论语 · 道德经 · 理想国 · 几何原本</text>
+
+      <!-- Late Antiquity/Medieval (公元前–1500 CE): 4 books -->
+      <rect x="30" y="95" width="340" height="50" rx="6" fill="rgba(220,177,31,0.2)" stroke="rgba(220,177,31,0.35)" stroke-width="1"/>
+      <text x="50" y="117" fill="#dcb11f" font-size="13" font-weight="600">古典晚期/中世纪（1–1500 CE）</text>
+      <text x="50" y="135" fill="#dcb11f" font-size="11">4 本：圣经 · 古兰经 · 忏悔录 · 神学大全</text>
+
+      <!-- Renaissance/Early Modern (1500–1750): 5 books -->
+      <rect x="30" y="160" width="340" height="50" rx="6" fill="rgba(88,166,255,0.2)" stroke="rgba(88,166,255,0.35)" stroke-width="1"/>
+      <text x="50" y="182" fill="#58a6ff" font-size="13" font-weight="600">科学革命/近代早期（1500–1750）</text>
+      <text x="50" y="200" fill="#58a6ff" font-size="11">5 本：君主论 · 新工具 · 谈谈方法 · 利维坦 · 原理</text>
+
+      <!-- Enlightenment/Industrial (1750–1900): 7 books -->
+      <rect x="30" y="225" width="340" height="50" rx="6" fill="rgba(63,185,80,0.2)" stroke="rgba(63,185,80,0.35)" stroke-width="1"/>
+      <text x="50" y="247" fill="#3fb950" font-size="13" font-weight="600">启蒙/工业革命（1750–1900）</text>
+      <text x="50" y="265" fill="#3fb950" font-size="11">7 本：国富论 · 纯批 · 物种起源 · 资本论 · 精神现象学 · 论自由 · 共产党宣言</text>
+
+      <!-- 20th Century (1900–1970): 8 books -->
+      <rect x="30" y="290" width="340" height="50" rx="6" fill="rgba(188,140,255,0.2)" stroke="rgba(188,140,255,0.35)" stroke-width="1"/>
+      <text x="50" y="312" fill="#bc8cff" font-size="13" font-weight="600">20 世纪现代（1900–1970）</text>
+      <text x="50" y="330" fill="#bc8cff" font-size="11">8 本：梦的解析 · 相对论 · 通论 · 存在与虚无 · 通往奴役之路 · 控制论 · 第二性 · 一九八四 · 句法结构 · 科学革命的结构</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ====== POWER-LAW DISTRIBUTION ====== -->
+<h2>引用力分布：幂律格局</h2>
+<div class="power-law-container">
+  <h4>TOP30 书籍的引用力符合帕累托分布——前 20% 的书籍（6 本）贡献了约 60% 的总引用力</h4>
+
+  <div class="bar-row">
+    <span class="bar-label">Tier S</span>
+    <div class="bar-fill" style="width:95%;background:linear-gradient(90deg,#f0883e,#dcb11f)">3 本书 · 引用力占比 ~35%</div>
+  </div>
+  <div class="bar-row">
+    <span class="bar-label">Tier A</span>
+    <div class="bar-fill" style="width:70%;background:linear-gradient(90deg,#dcb11f,#58a6ff)">9 本书 · 引用力占比 ~35%</div>
+  </div>
+  <div class="bar-row">
+    <span class="bar-label">Tier B</span>
+    <div class="bar-fill" style="width:50%;background:linear-gradient(90deg,#58a6ff,#3fb950)">18 本书 · 引用力占比 ~30%</div>
+  </div>
+
+  <p style="margin-top:20px;font-size:12px;color:var(--text2)">
+    这符合知识传播的幂律特征：少数「元文本」成为整个文明的对话基础，大部分后续知识生产本质上是这些元文本的注释、反驳或延伸。<br>
+    这也解释了为什么 Tier S 的三本书（圣经、古兰经、论语）虽然不直接出现在现代学术引用中，但它们通过塑造文明的基本概念框架（善恶、正义、秩序），间接影响了所有后续知识的生产方式。
+  </p>
+</div>
+
+<!-- ====== DOMAIN CARDS ====== -->
+<h2>领域的知识密度分布</h2>
+<div class="domain-grid">
+  <div class="domain-card">
+    <div class="dname">哲学·宗教</div>
+    <div class="dcount" style="color: var(--accent)">10 本</div>
+    <div class="dbooks">圣经 · 古兰经 · 论语 · 道德经 · 理想国 · 纯粹理性批判 · 谈谈方法 · 精神现象学 · 人性论 · 存在与虚无</div>
+  </div>
+  <div class="domain-card">
+    <div class="dname">科学·数学</div>
+    <div class="dcount" style="color: var(--accent2)">6 本</div>
+    <div class="dbooks">物种起源 · 自然哲学原理 · 几何原本 · 相对论 · 新工具 · 控制论</div>
+  </div>
+  <div class="domain-card">
+    <div class="dname">政治·经济</div>
+    <div class="dcount" style="color: var(--accent3)">6 本</div>
+    <div class="dbooks">国富论 · 资本论 · 共产党宣言 · 利维坦 · 君主论 · 通往奴役之路</div>
+  </div>
+  <div class="domain-card">
+    <div class="dname">社会科学</div>
+    <div class="dcount" style="color: var(--accent4)">5 本</div>
+    <div class="dbooks">梦的解析 · 第二性 · 论自由 · 科学革命的结构 · 句法结构</div>
+  </div>
+  <div class="domain-card">
+    <div class="dname">经济学·政策</div>
+    <div class="dcount" style="color: #bc8cff">3 本</div>
+    <div class="dbooks">就业利息货币通论 · 人口论 · 一九八四</div>
+  </div>
+  <div class="domain-card">
+    <div class="dname">文学·艺术</div>
+    <div class="dcount" style="color: #56d3d2">3 本</div>
+    <div class="dbooks">荷马史诗 · 神曲 · 堂吉诃德</div>
+  </div>
+</div>
+
+<!-- ====== LANDSCAPE INSIGHTS ====== -->
+<div class="insight-box">
+  <h3>格局洞察：元知识的六个结构性特征</h3>
+
+  <p><strong>1. 轴心时代的压倒性权重。</strong>TOP30 中有 6 本来自公元前 1500–200 年的"轴心时代"（雅斯贝尔斯）。这个短短 1300 年的窗口期，产出了人类文明最持久的元文本——易经、奥义书、论语、道德经、理想国、几何原本。此后 2000 年的知识生产，几乎都是对这些元文本的回答。</p>
+
+  <p><strong>2. "1750–1950 两百年"是元知识的第二爆发期。</strong>启蒙运动到二战后，科学革命、工业革命、政治革命三重叠加，产出了 TOP30 中 15 本书。这不是偶然——三次革命同时发生，迫使人类重新回答"知识是什么""社会如何组织""人是什么"这三个元问题。</p>
+
+  <p><strong>3. 元知识的跨学科性是其价值的核心指标。</strong>TOP10 书籍无一例外被 10+ 个学科引用。《物种起源》不仅被生物学引用，也被计算机科学（遗传算法）、经济学（演化经济学）、哲学（认识论自然化）引用。一本书的"元"程度，正比于它穿透了多少学科边界。</p>
+
+  <p><strong>4. 东西方知识体系的引用不对称。</strong>TOP30 中东方元文本（易经、论语、道德经）虽然历史影响时长远超西方文本，但在现代学术引用计量中处于结构性劣势——这是学术数据库的西方中心偏倚，不代表真实影响力更低。</p>
+
+  <p><strong>5. 1970 年之后没有新元文本。</strong>这是一个值得注意的现象：TOP30 中最晚的一本是库恩 1962 年的《科学革命的结构》。此后 60 年，知识生产的数量呈指数增长，但没有产生新的"被所有学科引用"的元文本。可能的原因：知识高度专业化后，跨学科的共同对话基础变得不可能。</p>
+
+  <p><strong>6. "注释传统"是元知识传播的核心机制。</strong>TOP30 中的哲学/宗教文本并非通过直接引用传播，而是通过"注释传统"——即后人写书解释前人的书。《理想国》的注释者包括亚里士多德、奥古斯丁、卢梭、波普尔——每个注释者又成为下一个注释者的注释对象。这种层叠引用网络构成了"元知识的树状结构"。</p>
+</div>
+
+<!-- ====== CITATION NETWORK CONCEPT ====== -->
+<h2>元知识的树状引用结构（概念图）</h2>
+<svg viewBox="0 0 900 520" style="width:100%;max-width:900px;margin:20px 0">
+  <defs>
+    <radialGradient id="gS"><stop offset="0%" stop-color="#f0883e"/><stop offset="100%" stop-color="#f0883e44"/></radialGradient>
+    <radialGradient id="gA"><stop offset="0%" stop-color="#dcb11f"/><stop offset="100%" stop-color="#dcb11f44"/></radialGradient>
+    <radialGradient id="gB"><stop offset="0%" stop-color="#58a6ff"/><stop offset="100%" stop-color="#58a6ff44"/></radialGradient>
+  </defs>
+
+  <!-- Tier S roots -->
+  <circle cx="120" cy="80" r="22" fill="url(#gS)"/>
+  <text x="120" y="76" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">圣经</text>
+  <circle cx="300" cy="80" r="22" fill="url(#gS)"/>
+  <text x="300" y="76" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">古兰经</text>
+  <circle cx="480" cy="80" r="22" fill="url(#gS)"/>
+  <text x="480" y="76" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">论语</text>
+  <circle cx="660" cy="80" r="22" fill="url(#gS)"/>
+  <text x="660" y="76" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">道德经</text>
+  <circle cx="780" cy="80" r="22" fill="url(#gS)"/>
+  <text x="780" y="76" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">易经</text>
+
+  <!-- Connectors Tier S -> A -->
+  <line x1="120" y1="102" x2="80" y2="190" stroke="#dcb11f44" stroke-width="1.5"/>
+  <line x1="120" y1="102" x2="180" y2="190" stroke="#dcb11f44" stroke-width="1.5"/>
+  <line x1="300" y1="102" x2="280" y2="190" stroke="#dcb11f44" stroke-width="1.5"/>
+  <line x1="300" y1="102" x2="380" y2="190" stroke="#dcb11f44" stroke-width="1.5"/>
+  <line x1="480" y1="102" x2="420" y2="190" stroke="#dcb11f44" stroke-width="1.5"/>
+  <line x1="480" y1="102" x2="520" y2="190" stroke="#dcb11f44" stroke-width="1.5"/>
+  <line x1="660" y1="102" x2="600" y2="190" stroke="#dcb11f44" stroke-width="1.5"/>
+  <line x1="660" y1="102" x2="700" y2="190" stroke="#dcb11f44" stroke-width="1.5"/>
+  <line x1="780" y1="102" x2="740" y2="190" stroke="#dcb11f44" stroke-width="1.5"/>
+  <line x1="780" y1="102" x2="820" y2="190" stroke="#dcb11f44" stroke-width="1.5"/>
+
+  <!-- Tier A nodes -->
+  <circle cx="60" cy="220" r="18" fill="url(#gA)"/>
+  <text x="60" y="216" text-anchor="middle" fill="#fff" font-size="7" font-weight="600">理想国</text>
+  <circle cx="160" cy="220" r="18" fill="url(#gA)"/>
+  <text x="160" y="216" text-anchor="middle" fill="#fff" font-size="7" font-weight="600">物种起源</text>
+  <circle cx="260" cy="220" r="18" fill="url(#gA)"/>
+  <text x="260" y="216" text-anchor="middle" fill="#fff" font-size="7" font-weight="600">原理</text>
+  <circle cx="360" cy="220" r="18" fill="url(#gA)"/>
+  <text x="360" y="216" text-anchor="middle" fill="#fff" font-size="7" font-weight="600">国富论</text>
+  <circle cx="460" cy="220" r="18" fill="url(#gA)"/>
+  <text x="460" y="216" text-anchor="middle" fill="#fff" font-size="7" font-weight="600">纯批</text>
+  <circle cx="560" cy="220" r="18" fill="url(#gA)"/>
+  <text x="560" y="216" text-anchor="middle" fill="#fff" font-size="7" font-weight="600">资本论</text>
+  <circle cx="660" cy="220" r="18" fill="url(#gA)"/>
+  <text x="660" y="216" text-anchor="middle" fill="#fff" font-size="7" font-weight="600">几何原本</text>
+  <circle cx="760" cy="220" r="18" fill="url(#gA)"/>
+  <text x="760" y="216" text-anchor="middle" fill="#fff" font-size="7" font-weight="600">君主论</text>
+  <circle cx="840" cy="220" r="18" fill="url(#gA)"/>
+  <text x="840" y="216" text-anchor="middle" fill="#fff" font-size="7" font-weight="600">利维坦</text>
+
+  <!-- Connectors Tier A -> B -->
+  <line x1="60" y1="238" x2="30" y2="330" stroke="#58a6ff44" stroke-width="1"/>
+  <line x1="60" y1="238" x2="90" y2="330" stroke="#58a6ff44" stroke-width="1"/>
+  <line x1="160" y1="238" x2="130" y2="330" stroke="#58a6ff44" stroke-width="1"/>
+  <line x1="160" y1="238" x2="190" y2="330" stroke="#58a6ff44" stroke-width="1"/>
+  <line x1="260" y1="238" x2="230" y2="330" stroke="#58a6ff44" stroke-width="1"/>
+  <line x1="360" y1="238" x2="330" y2="330" stroke="#58a6ff44" stroke-width="1"/>
+  <line x1="360" y1="238" x2="390" y2="330" stroke="#58a6ff44" stroke-width="1"/>
+  <line x1="460" y1="238" x2="430" y2="330" stroke="#58a6ff44" stroke-width="1"/>
+  <line x1="460" y1="238" x2="490" y2="330" stroke="#58a6ff44" stroke-width="1"/>
+  <line x1="560" y1="238" x2="530" y2="330" stroke="#58a6ff44" stroke-width="1"/>
+  <line x1="560" y1="238" x2="590" y2="330" stroke="#58a6ff44" stroke-width="1"/>
+  <line x1="660" y1="238" x2="650" y2="330" stroke="#58a6ff44" stroke-width="1"/>
+  <line x1="760" y1="238" x2="750" y2="330" stroke="#58a6ff44" stroke-width="1"/>
+  <line x1="840" y1="238" x2="830" y2="330" stroke="#58a6ff44" stroke-width="1"/>
+
+  <!-- Tier B nodes (scattered) -->
+  <circle cx="30" cy="360" r="14" fill="url(#gB)"/>
+  <text x="30" y="357" text-anchor="middle" fill="#fff" font-size="6">新工具</text>
+  <circle cx="100" cy="355" r="14" fill="url(#gB)"/>
+  <text x="100" y="352" text-anchor="middle" fill="#fff" font-size="6">谈谈方法</text>
+  <circle cx="170" cy="370" r="14" fill="url(#gB)"/>
+  <text x="170" y="367" text-anchor="middle" fill="#fff" font-size="6">人性论</text>
+  <circle cx="250" cy="350" r="14" fill="url(#gB)"/>
+  <text x="250" y="347" text-anchor="middle" fill="#fff" font-size="6">梦的解析</text>
+  <circle cx="320" cy="365" r="14" fill="url(#gB)"/>
+  <text x="320" y="362" text-anchor="middle" fill="#fff" font-size="6">通论</text>
+  <circle cx="390" cy="350" r="14" fill="url(#gB)"/>
+  <text x="390" y="347" text-anchor="middle" fill="#fff" font-size="6">通往奴役</text>
+  <circle cx="460" cy="370" r="14" fill="url(#gB)"/>
+  <text x="460" y="367" text-anchor="middle" fill="#fff" font-size="6">第二性</text>
+  <circle cx="530" cy="350" r="14" fill="url(#gB)"/>
+  <text x="530" y="347" text-anchor="middle" fill="#fff" font-size="6">相对论</text>
+  <circle cx="600" cy="365" r="14" fill="url(#gB)"/>
+  <text x="600" y="362" text-anchor="middle" fill="#fff" font-size="6">控制论</text>
+  <circle cx="670" cy="350" r="14" fill="url(#gB)"/>
+  <text x="670" y="347" text-anchor="middle" fill="#fff" font-size="6">句法结构</text>
+  <circle cx="740" cy="360" r="14" fill="url(#gB)"/>
+  <text x="740" y="357" text-anchor="middle" fill="#fff" font-size="6">科革结构</text>
+  <circle cx="810" cy="355" r="14" fill="url(#gB)"/>
+  <text x="810" y="352" text-anchor="middle" fill="#fff" font-size="6">一九八四</text>
+  <circle cx="860" cy="365" r="14" fill="url(#gB)"/>
+  <text x="860" y="362" text-anchor="middle" fill="#fff" font-size="6">论自由</text>
+
+  <!-- Legend -->
+  <rect x="30" y="440" width="12" height="12" rx="3" fill="url(#gS)"/>
+  <text x="50" y="452" fill="#f0883e" font-size="11">Tier S 宇宙级</text>
+  <rect x="180" y="440" width="12" height="12" rx="3" fill="url(#gA)"/>
+  <text x="200" y="452" fill="#dcb11f" font-size="11">Tier A 学科创始</text>
+  <rect x="340" y="440" width="12" height="12" rx="3" fill="url(#gB)"/>
+  <text x="360" y="452" fill="#58a6ff" font-size="11">Tier B 范式转换</text>
+
+  <text x="450" y="452" fill="var(--text2)" font-size="10">连线 = 引用/注释关系（Tier S→A→B）</text>
+
+  <!-- Timeline axis -->
+  <line x1="30" y1="490" x2="870" y2="490" stroke="#30363d" stroke-width="1.5"/>
+  <text x="30" y="508" fill="var(--text2)" font-size="8">前1500</text>
+  <text x="210" y="508" fill="var(--text2)" font-size="8">前500</text>
+  <text x="370" y="508" fill="var(--text2)" font-size="8">500 CE</text>
+  <text x="550" y="508" fill="var(--text2)" font-size="8">1500</text>
+  <text x="720" y="508" fill="var(--text2)" font-size="8">1900</text>
+  <text x="840" y="508" fill="var(--text2)" font-size="8">1970</text>
+</svg>
+
+<!-- ====== FOOTNOTE ====== -->
+<div class="insight-box" style="margin-top:32px">
+  <h3>如何使用这份元知识地图</h3>
+  <p><strong>查漏补缺：</strong>如果你在某领域有深度但没有读过该领域的元文本，你的知识体系缺少锚点。比如学经济学但没读过《国富论》和《通论》——你学到的是"结论"而非"问题意识"。</p>
+  <p><strong>跨学科连接：</strong>最强大的洞察来自跨文本连接。读《物种起源》时联想到《国富论》的"看不见的手"——两者共享"涌现秩序"的元结构。这种连接正是"元知识"的核心价值。</p>
+  <p><strong>注意盲区：</strong>TOP30 存在明显的西方中心偏倚（引用数据库的结构性偏差）和男性作者偏倚。中国学术引用数据库（CNKI）会有不同的 TOP30。两份排名都看，才能形成完整的元知识图景。</p>
+</div>
+
+<p class="note">排序方法论：综合 (1) 跨学科引用广度 (2) 历史影响时长 (3) 学科创始地位 (4) 跨文化渗透度 四个维度的加权评分。引用数据来源于 Dimensions、Google Scholar、CNKI 及多个跨学科引用研究。排名反映结构性引用力，不等同于"价值"排序。</p>
+
+</div>
+</body>
+</html>

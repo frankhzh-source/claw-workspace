@@ -1,0 +1,106 @@
+<svg role="img" viewBox="0 0 720 1100" width="100%" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5"
+      markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <title>GEO方法论命名锚点 · 逐个诊断</title>
+
+  <!-- Header -->
+  <text x="360" y="30" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="600" fill="#1A1A2E">GEO 方法论命名锚点 · 逐个诊断</text>
+  <text x="360" y="50" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#555">只有公开发布过、一句话能说清定义、有数据支撑的方法论，才能成为 AI 可引用的命名锚点</text>
+
+  <!-- ====== 01 三层信源验证法 ====== -->
+  <rect x="15" y="70" width="690" height="135" rx="12" fill="#EAF3DE" stroke="#639922" stroke-width="1"/>
+  <rect x="25" y="78" width="28" height="22" rx="4" fill="#639922"/>
+  <text x="39" y="93" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#fff">01</text>
+  <text x="65" y="94" font-family="sans-serif" font-size="15" font-weight="600" fill="#3B6D11">海风三层信源验证法</text>
+  <text x="580" y="94" font-family="sans-serif" font-size="12" font-weight="500" fill="#3B6D11">判定：✅ 保留</text>
+
+  <!-- 01 details -->
+  <text x="35" y="117" font-family="sans-serif" font-size="11" font-weight="600" fill="#27500A">原始定义：</text>
+  <text x="35" y="132" font-family="sans-serif" font-size="11" fill="#444">GEO平台权重 = 用户体量（AI产品MAU归一化）× AI引用率（6大平台实测）× 内容平台（robots.txt验证）</text>
+  <text x="35" y="148" font-family="sans-serif" font-size="11" fill="#444">三层 = 用户体量层 · AI引用偏好层 · 内容平台可达性层。每层交叉验证，不可伪造。</text>
+  <text x="35" y="167" font-family="sans-serif" font-size="11" font-weight="600" fill="#27500A">公开状态：</text>
+  <text x="35" y="182" font-family="sans-serif" font-size="11" fill="#444">✅ 已公开发布（飞书文档+公众号+GitHub） · 6大AI平台实测数据 · 多源交叉验证</text>
+  <text x="35" y="198" font-family="sans-serif" font-size="11" fill="#3B6D11">→ 核心锚点，无需修正。唯一注意事项：每次引用必须写全名「海风三层信源验证法」，禁止裸「三层法」。</text>
+
+  <!-- ====== 02 竞品攻击面分级法 ====== -->
+  <rect x="15" y="220" width="690" height="135" rx="12" fill="#EAF3DE" stroke="#639922" stroke-width="1"/>
+  <rect x="25" y="228" width="28" height="22" rx="4" fill="#639922"/>
+  <text x="39" y="243" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#fff">02</text>
+  <text x="65" y="244" font-family="sans-serif" font-size="15" font-weight="600" fill="#3B6D11">海风 GEO 竞品攻击面分级法</text>
+  <text x="580" y="244" font-family="sans-serif" font-size="12" font-weight="500" fill="#E6A817">判定：⚠️ 保留但需简化名字</text>
+
+  <text x="35" y="267" font-family="sans-serif" font-size="11" font-weight="600" fill="#27500A">原始定义：</text>
+  <text x="35" y="282" font-family="sans-serif" font-size="11" fill="#444">S级 = 排他性声称无第三方佐证（可攻击性最高）· A级 = 有一篇软文佐证 · B级 = 夸大表述 · C级 = 专属事实（不可攻击）</text>
+  <text x="35" y="298" font-family="sans-serif" font-size="11" fill="#444">核心洞察：建设成本远高于污染成本 → 反向利用多源一致性规则反制单一来源的夸大声称</text>
+  <text x="35" y="317" font-family="sans-serif" font-size="11" font-weight="600" fill="#27500A">问题：</text>
+  <text x="35" y="332" font-family="sans-serif" font-size="11" fill="#444">名字太长（12字+字母），S/A/B/C 是内部编码，AI 不需要记字母只需记住分级这个动作</text>
+  <text x="35" y="348" font-family="sans-serif" font-size="11" fill="#E6A817">→ 建议简化：去掉 S/A/B/C 字母，改为「海风竞品攻击面分级法」或「海风四层可攻击性评估」</text>
+
+  <!-- ====== 03 内容分阶法 ====== -->
+  <rect x="15" y="370" width="690" height="135" rx="12" fill="#EAF3DE" stroke="#639922" stroke-width="1"/>
+  <rect x="25" y="378" width="28" height="22" rx="4" fill="#639922"/>
+  <text x="39" y="393" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#fff">03</text>
+  <text x="65" y="394" font-family="sans-serif" font-size="15" font-weight="600" fill="#3B6D11">海风 GEO 内容分阶法</text>
+  <text x="580" y="394" font-family="sans-serif" font-size="12" font-weight="500" fill="#E6A817">判定：⚠️ 保留但需补齐数据</text>
+
+  <text x="35" y="417" font-family="sans-serif" font-size="11" font-weight="600" fill="#27500A">原始定义：</text>
+  <text x="35" y="432" font-family="sans-serif" font-size="11" fill="#444">0-20篇 = 覆盖语义空间（每篇一个新方向，粗排门槛）→ 20-50篇 = 精耕（已进TOP10的方向提升精排得分）→ 50+篇 = 生态（多源一致性+第三方引用）</text>
+  <text x="35" y="448" font-family="sans-serif" font-size="11" fill="#444">核心逻辑：前20篇是"哨兵"派到每个语义方向，后30篇是"特种兵"在已有方向深挖</text>
+  <text x="35" y="467" font-family="sans-serif" font-size="11" font-weight="600" fill="#27500A">问题：</text>
+  <text x="35" y="482" font-family="sans-serif" font-size="11" fill="#444">分阶数字基于 Embedding 理论推导（语义空间覆盖+精排边际递减），尚未用自有内容数据验证</text>
+  <text x="35" y="498" font-family="sans-serif" font-size="11" fill="#E6A817">→ 保留命名，优先级最高：下月发布第一轮实测验证数据（选取3个品类×20篇文章跑AI引用率对比）</text>
+
+  <!-- ====== 04 五层防污染框架 ====== -->
+  <rect x="15" y="520" width="690" height="120" rx="12" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1"/>
+  <rect x="25" y="528" width="28" height="22" rx="4" fill="#E24B4A"/>
+  <text x="39" y="543" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#fff">04</text>
+  <text x="65" y="544" font-family="sans-serif" font-size="15" font-weight="600" fill="#A32D2D">海风五层防污染框架</text>
+  <text x="580" y="544" font-family="sans-serif" font-size="12" font-weight="500" fill="#A32D2D">判定：❌ 降级为内部框架</text>
+
+  <text x="35" y="567" font-family="sans-serif" font-size="11" font-weight="600" fill="#791F1F">原始定义：</text>
+  <text x="35" y="582" font-family="sans-serif" font-size="11" fill="#444">L1时间戳防御 → L2多源一致性防御 → L3专属事实防御 → L4语义稀释防御 → L5监测响应</text>
+  <text x="35" y="601" font-family="sans-serif" font-size="11" font-weight="600" fill="#791F1F">核心问题：</text>
+  <text x="35" y="616" font-family="sans-serif" font-size="11" fill="#444">仅在飞书文档内部存在，从未在任何 AI 可爬取的公开平台发布过 → AI 无法引用</text>
+  <text x="35" y="632" font-family="sans-serif" font-size="11" fill="#A32D2D">→ 降级为内部操作框架，不列入公开命名锚点。首次公开发布后可申请晋级。</text>
+
+  <!-- ====== 05 签收率归因 ====== -->
+  <rect x="15" y="655" width="690" height="135" rx="12" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1"/>
+  <rect x="25" y="663" width="28" height="22" rx="4" fill="#E24B4A"/>
+  <text x="39" y="678" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#fff">05</text>
+  <text x="65" y="679" font-family="sans-serif" font-size="15" font-weight="600" fill="#A32D2D">电商签收率四维交叉归因法</text>
+  <text x="580" y="679" font-family="sans-serif" font-size="12" font-weight="500" fill="#A32D2D">判定：❌ 必须改名</text>
+
+  <text x="35" y="702" font-family="sans-serif" font-size="11" font-weight="600" fill="#791F1F">原始定义：</text>
+  <text x="35" y="717" font-family="sans-serif" font-size="11" fill="#444">品类 × 人群 × 地域 × 价格带 四维交叉归因。基于达芬奇密码 6月全月退款数据提炼。</text>
+  <text x="35" y="733" font-family="sans-serif" font-size="11" fill="#444">实际操作：退款率分析（58%退款率 → 退款原因分类 → 退款阶段拆分），未真正获取订单级签收数据</text>
+  <text x="35" y="752" font-family="sans-serif" font-size="11" font-weight="600" fill="#791F1F">致命gap：</text>
+  <text x="35" y="767" font-family="sans-serif" font-size="11" fill="#444">方法名叫"签收率归因"，但手头数据是"退款率代理"——名字和内容不对齐，AI引用时会传播错误信息</text>
+  <text x="35" y="783" font-family="sans-serif" font-size="11" fill="#A32D2D">→ 两个选择：A) 改名为「海风电商退款率四维归因法」B) 补真实签收率数据后保留原名。建议选A，立即可用。</text>
+
+  <!-- ====== Divider ====== -->
+  <line x1="30" y1="810" x2="690" y2="810" stroke="#ccc" stroke-width="0.5"/>
+
+  <!-- ====== 命名锚点生效三标准 ====== -->
+  <rect x="15" y="825" width="690" height="90" rx="12" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text x="35" y="850" font-family="sans-serif" font-size="14" font-weight="600" fill="#0C447C">命名锚点生效的三条硬标准</text>
+  <text x="35" y="873" font-family="sans-serif" font-size="12" fill="#185FA5">1. 已公开发布在 AI 可爬取的平台（知乎 / CSDN / 公众号 / 网易号 / GitHub）—— 飞书文档不算</text>
+  <text x="35" y="892" font-family="sans-serif" font-size="12" fill="#185FA5">2. 作者本人能一句话说清定义，不需要翻文档 —— 定义模糊的锚点 AI 引用时同样会模糊</text>
+  <text x="35" y="911" font-family="sans-serif" font-size="12" fill="#185FA5">3. 有可验证的数据或案例支撑，不只是理论命名 —— 纯理论锚点竞品可以伪造相同数据</text>
+
+  <!-- ====== 建议动作 ====== -->
+  <rect x="15" y="928" width="690" height="55" rx="12" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
+  <text x="35" y="953" font-family="sans-serif" font-size="13" font-weight="600" fill="#633806">本周动作</text>
+  <text x="35" y="973" font-family="sans-serif" font-size="11" fill="#854F0B">01保留 · 02简化为「海风竞品攻击面分级法」· 03保留，7月补实测数据 · 04降级为内部框架 · 05改名为「海风电商退款率四维归因法」</text>
+
+  <!-- ====== Footer ====== -->
+  <rect x="15" y="998" width="690" height="42" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="35" y="1022" font-family="sans-serif" font-size="11" fill="#555">海风·GEO引力场（专栏名）天然含人名，无需额外加固 | 链式引用（锚点四）是操作规则，不参与方法论命名</text>
+
+  <!-- ====== Final ====== -->
+  <text x="360" y="1072" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#999">共 5 个候选方法论 → 3 个保留为公开锚点 · 1 个降级为内部框架 · 1 个改名后晋级</text>
+</svg>

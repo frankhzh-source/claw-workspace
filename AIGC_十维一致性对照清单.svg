@@ -1,0 +1,410 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2680">
+  <defs>
+    <linearGradient id="header" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16213e"/>
+    </linearGradient>
+    <linearGradient id="row1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8f9fa"/>
+    </linearGradient>
+    <linearGradient id="row2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0f4f8"/>
+      <stop offset="100%" stop-color="#e8edf3"/>
+    </linearGradient>
+    <linearGradient id="dim1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8f0fe"/>
+      <stop offset="100%" stop-color="#dce8f5"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1200" height="2680" fill="#f5f7fa" rx="12"/>
+
+  <!-- 标题 -->
+  <rect x="0" y="0" width="1200" height="90" fill="url(#header)" rx="12"/>
+  <rect x="0" y="78" width="1200" height="12" fill="url(#header)"/>
+  <text x="600" y="42" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="26" font-weight="bold">AIGC 角色资产一致性 · 十维对照清单</text>
+  <text x="600" y="68" text-anchor="middle" fill="#a0b4d0" font-family="system-ui, sans-serif" font-size="14">出片前逐维检查 ｜ 基于参考图结构的完整保障框架</text>
+
+  <!-- 表头 -->
+  <rect x="30" y="110" width="1140" height="50" fill="#2d3748" rx="6" filter="url(#shadow)"/>
+  <text x="60" y="141" fill="#ffffff" font-family="system-ui, sans-serif" font-size="15" font-weight="bold">#</text>
+  <text x="100" y="141" fill="#ffffff" font-family="system-ui, sans-serif" font-size="15" font-weight="bold">维度</text>
+  <text x="290" y="141" fill="#ffffff" font-family="system-ui, sans-serif" font-size="15" font-weight="bold">标准做法</text>
+  <text x="590" y="141" fill="#ffffff" font-family="system-ui, sans-serif" font-size="15" font-weight="bold">常见错误</text>
+  <text x="890" y="141" fill="#ffffff" font-family="system-ui, sans-serif" font-size="15" font-weight="bold">修复方案</text>
+
+  <!-- 分隔线 -->
+  <line x1="280" y1="115" x2="280" y2="155" stroke="#3d4a5c" stroke-width="1"/>
+  <line x1="580" y1="115" x2="580" y2="155" stroke="#3d4a5c" stroke-width="1"/>
+  <line x1="880" y1="115" x2="880" y2="155" stroke="#3d4a5c" stroke-width="1"/>
+
+  <!-- ===== 维度1：主视觉肖像 ===== -->
+  <rect x="30" y="170" width="1140" height="120" fill="url(#row1)" rx="6" filter="url(#shadow)"/>
+  <rect x="30" y="170" width="60" height="120" fill="#e74c3c" rx="6"/>
+  <rect x="80" y="170" width="4" height="120" fill="#e74c3c"/>
+  <text x="60" y="235" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="22" font-weight="bold">1</text>
+
+  <rect x="90" y="180" width="185" height="26" fill="#fdecea" rx="4"/>
+  <text x="96" y="198" fill="#c0392b" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">主视觉肖像</text>
+  <text x="96" y="220" fill="#555" font-family="system-ui, sans-serif" font-size="12">正面半身照 · 眼神朝镜头</text>
+  <text x="96" y="238" fill="#555" font-family="system-ui, sans-serif" font-size="12">光源统一无阴影</text>
+  <text x="96" y="258" fill="#555" font-family="system-ui, sans-serif" font-size="12">固定每镜传入同一张</text>
+  <text x="96" y="278" fill="#888" font-family="system-ui, sans-serif" font-size="11">参考图：ref_portrait_01.jpg</text>
+
+  <line x1="282" y1="170" x2="282" y2="290" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="300" y="200" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 正面半身照1张</text>
+  <text x="300" y="222" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 眼神朝向镜头</text>
+  <text x="300" y="244" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 光源统一无阴影</text>
+  <text x="300" y="266" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 高分辨率拍摄</text>
+  <text x="300" y="288" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 脸型基准锚定</text>
+
+  <line x1="582" y1="170" x2="582" y2="290" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="600" y="200" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 每次用不同参考图</text>
+  <text x="600" y="222" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 主视觉不传参</text>
+  <text x="600" y="244" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 光源不一致导致色调跳变</text>
+  <text x="600" y="266" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 分辨率太低丢失细节</text>
+  <text x="600" y="288" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 角度倾斜导致脸型变形</text>
+
+  <line x1="882" y1="170" x2="882" y2="290" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="900" y="200" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 固定1张主视觉</text>
+  <text x="900" y="222" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 每镜Prompt传同一张</text>
+  <text x="900" y="244" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 保证光源色温一致</text>
+  <text x="900" y="266" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 使用高分辨率原片</text>
+  <text x="900" y="288" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 定版前首帧一致性核验</text>
+
+
+  <!-- ===== 维度2：三视图 ===== -->
+  <rect x="30" y="300" width="1140" height="120" fill="url(#row2)" rx="6" filter="url(#shadow)"/>
+  <rect x="30" y="300" width="60" height="120" fill="#e67e22" rx="6"/>
+  <rect x="80" y="300" width="4" height="120" fill="#e67e22"/>
+  <text x="60" y="365" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="22" font-weight="bold">2</text>
+
+  <rect x="90" y="310" width="185" height="26" fill="#fef3e0" rx="4"/>
+  <text x="96" y="328" fill="#d35400" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">三视图</text>
+  <text x="96" y="350" fill="#555" font-family="system-ui, sans-serif" font-size="12">正面+侧45+侧90+背面</text>
+  <text x="96" y="370" fill="#555" font-family="system-ui, sans-serif" font-size="12">同服装同光源拍摄</text>
+  <text x="96" y="390" fill="#555" font-family="system-ui, sans-serif" font-size="12">标注发型/腰线/衣长</text>
+  <text x="96" y="410" fill="#888" font-family="system-ui, sans-serif" font-size="11">参考图：ref_三视图.png</text>
+
+  <line x1="282" y1="300" x2="282" y2="420" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="300" y="330" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 4张同条件拍摄</text>
+  <text x="300" y="352" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 钉入LoRA训练</text>
+  <text x="300" y="374" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 服装细节全角度可见</text>
+  <text x="300" y="396" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 发型轮廓完整记录</text>
+  <text x="300" y="418" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 腰线/衣长固定标识</text>
+
+  <line x1="582" y1="300" x2="582" y2="420" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="600" y="330" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 只有正面没有侧背面</text>
+  <text x="600" y="352" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 转到侧面脸就变形</text>
+  <text x="600" y="374" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 背面发型不一致</text>
+  <text x="600" y="396" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 不同角度服装剪影不同</text>
+  <text x="600" y="418" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 光源不同导致色差</text>
+
+  <line x1="882" y1="300" x2="882" y2="420" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="900" y="330" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 4张同条件一次性拍摄</text>
+  <text x="900" y="352" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 全部加入LoRA训练集</text>
+  <text x="900" y="374" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 侧脸镜头主动引用侧视图</text>
+  <text x="900" y="396" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 背面镜头显式引用背视图</text>
+  <text x="900" y="418" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 光源参数统一记录</text>
+
+
+  <!-- ===== 维度3：表情设定 ===== -->
+  <rect x="30" y="430" width="1140" height="108" fill="url(#row1)" rx="6" filter="url(#shadow)"/>
+  <rect x="30" y="430" width="60" height="108" fill="#f39c12" rx="6"/>
+  <rect x="80" y="430" width="4" height="108" fill="#f39c12"/>
+  <text x="60" y="489" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="22" font-weight="bold">3</text>
+
+  <rect x="90" y="440" width="185" height="26" fill="#fef9e7" rx="4"/>
+  <text x="96" y="458" fill="#d4ac0d" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">表情设定</text>
+  <text x="96" y="480" fill="#555" font-family="system-ui, sans-serif" font-size="12">4组基准：喜/静/忧/疑</text>
+  <text x="96" y="500" fill="#555" font-family="system-ui, sans-serif" font-size="12">同一服装+背景拍摄</text>
+  <text x="96" y="520" fill="#888" font-family="system-ui, sans-serif" font-size="11">参考图：ref_表情集.png</text>
+
+  <line x1="282" y1="430" x2="282" y2="538" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="300" y="460" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 喜/静/忧/疑各1张</text>
+  <text x="300" y="482" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 同一服装+背景</text>
+  <text x="300" y="504" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 表情幅度统一可控</text>
+  <text x="300" y="526" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 情绪过渡有中间态</text>
+
+  <line x1="582" y1="430" x2="582" y2="538" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="600" y="460" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 只用微笑1种表情</text>
+  <text x="600" y="482" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 情绪跳脱不连贯</text>
+  <text x="600" y="504" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 不同情绪服装换掉了</text>
+  <text x="600" y="526" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 过渡镜无衔接处理</text>
+
+  <line x1="882" y1="430" x2="882" y2="538" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="900" y="460" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 按情绪选对应参考图</text>
+  <text x="900" y="482" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 过渡镜用中景软切</text>
+  <text x="900" y="504" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 情绪前加过渡Prompt</text>
+  <text x="900" y="526" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 同一场景不跳表情</text>
+
+
+  <!-- ===== 维度4：面部细节 ===== -->
+  <rect x="30" y="548" width="1140" height="108" fill="url(#row2)" rx="6" filter="url(#shadow)"/>
+  <rect x="30" y="548" width="60" height="108" fill="#3498db" rx="6"/>
+  <rect x="80" y="548" width="4" height="108" fill="#3498db"/>
+  <text x="60" y="607" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="22" font-weight="bold">4</text>
+
+  <rect x="90" y="558" width="185" height="26" fill="#eaf2f8" rx="4"/>
+  <text x="96" y="576" fill="#2980b9" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">面部细节</text>
+  <text x="96" y="598" fill="#555" font-family="system-ui, sans-serif" font-size="12">妆容固定（裸妆豆沙唇）</text>
+  <text x="96" y="618" fill="#555" font-family="system-ui, sans-serif" font-size="12">眉毛自然，皮肤质感统一</text>
+  <text x="96" y="638" fill="#888" font-family="system-ui, sans-serif" font-size="11">参考图：ref_面部特写.jpg</text>
+
+  <line x1="282" y1="548" x2="282" y2="656" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="300" y="578" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 妆容描述固定块</text>
+  <text x="300" y="600" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 配面部特写参考图</text>
+  <text x="300" y="622" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 皮肤质感统一不磨皮</text>
+  <text x="300" y="644" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 眼型/眉形固定</text>
+
+  <line x1="582" y1="548" x2="582" y2="656" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="600" y="578" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 每镜妆容不一样</text>
+  <text x="600" y="600" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 特写曝光过度</text>
+  <text x="600" y="622" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 皮肤质感忽细腻忽粗糙</text>
+  <text x="600" y="644" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 眉毛颜色长度变化</text>
+
+  <line x1="882" y1="548" x2="882" y2="656" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="900" y="578" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 妆容描述固定块复用</text>
+  <text x="900" y="600" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 特写配独立面部参考图</text>
+  <text x="900" y="622" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 皮肤关键词固定</text>
+  <text x="900" y="644" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 特写镜头逐帧抽检</text>
+
+
+  <!-- ===== 维度5：服饰材质与细节 ===== -->
+  <rect x="30" y="666" width="1140" height="120" fill="url(#row1)" rx="6" filter="url(#shadow)"/>
+  <rect x="30" y="666" width="60" height="120" fill="#9b59b6" rx="6"/>
+  <rect x="80" y="666" width="4" height="120" fill="#9b59b6"/>
+  <text x="60" y="731" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="22" font-weight="bold">5</text>
+
+  <rect x="90" y="676" width="185" height="26" fill="#f0e6f6" rx="4"/>
+  <text x="96" y="694" fill="#8e44ad" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">服饰材质与细节</text>
+  <text x="96" y="716" fill="#555" font-family="system-ui, sans-serif" font-size="12">中英双语描述面料</text>
+  <text x="96" y="736" fill="#555" font-family="system-ui, sans-serif" font-size="12">珍珠扣/滚边/印花全固定</text>
+  <text x="96" y="756" fill="#555" font-family="system-ui, sans-serif" font-size="12">面料独立参考图</text>
+  <text x="96" y="776" fill="#888" font-family="system-ui, sans-serif" font-size="11">参考图：ref_面料.jpg</text>
+
+  <line x1="282" y1="666" x2="282" y2="786" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="300" y="696" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 中英双语描述</text>
+  <text x="300" y="718" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 细节元素独立记录</text>
+  <text x="300" y="740" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 面料参考图锁定</text>
+  <text x="300" y="762" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 每镜服装描述一致</text>
+  <text x="300" y="784" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 磨损/褪色标注位置</text>
+
+  <line x1="582" y1="666" x2="582" y2="786" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="600" y="696" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 面料描述每镜不同</text>
+  <text x="600" y="718" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 只用抽象词"高级感"</text>
+  <text x="600" y="740" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 印花位置颜色漂移</text>
+  <text x="600" y="762" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 纽扣/滚边细节丢失</text>
+  <text x="600" y="784" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 面料反光/透光不一致</text>
+
+  <line x1="882" y1="666" x2="882" y2="786" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="900" y="696" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 中英双语模板化描述</text>
+  <text x="900" y="718" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 具体词替代抽象词</text>
+  <text x="900" y="740" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 面料独立静物参考图</text>
+  <text x="900" y="762" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 配饰/纽扣特写锁定</text>
+  <text x="900" y="784" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 面料关键词复用</text>
+
+
+  <!-- ===== 维度6：手部与姿态 ===== -->
+  <rect x="30" y="796" width="1140" height="108" fill="url(#row2)" rx="6" filter="url(#shadow)"/>
+  <rect x="30" y="796" width="60" height="108" fill="#1abc9c" rx="6"/>
+  <rect x="80" y="796" width="4" height="108" fill="#1abc9c"/>
+  <text x="60" y="855" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="22" font-weight="bold">6</text>
+
+  <rect x="90" y="806" width="185" height="26" fill="#e0f7f1" rx="4"/>
+  <text x="96" y="824" fill="#16a085" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">手部与姿态</text>
+  <text x="96" y="846" fill="#555" font-family="system-ui, sans-serif" font-size="12">右手持杯/左手垂放</text>
+  <text x="96" y="866" fill="#555" font-family="system-ui, sans-serif" font-size="12">右脚在前重心偏右</text>
+  <text x="96" y="886" fill="#888" font-family="system-ui, sans-serif" font-size="11">参考图：ref_姿态.jpg</text>
+
+  <line x1="282" y1="796" x2="282" y2="904" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="300" y="826" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 每镜固定手势描述</text>
+  <text x="300" y="848" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 特写检查手指</text>
+  <text x="300" y="870" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 手部自然微张</text>
+  <text x="300" y="892" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 重心脚位置记录</text>
+
+  <line x1="582" y1="796" x2="582" y2="904" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="600" y="826" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 道具左右手乱跳</text>
+  <text x="600" y="848" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 手指生成不全</text>
+  <text x="600" y="870" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 站姿每镜方向不同</text>
+  <text x="600" y="892" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 手势语义不连贯</text>
+
+  <line x1="882" y1="796" x2="882" y2="904" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="900" y="826" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 道具手固定描述</text>
+  <text x="900" y="848" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 特写逐帧检手指</text>
+  <text x="900" y="870" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 非支撑手统一写法</text>
+  <text x="900" y="892" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 过渡镜跟踪手势</text>
+
+
+  <!-- ===== 维度7：道具特写 ===== -->
+  <rect x="30" y="914" width="1140" height="108" fill="url(#row1)" rx="6" filter="url(#shadow)"/>
+  <rect x="30" y="914" width="60" height="108" fill="#2ecc71" rx="6"/>
+  <rect x="80" y="914" width="4" height="108" fill="#2ecc71"/>
+  <text x="60" y="973" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="22" font-weight="bold">7</text>
+
+  <rect x="90" y="924" width="185" height="26" fill="#e8f8f0" rx="4"/>
+  <text x="96" y="942" fill="#1e8449" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">道具特写</text>
+  <text x="96" y="964" fill="#555" font-family="system-ui, sans-serif" font-size="12">每件道具独立参考图</text>
+  <text x="96" y="984" fill="#555" font-family="system-ui, sans-serif" font-size="12">固定1-2个镜头出现</text>
+  <text x="96" y="1004" fill="#888" font-family="system-ui, sans-serif" font-size="11">参考图：ref_道具.png</text>
+
+  <line x1="282" y1="914" x2="282" y2="1022" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="300" y="944" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 独立道具参考图</text>
+  <text x="300" y="966" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 标注尺寸/颜色/磨损</text>
+  <text x="300" y="988" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 出现镜头固定</text>
+  <text x="300" y="1010" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 显式写"无"控制消失</text>
+
+  <line x1="582" y1="914" x2="582" y2="1022" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="600" y="944" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 道具凭空出现/消失</text>
+  <text x="600" y="966" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 颜色位置每镜不同</text>
+  <text x="600" y="988" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 道具磨损无人维护</text>
+  <text x="600" y="1010" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 多个道具混淆位置</text>
+
+  <line x1="882" y1="914" x2="882" y2="1022" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="900" y="944" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 道具加减跟踪表</text>
+  <text x="900" y="966" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 需要才出现不需要写无</text>
+  <text x="900" y="988" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 道具状态序列化</text>
+  <text x="900" y="1010" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 字幕/水印锁定位置</text>
+
+
+  <!-- ===== 维度8：色彩参考 ===== -->
+  <rect x="30" y="1032" width="1140" height="108" fill="url(#row2)" rx="6" filter="url(#shadow)"/>
+  <rect x="30" y="1032" width="60" height="108" fill="#e74c3c" rx="6"/>
+  <rect x="80" y="1032" width="4" height="108" fill="#e74c3c"/>
+  <text x="60" y="1091" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="22" font-weight="bold">8</text>
+
+  <rect x="90" y="1042" width="185" height="26" fill="#fdecea" rx="4"/>
+  <text x="96" y="1060" fill="#c0392b" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">色彩参考</text>
+  <text x="96" y="1082" fill="#555" font-family="system-ui, sans-serif" font-size="12">色号标注（#ED887C）</text>
+  <text x="96" y="1102" fill="#555" font-family="system-ui, sans-serif" font-size="12">暖光2700-3200K</text>
+  <text x="96" y="1122" fill="#888" font-family="system-ui, sans-serif" font-size="11">参考图：ref_色卡.jpg</text>
+
+  <line x1="282" y1="1032" x2="282" y2="1140" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="300" y="1062" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 主色用色号</text>
+  <text x="300" y="1084" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 色温数值化</text>
+  <text x="300" y="1106" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 印花参考图锁定</text>
+  <text x="300" y="1128" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 全片统一色调</text>
+
+  <line x1="582" y1="1032" x2="582" y2="1140" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="600" y="1062" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 只用粉色无色号</text>
+  <text x="600" y="1084" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 每镜饱和度不同</text>
+  <text x="600" y="1106" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 色温忽暖忽冷</text>
+  <text x="600" y="1128" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 印花颜色漂移</text>
+
+  <line x1="882" y1="1032" x2="882" y2="1140" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="900" y="1062" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 写色号#ED887C</text>
+  <text x="900" y="1084" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 整片同一参考图</text>
+  <text x="900" y="1106" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 色温范围固定</text>
+  <text x="900" y="1128" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 后处理统一LUT</text>
+
+
+  <!-- ===== 维度9：剪影/比例 ===== -->
+  <rect x="30" y="1150" width="1140" height="108" fill="url(#row1)" rx="6" filter="url(#shadow)"/>
+  <rect x="30" y="1150" width="60" height="108" fill="#34495e" rx="6"/>
+  <rect x="80" y="1150" width="4" height="108" fill="#34495e"/>
+  <text x="60" y="1209" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="22" font-weight="bold">9</text>
+
+  <rect x="90" y="1160" width="185" height="26" fill="#e8ecf1" rx="4"/>
+  <text x="96" y="1178" fill="#2c3e50" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">剪影/比例</text>
+  <text x="96" y="1200" fill="#555" font-family="system-ui, sans-serif" font-size="12">全身照标身高线</text>
+  <text x="96" y="1220" fill="#555" font-family="system-ui, sans-serif" font-size="12">头身比7头身</text>
+  <text x="96" y="1240" fill="#888" font-family="system-ui, sans-serif" font-size="11">参考图：ref_全身.jpg</text>
+
+  <line x1="282" y1="1150" x2="282" y2="1258" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="300" y="1180" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 全身参考图</text>
+  <text x="300" y="1202" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 身高比例标注</text>
+  <text x="300" y="1224" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 服装剪影上紧下松</text>
+  <text x="300" y="1246" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 头身比固定</text>
+
+  <line x1="582" y1="1150" x2="582" y2="1258" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="600" y="1180" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 没标身高比例</text>
+  <text x="600" y="1202" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 镜头拉伸显胖显矮</text>
+  <text x="600" y="1224" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 剪影轮廓每镜不同</text>
+  <text x="600" y="1246" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 服装蓬松度变化</text>
+
+  <line x1="882" y1="1150" x2="882" y2="1258" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="900" y="1180" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 全身参考图标注</text>
+  <text x="900" y="1202" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 固定镜头高度</text>
+  <text x="900" y="1224" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 服装剪影描述固定</text>
+  <text x="900" y="1246" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 头身比参数硬编码</text>
+
+
+  <!-- ===== 维度10：角色信息 ===== -->
+  <rect x="30" y="1268" width="1140" height="120" fill="url(#row2)" rx="6" filter="url(#shadow)"/>
+  <rect x="30" y="1268" width="60" height="120" fill="#2c3e50" rx="6"/>
+  <rect x="80" y="1268" width="4" height="120" fill="#2c3e50"/>
+  <text x="60" y="1333" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="22" font-weight="bold">10</text>
+
+  <rect x="90" y="1278" width="185" height="26" fill="#e8ecf1" rx="4"/>
+  <text x="96" y="1296" fill="#2c3e50" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">角色信息</text>
+  <text x="96" y="1318" fill="#555" font-family="system-ui, sans-serif" font-size="12">角色档案卡固定</text>
+  <text x="96" y="1338" fill="#555" font-family="system-ui, sans-serif" font-size="12">姓名/年龄/身份</text>
+  <text x="96" y="1358" fill="#555" font-family="system-ui, sans-serif" font-size="12">28岁电商主播慵懒居家风</text>
+  <text x="96" y="1378" fill="#888" font-family="system-ui, sans-serif" font-size="11">参考图：ref_角色卡.txt</text>
+
+  <line x1="282" y1="1268" x2="282" y2="1388" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="300" y="1298" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 角色档案卡建立</text>
+  <text x="300" y="1320" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 写入每镜Prompt</text>
+  <text x="300" y="1342" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 人物背景故事</text>
+  <text x="300" y="1364" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 性格特征描述</text>
+  <text x="300" y="1386" fill="#333" font-family="system-ui, sans-serif" font-size="13">✓ 人设标签一致</text>
+
+  <line x1="582" y1="1268" x2="582" y2="1388" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="600" y="1298" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 角色设定模糊</text>
+  <text x="600" y="1320" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 模特无身份背景</text>
+  <text x="600" y="1342" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 每镜角色标签不同</text>
+  <text x="600" y="1364" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 性格行为不连贯</text>
+  <text x="600" y="1386" fill="#c0392b" font-family="system-ui, sans-serif" font-size="13">✗ 人设脱离产品定位</text>
+
+  <line x1="882" y1="1268" x2="882" y2="1388" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="900" y="1298" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 角色档案卡固定</text>
+  <text x="900" y="1320" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 写入每镜Prompt固定块</text>
+  <text x="900" y="1342" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 人设标签模板化</text>
+  <text x="900" y="1364" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 性格统一关键词</text>
+  <text x="900" y="1386" fill="#27ae60" font-family="system-ui, sans-serif" font-size="13">➤ 人设锚定产品调性</text>
+
+
+  <!-- ===== 底部总结 ===== -->
+  <rect x="30" y="1410" width="1140" height="100" fill="#2d3748" rx="8"/>
+  <text x="600" y="1445" text-anchor="middle" fill="#a0b4d0" font-family="system-ui, sans-serif" font-size="15">检前准备 · 检中对照 · 检后修正</text>
+  <text x="600" y="1475" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13">每个维度出片前逐项勾选 ｜ 三项不通过则退回重渲 ｜ 全部通过进入下一镜</text>
+  <text x="600" y="1498" text-anchor="middle" fill="#a0b4d0" font-family="system-ui, sans-serif" font-size="12">版本 v1.0 ｜ AIGC 电商视频主角一致性保障</text>
+
+  <!-- 家居服电商实战示例部分 -->
+  <rect x="30" y="1530" width="1140" height="40" fill="#1a1a2e" rx="6"/>
+  <text x="600" y="1556" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="17" font-weight="bold">🔍 家居服电商素材 · 实战对照示例</text>
+
+  <!-- 示例行：主视觉肖像 -->
+  <rect x="30" y="1578" width="1140" height="78" fill="url(#row1)" rx="6"/>
+  <rect x="30" y="1578" width="8" height="78" fill="#e74c3c" rx="3"/>
+  <text x="55" y="1600" fill="#333" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">1. 主视觉肖像</text>
+  <text x="55" y="1620" fill="#555" font-family="system-ui, sans-serif" font-size="12">→ 正面半身，披肩长发自然垂落，米白家居服V领可见</text>
+  <text x="55" y="1640" fill="#555" font-family="system-ui, sans-serif" font-size="12">→ 暖光从右侧45度打光，肤色均匀，眼神柔和看向镜头</text>
+
+  <!-- 示例行：服饰材质 -->
+  <rect x="30" y="1664" width="1140" height="78" fill="url(#row2)" rx="6"/>
+  <rect x="30" y="1664" width="8" height="78" fill="#9b59b6" rx="3"/>
+  <text x="55" y="1686" fill="#333" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">5. 服饰材质与细节</text>
+  <text x="55" y="1706" fill="#555" font-family="system-ui, sans-serif" font-size="12">→ 米白色缎面睡袍 satin robe / 深灰棉质睡裤 cotton lounge pants</text>
+  <text x="55" y="1726" fill="#555" font-family="system-ui, sans-serif" font-size="12">→ 领口滚边 dark grey piping / 腰部系带 self-tie belt / 袖口宽边 wide cuff</text>
+
+  <!-- 示例行：手部与姿态 -->
+  <rect x="30" y="1750" width="1140" height="78" fill="url(#row1)" rx="6"/>
+  <rect x="30" y="1750" width="8" height="78" fill="#1abc9c" rx="3"/>
+  <text x="55" y="1772" fill="#333" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">6. 手部与姿态</text>
+  <text x="55" y="1792" fill="#555" font-family="system-ui, sans-serif" font-size="12">→ 右手握陶瓷杯柄，左臂自然垂于身侧，手指放松微张</text>
+  <text x="55" y="1812" fill="#555" font-family="system-ui, sans-serif" font-size="12">→ 正坐沙发，双腿并拢微向左斜，展现家居服下摆垂坠感</text>
+
+  <!-- 示例行：色彩参考 -->
+  <rect x="30" y="1836" width="1140" height="78" fill="url(#row2)" rx="6"/>
+  <rect x="30" y="1836" width="8" height="78" fill="#e74c3c" rx="3"/>
+  <text x="55" y="1858" fill="#333" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">8. 色彩参考</text>
+  <text x="55" y="1878" fill="#555" font-family="system-ui, sans-serif" font-size="12">→ 主色：米白 #F5F0EB / 深灰 #4A4A4A / 点缀色：陶瓷白 #FEFEFE</text>
+  <text x="55" y="1898" fill="#555" font-family="system-ui, sans-serif" font-size="12">→ 整体暖色调 3000K 营造慵懒氛围，无跳跃高饱和度色块</text>
+
+</svg>

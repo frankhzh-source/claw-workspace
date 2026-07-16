@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 760" width="100%" role="img">
+  <title>LoRA训练完整框架确认图</title>
+  <desc>从48K张品类标记到最终训练的完整流程框架，含当前进度标注和责任人分配</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <style>
+    .t { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    .th { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    .ts { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  </style>
+
+  <text class="t" x="340" y="28" text-anchor="middle" font-size="15" font-weight="500" fill="#1A1A2E">LoRA训练完整框架 — 数据到模型</text>
+  <text class="ts" x="340" y="46" text-anchor="middle" font-size="12" fill="#6B7280">当前进度: 品类审核完成 · 48,824张已分类</text>
+
+  <rect x="40" y="65" width="600" height="100" rx="12" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.5"/>
+  <text class="th" x="56" y="83" font-size="13" font-weight="500" fill="#3C3489">阶段一 · 品类内精选（我负责）</text>
+  
+  <rect x="56" y="95" width="170" height="54" rx="8" fill="white" stroke="#CECBF6" stroke-width="0.5"/>
+  <text class="ts" x="141" y="114" text-anchor="middle" font-size="12" fill="#534AB7" dominant-baseline="central">筛选标准</text>
+  <text class="ts" x="141" y="134" text-anchor="middle" font-size="11" fill="#5F5E5A" dominant-baseline="central">去模糊 · 去重复 · 去低质</text>
+
+  <rect x="250" y="95" width="170" height="54" rx="8" fill="white" stroke="#CECBF6" stroke-width="0.5"/>
+  <text class="ts" x="335" y="114" text-anchor="middle" font-size="12" fill="#534AB7" dominant-baseline="central">每品类精选</text>
+  <text class="ts" x="335" y="134" text-anchor="middle" font-size="11" fill="#5F5E5A" dominant-baseline="central">50-200 张 / 品类</text>
+
+  <rect x="444" y="95" width="170" height="54" rx="8" fill="white" stroke="#CECBF6" stroke-width="0.5"/>
+  <text class="ts" x="529" y="114" text-anchor="middle" font-size="12" fill="#534AB7" dominant-baseline="central">产出物</text>
+  <text class="ts" x="529" y="134" text-anchor="middle" font-size="11" fill="#5F5E5A" dominant-baseline="central">品类精选清单 + train/val</text>
+
+  <path d="M226 122 L248 122" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <path d="M420 122 L442 122" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <path d="M340 165 L340 185" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <rect x="40" y="192" width="600" height="100" rx="12" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.5"/>
+  <text class="th" x="56" y="210" font-size="13" font-weight="500" fill="#3C3489">阶段二 · Caption 生成与审核</text>
+
+  <rect x="56" y="222" width="270" height="54" rx="8" fill="white" stroke="#CECBF6" stroke-width="0.5"/>
+  <text class="ts" x="191" y="241" text-anchor="middle" font-size="12" fill="#534AB7" dominant-baseline="central">AI 批量 Caption 生成（我负责）</text>
+  <text class="ts" x="191" y="261" text-anchor="middle" font-size="11" fill="#5F5E5A" dominant-baseline="central">FLUX 纯自然语言 40-100 词 / 张</text>
+
+  <rect x="350" y="222" width="270" height="54" rx="8" fill="#FBEAF0" stroke="#D4537E" stroke-width="0.5"/>
+  <text class="ts" x="485" y="241" text-anchor="middle" font-size="12" fill="#72243E" dominant-baseline="central">Caption 审核（你负责）</text>
+  <text class="ts" x="485" y="261" text-anchor="middle" font-size="11" fill="#5F5E5A" dominant-baseline="central">抽检 10% · 修正关键描述错误</text>
+
+  <path d="M326 249 L348 249" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <path d="M340 292 L340 312" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <rect x="40" y="319" width="600" height="100" rx="12" fill="#E6F1FB" stroke="#85B7EB" stroke-width="0.5"/>
+  <text class="th" x="56" y="337" font-size="13" font-weight="500" fill="#0C447C">阶段三 · 训练执行（我负责）</text>
+
+  <rect x="56" y="349" width="170" height="54" rx="8" fill="white" stroke="#B5D4F4" stroke-width="0.5"/>
+  <text class="ts" x="141" y="368" text-anchor="middle" font-size="12" fill="#185FA5" dominant-baseline="central">diffusers 训练脚本</text>
+  <text class="ts" x="141" y="388" text-anchor="middle" font-size="11" fill="#5F5E5A" dominant-baseline="central">5090D · FLUX LoRA</text>
+
+  <rect x="250" y="349" width="170" height="54" rx="8" fill="white" stroke="#B5D4F4" stroke-width="0.5"/>
+  <text class="ts" x="335" y="368" text-anchor="middle" font-size="12" fill="#185FA5" dominant-baseline="central">参数配置</text>
+  <text class="ts" x="335" y="388" text-anchor="middle" font-size="11" fill="#5F5E5A" dominant-baseline="central">rank 16-32 · alpha 8-16 · bf16</text>
+
+  <rect x="444" y="349" width="170" height="54" rx="8" fill="white" stroke="#B5D4F4" stroke-width="0.5"/>
+  <text class="ts" x="529" y="368" text-anchor="middle" font-size="12" fill="#185FA5" dominant-baseline="central">训练监控</text>
+  <text class="ts" x="529" y="388" text-anchor="middle" font-size="11" fill="#5F5E5A" dominant-baseline="central">Loss 曲线 · 自动断点续训</text>
+
+  <path d="M226 376 L248 376" stroke="#378ADD" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <path d="M420 376 L442 376" stroke="#378ADD" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <path d="M340 419 L340 439" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <rect x="40" y="446" width="600" height="100" rx="12" fill="#FBEAF0" stroke="#ED93B1" stroke-width="0.5"/>
+  <text class="th" x="56" y="464" font-size="13" font-weight="500" fill="#72243E">阶段四 · 推理测试与验收（你负责）</text>
+
+  <rect x="56" y="476" width="170" height="54" rx="8" fill="white" stroke="#F4C0D1" stroke-width="0.5"/>
+  <text class="ts" x="141" y="495" text-anchor="middle" font-size="12" fill="#993556" dominant-baseline="central">推理生成</text>
+  <text class="ts" x="141" y="515" text-anchor="middle" font-size="11" fill="#5F5E5A" dominant-baseline="central">按品类生成测试样本</text>
+
+  <rect x="250" y="476" width="170" height="54" rx="8" fill="white" stroke="#F4C0D1" stroke-width="0.5"/>
+  <text class="ts" x="335" y="495" text-anchor="middle" font-size="12" fill="#993556" dominant-baseline="central">效果验收</text>
+  <text class="ts" x="335" y="515" text-anchor="middle" font-size="11" fill="#5F5E5A" dominant-baseline="central">风格一致性 · 细节还原度</text>
+
+  <rect x="444" y="476" width="170" height="54" rx="8" fill="white" stroke="#F4C0D1" stroke-width="0.5"/>
+  <text class="ts" x="529" y="495" text-anchor="middle" font-size="12" fill="#993556" dominant-baseline="central">决策</text>
+  <text class="ts" x="529" y="515" text-anchor="middle" font-size="11" fill="#5F5E5A" dominant-baseline="central">过了 → 下一品类 | 不过 → 回退改参</text>
+
+  <path d="M226 503 L248 503" stroke="#D4537E" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <path d="M420 503 L442 503" stroke="#D4537E" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <path d="M540 530 L620 530 L620 376 L614 376" stroke="#D4537E" stroke-width="1.5" marker-end="url(#arrow)" fill="none" stroke-dasharray="5,3"/>
+  <text x="630" y="458" font-size="11" fill="#993556" transform="rotate(90,630,458)">迭代下一品类</text>
+
+  <path d="M340 546 L340 566" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <rect x="40" y="573" width="600" height="64" rx="12" fill="#EAF3DE" stroke="#97C459" stroke-width="0.5"/>
+  <text class="th" x="56" y="593" font-size="13" font-weight="500" fill="#27500A">阶段五 · 交付</text>
+  <text class="ts" x="56" y="620" font-size="12" fill="#3B6D11">产出 .safetensors 权重 · 品类标签映射表 · 训练参数记录 · 推理样本对比图</text>
+
+  <rect x="40" y="660" width="600" height="46" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  
+  <rect x="56" y="669" width="10" height="10" rx="2" fill="#534AB7"/>
+  <text class="ts" x="70" y="676" font-size="11" fill="#444441" dominant-baseline="central">数据工程（我）</text>
+  
+  <rect x="170" y="669" width="10" height="10" rx="2" fill="#185FA5"/>
+  <text class="ts" x="184" y="676" font-size="11" fill="#444441" dominant-baseline="central">训练执行（我）</text>
+
+  <rect x="290" y="669" width="10" height="10" rx="2" fill="#993556"/>
+  <text class="ts" x="304" y="676" font-size="11" fill="#444441" dominant-baseline="central">决策验收（你）</text>
+
+  <rect x="406" y="669" width="10" height="10" rx="2" fill="#3B6D11"/>
+  <text class="ts" x="420" y="676" font-size="11" fill="#444441" dominant-baseline="central">交付</text>
+
+  <text class="ts" x="540" y="686" font-size="11" fill="#6B7280">当前: 品类审核通过</text>
+</svg>

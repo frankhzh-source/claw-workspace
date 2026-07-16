@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIDU 来访 · 完整策略框架</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', 'Noto Sans SC', -apple-system, sans-serif;
+  background: #0f0f12;
+  color: #e8e8ed;
+  line-height: 1.6;
+  padding: 0;
+}
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 48px 80px;
+}
+
+/* header */
+.header { margin-bottom: 48px; }
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.3px;
+  margin-bottom: 8px;
+}
+.header .subtitle {
+  font-size: 14px;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.header .badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  background: #1c1c24;
+  color: #aaa;
+  border: 1px solid #2a2a35;
+}
+.header .badge.warn { border-color: #e8a838; color: #e8a838; background: #1f1a10; }
+.header .badge.green { border-color: #4caf7a; color: #4caf7a; background: #0f1f18; }
+
+/* meta row */
+.meta { display: flex; gap: 24px; margin-bottom: 40px; flex-wrap: wrap; }
+.meta-card {
+  flex: 1;
+  min-width: 180px;
+  background: #16161d;
+  border-radius: 10px;
+  padding: 16px 20px;
+  border: 1px solid #22222e;
+}
+.meta-card .label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.meta-card .value { font-size: 18px; font-weight: 600; color: #fff; }
+.meta-card .desc { font-size: 12px; color: #888; margin-top: 2px; }
+
+/* section */
+.section { margin-bottom: 40px; }
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-title .num {
+  display: inline-flex;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: #2a2a3a;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #aaa;
+  flex-shrink: 0;
+}
+
+/* tree diagram */
+.tree-container {
+  background: #16161d;
+  border-radius: 12px;
+  border: 1px solid #22222e;
+  padding: 28px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+}
+.tree-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 12px;
+  position: relative;
+}
+.tree-row:last-child { margin-bottom: 0; }
+.tree-node {
+  background: #1e1e2a;
+  border-radius: 8px;
+  padding: 12px 16px;
+  text-align: center;
+  min-width: 120px;
+  border: 1px solid #2a2a3a;
+  flex: 1;
+  max-width: 200px;
+}
+.tree-node.root { background: #2a1a3a; border-color: #5a3a7a; }
+.tree-node.root .tn-title { color: #c8a8f0; }
+.tree-node.branch { background: #1a2a2a; border-color: #2a4a4a; }
+.tree-node.branch .tn-title { color: #8ac8b0; }
+.tree-node.leaf { background: #1a1a2e; border-color: #2a2a5a; }
+.tree-node.leaf .tn-title { color: #90b0f0; }
+.tree-node.warn-node { background: #2a1a1a; border-color: #5a2a2a; }
+.tree-node.warn-node .tn-title { color: #f09080; }
+.tree-node .tn-title { font-size: 12px; font-weight: 600; color: #ddd; }
+.tree-node .tn-sub { font-size: 10px; color: #777; margin-top: 2px; }
+
+/* connector lines */
+.tree-connector { display: flex; justify-content: center; gap: 16px; position: relative; height: 20px; }
+.tree-connector::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #333;
+}
+.tree-connector .seg {
+  flex: 1;
+  max-width: 200px;
+  position: relative;
+  border-left: 1px solid #333;
+  border-right: 1px solid #333;
+  height: 100%;
+}
+.tree-connector .seg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  background: #333;
+}
+
+/* cards grid */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+@media (max-width: 900px) {
+  .grid-4 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .page { padding: 24px 16px; }
+}
+
+.card {
+  background: #16161d;
+  border-radius: 10px;
+  border: 1px solid #22222e;
+  padding: 16px 18px;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: #3a3a5e; }
+.card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ddd;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.card-title .icon { width: 18px; height: 18px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+.icon-red { background: #3a1a1a; color: #f07060; }
+.icon-green { background: #1a3a2a; color: #60c090; }
+.icon-amber { background: #2a2a1a; color: #d0b060; }
+.icon-blue { background: #1a2a3a; color: #6090d0; }
+.card-desc { font-size: 11px; color: #888; line-height: 1.5; }
+.card ul { list-style: none; padding: 0; margin-top: 6px; }
+.card li { font-size: 11px; color: #999; padding: 2px 0 2px 12px; position: relative; }
+.card li::before { content: '·'; position: absolute; left: 2px; color: #555; }
+.card li.red { color: #f08070; }
+.card li.green { color: #60c090; }
+.card li.amber { color: #d0a050; }
+
+/* share table */
+.share-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+.share-table td {
+  padding: 10px 14px;
+  font-size: 12px;
+  border-bottom: 1px solid #1e1e2a;
+  vertical-align: top;
+}
+.share-table tr:last-child td { border-bottom: none; }
+.share-table .tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.tag-green { background: #0f2a1a; color: #60c090; }
+.tag-red { background: #2a1414; color: #f08070; }
+.share-table .what { font-weight: 500; color: #ddd; }
+.share-table .why { color: #777; font-size: 11px; }
+
+/* signal lights */
+.signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 600px) { .signal-grid { grid-template-columns: 1fr; } }
+.signal {
+  display: flex; align-items: center; gap: 12px;
+  background: #16161d; border-radius: 8px; padding: 12px 14px;
+  border: 1px solid #22222e;
+}
+.signal .dot {
+  width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+}
+.dot-green { background: #4caf7a; box-shadow: 0 0 8px rgba(76,175,122,0.3); }
+.dot-red { background: #e05040; box-shadow: 0 0 8px rgba(224,80,64,0.3); }
+.signal .text { flex: 1; }
+.signal .text .s-title { font-size: 12px; font-weight: 500; color: #ddd; }
+.signal .text .s-desc { font-size: 11px; color: #777; }
+
+/* checklist */
+.checklist { list-style: none; padding: 0; }
+.checklist li {
+  font-size: 12px;
+  color: #bbb;
+  padding: 6px 0 6px 24px;
+  position: relative;
+}
+.checklist li::before {
+  content: '☐';
+  position: absolute;
+  left: 0;
+  color: #555;
+  font-size: 13px;
+}
+
+/* gold card */
+.gold-card {
+  background: #1a1a10;
+  border: 1px solid #3a3a1a;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+}
+.gold-card .g-text { font-size: 13px; color: #d0c080; font-style: italic; line-height: 1.6; }
+
+/* divider */
+hr { border: none; border-top: 1px solid #1e1e2e; margin: 36px 0; }
+
+/* footer */
+.footer {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid #1e1e2e;
+  font-size: 11px;
+  color: #555;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- header -->
+<div class="header">
+  <h1>VIDU 来访 · 完整策略框架</h1>
+  <div class="subtitle">
+    <span>2026-06-10 · 周三</span>
+    <span class="badge">树形推理</span>
+    <span class="badge">横向·纵向·逆向排查</span>
+    <span class="badge warn">5 枝风险体系</span>
+    <span class="badge green">代理层保护架构</span>
+  </div>
+</div>
+
+<!-- meta stats -->
+<div class="meta">
+  <div class="meta-card">
+    <div class="label">你的定位</div>
+    <div class="value">渠道+评估者</div>
+    <div class="desc">非终端用户，是模型厂需要的分发节点</div>
+  </div>
+  <div class="meta-card">
+    <div class="label">核心理念</div>
+    <div class="value">合作共赢+划清边界</div>
+    <div class="desc">给场景·保Prompt·护客户</div>
+  </div>
+  <div class="meta-card">
+    <div class="label">三层排查</div>
+    <div class="value">全部通过</div>
+    <div class="desc">横向3平台 · 纵向30年 · 逆向T+1</div>
+  </div>
+  <div class="meta-card">
+    <div class="label">策略覆盖</div>
+    <div class="value">5枝15节点</div>
+    <div class="desc">摸底→对齐→保护→合作→风险</div>
+  </div>
+</div>
+
+<!-- ============ SECTION 1 ============ -->
+<div class="section">
+  <div class="section-title"><span class="num">1</span>全局定位：你的真实价值与风险</div>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title"><span class="icon icon-green">✓</span>模型厂困境</div>
+      <div class="card-desc">技术很强，但不知道电商客户要什么、愿意为什么付费、工作流怎么嵌入企业已有系统。他们来找应用闭环的。</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon icon-blue">i</span>你的三重价值</div>
+      <div class="card-desc">
+        <ul>
+          <li>电商AI工作流构建者（验证场景可嵌入性）</li>
+          <li>AI落地培训师（分发渠道 — ⭐最高杠杆）</li>
+          <li>GEO/行业顾问（理解视频内容搜索规律）</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon icon-red">!</span>三大核心风险</div>
+      <div class="card-desc">
+        <ul>
+          <li class="red">Prompt 被做成默认模板 → 知识贬值</li>
+          <li class="red">客户被绕过接触 → 中间商化</li>
+          <li class="red">场景数据被用来训练竞品 → 壁垒通用化</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SECTION 2: 树形推理 ============ -->
+<div class="section">
+  <div class="section-title"><span class="num">2</span>树形推演：五枝策略体系</div>
+  
+  <div style="display:flex; align-items:center; justify-content:center; gap:20px; margin-bottom:20px; flex-wrap:wrap;">
+    <span style="font-size: 12px; color: #888;">根节点：合作共赢 + 保护核心</span>
+    <span style="color:#333;">→</span>
+    <span style="font-size:12px; color:#8ac8b0;">5 主枝</span>
+    <span style="color:#333;">→</span>
+    <span style="font-size:12px; color:#90b0f0;">15 子节点</span>
+    <span style="color:#333;">→</span>
+    <span style="font-size:12px; color:#888;">40+ 叶子节点</span>
+  </div>
+
+  <div class="grid-5" style="display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:20px;">
+    <div style="background:#1a2a2a; border-radius:8px; border:1px solid #2a4a4a; padding:12px; text-align:center;">
+      <div style="font-size:11px; font-weight:600; color:#8ac8b0;">第一枝</div>
+      <div style="font-size:12px; color:#ddd; margin-top:2px;">摸清对方</div>
+      <div style="font-size:10px; color:#666;">模型/API/角色</div>
+    </div>
+    <div style="background:#1a2a2a; border-radius:8px; border:1px solid #2a4a4a; padding:12px; text-align:center;">
+      <div style="font-size:11px; font-weight:600; color:#8ac8b0;">第二枝</div>
+      <div style="font-size:12px; color:#ddd; margin-top:2px;">工作流对齐</div>
+      <div style="font-size:10px; color:#666;">批量/嵌入/行业</div>
+    </div>
+    <div style="background:#2a1a1a; border-radius:8px; border:1px solid #5a2a2a; padding:12px; text-align:center;">
+      <div style="font-size:11px; font-weight:600; color:#f09080;">第三枝 ⭐</div>
+      <div style="font-size:12px; color:#ddd; margin-top:2px;">保护核心资产</div>
+      <div style="font-size:10px; color:#666;">代理层/会话/红线</div>
+    </div>
+    <div style="background:#1a2a2a; border-radius:8px; border:1px solid #2a4a4a; padding:12px; text-align:center;">
+      <div style="font-size:11px; font-weight:600; color:#8ac8b0;">第四枝</div>
+      <div style="font-size:12px; color:#ddd; margin-top:2px;">长期合作</div>
+      <div style="font-size:10px; color:#666;">筹码/跟进/承诺</div>
+    </div>
+    <div style="background:#2a1a1a; border-radius:8px; border:1px solid #5a2a2a; padding:12px; text-align:center;">
+      <div style="font-size:11px; font-weight:600; color:#f09080;">第五枝</div>
+      <div style="font-size:12px; color:#ddd; margin-top:2px;">风险排查</div>
+      <div style="font-size:10px; color:#666;">绕过/反噬/锁定</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SECTION 3: 代理层 ============ -->
+<div class="section">
+  <div class="section-title"><span class="num">3</span>技术层保护：代理层架构（核心防御）</div>
+  
+  <div style="background:#16161d; border-radius:12px; border:1px solid #22222e; padding:24px; margin-bottom:16px;">
+    <div style="display:flex; align-items:center; justify-content:center; gap:24px; flex-wrap:wrap; text-align:center;">
+      <div style="background:#1e1e2a; border-radius:8px; padding:14px 20px; border:1px solid #2a2a3a;">
+        <div style="font-size:11px; color:#888; margin-bottom:2px;">你的工作流</div>
+        <div style="font-size:14px; font-weight:600; color:#90b0f0;">ReactFlow → Zustand</div>
+      </div>
+      <div style="font-size:20px; color:#555;">→</div>
+      <div style="background:#2a2a1a; border-radius:8px; padding:14px 20px; border:1px solid #4a4a2a;">
+        <div style="font-size:11px; color:#d0a050; margin-bottom:4px;">⬡ 代理层 ⬡</div>
+        <div style="font-size:11px; color:#bbb;">Prompt 转化 · 缓存 · 路由 · 脱敏</div>
+      </div>
+      <div style="font-size:20px; color:#555;">→</div>
+      <div style="background:#1a2a2a; border-radius:8px; padding:14px 20px; border:1px solid #2a4a4a;">
+        <div style="font-size:11px; color:#888; margin-bottom:2px;">模型层</div>
+        <div style="font-size:14px; font-weight:600; color:#8ac8b0;">VIDU + 竞品</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-4">
+    <div class="card">
+      <div class="card-title"><span class="icon icon-amber">①</span>Prompt 转化</div>
+      <div class="card-desc">真实的 Prompt 模板不直接暴露。Agent 层从多维度属性动态组装 flat text，无法逆向还原结构。</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon icon-amber">②</span>结果缓存</div>
+      <div class="card-desc">按内容 hash + 参数 hash 缓存。命中直接返回不调 API。三重收益：减少暴露 + 降成本 + 降延迟。</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon icon-amber">③</span>多模型路由</div>
+      <div class="card-desc">抽象接口同时跑 3+ 家模型。最大谈判筹码："你的表现在我这边排名第 X" + 防止锁定。</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon icon-amber">④</span>请求脱敏</div>
+      <div class="card-desc">Logo/品牌名/条形码 → 自动模糊。客户 ID → hash。分类 → 通用类目名。不发原始数据。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SECTION 4: 红线表 ============ -->
+<div class="section">
+  <div class="section-title"><span class="num">4</span>可共享 vs 不可共享</div>
+  
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon icon-green">✓</span>放心共享（建立信任）</div>
+      <table class="share-table">
+        <tr><td><span class="tag tag-green">可</span></td><td class="what">行业使用场景描述</td><td class="why">"某品牌需要 500 个 SKU 视频"</td></tr>
+        <tr><td><span class="tag tag-green">可</span></td><td class="what">视频质量反馈</td><td class="why">"背景太复杂，主体不突出"</td></tr>
+        <tr><td><span class="tag tag-green">可</span></td><td class="what">行业普遍痛点</td><td class="why">"电商客户普遍反映背景一致性差"</td></tr>
+        <tr><td><span class="tag tag-green">可</span></td><td class="what">竞品差距对比</td><td class="why">"X 模型在某场景下比 VIDU 好 30%"</td></tr>
+        <tr><td><span class="tag tag-green">可</span></td><td class="what">脱敏测试截图</td><td class="why">去除品牌信息和客户标识</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon icon-red">✕</span>红线：绝不共享</div>
+      <table class="share-table">
+        <tr><td><span class="tag tag-red">禁</span></td><td class="what">客户名单和合同</td><td class="why">⭐ 被绕过就归零</td></tr>
+        <tr><td><span class="tag tag-red">禁</span></td><td class="what">完整 Prompt 模板</td><td class="why">⭐ 拿去做预设模板</td></tr>
+        <tr><td><span class="tag tag-red">禁</span></td><td class="what">工作流编排源码</td><td class="why">⭐ 节点逻辑是决策方式</td></tr>
+        <tr><td><span class="tag tag-red">禁</span></td><td class="what">质量评估量化标准</td><td class="why">⭐ 判断力比生成力更稀缺</td></tr>
+        <tr><td><span class="tag tag-red">禁</span></td><td class="what">客户付费意愿和预算</td><td class="why">⭐ 了解后可绕过你定价</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SECTION 5: 四个信号灯 ============ -->
+<div class="section">
+  <div class="section-title"><span class="num">5</span>会话信号灯（实时决策框架）</div>
+  <div class="signal-grid">
+    <div class="signal">
+      <div class="dot dot-green"></div>
+      <div class="text">
+        <div class="s-title">对方主动给你 API 文档</div>
+        <div class="s-desc">🟢 认真合作 → 可以给更多测试反馈</div>
+      </div>
+    </div>
+    <div class="signal">
+      <div class="dot dot-red"></div>
+      <div class="text">
+        <div class="s-title">对方问你的客户是谁</div>
+        <div class="s-desc">🔴 绕道意图 → 回答"行业通用描述"，不点名</div>
+      </div>
+    </div>
+    <div class="signal">
+      <div class="dot dot-green"></div>
+      <div class="text">
+        <div class="s-title">对方愿意签数据保护协议</div>
+        <div class="s-desc">🟢 有诚意 → 可讨论更深合作</div>
+      </div>
+    </div>
+    <div class="signal">
+      <div class="dot dot-red"></div>
+      <div class="text">
+        <div class="s-title">对方不停问"你们 Prompt 怎么写的"</div>
+        <div class="s-desc">🔴 最危险 → 抽象回答 + 快速转移话题</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SECTION 6: 三维排查 ============ -->
+<div class="section">
+  <div class="section-title"><span class="num">6</span>三维推理排查审计</div>
+  
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:16px;">
+    <div class="card">
+      <div class="card-title"><span class="icon icon-blue">H</span>横向比对</div>
+      <div style="border-left:2px solid #333; padding-left:10px; margin-top:4px;">
+        <div style="font-size:11px; color:#888; margin-bottom:4px;">对标 3 类平台关系</div>
+        <div style="font-size:11px; color:#bbb;">Shopify-开发者 → 平台复制成功 App</div>
+        <div style="font-size:11px; color:#bbb;">OpenAI-API客户 → 使用模式被分析</div>
+        <div style="font-size:11px; color:#ddd; margin-top:4px;">防御：模型厂做不了培训和多模型顾问</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon icon-blue">V</span>纵向比对</div>
+      <div style="border-left:2px solid #333; padding-left:10px; margin-top:4px;">
+        <div style="font-size:11px; color:#888; margin-bottom:4px;">30 年中介价值演化</div>
+        <div style="font-size:11px; color:#bbb;">90s SI → 被 ERP 绕过（暴露客户关系）</div>
+        <div style="font-size:11px; color:#bbb;">10s ISV → 被平台复制（单平台锁定）</div>
+        <div style="font-size:11px; color:#ddd; margin-top:4px;">教训：不暴露客户 · 不单平台绑定</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon icon-blue">R</span>逆向倒推</div>
+      <div style="border-left:2px solid #333; padding-left:10px; margin-top:4px;">
+        <div style="font-size:11px; color:#888; margin-bottom:4px;">T+1 最坏结局倒推</div>
+        <div style="font-size:11px; color:#f08070;">绕过客户 · Prompt 预设化 · 失去杠杆</div>
+        <div style="font-size:11px; color:#ddd; margin-top:4px;">→ 5 条生存红线：缺任何一条概率+20%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SECTION 7: 金句 ============ -->
+<div class="section">
+  <div class="section-title"><span class="num">7</span>金句卡片</div>
+  <div class="gold-card"><div class="g-text">"你要的不是一个更好的模型——你要的是一个能在你的工作流里跑的模型。"</div></div>
+  <div class="gold-card"><div class="g-text">"模型厂能复制你的工作流，但复制不了你和客户之间的信任。"</div></div>
+  <div class="gold-card"><div class="g-text">"每次你教模型厂一个电商场景，都在投资他们未来和你竞争的能力。"</div></div>
+  <div class="gold-card"><div class="g-text">"你最大的安全边界不是协议条款，是代理层。"</div></div>
+  <div class="gold-card"><div class="g-text">"主动共享场景和痛点，保守保护 Prompt 和评估标准。边界划在商务层，不划在聊天态度上。"</div></div>
+</div>
+
+<!-- ============ SECTION 8: 行动清单 ============ -->
+<div class="section">
+  <div class="section-title"><span class="num">8</span>行动清单</div>
+  
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title"><span class="icon icon-amber">⬡</span>会前</div>
+      <ul class="checklist">
+        <li>准备一页纸"行业需求说明"给对方</li>
+        <li>准备 1-2 个脱敏测试需求</li>
+        <li>确认参会者角色（调整信息输出量）</li>
+        <li>在代理层跑通一次 VIDU API</li>
+        <li>记录当前工作流的视频瓶颈</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon icon-red">◉</span>会中</div>
+      <ul class="checklist">
+        <li>前 5 分钟控制叙事框架（你是评估者）</li>
+        <li>拿到"一致性"问题的明确答复</li>
+        <li>拿到异步回调机制的说明</li>
+        <li>🔴 不暴露客户名单</li>
+        <li>🔴 不暴露 Prompt 结构</li>
+        <li>🔴 不暴露工作流源码</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon icon-green">◉</span>会后 24h</div>
+      <ul class="checklist">
+        <li>发出 Meeting Notes 给各方</li>
+        <li>更新模型评估矩阵</li>
+        <li>判断是否进入下一轮合作</li>
+        <li>如继续，更新代理层适配</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SECTION 9: 60分钟时间盒 ============ -->
+<div class="section">
+  <div class="section-title"><span class="num">9</span>60 分钟会议时间盒</div>
+  <div style="background:#16161d; border-radius:10px; border:1px solid #22222e; overflow:hidden;">
+    <div style="display:grid; grid-template-columns:80px 1fr 1fr 1fr;">
+      <div style="padding:10px 12px; background:#1e1e2a; font-size:11px; font-weight:600; color:#888; text-align:center;">时间</div>
+      <div style="padding:10px 12px; background:#1e1e2a; font-size:11px; font-weight:600; color:#888;">环节</div>
+      <div style="padding:10px 12px; background:#1e1e2a; font-size:11px; font-weight:600; color:#888;">目标</div>
+      <div style="padding:10px 12px; background:#1e1e2a; font-size:11px; font-weight:600; color:#f08070;">风险提醒</div>
+
+      <div style="padding:10px 12px; font-size:11px; text-align:center; color:#888; border-top:1px solid #1e1e2e;">0-5'</div>
+      <div style="padding:10px 12px; font-size:11px; color:#ddd; border-top:1px solid #1e1e2e;">双方介绍</div>
+      <div style="padding:10px 12px; font-size:11px; color:#bbb; border-top:1px solid #1e1e2e;">建立"评估者"定位</div>
+      <div style="padding:10px 12px; font-size:11px; color:#888; border-top:1px solid #1e1e2e;">不要说得太详细</div>
+
+      <div style="padding:10px 12px; font-size:11px; text-align:center; color:#888;">5-15'</div>
+      <div style="padding:10px 12px; font-size:11px; color:#ddd;">⭐ 你展示工作流</div>
+      <div style="padding:10px 12px; font-size:11px; color:#bbb;">控制叙事框架</div>
+      <div style="padding:10px 12px; font-size:11px; color:#f08070;">不展示源码和真实数据</div>
+
+      <div style="padding:10px 12px; font-size:11px; text-align:center; color:#888;">15-35'</div>
+      <div style="padding:10px 12px; font-size:11px; color:#ddd;">L2 核心提问</div>
+      <div style="padding:10px 12px; font-size:11px; color:#bbb;">评估场景适配度</div>
+      <div style="padding:10px 12px; font-size:11px; color:#888;">一致性+回调是试金石</div>
+
+      <div style="padding:10px 12px; font-size:11px; text-align:center; color:#888;">35-45'</div>
+      <div style="padding:10px 12px; font-size:11px; color:#ddd;">对方介绍 VIDU</div>
+      <div style="padding:10px 12px; font-size:11px; color:#bbb;">听 roadmap</div>
+      <div style="padding:10px 12px; font-size:11px; color:#888;">看是否有电商布局</div>
+
+      <div style="padding:10px 12px; font-size:11px; text-align:center; color:#888;">45-55'</div>
+      <div style="padding:10px 12px; font-size:11px; color:#ddd;">合作方向讨论</div>
+      <div style="padding:10px 12px; font-size:11px; color:#bbb;">抛出合作意向</div>
+      <div style="padding:10px 12px; font-size:11px; color:#f08070;">不主动承诺高价值资源</div>
+
+      <div style="padding:10px 12px; font-size:11px; text-align:center; color:#888;">55-60'</div>
+      <div style="padding:10px 12px; font-size:11px; color:#ddd;">索要资源 + 收尾</div>
+      <div style="padding:10px 12px; font-size:11px; color:#bbb;">联系人 / 文档 / 下一步</div>
+      <div style="padding:10px 12px; font-size:11px; color:#888;">"先小范围验证"降承诺</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  本文档经过树形推理（5枝15节点）、横向比对（3类平台）、纵向比对（30年3时代）、逆向倒推（T+1最坏结局→5条红线）层层排查生成。<br>
+  2026-06-04 · 海风 × WorkBuddy
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI电商生图 — 流程与调优手册</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --border: #2a2d3a;
+    --text: #e1e4ea;
+    --text2: #8b8fa5;
+    --green: #2dd4bf;
+    --red: #f87171;
+    --blue: #60a5fa;
+    --yellow: #fbbf24;
+    --purple: #a78bfa;
+    --orange: #fb923c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { 
+    background: var(--bg); color: var(--text); 
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.6; padding: 32px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  h1 { font-size: 28px; margin-bottom: 8px; }
+  h2 { font-size: 20px; margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 16px; margin: 20px 0 8px; color: var(--blue); }
+  .subtitle { color: var(--text2); margin-bottom: 24px; }
+  
+  .overview { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; text-align: center; }
+  .stat .num { font-size: 28px; font-weight: 700; }
+  .stat .label { font-size: 13px; color: var(--text2); margin-top: 4px; }
+
+  .flow-container {
+    display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0;
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+    overflow-x: auto;
+  }
+  .flow-block {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px; min-width: 160px; text-align: center; margin: 4px;
+  }
+  .flow-block .title { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+  .flow-block .desc { font-size: 12px; color: var(--text2); }
+  .flow-arrow { display: flex; align-items: center; font-size: 20px; color: var(--text2); padding: 0 8px; white-space: nowrap; }
+
+  .param-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .param-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+  .param-card h3 { margin: 0 0 8px; }
+  .param-card .range { font-size: 12px; color: var(--text2); margin-bottom: 4px; }
+  .param-card .tip { font-size: 13px; color: var(--yellow); }
+
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  th, td { border: 1px solid var(--border); padding: 10px 14px; text-align: left; }
+  th { background: var(--card); font-weight: 600; color: var(--text2); font-size: 13px; }
+  td { vertical-align: top; }
+  .pass { color: var(--green); font-weight: 600; }
+  .fail { color: var(--red); font-weight: 600; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin: 2px; }
+  .tag-red { background: rgba(248,113,113,0.15); color: var(--red); }
+  .tag-green { background: rgba(45,212,191,0.15); color: var(--green); }
+  .tag-blue { background: rgba(96,165,250,0.15); color: var(--blue); }
+  .tag-orange { background: rgba(251,146,60,0.15); color: var(--orange); }
+
+  .loop { display: flex; gap: 16px; margin: 16px 0; }
+  .loop-step { flex: 1; background: var(--card); border: 2px solid var(--border); border-radius: 8px; padding: 16px; text-align: center; }
+  .loop-step .idx { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .loop-step .name { font-weight: 600; margin-bottom: 4px; }
+  .loop-step .detail { font-size: 13px; color: var(--text2); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 16px 0; }
+  @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } .overview { grid-template-columns: repeat(2, 1fr); } }
+
+  .supplier { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+  .supplier h3 { margin: 0 0 4px; display: flex; align-items: center; gap: 8px; }
+  .supplier .badge { font-size: 12px; padding: 2px 8px; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<h1>AI电商商品图生成 — 流程与调优手册</h1>
+<p class="subtitle">基于9次测试结果的实战总结 · 2026年5月29日</p>
+
+<div class="overview">
+  <div class="stat"><div class="num" style="color:var(--green)">176</div><div class="label">产品基地</div></div>
+  <div class="stat"><div class="num" style="color:var(--blue)">18</div><div class="label">Prompt模板</div></div>
+  <div class="stat"><div class="num" style="color:var(--yellow)">9</div><div class="label">测试任务</div></div>
+  <div class="stat"><div class="num">5/9</div><div class="label">待审核</div></div>
+</div>
+
+<!-- ====== 完整流程 ====== -->
+<h2>一、完整生图流程（7阶段）</h2>
+
+<div class="flow-container">
+  <div class="flow-block">
+    <div class="title" style="color:var(--purple)">Phase 0<br>样本收集</div>
+    <div class="desc">从产品基地选50-100个TOP主图<br>标注CTR数据<br>确认类目</div>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-block">
+    <div class="title" style="color:var(--blue)">Phase 1<br>特征提取</div>
+    <div class="desc">手动标注关键特征<br>Python+CV2分析<br>产品占比/背景/光影</div>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-block">
+    <div class="title" style="color:var(--orange)">Phase 2<br>Prompt模板</div>
+    <div class="desc">结构化Prompt格式<br>Positive + Negative<br>电商质量词库</div>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-block">
+    <div class="title" style="color:var(--yellow)">Phase 3<br>工作流搭建</div>
+    <div class="desc">ComfyUI/Canny/Depth<br>安装custom_nodes<br>下载模型权重</div>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-block">
+    <div class="title" style="color:var(--green)">Phase 4<br>Gateway集成</div>
+    <div class="desc">API封装<br>Web UI开关<br>批量调用能力</div>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-block">
+    <div class="title">Phase 5<br>批量+测试</div>
+    <div class="desc">批量生成候选图<br>A/B测试<br>CTR追踪对比</div>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-block">
+    <div class="title" style="color:var(--red)">Phase 6<br>反馈优化</div>
+    <div class="desc">根据CTR调整Prompt<br>优化ControlNet权重<br>持续迭代</div>
+  </div>
+</div>
+
+<p style="color:var(--text2); font-size:13px; margin-top:-16px; margin-bottom:24px;">
+  当前进度：Phase 0-2已完成（5个样本+18个模板），Phase 3-4进行中，Phase 5-6待推进
+</p>
+
+<!-- ====== 调优体系 ====== -->
+<h2>二、核心调优参数体系</h2>
+
+<div class="param-grid">
+  <div class="param-card">
+    <h3>denoise（降噪强度）<span class="tag tag-red">最关键参数</span></h3>
+    <div class="range">取值范围：0.0 - 1.0</div>
+    <div class="tip">低保真改图：0.25 - 0.35（保颜色/版型）</div>
+    <div class="tip">中等改图：0.40 - 0.55（换场景/背景）</div>
+    <div class="tip">高自由度：0.70+（文生图/全新构图）</div>
+    <p style="margin-top:8px; font-size:13px">
+      实测：Tes#2用0.35仍颜色漂移，建议<strong>保真任务从0.25起步</strong>
+    </p>
+  </div>
+
+  <div class="param-card">
+    <h3>guidance（引导强度）</h3>
+    <div class="range">取值范围：1.0 - 20.0</div>
+    <div class="tip">文生图：7.5（强Prompt遵循）</div>
+    <div class="tip">img2img：3.5（避免过拟合参考图）</div>
+    <div class="tip">值越高 → Prompt越重要；值越低 → 模型越自由</div>
+  </div>
+
+  <div class="param-card">
+    <h3>steps（采样步数）</h3>
+    <div class="range">取值范围：15 - 50</div>
+    <div class="tip">基础生成：20步（性价比最优）</div>
+    <div class="tip">细节图：24步（面料纹理需要更多步数）</div>
+    <div class="tip">超20步后边际收益递减</div>
+  </div>
+
+  <div class="param-card">
+    <h3>seed（随机种子）</h3>
+    <div class="range">任意整数</div>
+    <div class="tip">A/B测试必须固定seed</div>
+    <div class="tip">只改一个变量对照</div>
+    <div class="tip">记录seed便于复现</div>
+  </div>
+
+  <div class="param-card">
+    <h3>生成方式</h3>
+    <div class="range">5种模式</div>
+    <div class="tip">txt2img：无参考图，文生图</div>
+    <div class="tip">img2img：参考图 + Prompt</div>
+    <div class="tip">Canny：边線控制构图</div>
+    <div class="tip">Depth：深度图控制空间</div>
+    <div class="tip">Mask：局部重绘</div>
+  </div>
+
+  <div class="param-card">
+    <h3>尺寸</h3>
+    <div class="range">按用途匹配</div>
+    <div class="tip">淘宝主图：800x800 或 1024x1024</div>
+    <div class="tip">详情图：1536x1024（横版）</div>
+    <div class="tip">三视图/上身：1024x1536（竖版）</div>
+  </div>
+</div>
+
+<!-- ====== 供应商策略 ====== -->
+<h2>三、多供应商矩阵</h2>
+
+<div class="two-col">
+  <div class="supplier">
+    <h3><span class="badge tag-blue">FLUX.1-dev</span> 主力生图</h3>
+    <p style="font-size:13px">适用：淘宝主图、详情图、轮播图、场景图</p>
+    <p style="font-size:13px; margin-top:4px">已测试：文生图(5分)、img2img(2分)、Canny(4分)</p>
+    <p style="font-size:13px; margin-top:4px">成本：本地部署，无API费用</p>
+  </div>
+  <div class="supplier">
+    <h3><span class="badge tag-green">FASHN</span> 三视图专用</h3>
+    <p style="font-size:13px">适用：服装上身正面/侧面/背面三视图</p>
+    <p style="font-size:13px; margin-top:4px">已测试：Demo批次，待审核上传</p>
+    <p style="font-size:13px; margin-top:4px">成本：每图约$1.1 | 每任务2张</p>
+  </div>
+  <div class="supplier">
+    <h3><span class="badge tag-orange">Vidu</span> 上架图集</h3>
+    <p style="font-size:13px">适用：白底基础图、多角度商品展示</p>
+    <p style="font-size:13px; margin-top:4px">已测试：Demo批次，待审核上传</p>
+    <p style="font-size:13px; margin-top:4px">成本：每图约$0.50 | 每任务6张</p>
+  </div>
+  <div class="supplier">
+    <h3><span class="badge tag-red">Flux Kontext Pro</span> SKU变种</h3>
+    <p style="font-size:13px">适用：换色、换背景等低风险变种</p>
+    <p style="font-size:13px; margin-top:4px">已测试：Demo批次，待审核上传</p>
+    <p style="font-size:13px; margin-top:4px">成本：每图约$0.33 | 每任务3张</p>
+  </div>
+</div>
+
+<!-- ====== 调优循环 ====== -->
+<h2>四、调优闭环：4步循环</h2>
+
+<div class="loop">
+  <div class="loop-step" style="border-color:var(--blue)">
+    <div class="idx" style="color:var(--blue)">1</div>
+    <div class="name">生成</div>
+    <div class="detail">固定模板+参数<br>单变量对照<br>记录seed/denoise/guidance</div>
+  </div>
+  <div style="display:flex;align-items:center;font-size:20px;color:var(--text2)">→</div>
+  <div class="loop-step" style="border-color:var(--yellow)">
+    <div class="idx" style="color:var(--yellow)">2</div>
+    <div class="name">审核</div>
+    <div class="detail">主体保真(1-5)<br>颜色一致(1-5)<br>面料一致(1-5)<br>构图可用(1-5)<br>背景干净(1-5)<br>Prompt匹配(1-5)</div>
+  </div>
+  <div style="display:flex;align-items:center;font-size:20px;color:var(--text2)">→</div>
+  <div class="loop-step" style="border-color:var(--red)">
+    <div class="idx" style="color:var(--red)">3</div>
+    <div class="name">归因</div>
+    <div class="detail">颜色不准 → 降denoise<br>面料不准 → 加Canny/降denoise<br>主体跑偏 → 增加约束Prompt<br>构图不行 → 改尺寸/Canny</div>
+  </div>
+  <div style="display:flex;align-items:center;font-size:20px;color:var(--text2)">→</div>
+  <div class="loop-step" style="border-color:var(--green)">
+    <div class="idx" style="color:var(--green)">4</div>
+    <div class="name">复盘</div>
+    <div class="detail">记录问题→处理方案<br>更新工作流版本号<br>沉淀到Prompt模板库</div>
+  </div>
+</div>
+
+<!-- ====== 实战案例 ====== -->
+<h2>五、实战调优案例</h2>
+
+<table>
+  <tr>
+    <th>测试</th><th>任务</th><th>初始参数</th><th>问题</th><th>调优方向</th>
+  </tr>
+  <tr>
+    <td><span class="fail">Tes#2<br>（失败）</span></td>
+    <td>白底图保真<br>睡衣套装</td>
+    <td>denoise=0.35<br>guidance=3.5<br>steps=20</td>
+    <td><span class="tag tag-red">颜色不准</span> 浅蓝→灰白<br><span class="tag tag-red">主体跑偏</span> 领口结构被改写</td>
+    <td>
+      1. 降denoise到0.25<br>
+      2. 增加Canny边線约束<br>
+      3. Positive Prompt明确颜色词<br>
+      4. Negative加"wrong color"权重
+    </td>
+  </tr>
+  <tr>
+    <td><span class="fail">Tes#3<br>（失败）</span></td>
+    <td>详情细节<br>吊带睡裙</td>
+    <td>denoise=0.45<br>guidance=3.5<br>steps=24</td>
+    <td><span class="tag tag-red">面料不准</span> 蕾丝纹理被抹平</td>
+    <td>
+      1. 降denoise到0.30<br>
+      2. 加局部Mask重绘<br>
+      3. Prompt强化纹理关键词<br>
+      4. 测试更低的denoise
+    </td>
+  </tr>
+  <tr>
+    <td><span class="pass">Tes#1<br>（通过）</span></td>
+    <td>文生图<br>睡衣</td>
+    <td>denoise=0.70<br>guidance=7.5<br>steps=20</td>
+    <td>无明显问题<br>综合评分5/5</td>
+    <td>
+      文生图本身效果优秀<br>
+      可直接用于概念验证<br>
+      不依赖参考图
+    </td>
+  </tr>
+  <tr>
+    <td><span class="pass">Tes#4<br>（通过）</span></td>
+    <td>轮播图<br>童装</td>
+    <td>denoise=0.50<br>Canny模式</td>
+    <td>构图可用5分<br>综合4分</td>
+    <td>
+      Canny模式效果好<br>
+      后续可观察批量稳定性<br>
+      探索不同场景模板
+    </td>
+  </tr>
+</table>
+
+<!-- ====== 参数速查 ====== -->
+<h2>六、参数速查表：按场景匹配</h2>
+
+<table>
+  <tr>
+    <th>场景</th><th>推荐方式</th><th>denoise</th><th>guidance</th><th>steps</th><th>尺寸</th><th>供应商</th>
+  </tr>
+  <tr>
+    <td>淘宝主图-保真</td><td>img2img</td><td style="color:var(--red);font-weight:600">0.25-0.30</td><td>3.5</td><td>20</td><td>1024x1024</td><td>FLUX</td>
+  </tr>
+  <tr>
+    <td>淘宝主图-创意</td><td>txt2img</td><td>0.70</td><td>7.5</td><td>20</td><td>800x800</td><td>FLUX</td>
+  </tr>
+  <tr>
+    <td>详情图-细节</td><td>img2img</td><td style="color:var(--red);font-weight:600">0.25-0.35</td><td>3.5</td><td>24</td><td>1536x1024</td><td>FLUX</td>
+  </tr>
+  <tr>
+    <td>轮播图-场景</td><td>Canny</td><td>0.45-0.55</td><td>3.5</td><td>22</td><td>1024x1024</td><td>FLUX</td>
+  </tr>
+  <tr>
+    <td>三视图-上身</td><td>img2img</td><td>0.30</td><td>3.5</td><td>20</td><td>1024x1536</td><td>FASHN</td>
+  </tr>
+  <tr>
+    <td>上架图-白底</td><td>img2img</td><td>0.40</td><td>3.5</td><td>20</td><td>1024x1024</td><td>Vidu</td>
+  </tr>
+  <tr>
+    <td>SKU变种-换色</td><td>img2img</td><td>0.35</td><td>3.5</td><td>20</td><td>1024x1024</td><td>Flux Kontext</td>
+  </tr>
+</table>
+
+<!-- ====== 关键结论 ====== -->
+<h2>七、核心结论与优先级</h2>
+
+<div class="two-col">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;">
+    <h3 style="color:var(--red)">P0：修低保真度问题</h3>
+    <p style="font-size:13px">颜色漂移和面料失真导致50%失败率。优先验证 denoise=0.25 + Canny 组合对保真度的改善效果。</p>
+    <p style="font-size:13px;margin-top:8px">验证方案：Tes#2/#3 用新参数重跑一轮</p>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;">
+    <h3 style="color:var(--blue)">P1：Demo批次走通全链路</h3>
+    <p style="font-size:13px">FASHN三视图 + Vidu上架图 + Flux SKU变种。上传结果图、完成审核、验证多供应商协作可行性。</p>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;">
+    <h3 style="color:var(--yellow)">P2：样本库扩充</h3>
+    <p style="font-size:13px">从176条产品基地拉P0优先级样本（高频核心品类），目标50-100个进入测试。</p>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;">
+    <h3 style="color:var(--green)">P3：批量自动化</h3>
+    <p style="font-size:13px">单次批量生成 + A/B测试（CTR对比），建立数据反馈的持续优化循环。</p>
+  </div>
+</div>
+
+<p style="margin-top:32px; font-size:13px; color:var(--text2); text-align:center;">
+  基于 测试任务表(tblbKrV4XGrmCv0h) + 生成结果表(tblrqvelg2YgkXya) + Prompt模板库(tblFapMoL1XWv2y5) 分析
+</p>
+
+</body>
+</html>

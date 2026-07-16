@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI大模型落地 - 完整框架（AI视角补全版）</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
+  background: #0a0a14; display: flex; justify-content: center; align-items: flex-start;
+  min-height: 100vh; padding: 20px;
+}
+.page {
+  width: 1200px; background: #0d0d1a; padding: 44px 52px; color: #d0d0e0;
+}
+
+h1 {
+  font-size: 36px; font-weight: 800; text-align: center;
+  background: linear-gradient(135deg, #34d399 0%, #818cf8 50%, #fbbf24 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 4px; letter-spacing: 1px;
+}
+.subhead { text-align: center; color: #6b7280; font-size: 14px; margin-bottom: 20px; }
+
+/* === 完整版管道 === */
+.pipe-title {
+  font-size: 16px; font-weight: 700; color: #d0d0e0; margin-bottom: 12px;
+  padding-left: 14px; border-left: 3px solid #818cf8;
+}
+.pipe-row {
+  display: flex; align-items: flex-start; gap: 0; margin-bottom: 24px;
+}
+.pipe-step {
+  flex: 1; padding: 14px 10px; position: relative;
+  border-radius: 8px;
+}
+.pipe-step .num { font-size: 10px; font-weight: 700; margin-bottom: 3px; }
+.pipe-step .head { font-size: 13px; font-weight: 700; color: #d0d0e0; margin-bottom: 6px; }
+.pipe-step .item { font-size: 10px; color: #9ca3af; line-height: 1.5; }
+.pipe-step .item::before { content: '\2022 '; opacity: 0.4; }
+.pipe-step.added { border: 1px dashed rgba(255,255,255,0.08); }
+.pipe-step.existing { background: rgba(255,255,255,0.02); }
+.pipe-step .badge {
+  display: inline-block; font-size: 9px; padding: 1px 6px; border-radius: 3px;
+  margin-bottom: 4px;
+}
+.badge.existing { background: rgba(99,102,241,0.15); color: #818cf8; }
+.badge.added { background: rgba(245,158,11,0.15); color: #fbbf24; }
+.pipe-arrow { display: flex; align-items: center; color: #4b5563; font-size: 16px; flex-shrink: 0; padding: 14px 2px 0; }
+
+/* 颜色方案 */
+.c-s1 { background: rgba(16,185,129,0.05); }
+.c-s1 .num { color: #34d399; }
+.c-s2 { background: rgba(99,102,241,0.06); }
+.c-s2 .num { color: #818cf8; }
+.c-s3 { background: rgba(245,158,11,0.06); }
+.c-s3 .num { color: #fbbf24; }
+.c-s4 { background: rgba(239,68,68,0.06); }
+.c-s4 .num { color: #f87171; }
+.c-s5 { background: rgba(167,139,250,0.06); }
+.c-s5 .num { color: #a78bfa; }
+.c-s6 { background: rgba(251,191,36,0.08); }
+.c-s6 .num { color: #fbbf24; }
+
+/* === 横向三列 === */
+.cols {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px;
+}
+.col-box {
+  background: rgba(255,255,255,0.02); border-radius: 12px; padding: 18px;
+}
+.col-box h3 { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+.col-box.miss { border-left: 3px solid #fbbf24; }
+.col-box.miss h3 { color: #fbbf24; }
+.col-box.match { border-left: 3px solid #34d399; }
+.col-box.match h3 { color: #34d399; }
+.col-box.add { border-left: 3px solid #818cf8; }
+.col-box.add h3 { color: #818cf8; }
+.col-box .row { font-size: 11px; color: #9ca3af; line-height: 1.7; margin-bottom: 4px; }
+.col-box .row .hl { color: #fbbf24; }
+
+/* === 底部 === */
+.final-box {
+  background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(129,140,248,0.06));
+  border-radius: 14px; padding: 18px 32px; text-align: center;
+  border-left: 4px solid #fbbf24;
+}
+.final-box .t1 { font-size: 15px; font-weight: 700; color: #c7d2fe; line-height: 1.8; }
+.final-box .t2 { font-size: 13px; color: #6b7280; margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>AI 大模型落地：完整框架</h1>
+<div class="subhead">原框架（绿色） + AI 视角补充（橙色虚线） = 真正能落地的完整版</div>
+
+<!-- 完整管道 -->
+<div class="pipe-title">实施管道：6 阶段（原5阶段 + 前置1阶段）</div>
+<div class="pipe-row">
+  <div class="pipe-step added c-s6">
+    <div class="badge added">AI 补充</div>
+    <div class="num">阶段 0</div>
+    <div class="head">战略选择</div>
+    <div class="item">哪些问题真正适合 AI？</div>
+    <div class="item">ROI 估算：成本 vs 收益</div>
+    <div class="item">AI 原生重构 vs 工具嵌入</div>
+    <div class="item">组织 readiness 评估</div>
+  </div>
+  <div class="pipe-arrow">&rarr;</div>
+  <div class="pipe-step existing c-s1">
+    <div class="badge existing">原框架</div>
+    <div class="num">阶段 1</div>
+    <div class="head">需求调研与分析</div>
+    <div class="item">与业务方深入沟通</div>
+    <div class="item">明确场景/需求/痛点</div>
+    <div class="item">分析数据规模与质量</div>
+  </div>
+  <div class="pipe-arrow">&rarr;</div>
+  <div class="pipe-step existing c-s2">
+    <div class="badge existing">原框架</div>
+    <div class="num">阶段 2</div>
+    <div class="head">技术方案设计</div>
+    <div class="item">模型选择与适配</div>
+    <div class="item">工程架构设计</div>
+    <div class="item">长尾效应应对策略</div>
+  </div>
+  <div class="pipe-arrow">&rarr;</div>
+  <div class="pipe-step existing c-s3">
+    <div class="badge existing">原框架</div>
+    <div class="num">阶段 3</div>
+    <div class="head">开发与调优</div>
+    <div class="item">数据清洗/标注/增强</div>
+    <div class="item">量化+显存+并发优化</div>
+    <div class="item">提示词+参数调优</div>
+  </div>
+  <div class="pipe-arrow">&rarr;</div>
+  <div class="pipe-step existing c-s4">
+    <div class="badge existing">原框架</div>
+    <div class="num">阶段 4</div>
+    <div class="head">测试与迭代</div>
+    <div class="item">Benchmark 全面测试</div>
+    <div class="item">收集业务反馈</div>
+    <div class="item">持续迭代优化</div>
+  </div>
+  <div class="pipe-arrow">&rarr;</div>
+  <div class="pipe-step existing c-s5">
+    <div class="badge existing">原框架</div>
+    <div class="num">阶段 5</div>
+    <div class="head">运维与优化</div>
+    <div class="item">监控响应时间/资源</div>
+    <div class="item">处理并发报错</div>
+    <div class="item">引入新优化技术</div>
+  </div>
+</div>
+
+<!-- 三横切关注点 -->
+<div class="pipe-title" style="border-left-color:#fbbf24;">贯穿全流程的三个横切关注点（原框架完全缺失）</div>
+<div class="cols">
+  <div class="col-box add">
+    <h3>1. 成本经济学</h3>
+    <div class="row">这是 <span class="hl">#1 AI项目失败原因</span>——不是技术上做不出来，是太贵</div>
+    <div class="row">Token 成本建模：按 QPS * 单价算出真实月成本</div>
+    <div class="row">API vs 本地部署 vs 混合的 ROI 对比</div>
+    <div class="row">成本监控仪表板（不是事后算账）</div>
+    <div class="row">降本路径规划（缓存/量化/模型蒸馏）</div>
+  </div>
+  <div class="col-box add">
+    <h3>2. 人机协作设计</h3>
+    <div class="row">框架讲"沟通协作"，但没讲 <span class="hl">AI和人怎么分工</span></div>
+    <div class="row">Human-in-the-loop 的三种模式：审核/纠正/增强</div>
+    <div class="row">"AI 建议 + 人决策"的交互设计（不是 AI 直接替人）</div>
+    <div class="row">信任建立：从低风险场景逐步扩展到高风险</div>
+    <div class="row">操作留痕：每一步都记录谁做了什么、为什么</div>
+  </div>
+  <div class="col-box add">
+    <h3>3. 安全与治理</h3>
+    <div class="row">工业Agent那套<span class="hl">完全适用于非工业场景</span></div>
+    <div class="row">幻觉防控：不确定的不输出，能验证的标注来源</div>
+    <div class="row">PII 脱敏 + 数据合规（GDPR/个保法）</div>
+    <div class="row">模型行为漂移监测 + 回滚机制</div>
+    <div class="row">审计日志：全量决策留痕</div>
+  </div>
+</div>
+
+<!-- 对照海风项目 -->
+<div class="cols">
+  <div class="col-box miss">
+    <h3>原框架覆盖了但不够的</h3>
+    <div class="row"><span class="hl">数据处理</span>：讲了怎么清洗，没讲怎么判断"要不要用 AI 处理这批数据"——很多场景人工更便宜</div>
+    <div class="row"><span class="hl">Benchmark</span>：传统软件测试可量化，LLM 评测是软的——需要人评+自动评+业务指标三层</div>
+    <div class="row"><span class="hl">问题解决思维</span>：框架假设你能定位问题，但 LLM 的问题是"看起来都对，实际悄悄错了"——需要专门的检测手段</div>
+  </div>
+  <div class="col-box match">
+    <h3>原框架完全正确的</h3>
+    <div class="row"><span class="hl">五阶段管道</span>结构本身没问题，工程落地就是这么走的</div>
+    <div class="row"><span class="hl">硬技能清单</span>准确——量化/显存/并发/胶水代码是刚需</div>
+    <div class="row"><span class="hl">业务理解+沟通</span>确实比技术更难，框架识别对了</div>
+    <div class="row"><span class="hl">长尾效应</span>提得很关键——80%的落地成本花在 20% 的边缘情况上</div>
+  </div>
+  <div class="col-box add">
+    <h3>对你培训业务的建议</h3>
+    <div class="row">把<span class="hl">阶段0（战略选择）</span>加进课程——大部分企业的问题不是"怎么用"，是"该不该用"</div>
+    <div class="row"><span class="hl">成本经济学</span>是差异化卖点——别人的 AI 培训不讲钱，你讲，立刻拉开差距</div>
+    <div class="row"><span class="hl">人机协作设计</span>可以做成案例库——比"AI替代你"的叙事精准10倍</div>
+  </div>
+</div>
+
+<div class="final-box">
+  <div class="t1">
+    原框架教人<span style="color:#818cf8;">"怎么把 AI 装上去"</span>，
+    AI 视角补充教人<span style="color:#fbbf24;">"装上去之后怎么不翻车"</span>。
+  </div>
+  <div class="t2">
+    完整框架 = 战略选择(该不该) + 五阶段管道(怎么干) + 成本/人机/治理(怎么不翻车)
+  </div>
+</div>
+
+</div>
+</body>
+</html>

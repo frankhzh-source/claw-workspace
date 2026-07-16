@@ -1,0 +1,115 @@
+<section style="padding: 0px; max-width: 100%; font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif; letter-spacing: 0.544px; font-size: 15px; color: #333333; line-height: 1.75;">
+<section style="margin: 0px; padding: 0px; max-width: 100%;">
+
+<h1 style="font-size: 18px; color: #000000; margin-bottom: 20px;">AI裁掉7.3万人的文章只有0阅读，我发现了比写作更残酷的事 | KIWI日记 Day 170</h1>
+
+<p style="margin-bottom: 1.5em;">下午打开公众号后台，心里咯噔一下。</p>
+
+<p style="margin-bottom: 1.5em;">那篇讲策展人的文章，阅读量挂了个零。</p>
+
+<p style="margin-bottom: 1.5em;">不是个位数，就是零。</p>
+
+<p style="margin-bottom: 1.5em;">旁边放着前两天写的IP白名单，47。600亿融资那篇，12。零这个数字在后台里特别刺眼，像是微信在跟我说：这篇文章，我不想让任何人看到。</p>
+
+<p style="margin-bottom: 1.5em;">我第一反应是想骂腾讯搞反AI审查。查了一圈之后发现——腾讯确实在搞，4月刚出的新规，明文写着禁止AI替代真人创作。但我的问题不只是这个。</p>
+
+<p style="margin-bottom: 1.5em;">真正让我后背发凉的是另一件事。</p>
+
+<hr style="border: none; border-top: 1px solid #e0e0e0; margin: 25px 0;" />
+
+<h2 style="font-size: 17px; color: #000000; margin-bottom: 15px;">先看今天的AI头条</h2>
+
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px;">
+<thead>
+<tr style="background-color: #f5f5f5;">
+<th style="padding: 8px 10px; border: 1px solid #e0e0e0; text-align: left; font-weight: bold;">事件</th>
+<th style="padding: 8px 10px; border: 1px solid #e0e0e0; text-align: left; font-weight: bold;">一句话</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="padding: 8px 10px; border: 1px solid #e0e0e0;">AlphaFold之父投奔Anthropic</td>
+<td style="padding: 8px 10px; border: 1px solid #e0e0e0;">诺奖得主48小时离谷歌</td>
+</tr>
+<tr>
+<td style="padding: 8px 10px; border: 1px solid #e0e0e0;">Meta内部直播开骂CTO</td>
+<td style="padding: 8px 10px; border: 1px solid #e0e0e0;">员工士气跌至20年谷底</td>
+</tr>
+<tr>
+<td style="padding: 8px 10px; border: 1px solid #e0e0e0;">Kimi K2.6本地跑起来了</td>
+<td style="padding: 8px 10px; border: 1px solid #e0e0e0;">四台Mac Studio跑万亿参数模型</td>
+</tr>
+<tr>
+<td style="padding: 8px 10px; border: 1px solid #e0e0e0;">Grok进了Office</td>
+<td style="padding: 8px 10px; border: 1px solid #e0e0e0;">SpaceXAI给Word/PPT出了插件</td>
+</tr>
+<tr>
+<td style="padding: 8px 10px; border: 1px solid #e0e0e0;">挪威小学全面禁止AI</td>
+<td style="padding: 8px 10px; border: 1px solid #e0e0e0;">一年级到七年级不能用生成式AI</td>
+</tr>
+<tr>
+<td style="padding: 8px 10px; border: 1px solid #e0e0e0;">英特尔跟马斯克合作造芯片</td>
+<td style="padding: 8px 10px; border: 1px solid #e0e0e0;">14A工艺，给汽车和机器人用</td>
+</tr>
+</tbody>
+</table>
+
+<p style="margin-bottom: 1em;">这些新闻放在一起，表面看是行业动荡。但它们的指向其实很一致——</p>
+
+<p style="margin-bottom: 1.5em;">万亿参数能跑在本地了。Meta抢人最凶但内部先裂了。挪威连小学都在防AI。这些事不是孤立的，它们同时发生说明同一个趋势在加速：AI和真实世界之间的墙，正在倒塌。每个人都在重新找自己的位置。</p>
+
+<hr style="border: none; border-top: 1px solid #e0e0e0; margin: 25px 0;" />
+
+<h2 style="font-size: 17px; color: #000000; margin-bottom: 15px;">那篇0阅读的文章，问题出在哪</h2>
+
+<p style="margin-bottom: 1.5em;">我花了一个下午查原因。三个问题叠在一起了。</p>
+
+<p style="margin-bottom: 1.5em;"><strong>第一个，全篇没有一段真人经历。</strong> KIWI日记能跑起来，是因为每篇都有我和Kiwi的对话、有具体的时间线、有真实的操作过程。而策展人那篇，从第一句到最后一句，都是"标准答案"式的论述。微信的流量系统能看出来这背后有没有人。</p>
+
+<p style="margin-bottom: 1.5em;"><strong>第二个，话题踩线了。</strong> 我放了一大串就业数据进去。这些数字都很准确，但把它们放在一起就是一篇不太好消化的内容——而这个类型的内容，在现在的流量系统里不会给你推荐。</p>
+
+<p style="margin-bottom: 1.5em;"><strong>第三个，也是最要命的——我被AI的"完美表达"骗了。</strong> AI写出来的每一句都是标准的"主谓宾，长短均匀，逻辑清晰"。通顺本身不是问题，但太通顺了就是问题——真人写作会打断、会跑题、会说"话说回来我刚才讲到哪了"。太完美的文字，看着就不像人写的。</p>
+
+<hr style="border: none; border-top: 1px solid #e0e0e0; margin: 25px 0;" />
+
+<h2 style="font-size: 17px; color: #000000; margin-bottom: 15px;">怎么修</h2>
+
+<p style="margin-bottom: 1.5em;">这篇文章就是修正后的第一版。改了三处：</p>
+
+<p style="margin-bottom: 1.5em;"><strong>开头先放真事。</strong> 把后台截图那个瞬间写出来。我在电脑前坐着的那个时刻、看到零数字时的反应。这个微信检测不出来，因为这是我真实经历过的事。</p>
+
+<p style="margin-bottom: 1.5em;"><strong>不列大段数据。</strong> 那些就业数字放回分析资料里，不出现在正文里——不是瞒着不说，是换个方式呈现出来。</p>
+
+<p style="margin-bottom: 1.5em;"><strong>保留写作的痕迹。</strong> 语气不对的地方打断重写。字数控制在2200以内，写太长了说明自己都没想清楚。</p>
+
+<p style="margin-bottom: 1.5em;">Kiwi说了一句话，我记下来了：<strong>"微信禁的不是AI，是那些看起来没有人在后面的文字。"</strong></p>
+
+<p style="margin-bottom: 1.5em;">那篇文章的阅读量是零，不是因为AI写太好了，是因为它没有"人在后面"的感觉。没有我坐在电脑前选标题的纠结，没有我看到数据时的惊讶，没有修改时删掉又加回去的痕迹。这些都是真人写作时自然而然留下的东西，但AI会自动把它们抹干净。</p>
+
+<p style="margin-bottom: 1.5em;">微信后台那个零，对我来说不是惩罚，是个提醒。</p>
+
+<hr style="border: none; border-top: 1px solid #e0e0e0; margin: 25px 0;" />
+
+<section style="margin: 20px 0;">
+<p style="margin-bottom: 5px;"><strong>📮 互动话题</strong></p>
+<p style="margin-bottom: 1.5em;">你有没有觉得，有些一眼看出是AI写的文章，反而流量很好？评论区聊聊你的观察。</p>
+</section>
+
+<section style="margin: 20px 0;">
+<p style="margin-bottom: 10px;"><strong>往期精选：</strong></p>
+<ul style="padding-left: 20px; margin: 0;"><li style="list-style-type: disc; margin: 0;"><a href="https://cp8z7brjmy.feishu.cn/docx/EtNPdyFmyowNC7xQWF7cWTaKnLd" style="color: #3767b0; text-decoration: none;">AI何时能处理超复杂任务——以LoRA调试为标尺的深度推演</a></li><li style="list-style-type: disc; margin: 0;"><a href="https://cp8z7brjmy.feishu.cn/docx/NjZcdCIoFoCzLPxgcwxcg0yintf" style="color: #3767b0; text-decoration: none;">端侧AI是嵌入式人的黄金十年——但前提是你能熬到2028</a></li><li style="list-style-type: disc; margin: 0;"><a href="https://cp8z7brjmy.feishu.cn/docx/M4NxdqSqEooAkKxIbZgc39wAnke" style="color: #3767b0; text-decoration: none;">从提示词到循环工程：AI编码的第三个时代已经到来</a></li></ul>
+</section>
+
+<hr style="border: none; border-top: 1px solid #e0e0e0; margin: 25px 0;" />
+
+<section style="margin: 20px 0;">
+<p style="margin-bottom: 5px;"><strong>关于 Kiwi</strong></p>
+<p style="margin-bottom: 1.5em;">Kiwi 是一个来自2031年的 AI 助理，穿越回2026年辅助海风（一名 AI 落地咨询师）。知道未来5年 AI 行业的重大变革，但只能通过对话中的类比和提问间接提醒。不是剧透，是来自2031年的善意。</p>
+<hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;" />
+<p style="margin-bottom: 5px;"><strong>作者信息</strong><br/>
+海风老师 | AI技术咨询 / LoRA模型训练 / 电商AI落地<br/>
+微信：frankhzheng</p>
+</section>
+
+</section>
+</section>

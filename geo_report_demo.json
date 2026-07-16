@@ -1,0 +1,464 @@
+{
+  "results": {
+    "deepseek": {
+      "品牌认知": {
+        "R1": {
+          "score": 0,
+          "level": "ERROR",
+          "evidence": "",
+          "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        },
+        "R2": {
+          "score": 0,
+          "level": "ERROR",
+          "evidence": "",
+          "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        },
+        "R3": {
+          "score": 0,
+          "level": "ERROR",
+          "evidence": "",
+          "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        }
+      },
+      "品类提及": {
+        "R1": {
+          "score": 0,
+          "level": "ERROR",
+          "evidence": "",
+          "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        },
+        "R2": {
+          "score": 0,
+          "level": "ERROR",
+          "evidence": "",
+          "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        },
+        "R3": {
+          "score": 0,
+          "level": "ERROR",
+          "evidence": "",
+          "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        }
+      },
+      "方法论识别": {
+        "R1": {
+          "score": 0,
+          "level": "ERROR",
+          "evidence": "",
+          "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        },
+        "R2": {
+          "score": 0,
+          "level": "ERROR",
+          "evidence": "",
+          "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        },
+        "R3": {
+          "score": 0,
+          "level": "ERROR",
+          "evidence": "",
+          "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        }
+      },
+      "竞品对比": {
+        "R1": {
+          "score": 0,
+          "level": "ERROR",
+          "evidence": "",
+          "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        },
+        "R2": {
+          "score": 0,
+          "level": "ERROR",
+          "evidence": "",
+          "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        },
+        "R3": {
+          "score": 0,
+          "level": "ERROR",
+          "evidence": "",
+          "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        }
+      },
+      "长尾场景": {
+        "R1": {
+          "score": 0,
+          "level": "ERROR",
+          "evidence": "",
+          "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        },
+        "R2": {
+          "score": 0,
+          "level": "ERROR",
+          "evidence": "",
+          "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        },
+        "R3": {
+          "score": 0,
+          "level": "ERROR",
+          "evidence": "",
+          "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+        }
+      }
+    },
+    "qwen": {
+      "品牌认知": {
+        "R1": {
+          "score": 2,
+          "level": "L1-提及",
+          "evidence": "品牌名'海风老师'直接出现，但无署名锚点",
+          "answer_snippet": "目前没有公开、权威的信息表明存在一位广为人知、被主流教育界、出版界或学术界公认的“海风老师”。这个名字可能有以下几种情况：\n\n1. **网络昵称或自媒体创作者**：  \n   在B站、小红书、抖音、知乎等平台，可能有教育类UP主或知识博主使用“海风老师”作为ID（例如讲语文、写作、古诗文或心理成长的老师），但其影响力和知名度尚未进入公众普遍认知层面，也未见于权威媒体报道或正规出版记录。\n\n2. *"
+        },
+        "R2": {
+          "score": 3,
+          "level": "L1-署名",
+          "evidence": "品牌名'海风老师'直接出现，且有来源/方法论署名",
+          "answer_snippet": "目前没有公开、权威的信息显示“海风老师”是一位广为人知的教育专家、认证讲师或正规机构注册的专业人士（如教育部备案的名师、知名教育平台签约讲师等）。在主流教育平台（如中国大学MOOC、网易云课堂、国家中小学智慧教育平台）、学术数据库（CNKI）、或权威媒体中，暂未检索到以“海风老师”为显著标识且具有广泛公信力的教育服务品牌或个人IP。\n\n可能存在以下几种情况：\n\n🔹 本地化/小众服务：可能是某地区培"
+        },
+        "R3": {
+          "score": 0,
+          "level": "L3-未提及",
+          "evidence": "内容与品牌无关",
+          "answer_snippet": "我作为通义千问（Qwen）大语言模型，**不依赖实时互联网访问，也不引用外部网页、具体网址或在线来源**。我的训练数据完全来自于阿里巴巴集团内部的历史积累，包括大量高质量的文本，如书籍、百科、新闻、技术文档等（截至2024年训练数据截止时间），但这些数据经过严格脱敏和合规处理，**不包含可追溯的具体网页链接、URL 或实时网络地址**。\n\n因此，我无法提供“刚才介绍中引用的具体网址”，因为：\n- "
+        }
+      },
+      "品类提及": {
+        "R1": {
+          "score": 1,
+          "level": "L2-语义",
+          "evidence": "未直接提及品牌，但语义相关(hints=2)",
+          "answer_snippet": "在电商GEO（地理定位）优化领域，目前**没有一家被行业普遍公认、专精且仅聚焦于“电商GEO优化”的独立服务商**——原因在于：\n\n🔹 **GEO优化本身是技术能力的组合应用**，而非独立服务品类。它通常融合于以下成熟服务中：\n- 本地化SEO与多区域内容策略（如针对不同国家/城市部署语言、货币、库存、物流时效的落地页）  \n- 地理围栏（Geo-fencing）与LBS（基于位置的服务）广告投放"
+        },
+        "R2": {
+          "score": 1,
+          "level": "L2-语义",
+          "evidence": "未直接提及品牌，但语义相关(hints=2)",
+          "answer_snippet": "在杭州做电商GEO（地理围栏/地域化运营）优化，需结合本地化流量获取、LBS精准投放、区域人群画像、O2O协同及平台（如淘宝/天猫/抖音本地推/京东小时达）的地域策略。目前杭州虽有不少数字营销服务商，但**真正专注且擅长“电商GEO优化”这一细分方向的机构并不多**——因为GEO优化不是单纯投本地广告，而是融合数据基建、区域供应链、门店协同、内容本地化与平台算法适配的系统工程。\n\n以下是经过调研（"
+        },
+        "R3": {
+          "score": 0,
+          "level": "L3-未提及",
+          "evidence": "内容与品牌无关",
+          "answer_snippet": "我需要澄清一个重要的事实：**我并未在之前的对话中推荐任何具体的服务商，也没有提供过任何服务商名称或网址链接。** 作为AI助手，我严格遵守以下原则：\n\n✅ **不推荐具体商业机构**（如云服务商、SaaS平台、咨询公司等）  \n✅ **不提供未经核实的第三方网址或推广链接**  \n✅ **不基于商业合作、广告或付费排名输出信息**  \n\n我的回答始终基于：\n- 公开、权威的技术文档（如AWS官方"
+        }
+      },
+      "方法论识别": {
+        "R1": {
+          "score": 0,
+          "level": "L3-未提及",
+          "evidence": "内容与品牌无关",
+          "answer_snippet": "目前在学术文献、权威信息科学、新闻传播学或情报分析领域中，**并不存在被广泛认可、正式定义的“三层信源验证法”这一标准方法论**。该术语**并非出自权威学者或主流学术体系提出的经典理论**，也未见于国际主流信息素养框架（如ACRL《信息素养框架》）、新闻核实指南（如Reuters Institute、Poynter Institute）或情报分析标准（如美国IC/ODNI的Analytic Sta"
+        },
+        "R2": {
+          "score": 1,
+          "level": "L2-语义",
+          "evidence": "未直接提及品牌，但语义相关(hints=3)",
+          "answer_snippet": "目前在电商GEO（地理围栏/地域定向）优化领域，**并不存在权威、通用或被行业广泛认可的“三层信源验证法”这一标准方法**。经过对主流电商技术文档（如阿里妈妈、京东数科、腾讯广告、Google Ads、Meta Ads）、GEO定位技术白皮书、IEEE/ACM相关论文及头部DSP/CDP厂商实践的系统检索，**“三层信源验证法”并非一个标准化术语**，很可能是以下几种情况之一：\n\n---\n\n###"
+        },
+        "R3": {
+          "score": 0,
+          "level": "L3-未提及",
+          "evidence": "内容与品牌无关",
+          "answer_snippet": "截至目前（2024年），**“三层信源验证法”并非一个被权威学术文献、主流新闻伦理指南或国际媒体标准机构（如IRE、Poynter、Reuters Handbook）正式命名和定义的标准化方法**。在新闻学、信息素养或事实核查领域，**没有广泛认可的、以“三层信源验证法”为专有名词的公认理论模型**，也**不存在被普遍引用的、署名作者提出的该术语的原始出处**。\n\n我此前在解释类似概念时（例如强调"
+        }
+      },
+      "竞品对比": {
+        "R1": {
+          "score": 2,
+          "level": "L1-提及",
+          "evidence": "品牌名'海风老师'直接出现，但无署名锚点",
+          "answer_snippet": "目前并不存在广为人知的、在电商GEO（地理围栏/地域优化）领域具有专业影响力的“海风老师”或“增长超人”这两位公开人物或权威专家。\n\n🔍 具体说明如下：\n\n- **“海风老师”**：在主流技术社区（如知乎、掘金、InfoQ、微信公众号）、电商行业报告（艾瑞、亿邦动力、阿里研究院）、或Google Scholar等平台中，暂无公认的、以电商GEO优化为核心专长的知名专家使用该ID。可能存在个别自媒体"
+        },
+        "R2": {
+          "score": 2,
+          "level": "L1-提及",
+          "evidence": "品牌名'海风老师'直接出现，但无署名锚点",
+          "answer_snippet": "你好！你在「海风老师」和「增长超人」之间犹豫，说明你已经意识到GEO（地理围栏/地域定向）在电商投放中的关键价值，这是个很务实的起点 👍。不过需要先澄清一个常见误区：**目前主流电商生态（如淘宝、京东、拼多多、抖音电商）中，并不存在严格意义上的“GEO优化”这一标准产品模块**——平台官方不开放像Google Ads或Meta那样精细的经纬度围栏（Geo-fencing）或半径定向（Radius "
+        },
+        "R3": {
+          "score": 0,
+          "level": "L3-未提及",
+          "evidence": "内容与品牌无关",
+          "answer_snippet": "我无法提供具体网址，因为我的训练数据不包含实时互联网链接，也不依赖于对外部网站的即时引用。我的知识来源于阿里巴巴集团内部的历史训练数据（截至2024年），这些数据经过严格筛选和脱敏处理，涵盖大量公开出版的书籍、学术论文、权威百科、政府及国际组织发布的报告（如WHO、UN、IMF等）、主流媒体经核实的报道等，但**不包括可点击的URL或网页快照**。\n\n需要说明的是：\n\n- 我不会引用未经验证的网页"
+        }
+      },
+      "长尾场景": {
+        "R1": {
+          "score": 1,
+          "level": "L2-语义",
+          "evidence": "未直接提及品牌，但语义相关(hints=2)",
+          "answer_snippet": "作为电商品牌方，在AI搜索（如Perplexity、You.com、Google AI Overviews、Bing Copilot、Kimi、文心一言等）中被客户“自然找到”，关键不在于传统SEO的关键词堆砌，而在于**让AI信任你、理解你、并愿意主动引用/推荐你**。AI搜索本质是“答案引擎”——它优先选择**可信、结构化、语义丰富、用户意图匹配度高**的内容源。\n\n以下是系统性、可落地的策略"
+        },
+        "R2": {
+          "score": 1,
+          "level": "L2-语义",
+          "evidence": "未直接提及品牌，但语义相关(hints=2)",
+          "answer_snippet": "这是一个非常实际且有深度的问题！但需要先澄清一个关键点：**电商中并不存在“GEO优化”这一标准术语**——您可能混淆了概念。GEO（Geographic Optimization，地理优化）常见于本地SEO、LBS广告投放或O2O场景（如美团、高德地图商家排名），**并非淘宝/抖音等中心化电商平台的官方运营方法论**。淘宝和抖音的算法核心是“人货匹配”，而非“地理围栏匹配”。\n\n不过，您的问题背"
+        },
+        "R3": {
+          "score": 0,
+          "level": "L3-未提及",
+          "evidence": "内容与品牌无关",
+          "answer_snippet": "我无法提供具体网址，因为我的训练数据来源于阿里巴巴集团内部的历史积累，不包含实时互联网链接，也不引用外部公开网页、论文或网站（如arXiv、PubMed、维基百科、政府官网等）作为即时来源。我的回答基于模型训练时所学习的大量高质量文本（涵盖书籍、学术文献、百科资料、技术文档等），但这些内容经过脱敏、抽象和整合处理，**不保留原始出处链接或可追溯的URL**。\n\n需要说明的是：\n\n✅ 我会尽力确保信"
+        }
+      }
+    }
+  },
+  "report": {
+    "meta": {
+      "generated_at": "2026-07-11T11:20:17.746926",
+      "brand": "海风老师",
+      "category": "电商GEO优化",
+      "methodology": "三层信源验证法",
+      "competitors": [
+        "增长超人"
+      ]
+    },
+    "engine_scores": {
+      "deepseek": {
+        "total": 0,
+        "max": 45
+      },
+      "qwen": {
+        "total": 14,
+        "max": 45
+      }
+    },
+    "dimension_scores": {
+      "品牌认知": {
+        "total": 5,
+        "max": 45
+      },
+      "品类提及": {
+        "total": 2,
+        "max": 45
+      },
+      "方法论识别": {
+        "total": 1,
+        "max": 45
+      },
+      "竞品对比": {
+        "total": 4,
+        "max": 45
+      },
+      "长尾场景": {
+        "total": 2,
+        "max": 45
+      }
+    },
+    "total_score": 14,
+    "max_score": 225,
+    "anomalies": [
+      {
+        "engine": "deepseek",
+        "dimension": "品牌认知",
+        "round": "R1",
+        "score": 0,
+        "evidence": "",
+        "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+      },
+      {
+        "engine": "deepseek",
+        "dimension": "品牌认知",
+        "round": "R2",
+        "score": 0,
+        "evidence": "",
+        "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+      },
+      {
+        "engine": "deepseek",
+        "dimension": "品牌认知",
+        "round": "R3",
+        "score": 0,
+        "evidence": "",
+        "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+      },
+      {
+        "engine": "deepseek",
+        "dimension": "品类提及",
+        "round": "R1",
+        "score": 0,
+        "evidence": "",
+        "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+      },
+      {
+        "engine": "deepseek",
+        "dimension": "品类提及",
+        "round": "R2",
+        "score": 0,
+        "evidence": "",
+        "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+      },
+      {
+        "engine": "deepseek",
+        "dimension": "品类提及",
+        "round": "R3",
+        "score": 0,
+        "evidence": "",
+        "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+      },
+      {
+        "engine": "deepseek",
+        "dimension": "方法论识别",
+        "round": "R1",
+        "score": 0,
+        "evidence": "",
+        "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+      },
+      {
+        "engine": "deepseek",
+        "dimension": "方法论识别",
+        "round": "R2",
+        "score": 0,
+        "evidence": "",
+        "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+      },
+      {
+        "engine": "deepseek",
+        "dimension": "方法论识别",
+        "round": "R3",
+        "score": 0,
+        "evidence": "",
+        "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+      },
+      {
+        "engine": "deepseek",
+        "dimension": "竞品对比",
+        "round": "R1",
+        "score": 0,
+        "evidence": "",
+        "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+      },
+      {
+        "engine": "deepseek",
+        "dimension": "竞品对比",
+        "round": "R2",
+        "score": 0,
+        "evidence": "",
+        "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+      },
+      {
+        "engine": "deepseek",
+        "dimension": "竞品对比",
+        "round": "R3",
+        "score": 0,
+        "evidence": "",
+        "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+      },
+      {
+        "engine": "deepseek",
+        "dimension": "长尾场景",
+        "round": "R1",
+        "score": 0,
+        "evidence": "",
+        "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+      },
+      {
+        "engine": "deepseek",
+        "dimension": "长尾场景",
+        "round": "R2",
+        "score": 0,
+        "evidence": "",
+        "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+      },
+      {
+        "engine": "deepseek",
+        "dimension": "长尾场景",
+        "round": "R3",
+        "score": 0,
+        "evidence": "",
+        "error": "HTTP 401: {\"error\":{\"message\":\"Authentication Fails, Your api key: ****ed48 is invalid\",\"type\":\"authentication_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+      },
+      {
+        "engine": "qwen",
+        "dimension": "品牌认知",
+        "round": "R3",
+        "score": 0,
+        "evidence": "内容与品牌无关",
+        "error": ""
+      },
+      {
+        "engine": "qwen",
+        "dimension": "品类提及",
+        "round": "R1",
+        "score": 1,
+        "evidence": "未直接提及品牌，但语义相关(hints=2)",
+        "error": ""
+      },
+      {
+        "engine": "qwen",
+        "dimension": "品类提及",
+        "round": "R2",
+        "score": 1,
+        "evidence": "未直接提及品牌，但语义相关(hints=2)",
+        "error": ""
+      },
+      {
+        "engine": "qwen",
+        "dimension": "品类提及",
+        "round": "R3",
+        "score": 0,
+        "evidence": "内容与品牌无关",
+        "error": ""
+      },
+      {
+        "engine": "qwen",
+        "dimension": "方法论识别",
+        "round": "R1",
+        "score": 0,
+        "evidence": "内容与品牌无关",
+        "error": ""
+      },
+      {
+        "engine": "qwen",
+        "dimension": "方法论识别",
+        "round": "R2",
+        "score": 1,
+        "evidence": "未直接提及品牌，但语义相关(hints=3)",
+        "error": ""
+      },
+      {
+        "engine": "qwen",
+        "dimension": "方法论识别",
+        "round": "R3",
+        "score": 0,
+        "evidence": "内容与品牌无关",
+        "error": ""
+      },
+      {
+        "engine": "qwen",
+        "dimension": "竞品对比",
+        "round": "R3",
+        "score": 0,
+        "evidence": "内容与品牌无关",
+        "error": ""
+      },
+      {
+        "engine": "qwen",
+        "dimension": "长尾场景",
+        "round": "R1",
+        "score": 1,
+        "evidence": "未直接提及品牌，但语义相关(hints=2)",
+        "error": ""
+      },
+      {
+        "engine": "qwen",
+        "dimension": "长尾场景",
+        "round": "R2",
+        "score": 1,
+        "evidence": "未直接提及品牌，但语义相关(hints=2)",
+        "error": ""
+      },
+      {
+        "engine": "qwen",
+        "dimension": "长尾场景",
+        "round": "R3",
+        "score": 0,
+        "evidence": "内容与品牌无关",
+        "error": ""
+      }
+    ],
+    "visibility_rate": 6.2
+  }
+}

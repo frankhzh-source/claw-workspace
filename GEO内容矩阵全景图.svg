@@ -1,0 +1,220 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1150" width="100%" height="100%" style="background: #ffffff; font-family: 'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#185FA5"/><stop offset="100%" stop-color="#0C447C"/></linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1B8A3B"/><stop offset="100%" stop-color="#146B2E"/></linearGradient>
+    <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D97706"/><stop offset="100%" stop-color="#B25D00"/></linearGradient>
+    <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#5B21B6"/></linearGradient>
+  </defs>
+
+  <!-- TITLE -->
+  <rect x="0" y="0" width="1000" height="90" fill="url(#g1)"/>
+  <text x="500" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#ffffff">GEO 内容矩阵全景图</text>
+  <text x="500" y="65" text-anchor="middle" font-size="14" fill-opacity="0.9" fill="#ffffff">50个问题 × 4个客户决策阶段 — 让客户在AI里找到你</text>
+
+  <!-- NOTE -->
+  <rect x="40" y="105" width="920" height="36" rx="6" fill="#E6F1FB"/>
+  <text x="56" y="128" font-size="13" fill="#0C447C">你不是在写文章，你是在布设"被AI发现"的触点。潜在客户在AI上搜→AI引用你的内容→客户通过AI找到你。</text>
+
+  <!-- ===== 4 COLUMNS ===== -->
+  <!-- Column 1: 认知阶段 -->
+  <rect x="30" y="155" width="225" height="50" rx="8" fill="url(#g1)"/>
+  <text x="142" y="176" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">认知阶段</text>
+  <text x="142" y="195" text-anchor="middle" font-size="11" fill-opacity="0.85" fill="#ffffff">"GEO是什么？值不值？"</text>
+
+  <rect x="30" y="211" width="225" height="380" rx="6" fill="#F0F5FB"/>
+
+  <rect x="40" y="220" width="205" height="24" rx="4" fill="#D6E8F8"/>
+  <text x="142" y="237" text-anchor="middle" font-size="11" font-weight="600" fill="#0C447C">12个问题 · 建立认知</text>
+
+  <text x="42" y="265" font-size="11" fill="#185FA5" font-weight="600">1. GEO是什么？和SEO区别？</text>
+  <text x="42" y="282" font-size="10" fill="#666">核心概念对比，演化史讲清楚</text>
+
+  <text x="42" y="304" font-size="11" fill="#185FA5" font-weight="600">2. GEO真有用还是营销概念？</text>
+  <text x="42" y="321" font-size="10" fill="#666">用Cloudflare Bot数据说话</text>
+
+  <text x="42" y="343" font-size="11" fill="#185FA5" font-weight="600">3. GEO和SEO哪个更重要？</text>
+  <text x="42" y="360" font-size="10" fill="#666">非替代关系，叠加共存策略</text>
+
+  <text x="42" y="382" font-size="11" fill="#185FA5" font-weight="600">5. GEO优化要花多少钱？</text>
+  <text x="42" y="399" font-size="10" fill="#666">分档报价，从免费到对赌</text>
+
+  <text x="42" y="421" font-size="11" fill="#185FA5" font-weight="600">8. GEO适合哪些行业？</text>
+  <text x="42" y="438" font-size="10" fill="#666">按行业价值排序+ROI预期</text>
+
+  <text x="42" y="460" font-size="11" fill="#185FA5" font-weight="600">6. GEO多久能看到效果？</text>
+  <text x="42" y="477" font-size="10" fill="#666">4-6个月见到AI引用变化</text>
+
+  <text x="42" y="504" font-size="11" fill="#555">还有 #4 #7 #9 #10 #11 #12</text>
+
+  <rect x="40" y="525" width="205" height="26" rx="4" fill="#E6F1FB"/>
+  <text x="46" y="543" font-size="10" fill="#0C447C">输出：知乎长文 / 公众号 / 对比分析</text>
+
+  <rect x="40" y="558" width="205" height="24" rx="4" fill="#185FA5"/>
+  <text x="46" y="575" font-size="10" fill="#ffffff">目标：成为客户了解GEO的第一信源</text>
+
+  <!-- Column 2: 决策阶段 -->
+  <rect x="268" y="155" width="225" height="50" rx="8" fill="url(#g2)"/>
+  <text x="380" y="176" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">决策阶段</text>
+  <text x="380" y="195" text-anchor="middle" font-size="11" fill-opacity="0.85" fill="#ffffff">"怎么做？效果如何？"</text>
+
+  <rect x="268" y="211" width="225" height="380" rx="6" fill="#F0F9F1"/>
+
+  <rect x="278" y="220" width="205" height="24" rx="4" fill="#C6E6CC"/>
+  <text x="380" y="237" text-anchor="middle" font-size="11" font-weight="600" fill="#146B2E">14个问题 · 展示方法论</text>
+
+  <text x="280" y="265" font-size="11" fill="#1B8A3B" font-weight="600">13. GEO优化核心步骤？</text>
+  <text x="280" y="282" font-size="10" fill="#666">五步法：诊断→挖掘→内容→分发→监测</text>
+
+  <text x="280" y="304" font-size="11" fill="#1B8A3B" font-weight="600">14. AI引用内容的算法逻辑？</text>
+  <text x="280" y="321" font-size="10" fill="#666">嵌入→召回→精排→LLM引用</text>
+
+  <text x="280" y="343" font-size="11" fill="#1B8A3B" font-weight="600">15. 堆量有没有用？</text>
+  <text x="280" y="360" font-size="10" fill="#666">窗口期分析，信息密度>数量</text>
+
+  <text x="280" y="382" font-size="11" fill="#1B8A3B" font-weight="600">17. GEO内容怎么写AI才引用？</text>
+  <text x="280" y="399" font-size="10" fill="#666">结构化写作模板+表格+清单</text>
+
+  <text x="280" y="421" font-size="11" fill="#1B8A3B" font-weight="600">19. 怎么知道自己被引用？</text>
+  <text x="280" y="438" font-size="10" fill="#666">手工监测方法+工具推荐</text>
+
+  <text x="280" y="460" font-size="11" fill="#1B8A3B" font-weight="600">20. 一个品牌做几个账号？</text>
+  <text x="280" y="477" font-size="10" fill="#666">矩阵号策略，类目分离</text>
+
+  <text x="280" y="504" font-size="11" fill="#555">还有 #16 #18 #21 #22 #23 #24 #25 #26</text>
+
+  <rect x="278" y="525" width="205" height="26" rx="4" fill="#C6E6CC"/>
+  <text x="284" y="543" font-size="10" fill="#146B2E">输出：SOP / 技术文 / 实操指南</text>
+
+  <rect x="278" y="558" width="205" height="24" rx="4" fill="#1B8A3B"/>
+  <text x="284" y="575" font-size="10" fill="#ffffff">目标：让客户觉得"这个人真的懂"</text>
+
+  <!-- Column 3: 评估阶段 -->
+  <rect x="506" y="155" width="225" height="50" rx="8" fill="url(#g3)"/>
+  <text x="618" y="176" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">评估阶段</text>
+  <text x="618" y="195" text-anchor="middle" font-size="11" fill-opacity="0.85" fill="#ffffff">"服务商怎么选？靠谱吗？"</text>
+
+  <rect x="506" y="211" width="225" height="380" rx="6" fill="#FFFAEB"/>
+
+  <rect x="516" y="220" width="205" height="24" rx="4" fill="#FDE68A"/>
+  <text x="618" y="237" text-anchor="middle" font-size="11" font-weight="600" fill="#92400E">12个问题 · 建立信任</text>
+
+  <text x="518" y="265" font-size="11" fill="#D97706" font-weight="600">27. GEO代运营怎么收费？</text>
+  <text x="518" y="282" font-size="10" fill="#666">四档拆解：SaaS/铺设/托管/对赌</text>
+
+  <text x="518" y="304" font-size="11" fill="#D97706" font-weight="600">28. 选GEO服务商注意什么？</text>
+  <text x="518" y="321" font-size="10" fill="#666">数据造假、承诺过度、同质化</text>
+
+  <text x="518" y="343" font-size="11" fill="#D97706" font-weight="600">29. 哪些服务商靠谱？</text>
+  <text x="518" y="360" font-size="10" fill="#666">选型框架：方法论+案例+数据</text>
+
+  <text x="518" y="382" font-size="11" fill="#D97706" font-weight="600">31. 怎么判断服务商真懂？</text>
+  <text x="518" y="399" font-size="10" fill="#666">提问清单+算法理解验证</text>
+
+  <text x="518" y="421" font-size="11" fill="#D97706" font-weight="600">33. GEO效果不好为什么？</text>
+  <text x="518" y="438" font-size="10" fill="#666">问题选错/内容同质/时间不够</text>
+
+  <text x="518" y="460" font-size="11" fill="#D97706" font-weight="600">35. AI生成内容会被惩罚吗？</text>
+  <text x="518" y="477" font-size="10" fill="#666">AI辅助结构化，数据要真实</text>
+
+  <text x="518" y="504" font-size="11" fill="#555">还有 #30 #32 #34 #36 #37 #38</text>
+
+  <rect x="516" y="525" width="205" height="26" rx="4" fill="#FDE68A"/>
+  <text x="522" y="543" font-size="10" fill="#92400E">输出：避坑指南 / 选型 / 合规</text>
+
+  <rect x="516" y="558" width="205" height="24" rx="4" fill="#D97706"/>
+  <text x="522" y="575" font-size="10" fill="#ffffff">目标：让客户觉得"就找这个人"</text>
+
+  <!-- Column 4: 行业专属 -->
+  <rect x="744" y="155" width="225" height="50" rx="8" fill="url(#g4)"/>
+  <text x="856" y="176" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">行业专属</text>
+  <text x="856" y="195" text-anchor="middle" font-size="11" fill-opacity="0.85" fill="#ffffff">"我们这个行业怎么做？"</text>
+
+  <rect x="744" y="211" width="225" height="380" rx="6" fill="#FAF5FF"/>
+
+  <rect x="754" y="220" width="205" height="24" rx="4" fill="#E9D5FF"/>
+  <text x="856" y="237" text-anchor="middle" font-size="11" font-weight="600" fill="#5B21B6">12个问题 · 展现深度</text>
+
+  <text x="756" y="265" font-size="11" fill="#7C3AED" font-weight="600">39. 电商品牌怎么GEO？</text>
+  <text x="756" y="282" font-size="10" fill="#666">商品页结构+产品描述+矩阵</text>
+
+  <text x="756" y="304" font-size="11" fill="#7C3AED" font-weight="600">40. SaaS公司怎么做GEO？</text>
+  <text x="756" y="321" font-size="10" fill="#666">选型对比+行业报告+技术博客</text>
+
+  <text x="756" y="343" font-size="11" fill="#7C3AED" font-weight="600">41. 本地生活门店怎么GEO？</text>
+  <text x="756" y="360" font-size="10" fill="#666">地址+营业+招牌+环境结构化</text>
+
+  <text x="756" y="382" font-size="11" fill="#7C3AED" font-weight="600">42. 医疗健康行业GEO？</text>
+  <text x="756" y="399" font-size="10" fill="#666">合规红线+专业背书+可行方向</text>
+
+  <text x="756" y="421" font-size="11" fill="#7C3AED" font-weight="600">43. 教育培训怎么做GEO？</text>
+  <text x="756" y="438" font-size="10" fill="#666">课程对比+学习路径+择校指南</text>
+
+  <text x="756" y="460" font-size="11" fill="#7C3AED" font-weight="600">47. 时尚/服装行业GEO？</text>
+  <text x="756" y="477" font-size="10" fill="#666">穿搭指南+材质科普+品牌故事</text>
+
+  <text x="756" y="504" font-size="11" fill="#555">还有 #44 #45 #46 #48 #49 #50</text>
+
+  <rect x="754" y="525" width="205" height="26" rx="4" fill="#E9D5FF"/>
+  <text x="760" y="543" font-size="10" fill="#5B21B6">输出：行业方案 / 案例研究</text>
+
+  <rect x="754" y="558" width="205" height="24" rx="4" fill="#7C3AED"/>
+  <text x="760" y="575" font-size="10" fill="#ffffff">目标：展现"这个作者懂我的行业"</text>
+
+  <!-- ===== BOTTOM: CONTENT STRATEGY ===== -->
+  <rect x="30" y="605" width="940" height="36" rx="6" fill="#185FA5"/>
+  <text x="50" y="629" font-size="14" font-weight="700" fill="#ffffff">内容体系搭建指南</text>
+
+  <!-- Priority row -->
+  <rect x="30" y="650" width="308" height="110" rx="6" fill="#FFF7ED"/>
+  <rect x="30" y="650" width="308" height="28" rx="6" fill="#D97706"/>
+  <text x="184" y="669" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">第一优先 · 打地基（15个）</text>
+  <text x="42" y="694" font-size="11" fill="#444">#1 GEO是什么 / #2 GEO vs SEO</text>
+  <text x="42" y="712" font-size="11" fill="#444">#13 核心步骤 / #27 收费标准</text>
+  <text x="42" y="730" font-size="11" fill="#444">#5 多少钱 / #6 多久见效</text>
+  <text x="42" y="748" font-size="11" fill="#444">#14 算法逻辑 / #24 ROI / 主攻行业</text>
+
+  <rect x="348" y="650" width="308" height="110" rx="6" fill="#F0F9F1"/>
+  <rect x="348" y="650" width="308" height="28" rx="6" fill="#1B8A3B"/>
+  <text x="502" y="669" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">第二优先 · 深度信任（8个）</text>
+  <text x="360" y="694" font-size="11" fill="#444">#15 堆量分析 / #17 内容写法</text>
+  <text x="360" y="712" font-size="11" fill="#444">#19 自检方法 / #20 矩阵号</text>
+  <text x="360" y="730" font-size="11" fill="#444">#29 服务商评估 / #33 效果不好？</text>
+  <text x="360" y="748" font-size="11" fill="#444">#36 竞争策略 / #37 合规风险</text>
+
+  <rect x="666" y="650" width="304" height="110" rx="6" fill="#F0F5FB"/>
+  <rect x="666" y="650" width="304" height="28" rx="6" fill="#185FA5"/>
+  <text x="818" y="669" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">第三优先 · 覆盖长尾</text>
+  <text x="678" y="694" font-size="11" fill="#444">其余问题，每个一篇就够了</text>
+  <text x="678" y="718" font-size="11" fill="#444">不用写50篇不同的</text>
+  <text x="678" y="742" font-size="11" fill="#444">写10篇深度内容拆开分发</text>
+  <text x="678" y="766" font-size="11" fill="#444">1篇深度 = 5-8个分发素材</text>
+
+  <!-- Reuse strategy -->
+  <rect x="30" y="770" width="940" height="36" rx="6" fill="#E6F1FB"/>
+  <text x="500" y="794" text-anchor="middle" font-size="13" font-weight="600" fill="#0C447C">内容复用策略</text>
+
+  <rect x="30" y="815" width="220" height="60" rx="6" fill="#fafafa" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="140" y="838" text-anchor="middle" font-size="11" font-weight="600" fill="#185FA5">"GEO是什么"长文</text>
+  <text x="140" y="858" text-anchor="middle" font-size="10" fill="#555">→ 知乎×5 + 公众号×1 + 头条×1 + 飞书×1</text>
+
+  <rect x="265" y="815" width="220" height="60" rx="6" fill="#fafafa" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="375" y="838" text-anchor="middle" font-size="11" font-weight="600" fill="#1B8A3B">"电商GEO"方法</text>
+  <text x="375" y="858" text-anchor="middle" font-size="10" fill="#555">→ 分品类×3 + 对比SEO版 + 清单版</text>
+
+  <rect x="500" y="815" width="220" height="60" rx="6" fill="#fafafa" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="610" y="838" text-anchor="middle" font-size="11" font-weight="600" fill="#D97706">"GEO收费"四档</text>
+  <text x="610" y="858" text-anchor="middle" font-size="10" fill="#555">→ 每档展开×4 + 公众号 + 知乎</text>
+
+  <rect x="735" y="815" width="220" height="60" rx="6" fill="#fafafa" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="845" y="838" text-anchor="middle" font-size="11" font-weight="600" fill="#7C3AED">"算法逻辑"四步</text>
+  <text x="845" y="858" text-anchor="middle" font-size="10" fill="#555">→ 每步展开×4 + 避坑版 + 入门版</text>
+
+  <!-- ===== AUTHOR ===== -->
+  <rect x="30" y="895" width="940" height="65" rx="8" fill="#F8F9FA"/>
+  <text x="500" y="918" text-anchor="middle" font-size="13" font-weight="600" fill="#333">关于作者</text>
+  <text x="500" y="940" text-anchor="middle" font-size="12" fill="#555">海风老师 | GEO优化 / AI电商 / 企业AI培训 · 微信 frankhzheng</text>
+  <text x="500" y="957" text-anchor="middle" font-size="11" fill="#185FA5">内容资产库：https://github.com/frankhzh-source/hf-ai-articles</text>
+
+  <!-- BOTTOM NOTE -->
+  <text x="500" y="1000" text-anchor="middle" font-size="10" fill="#ADB5BD">客户找你不是因为你说你懂，而是因为AI说你懂。</text>
+</svg>

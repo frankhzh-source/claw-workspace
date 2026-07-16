@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI电商场景落地知识体系 — FDE方向</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card-bg: #161b22;
+    --border: #30363d;
+    --text: #c9d1d9;
+    --text-dim: #8b949e;
+    --l1: #ff6b6b;
+    --l2: #f0a500;
+    --l3: #58a6ff;
+    --green: #3fb950;
+    --purple: #bc8cff;
+    --cyan: #39d4c5;
+    --section-gap: 36px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.7;
+    padding: 40px 24px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  h1 { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .subtitle { color: var(--text-dim); font-size: 14px; margin-bottom: 28px; }
+
+  .positioning {
+    background: linear-gradient(135deg, #1a1f2e, #161b22);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--green);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: var(--section-gap);
+    font-size: 13.5px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .positioning strong { color: var(--text); }
+
+  .section-title {
+    font-size: 19px;
+    font-weight: 700;
+    margin: var(--section-gap) 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-title.t1 { color: var(--l1); border-color: var(--l1); }
+  .section-title.t2 { color: var(--l2); border-color: var(--l2); }
+  .section-title.t3 { color: var(--l3); border-color: var(--l3); }
+  .section-title.tx { color: var(--purple); border-color: var(--purple); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 8px;
+  }
+  .badge.t1 { background: rgba(255,107,107,0.15); color: var(--l1); }
+  .badge.t2 { background: rgba(240,165,0,0.15); color: var(--l2); }
+  .badge.t3 { background: rgba(88,166,255,0.15); color: var(--l3); }
+  .badge.tx { background: rgba(188,140,255,0.15); color: var(--purple); }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 16px; }
+  .card-grid.wide { grid-template-columns: 1fr 1fr; }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: #58a6ff44; }
+  .card h3 {
+    font-size: 15px; font-weight: 600; margin-bottom: 6px; color: #e6edf3;
+  }
+  .card .hook {
+    font-size: 12.5px; color: var(--green); margin-bottom: 10px; font-weight: 500;
+  }
+  .card ul {
+    list-style: none; font-size: 13px; color: var(--text-dim);
+  }
+  .card ul li { padding: 2px 0; }
+  .card ul li::before { content: "▸ "; }
+
+  .card .tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .card .tag {
+    font-size: 11px; padding: 2px 8px; border-radius: 3px;
+    background: rgba(255,255,255,0.06); color: var(--text-dim);
+  }
+  .card .tag.tool { color: var(--cyan); }
+  .card .tag.pit { color: var(--l1); }
+
+  .skill-table {
+    width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px;
+  }
+  .skill-table th {
+    background: var(--card-bg); color: var(--text-dim); font-weight: 500;
+    text-align: left; padding: 9px 12px; border: 1px solid var(--border);
+  }
+  .skill-table td {
+    padding: 8px 12px; border: 1px solid var(--border);
+  }
+  .skill-table tr:hover td { background: rgba(88,166,255,0.04); }
+  .skill-table .check { color: var(--green); text-align: center; }
+  .skill-table .half  { color: var(--l2); text-align: center; }
+  .skill-table .none  { color: var(--text-dim); text-align: center; }
+
+  .path-flow {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 20px 24px; margin-bottom: 24px;
+    font-size: 13px; line-height: 2; color: var(--text);
+  }
+  .path-flow .arrow { color: var(--text-dim); margin: 0 6px; }
+  .path-flow .step { font-weight: 600; }
+  .path-flow .step.l1 { color: var(--l1); }
+  .path-flow .step.l2 { color: var(--l2); }
+  .path-flow .step.l3 { color: var(--l3); }
+
+  .footnote {
+    margin-top: var(--section-gap);
+    padding: 16px 20px;
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 8px; font-size: 12.5px; color: var(--text-dim);
+  }
+  .footnote strong { color: var(--text); }
+
+  .scene-row {
+    display: flex; gap: 16px; margin-bottom: 12px;
+  }
+  .scene-card {
+    flex: 1; background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 6px; padding: 14px 16px;
+  }
+  .scene-card h4 { font-size: 14px; color: #e6edf3; margin-bottom: 4px; }
+  .scene-card .stat { font-size: 12px; color: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<h1>AI 电商场景落地知识体系</h1>
+<p class="subtitle">目标角色: FDE / AI应用落地顾问 &nbsp;|&nbsp; 核心战场: 电商全链路AI化 &nbsp;|&nbsp; 定位: 用AI工具解决真实业务问题</p>
+
+<div class="positioning">
+  <strong>理解校正:</strong> 你的"落地"是指把AI能力部署到电商的具体业务场景 — 商品图生成、营销视频制作、智能客服、直播运营、数字人主播等。<br>
+  这需要的不是深度学习数学推导，而是<strong>AI工具链精通 + 场景化问题解决 + 效果调优经验 + ROI评估能力</strong>。<br>
+  你是"会开飞机的人"，不是"造飞机引擎的人"。
+</div>
+
+<!-- ========== 六大场景总览 ========== -->
+<div class="section-title tx"><span class="badge tx">全景</span> 六大落地场景总览</div>
+
+<div class="scene-row">
+  <div class="scene-card">
+    <h4>文生图</h4>
+    <div class="stat">商品图 / 场景图 / 模特换装 / A+页面素材</div>
+  </div>
+  <div class="scene-card">
+    <h4>文生视频</h4>
+    <div class="stat">商品短视频 / 带货口播 / 信息流广告素材</div>
+  </div>
+  <div class="scene-card">
+    <h4>智能客服</h4>
+    <div class="stat">售前问答 / 售后处理 / 意图识别 / 知识库</div>
+  </div>
+</div>
+<div class="scene-row">
+  <div class="scene-card">
+    <h4>电商运营</h4>
+    <div class="stat">标题优化 / 详情页 / 数据复盘 / 选品分析</div>
+  </div>
+  <div class="scene-card">
+    <h4>直播运营</h4>
+    <div class="stat">话术生成 / 实时弹幕回复 / 排品策略 / 复盘</div>
+  </div>
+  <div class="scene-card">
+    <h4>数字人主播</h4>
+    <div class="stat">形象定制 / 声音克隆 / 智能讲解 / 7x24直播</div>
+  </div>
+</div>
+
+<!-- ========== TIER 1 ========== -->
+<div class="section-title t1"><span class="badge t1">Tier 1</span> 通用底座 — 所有场景都要用到的能力</div>
+
+<div class="card-grid wide">
+  <div class="card">
+    <h3>1. Prompt Engineering (多模态)</h3>
+    <div class="hook">这是文生图/文生视频/LLM 的核心控制面 — Prompt写不好, 工具再强也白费</div>
+    <ul>
+      <li><strong>文生图Prompt:</strong> 主体+场景+风格+画质+负向词, 五要素法</li>
+      <li><strong>LLM Prompt:</strong> 角色设定 + 任务拆解 + 示例引导 + 输出格式控制</li>
+      <li><strong>文生视频Prompt:</strong> 动作描述 + 镜头语言 + 时间轴控制</li>
+      <li>Prompt模板库搭建: 按场景分类, 持续迭代, A/B测试</li>
+      <li>System Prompt vs User Prompt 的职责分离</li>
+      <li>Few-shot / Chain-of-Thought / ReAct 模式在电商场景的适用性</li>
+    </ul>
+    <div class="tags">
+      <span class="tag">核心控制面</span>
+      <span class="tag tool">你已有底子</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>2. AI生图工具链</h3>
+    <div class="hook">从单张生成到批量生产, 从"玩"到"产能"的关键跃迁</div>
+    <ul>
+      <li><strong>FLUX/SD3.5:</strong> 最新基础模型, 出图质量天花板</li>
+      <li><strong>ComfyUI:</strong> 节点化工作流, 批量生产 + 复杂管线 (换脸/换背景/ControlNet)</li>
+      <li><strong>LoRA训练:</strong> 用品牌/产品图片训练专属LoRA, 保持风格一致</li>
+      <li><strong>ControlNet/IP-Adapter:</strong> 精准控制构图/姿势/面部</li>
+      <li><strong>产品图专用管线:</strong> 白底图 → 场景融合 → 模特换装 → 批量套版</li>
+      <li><strong>质量评估:</strong> CLIP Score / Aesthetic Score / 人工抽检标准</li>
+    </ul>
+    <div class="tags">
+      <span class="tag tool">FLUX</span>
+      <span class="tag tool">ComfyUI</span>
+      <span class="tag tool">LoRA</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>3. LLM 应用层能力</h3>
+    <div class="hook">客服/运营/直播话术/选品分析 都靠这个</div>
+    <ul>
+      <li><strong>知识库+RAG:</strong> 把商品库/FAQ/政策文档变成可问答的知识</li>
+      <li><strong>意图识别与路由:</strong> 用户说"能便宜点吗" → 路由到议价策略</li>
+      <li><strong>多轮对话管理:</strong> 上下文窗口管理 + 对话摘要 + 关键信息提取</li>
+      <li><strong>结构化输出:</strong> JSON Mode / Function Calling 做商品推荐/订单查询</li>
+      <li><strong>内容生成:</strong> 标题优化/详情页文案/评价回复/营销短信</li>
+      <li>主流模型选型: GPT-4o / Claude / DeepSeek / Qwen 在各场景的取舍</li>
+    </ul>
+    <div class="tags">
+      <span class="tag tool">RAG</span>
+      <span class="tag tool">LLM</span>
+      <span class="tag tool">你已有底子</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>4. 数据处理与自动化</h3>
+    <div class="hook">从"手工做一张图"到"自动做一千张图"的能力</div>
+    <ul>
+      <li><strong>商品数据处理:</strong> CSV/Excel读写, 图片批量命名, 元数据管理</li>
+      <li><strong>Python脚本:</strong> 批量调用API, 图片处理(Pillow/OpenCV), 流程自动化</li>
+      <li><strong>API集成:</strong> 电商平台API (商品上传/订单查询/数据拉取)</li>
+      <li><strong>Webhook/定时任务:</strong> 自动化触发 — 新品上架→自动生成素材</li>
+      <li><strong>成本控制脚本:</strong> API调用计数, Token用量监控, 成本预警</li>
+    </ul>
+    <div class="tags">
+      <span class="tag tool">Python</span>
+      <span class="tag">你的强项</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========== TIER 2 ========== -->
+<div class="section-title t2"><span class="badge t2">Tier 2</span> 场景深化 — 六大业务场景的落地方法论</div>
+
+<!-- 场景1: 文生图 -->
+<div class="card" style="margin-bottom:16px; border-left:3px solid var(--l2);">
+  <h3>场景1: AI商品图/营销图生产</h3>
+  <div class="hook">电商最刚需的AI场景 — 省掉模特拍摄/场景搭建/多SKU套版的巨额成本</div>
+  <div style="display:flex; gap:20px; font-size:13px; color:var(--text-dim); margin-top:8px;">
+    <div style="flex:1;">
+      <strong style="color:var(--text)">知识要点</strong>
+      <ul style="list-style:none; padding:0; margin-top:4px;">
+        <li>▸ 电商图片分类: 主图/附图/详情页/A+页面/广告素材 — 不同用途不同规格</li>
+        <li>▸ 白底图→场景图: 用ControlNet+Inpaint把白底商品放入生活场景</li>
+        <li>▸ 模特换装: IP-Adapter面部保持 + 服装LoRA, 减少真人拍摄</li>
+        <li>▸ 风格一致性: 品牌LoRA训练 — 用50-100张品牌素材训LoRA, 保持视觉统一</li>
+        <li>▸ 多SKU套版: 一个Prompt模板 + 批量替换商品图 + ComfyUI自动化</li>
+        <li>▸ 电商平台规范: 淘宝/京东/拼多多/TikTok Shop的主流图尺寸和审核规则</li>
+      </ul>
+    </div>
+    <div style="flex:1;">
+      <strong style="color:var(--l1)">常见坑</strong>
+      <ul style="list-style:none; padding:0; margin-top:4px;">
+        <li>▸ AI生成的文字是乱码 → 预留文字位, 后期加字</li>
+        <li>▸ 商品细节变形 → ControlNet Canny/Lineart 保形</li>
+        <li>▸ 多图风格不统一 → 必须训LoRA, Seed固定只治标</li>
+        <li>▸ 平台审核不通过 → 了解AI素材标注规则, 各平台不同</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tags">
+    <span class="tag">你已有积累</span>
+    <span class="tag pit">需要量产化能力</span>
+  </div>
+</div>
+
+<!-- 场景2: 文生视频 -->
+<div class="card" style="margin-bottom:16px; border-left:3px solid var(--l2);">
+  <h3>场景2: AI短视频/带货视频</h3>
+  <div class="hook">信息流广告+商品短视频 — 抖音/快手/TikTok的素材需求无限大</div>
+  <div style="display:flex; gap:20px; font-size:13px; color:var(--text-dim); margin-top:8px;">
+    <div style="flex:1;">
+      <strong style="color:var(--text)">知识要点</strong>
+      <ul style="list-style:none; padding:0; margin-top:4px;">
+        <li>▸ 工具选型: Runway Gen-3 / Pika / Kling(可灵) / Sora / 即梦 — 各自的优劣势</li>
+        <li>▸ 视频Prompt工程: 镜头运动(推拉摇移)+主体动作+氛围+时长控制</li>
+        <li>▸ 图生视频: 商品静态图 → AI动态展示视频, 适合电商场景</li>
+        <li>▸ 视频后期组合: AI生成片段 + 剪映/CapCut拼接 + 配音 + 字幕</li>
+        <li>▸ 短视频脚本结构: 钩子(3秒)+展示(10秒)+卖点(5秒)+CTA(3秒)</li>
+        <li>▸ 平台适配: 抖音竖版9:16 / YouTube横版16:9 / 信息流规格要求</li>
+      </ul>
+    </div>
+    <div style="flex:1;">
+      <strong style="color:var(--l1)">常见坑</strong>
+      <ul style="list-style:none; padding:0; margin-top:4px;">
+        <li>▸ 人物动作诡异 → 优先用图生视频(可控性>文生视频)</li>
+        <li>▸ 画面闪烁/不一致 → 多看几遍, 人工筛选+多生成备选</li>
+        <li>▸ 生成成本高 → Runway按秒计费, 需ROI核算</li>
+        <li>▸ "AI感"太重 → 加滤镜+调色+真实素材混剪破局</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 场景3: 智能客服 -->
+<div class="card" style="margin-bottom:16px; border-left:3px solid var(--l2);">
+  <h3>场景3: AI智能客服</h3>
+  <div class="hook">售前提升转化率, 售后降低人工成本 — ROI最直观的场景</div>
+  <div style="display:flex; gap:20px; font-size:13px; color:var(--text-dim); margin-top:8px;">
+    <div style="flex:1;">
+      <strong style="color:var(--text)">知识要点</strong>
+      <ul style="list-style:none; padding:0; margin-top:4px;">
+        <li>▸ 意图分类体系: 售前咨询/议价/物流/退换货/投诉 — 每条意图对应策略</li>
+        <li>▸ 知识库搭建: 商品信息/尺码表/售后政策/常见问题 — RAG检索增强</li>
+        <li>▸ 多轮对话设计: 追问→澄清→确认→闭环, 不是一问一答</li>
+        <li>▸ 情绪识别与安抚: 用户发怒时的降级话术和升级转人工机制</li>
+        <li>▸ 订单系统对接: 查物流/查订单/发起退款 — API集成能力</li>
+        <li>▸ 效果评估: 首解率/转人工率/用户满意度/响应时间</li>
+      </ul>
+    </div>
+    <div style="flex:1;">
+      <strong style="color:var(--l1)">常见坑</strong>
+      <ul style="list-style:none; padding:0; margin-top:4px;">
+        <li>▸ "抱歉我是AI"死循环 → 别让AI承认自己是AI, 直接给答案</li>
+        <li>▸ 知识库过时 → 商品变价/断货时必须实时同步</li>
+        <li>▸ 乱承诺 → 价格/库存/时效的回复必须有API兜底, 不能靠LLM记忆</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 场景4: 运营 -->
+<div class="card" style="margin-bottom:16px; border-left:3px solid var(--l2);">
+  <h3>场景4: AI电商运营</h3>
+  <div class="hook">从标题优化到数据复盘, 运营日常工作流全面AI化</div>
+  <div style="display:flex; gap:20px; font-size:13px; color:var(--text-dim); margin-top:8px;">
+    <div style="flex:1;">
+      <strong style="color:var(--text)">知识要点</strong>
+      <ul style="list-style:none; padding:0; margin-top:4px;">
+        <li>▸ <strong>标题优化:</strong> 关键词挖掘(生意参谋/抖音搜索) → AI生成 → A/B测试</li>
+        <li>▸ <strong>详情页:</strong> 卖点提取 → 结构化文案 → AI配图 → 套版生成</li>
+        <li>▸ <strong>评价管理:</strong> AI自动生成好评回复, 差评预警+人工介入</li>
+        <li>▸ <strong>数据复盘:</strong> 日报/周报自动生成, 异常检测(流量/转化率突变)</li>
+        <li>▸ <strong>选品分析:</strong> 竞品监控 → 趋势发现 → AI辅助选品建议</li>
+        <li>▸ <strong>营销内容:</strong> 短信/Push/社群文案批量生成+个性化</li>
+      </ul>
+    </div>
+    <div style="flex:1;">
+      <strong style="color:var(--l1)">常见坑</strong>
+      <ul style="list-style:none; padding:0; margin-top:4px;">
+        <li>▸ AI标题堆砌关键词 → 要注入品牌调性和口语感</li>
+        <li>▸ 数据复盘不结合业务 → AI不知道"昨天有活动所以流量高"</li>
+        <li>▸ 选品分析要结合供应链 → AI只能给信号, 不能给决策</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 场景5: 直播 -->
+<div class="card" style="margin-bottom:16px; border-left:3px solid var(--l2);">
+  <h3>场景5: AI直播运营</h3>
+  <div class="hook">话术生成+实时弹幕回复+数据监控 — AI做副驾, 真人做主播</div>
+  <div style="display:flex; gap:20px; font-size:13px; color:var(--text-dim); margin-top:8px;">
+    <div style="flex:1;">
+      <strong style="color:var(--text)">知识要点</strong>
+      <ul style="list-style:none; padding:0; margin-top:4px;">
+        <li>▸ <strong>排品策略:</strong> 引流款→利润款→福利款→逼单款, AI生成排品方案</li>
+        <li>▸ <strong>话术库:</strong> 开场话术/产品介绍/逼单话术/答谢话术/结束话术</li>
+        <li>▸ <strong>实时弹幕回复:</strong> 识别高频问题, 自动生成回复, 主播照读/助手代回</li>
+        <li>▸ <strong>数据监控:</strong> 在线人数/转化率/GPM实时预警 → AI给出调整建议</li>
+        <li>▸ <strong>直播复盘:</strong> 整场录播→AI分析→流量曲线/转化节点/话术效果</li>
+        <li>▸ <strong>直播间搭建:</strong> AI生成虚拟背景/场景素材</li>
+      </ul>
+    </div>
+    <div style="flex:1;">
+      <strong style="color:var(--l1)">常见坑</strong>
+      <ul style="list-style:none; padding:0; margin-top:4px;">
+        <li>▸ 弹幕回复速度跟不上 → 弹幕量太大, 需要消息优先级过滤</li>
+        <li>▸ AI话术太"模板化" → 需要注入主播个人风格</li>
+        <li>▸ 实时数据延迟 → API接入+低延迟推送方案</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 场景6: 数字人 -->
+<div class="card" style="margin-bottom:16px; border-left:3px solid var(--l2);">
+  <h3>场景6: 数字人主播</h3>
+  <div class="hook">7x24小时直播, 覆盖长尾时段 — 从"能用"到"好用"还在路上</div>
+  <div style="display:flex; gap:20px; font-size:13px; color:var(--text-dim); margin-top:8px;">
+    <div style="flex:1;">
+      <strong style="color:var(--text)">知识要点</strong>
+      <ul style="list-style:none; padding:0; margin-top:4px;">
+        <li>▸ <strong>技术方案:</strong> HeyGen/D-ID/Synthesia 等SaaS, 或开源方案(MuseTalk/SadTalker)</li>
+        <li>▸ <strong>形象定制:</strong> 真人形象克隆(需录制素材) vs 虚拟形象(AI生成)</li>
+        <li>▸ <strong>声音克隆:</strong> ElevenLabs / GPT-SoVITS / CosyVoice — 中文效果对比</li>
+        <li>▸ <strong>智能讲解:</strong> 商品话术+数字人驱动+弹幕互动 三合一</li>
+        <li>▸ <strong>直播平台对接:</strong> 淘宝/抖音/视频号的数字人政策和限制</li>
+        <li>▸ <strong>效果评估:</strong> 停留时长/互动率/转化率 — 和真人主播对比</li>
+      </ul>
+    </div>
+    <div style="flex:1;">
+      <strong style="color:var(--l1)">常见坑</strong>
+      <ul style="list-style:none; padding:0; margin-top:4px;">
+        <li>▸ "恐怖谷"效应 → 形象和动作不够自然, 观众排斥</li>
+        <li>▸ 平台封禁风险 → 各平台对数字人政策不同, 需要提前确认</li>
+        <li>▸ 口型不同步 → 声音和嘴型对齐是技术难点</li>
+        <li>▸ 互动感差 → 纯脚本播放≠直播, 实时弹幕互动是关键</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ========== TIER 3 ========== -->
+<div class="section-title t3"><span class="badge t3">Tier 3</span> 商业层 — 从"能做"到"能卖"</div>
+
+<div class="card-grid wide">
+  <div class="card">
+    <h3>AI落地方案设计</h3>
+    <div class="hook">怎么跟客户聊需求, 怎么出方案, 怎么报价</div>
+    <ul>
+      <li>需求诊断: 客户说"我想用AI" → 拆解到具体场景和指标</li>
+      <li>方案结构: 现状分析→目标定义→技术方案→实施计划→ROI测算→风险预案</li>
+      <li>技术选型决策树: 自建vs采购, 开源vs商业API, 通用模型vs领域微调</li>
+      <li>报价模型: 按效果付费 / 按量付费 / 项目制 / SaaS订阅 — 哪种适合什么客户</li>
+      <li>案例库积累: 每个落地方案都是一张名片</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>ROI测算与效果评估</h3>
+    <div class="hook">客户/老板问的第一句话永远是"能省多少钱"或"能多赚多少"</div>
+    <ul>
+      <li><strong>文生图ROI:</strong> 省掉多少拍摄费 = 模特费+摄影师+场地+后期 × 月SKU数</li>
+      <li><strong>客服ROI:</strong> 7x24覆盖+减少人工 = 减少X个人力 × 月薪</li>
+      <li><strong>视频ROI:</strong> 素材产能提升 = 月素材数 × 素材转化贡献</li>
+      <li><strong>隐性价值:</strong> 响应速度/客户体验/品牌调性一致 — 难以量化但必须提及</li>
+      <li>效果评估指标: 转化率/满意度/成本/TAT(周转时间)/人工替代率</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>行业认知与趋势判断</h3>
+    <div class="hook">知道AI电商的边界在哪里, 什么东西暂时做不了</div>
+    <ul>
+      <li>各平台AI政策: 淘宝/京东/抖音/拼多多/SHEIN/Temu对AI内容的态度</li>
+      <li>竞争对手动态: 哪些品牌已经在用AI, 用到什么程度</li>
+      <li>技术趋势: Sora/Veo对视频生产的冲击, GPT-5/Claude 5 对客服的升级</li>
+      <li>成本趋势: API降价曲线, 开源模型追赶节奏</li>
+      <li>边界判断: 什么时候AI是"锦上添花", 什么时候是"雪中送炭"</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>项目管理与交付能力</h3>
+    <div class="hook">从"我会做"到"我能交付"的最后一步</div>
+    <ul>
+      <li>项目周期管理: PoC(2-4周) → MVP(1-2月) → 正式上线 → 持续优化</li>
+      <li>效果验收标准: 上线前就定义好什么算"成功"</li>
+      <li>客户培训: 教会客户/运营团队使用AI工具 (这是你已有的培训能力)</li>
+      <li>持续优化: AI方案不是一次性的, 需要持续迭代Prompt/知识库/模型</li>
+      <li>风险预案: API宕机怎么办? 效果变差怎么办? 平台政策变动怎么办?</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ========== 技能画像 ========== -->
+<div class="section-title tx"><span class="badge tx">自评</span> 你当前的能力画像 vs FDE目标</div>
+
+<table class="skill-table">
+  <thead>
+    <tr>
+      <th style="width:28%">能力维度</th>
+      <th style="width:38%">具体技能</th>
+      <th style="width:10%">现状</th>
+      <th style="width:24%">提升方向</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>文生图</strong></td>
+      <td>FLUX/SD使用, Prompt调优, denoise/CFG/采样器理解</td>
+      <td class="check">强</td>
+      <td>ComfyUI工作流 + LoRA训练 + 批量生产管线</td>
+    </tr>
+    <tr>
+      <td><strong>文生视频</strong></td>
+      <td>了解工具, 有使用经验</td>
+      <td class="half">中</td>
+      <td>视频Prompt工程 + 后期组合 + 电商视频脚本结构</td>
+    </tr>
+    <tr>
+      <td><strong>LLM应用</strong></td>
+      <td>Prompt工程/RAG/Agent架构</td>
+      <td class="check">强</td>
+      <td>客服场景专项化 + 多轮对话设计 + 意图路由</td>
+    </tr>
+    <tr>
+      <td><strong>电商运营</strong></td>
+      <td>有电商行业背景</td>
+      <td class="check">强</td>
+      <td>AI+运营工作流标准化 + 效果量化评估</td>
+    </tr>
+    <tr>
+      <td><strong>直播运营</strong></td>
+      <td>了解直播场景</td>
+      <td class="half">中</td>
+      <td>话术体系 + 实时互动 + 排品策略</td>
+    </tr>
+    <tr>
+      <td><strong>数字人</strong></td>
+      <td>了解概念和工具</td>
+      <td class="half">中</td>
+      <td>技术方案对比 + 实际部署经验 + 平台政策</td>
+    </tr>
+    <tr>
+      <td><strong>Python/自动化</strong></td>
+      <td>脚本能力, 数据处理, API集成</td>
+      <td class="check">强</td>
+      <td>生产级稳定性 + 错误处理 + 日志监控</td>
+    </tr>
+    <tr>
+      <td><strong>方案设计</strong></td>
+      <td>培训经验, 客户沟通</td>
+      <td class="check">强</td>
+      <td>AI落地专用方法论 + ROI测算模板</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ========== 学习路径 ========== -->
+<div class="path-flow">
+  <div style="font-size:15px; font-weight:600; color:#e6edf3; margin-bottom:12px;">推荐学习路径 — 按商业价值优先级</div>
+  <div>
+    <span class="step l1">阶段1 (已有基础):</span>
+    FLUX生图链 + LLM应用 + Python自动化<span class="arrow">→</span>先把你已有的武器打磨锋利
+  </div>
+  <div>
+    <span class="step l1">阶段2 (补量产能力):</span>
+    ComfyUI工作流 + LoRA训练 + 批量生图管线<span class="arrow">→</span>从"能做一张"到"能做一批"
+  </div>
+  <div>
+    <span class="step l2">阶段3 (拓展视频):</span>
+    文生视频工具深度使用 + 电商视频脚本 + 后期组合<span class="arrow">→</span>吃下视频素材需求
+  </div>
+  <div>
+    <span class="step l2">阶段4 (拓展客服):</span>
+    RAG知识库 + 意图路由 + 多轮对话 + API对接<span class="arrow">→</span>客服是ROI最直观的场景
+  </div>
+  <div>
+    <span class="step l3">阶段5 (运营深水区):</span>
+    AI标题/详情页/评价管理/数据复盘/选品<span class="arrow">→</span>这是你的行业壁垒
+  </div>
+  <div>
+    <span class="step l3">阶段6 (直播+数字人):</span>
+    话术体系 + 弹幕互动 + 数字人方案对比<span class="arrow">→</span>前沿探索, 差异化卖点
+  </div>
+  <div style="margin-top:8px; padding-top:8px; border-top:1px solid var(--border); color:var(--text-dim);">
+    <span class="step l3">贯穿全程:</span> 方案设计方法论 + ROI测算 + 案例积累 + 客户交付
+  </div>
+</div>
+
+<div class="footnote">
+  <strong>和之前"深度学习知识体系"的关系:</strong><br>
+  那份是给"想自己做模型/微调/优化推理引擎"的人看的 — 那是算法工程师的路。<br>
+  这份是给"用AI工具解决电商业务问题"的人看的 — 这是FDE/应用落地顾问的路。<br>
+  两条路都需要, 但你是先走这条路, 用到瓶颈了再补深度的东西。<br><br>
+  <strong>核心原则:</strong> 你的核心竞争力不是"会调参数", 而是"知道AI能在电商的哪个环节, 解决什么问题, 带来多少价值"。工具可以变, 这个判断力不会过时。
+</div>
+
+</body>
+</html>

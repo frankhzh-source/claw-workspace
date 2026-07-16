@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI入门线性代数 · 图解版</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:#f5f5f0; color:#333; line-height:1.7; }
+.container { max-width:900px; margin:0 auto; padding:40px 20px; }
+h1 { font-size:2em; text-align:center; margin-bottom:8px; color:#222; }
+.subtitle { text-align:center; color:#888; margin-bottom:40px; }
+.chapter { background:#fff; border-radius:12px; padding:30px; margin-bottom:28px; border-left:4px solid #5b8def; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.chapter h2 { font-size:1.35em; color:#3b6fd4; margin-bottom:6px; }
+.chapter .geo-tag { font-size:0.78em; color:#d08030; margin-bottom:14px; display:block; }
+.chapter p { margin:10px 0; color:#555; }
+.diagram { background:#fafaf8; border-radius:8px; padding:20px; margin:16px 0; text-align:center; overflow-x:auto; border:1px solid #e5e5e0; }
+.diagram svg { max-width:100%; }
+.caption { font-size:0.82em; color:#999; margin-top:6px; font-style:italic; }
+.label-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:12px 0; }
+.label-card { background:#f0f0eb; border-radius:8px; padding:14px; }
+.label-card strong { color:#3b6fd4; display:block; margin-bottom:4px; }
+.note { background:#fff3e0; border-left:3px solid #f0a050; border-radius:4px; padding:14px 18px; margin:14px 0; font-size:0.9em; }
+.footer { text-align:center; color:#999; margin-top:40px; font-size:0.85em; }
+.bad { color:#ff6b6b; }
+.good { color:#51cf66; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>📐 AI入门线性代数 · 图解版</h1>
+<p class="subtitle">配合飞书文档 LITAdax8RoFFdRxidHHcXhZ8nvq 阅读 · 每章一图</p>
+
+<!-- ==================== 第〇章 ==================== -->
+<div class="chapter">
+<h2>第〇章 · 三个学习原则</h2>
+<span class="geo-tag">🟢 为什么这页在最前面</span>
+<div class="diagram">
+<svg viewBox="0 0 780 200">
+  <rect x="10" y="10" width="240" height="180" rx="8" fill="#e8f5e9" stroke="#51cf66" stroke-width="1.5"/>
+  <text x="130" y="45" text-anchor="middle" fill="#2e7d32" font-size="15" font-weight="bold">原则1 先直觉再公式</text>
+  <text x="130" y="72" text-anchor="middle" fill="#666" font-size="12">✗ 上来就背 cosθ = a·b/|a||b|</text>
+  <text x="130" y="95" text-anchor="middle" fill="#2e7d32" font-size="12">✓ 先看两个箭头，发现"夹角小=相似"</text>
+  <text x="130" y="120" text-anchor="middle" fill="#2e7d32" font-size="12">  再发现"cosθ就是在算这个夹角"</text>
+  
+  <rect x="270" y="10" width="240" height="180" rx="8" fill="#e3f2fd" stroke="#7ecfff" stroke-width="1.5"/>
+  <text x="390" y="45" text-anchor="middle" fill="#1565c0" font-size="15" font-weight="bold">原则2 每次只跳一维</text>
+  <text x="390" y="72" text-anchor="middle" fill="#666" font-size="12">✗ 2D箭头 → 直接跳到1024D Embedding</text>
+  <text x="390" y="95" text-anchor="middle" fill="#1565c0" font-size="12">✓ 2D → 3D → "和3D一样只是数多了"</text>
+  <text x="390" y="120" text-anchor="middle" fill="#1565c0" font-size="12">  每次只让你的大脑多接受一个维度</text>
+
+  <rect x="530" y="10" width="240" height="180" rx="8" fill="#fff3e0" stroke="#f0a050" stroke-width="1.5"/>
+  <text x="650" y="45" text-anchor="middle" fill="#e65100" font-size="15" font-weight="bold">原则3 学到能用，不学到能证</text>
+  <text x="650" y="72" text-anchor="middle" fill="#666" font-size="12">✗ 为什么行列式=0矩阵不可逆？</text>
+  <text x="650" y="95" text-anchor="middle" fill="#e65100" font-size="12">✓ 知道 np.dot 就是在算方向接近度</text>
+  <text x="650" y="120" text-anchor="middle" fill="#e65100" font-size="12">  其余按需补，不提前储备</text>
+</svg>
+</div>
+</div>
+
+<!-- ==================== 第一章 ==================== -->
+<div class="chapter">
+<h2>第一章 · 2D平面上的直觉游戏</h2>
+<span class="geo-tag">🟢 GEO关联：用户问题向量 vs 你的文章向量 → 夹角越小越相似</span>
+
+<div class="diagram">
+<svg viewBox="0 0 780 420">
+  <!-- Grid -->
+  <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8e8e8" stroke-width="0.5"/></pattern></defs>
+  <rect x="40" y="20" width="320" height="320" fill="url(#grid)" stroke="#ccc" stroke-width="1"/>
+  <!-- Axes -->
+  <line x1="200" y1="20" x2="200" y2="340" stroke="#999" stroke-width="1.5"/>
+  <line x1="40" y1="180" x2="360" y2="180" stroke="#999" stroke-width="1.5"/>
+  <text x="365" y="185" fill="#777" font-size="12">x</text><text x="195" y="15" fill="#777" font-size="12">y</text>
+  
+  <!-- Vector A: (3,2) -->
+  <defs><marker id="arrowA" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#5b8def"/></marker></defs>
+  <line x1="200" y1="180" x2="320" y2="100" stroke="#5b8def" stroke-width="3" marker-end="url(#arrowA)"/>
+  <text x="326" y="95" fill="#5b8def" font-size="14" font-weight="bold">A(3,2) 朝右上</text>
+  
+  <!-- Vector B: (1,3) -->
+  <defs><marker id="arrowB" markerWidth="8" height="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#7ecfff"/></marker></defs>
+  <line x1="200" y1="180" x2="240" y2="60" stroke="#7ecfff" stroke-width="3" marker-end="url(#arrowB)"/>
+  <text x="220" y="48" fill="#7ecfff" font-size="14" font-weight="bold">B(1,3) 朝左上</text>
+  
+  <!-- Angle arc -->
+  <path d="M235,145 A45,45 0 0,1 260,115" fill="none" stroke="#f0a050" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="255" y="140" fill="#f0a050" font-size="12">θ≈40°</text>
+
+  <!-- Vector C: (4,-2) -->
+  <defs><marker id="arrowC" markerWidth="8" height="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#ff6b6b"/></marker></defs>
+  <line x1="200" y1="180" x2="360" y2="260" stroke="#ff6b6b" stroke-width="3" marker-end="url(#arrowC)"/>
+  <text x="340" y="278" fill="#ff6b6b" font-size="14" font-weight="bold">C(4,-2) 朝右下</text>
+  <path d="M295,155 A55,55 0 0,0 310,195" fill="none" stroke="#ff6b6b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="318" y="170" fill="#ff6b6b" font-size="12">θ≈120°</text>
+
+  <!-- Right panel: interpretation -->
+  <rect x="420" y="20" width="340" height="320" rx="8" fill="#fff" stroke="#e0e0e0"/>
+  <text x="590" y="55" text-anchor="middle" fill="#333" font-size="15" font-weight="bold">解读</text>
+  
+  <text x="440" y="90" fill="#5b8def" font-size="13">A(3,2) — 你的文章《杭州服装品牌GEO入门》</text>
+  <text x="440" y="115" fill="#7ecfff" font-size="13">B(1,3) — 用户问"杭州丝绸品牌推荐"</text>
+  
+  <rect x="440" y="130" width="300" height="38" rx="6" fill="#e8f5e9"/>
+  <text x="455" y="155" fill="#51cf66" font-size="13">θ≈40° → 余弦相似度≈0.77 → 能进粗排候选池 ✅</text>
+  
+  <text x="440" y="195" fill="#ff6b6b" font-size="13">C(4,-2) — 用户问"机械键盘推荐"（不相关）</text>
+  <rect x="440" y="210" width="300" height="38" rx="6" fill="#ffe8e8"/>
+  <text x="455" y="235" fill="#ff6b6b" font-size="13">θ≈120° → 余弦相似度≈-0.50 → 直接淘汰 ❌</text>
+
+  <text x="440" y="280" fill="#555" font-size="12">核心结论：两个向量的夹角越小，</text>
+  <text x="440" y="300" fill="#555" font-size="12">语义越接近。GEO就是让你的内容</text>
+  <text x="440" y="320" fill="#555" font-size="12">向量尽量靠近用户的问题向量。</text>
+</svg>
+</div>
+<div class="caption">▲ 三个向量在2D平面上的位置。注意A和B的夹角约40°（比较接近），A和C的夹角约120°（几乎反向）。夹角 = 语义距离。</div>
+</div>
+
+<!-- ==================== 第二章 ==================== -->
+<div class="chapter">
+<h2>第二章 · 向量的两种视角</h2>
+<span class="geo-tag">🟢 GEO关联：Embedding = 一篇文章变成768个数字的清单</span>
+
+<div class="diagram">
+<svg viewBox="0 0 780 340">
+  <!-- Left: Arrow view -->
+  <rect x="10" y="10" width="370" height="310" rx="8" fill="#f5f5f0" stroke="#5b8def" stroke-width="1"/>
+  <text x="195" y="45" text-anchor="middle" fill="#5b8def" font-size="15" font-weight="bold">视角1：箭头（3维及以下）</text>
+  <text x="195" y="70" text-anchor="middle" fill="#777" font-size="12">几何直觉——你可以在纸上画出来</text>
+  
+  <line x1="100" y1="260" x2="100" y2="100" stroke="#999" stroke-width="1"/>
+  <line x1="100" y1="260" x2="290" y2="260" stroke="#999" stroke-width="1"/>
+  <line x1="100" y1="260" x2="220" y2="130" stroke="#5b8def" stroke-width="3"/>
+  <text x="225" y="125" fill="#5b8def" font-size="13">v=(3,4) 长度=5</text>
+  <line x1="100" y1="260" x2="160" y2="160" stroke="#7ecfff" stroke-width="3"/>
+  <text x="125" y="150" fill="#7ecfff" font-size="13">u=(1,3)</text>
+  <path d="M160,220 A40,40 0 0,1 180,180" fill="none" stroke="#f0a050" stroke-width="1.5" stroke-dasharray="3"/>
+  <text x="188" y="210" fill="#f0a050" font-size="11">θ</text>
+  
+  <!-- Center: Arrow → -->
+  <text x="370" y="170" text-anchor="middle" fill="#f0a050" font-size="24">⟷</text>
+  <text x="370" y="200" text-anchor="middle" fill="#777" font-size="11">两种视角</text>
+  <text x="370" y="218" text-anchor="middle" fill="#777" font-size="11">切换自如</text>
+
+  <!-- Right: List view -->
+  <rect x="400" y="10" width="370" height="310" rx="8" fill="#f5f5f0" stroke="#7ecfff" stroke-width="1"/>
+  <text x="585" y="45" text-anchor="middle" fill="#7ecfff" font-size="15" font-weight="bold">视角2：清单（任意维度）</text>
+  <text x="585" y="70" text-anchor="middle" fill="#777" font-size="12">代数直觉——不需要想象画面</text>
+  
+  <!-- Shopping list analogy -->
+  <rect x="420" y="95" width="330" height="60" rx="6" fill="#f0f4ff"/>
+  <text x="440" y="118" fill="#444" font-size="13">购物清单：苹果3个 | 香蕉2个 | 牛奶1盒</text>
+  <text x="440" y="140" fill="#777" font-size="12">→ 向量 (3, 2, 1)  这就是一个3维向量</text>
+
+  <rect x="420" y="170" width="330" height="60" rx="6" fill="#f0f4f0"/>
+  <text x="440" y="193" fill="#444" font-size="13">文章Embedding：[0.12, -0.34, 1.28, ..., 0.05]</text>
+  <text x="440" y="215" fill="#777" font-size="12">→ 一个768维的清单，每个数字是一个"语义特征"</text>
+
+  <rect x="420" y="245" width="330" height="60" rx="6" fill="#fff0f0"/>
+  <text x="440" y="268" fill="#f0a050" font-size="13">你不需要"看见"768维的箭头</text>
+  <text x="440" y="290" fill="#555" font-size="12">只需要知道：768个数字排一列，运算法则</text>
+  <text x="440" y="310" fill="#555" font-size="12">和2维完全一样。数字多了，直觉没变。</text>
+</svg>
+</div>
+</div>
+
+<!-- ==================== 第三章 ==================== -->
+<div class="chapter">
+<h2>第三章 · 点积的几何直觉</h2>
+<span class="geo-tag">🟢 GEO关联：向量数据库检索 = 批量算点积找最大值</span>
+
+<div class="diagram">
+<svg viewBox="0 0 780 360">
+  <!-- Projection visualization -->
+  <line x1="50" y1="20" x2="50" y2="330" stroke="#ccc" stroke-width="1"/>
+  <line x1="50" y1="180" x2="500" y2="180" stroke="#ccc" stroke-width="1"/>
+  
+  <!-- Vector a (the one being projected ONTO) -->
+  <line x1="50" y1="180" x2="350" y2="80" stroke="#5b8def" stroke-width="3"/>
+  <text x="330" y="70" fill="#5b8def" font-size="15" font-weight="bold">a (方向线)</text>
+  <text x="340" y="108" fill="#5b8def" font-size="12">|a| 长度</text>
+  
+  <!-- Vector b -->
+  <line x1="50" y1="180" x2="180" y2="300" stroke="#7ecfff" stroke-width="3"/>
+  <text x="140" y="320" fill="#7ecfff" font-size="15" font-weight="bold">b</text>
+  
+  <!-- Dashed projection line (perpendicular from b-tip to a-line) -->
+  <line x1="180" y1="300" x2="220" y2="250" stroke="#f0a050" stroke-width="2" stroke-dasharray="6,4"/>
+  
+  <!-- Projection point -->
+  <circle cx="220" cy="250" r="4" fill="#f0a050"/>
+  
+  <!-- Projection segment on a -->
+  <line x1="50" y1="180" x2="220" y2="250" stroke="#f0a050" stroke-width="5" opacity="0.4"/>
+  <text x="100" y="200" fill="#f0a050" font-size="14" font-weight="bold">投影长度</text>
+  
+  <!-- Right angle marker -->
+  <line x1="205" y1="250" x2="195" y2="260" stroke="#f0a050" stroke-width="1"/>
+  <line x1="205" y1="250" x2="218" y2="263" stroke="#f0a050" stroke-width="1"/>
+
+  <!-- Angle -->
+  <path d="M80,170 A30,30 0 0,1 130,200" fill="none" stroke="#f0a050" stroke-width="1.5" stroke-dasharray="3"/>
+  <text x="145" y="185" fill="#f0a050" font-size="12">θ</text>
+
+  <!-- Formula panel -->
+  <rect x="530" y="30" width="235" height="310" rx="8" fill="#fff" stroke="#e0e0e0"/>
+  <text x="647" y="65" text-anchor="middle" fill="#333" font-size="16" font-weight="bold">点积 = 什么？</text>
+  
+  <text x="550" y="105" fill="#5b8def" font-size="14">几何定义：</text>
+  <text x="550" y="130" fill="#fff" font-size="15" font-weight="bold">a·b = |a| × |b| × cosθ</text>
+  <text x="550" y="155" fill="#777" font-size="12">= a的长度 × b在a上的投影长</text>
+  
+  <text x="550" y="200" fill="#7ecfff" font-size="14">坐标定义：</text>
+  <text x="550" y="225" fill="#fff" font-size="15" font-weight="bold">a·b = a₁b₁+a₂b₂+...+aₙbₙ</text>
+  <text x="550" y="250" fill="#777" font-size="12">= 对应位置相乘再全加起来</text>
+
+  <text x="550" y="295" fill="#f0a050" font-size="13">三种结果：</text>
+  <text x="550" y="318" fill="#51cf66" font-size="13">cosθ≈1 → a·b≈|a||b| → 正最大</text>
+  <text x="550" y="340" fill="#f0a050" font-size="13">cosθ≈0 → a·b≈0 → 无关</text>
+  <text x="550" y="362" fill="#ff6b6b" font-size="13">cosθ≈-1 → a·b≈负最大 → 相反</text>
+</svg>
+</div>
+<div class="caption">▲ 点积的几何本质：把b"压"到a的方向上，b在a上的投影长度 × a的长度 = 点积。两个箭头朝同一个方向走的越多，点积越大。</div>
+</div>
+
+<!-- ==================== 第四章 ==================== -->
+<div class="chapter">
+<h2>第四章 · 余弦相似度（把向量"压扁"）</h2>
+<span class="geo-tag">🟢 GEO关联：除以长度后比方向，RAG粗召 = 从1000万篇里找cosθ最大的TOP100</span>
+
+<div class="diagram">
+<svg viewBox="0 0 780 350">
+  <!-- Before normalization -->
+  <rect x="10" y="10" width="370" height="320" rx="8" fill="#fff" stroke="#e0e0e0"/>
+  <text x="195" y="45" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">归一化之前：长向量天然点积大</text>
+  <line x1="90" y1="280" x2="90" y2="100" stroke="#999" stroke-width="1"/>
+  <line x1="90" y1="280" x2="350" y2="280" stroke="#999" stroke-width="1"/>
+  
+  <line x1="90" y1="280" x2="330" y2="120" stroke="#5b8def" stroke-width="4"/>
+  <text x="305" y="115" fill="#5b8def" font-size="14" font-weight="bold">长文A(5,10)</text>
+  <text x="305" y="140" fill="#777" font-size="11">|A|=11.2</text>
+  
+  <line x1="90" y1="280" x2="210" y2="190" stroke="#7ecfff" stroke-width="3"/>
+  <text x="175" y="180" fill="#7ecfff" font-size="14" font-weight="bold">短文B(3,2)</text>
+  <text x="175" y="200" fill="#777" font-size="11">|B|=3.6</text>
+  
+  <text x="195" y="260" fill="#f0a050" font-size="13">A·B = 5×3+10×2 = 35</text>
+  <text x="195" y="290" fill="#777" font-size="12">但B语义更精准——方向更接近用户问题</text>
+  <text x="195" y="310" fill="#ff6b6b" font-size="13">→ 只看点积会被长文欺骗！</text>
+
+  <!-- After normalization -->
+  <rect x="400" y="10" width="370" height="320" rx="8" fill="#fff" stroke="#51cf66" stroke-width="1"/>
+  <text x="585" y="45" text-anchor="middle" fill="#51cf66" font-size="14" font-weight="bold">归一化之后：除掉长度，只比方向</text>
+  
+  <line x1="480" y1="280" x2="480" y2="100" stroke="#999" stroke-width="1"/>
+  <line x1="480" y1="280" x2="740" y2="280" stroke="#999" stroke-width="1"/>
+  
+  <!-- Unit circle -->
+  <circle cx="480" cy="280" r="100" fill="none" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="4"/>
+  <text x="510" y="185" fill="#aaa" font-size="11">单位圆(r=1)</text>
+  
+  <line x1="480" y1="280" x2="555" y2="205" stroke="#5b8def" stroke-width="3"/>
+  <text x="530" y="195" fill="#5b8def" font-size="13">Â (长1.0)</text>
+  <line x1="480" y1="280" x2="545" y2="235" stroke="#7ecfff" stroke-width="3"/>
+  <text x="525" y="225" fill="#7ecfff" font-size="13">B̂ (长1.0)</text>
+  <path d="M525,215 A10,10 0 0,1 535,228" fill="none" stroke="#f0a050" stroke-width="2"/>
+  <text x="558" y="218" fill="#f0a050" font-size="12">小θ</text>
+  
+  <text x="585" y="290" fill="#51cf66" font-size="13">cosθ = Â·B̂ = 点积</text>
+  <text x="585" y="315" fill="#777" font-size="12">归一化后 = 点积退化为余弦相似度</text>
+  <text x="585" y="340" fill="#555" font-size="12">向量DB预归一化存储，省除法运算</text>
+</svg>
+</div>
+<div class="caption">▲ 归一化前后的对比。归一化就像把两个人的身高压到一样，然后再比谁更胖——只比方向，不比长度。</div>
+</div>
+
+<!-- ==================== 第五章 ==================== -->
+<div class="chapter">
+<h2>第五章 · 高维空间的心理模型</h2>
+<span class="geo-tag">🟢 GEO关联：768维空间里随机碰对概率≈0，匹配是真的匹配</span>
+
+<div class="diagram">
+<svg viewBox="0 0 780 380">
+  <!-- 2D vs High-D -->
+  <rect x="10" y="10" width="240" height="350" rx="8" fill="#fff" stroke="#e0e0e0"/>
+  <text x="130" y="45" text-anchor="middle" fill="#333" font-size="15" font-weight="bold">2维空间</text>
+  <circle cx="130" cy="220" r="100" fill="none" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="3"/>
+  <!-- Random points in 2D -->
+  <circle cx="100" cy="160" r="3" fill="#5b8def"/>
+  <circle cx="170" cy="180" r="3" fill="#7ecfff"/>
+  <circle cx="130" cy="260" r="3" fill="#f0a050"/>
+  <circle cx="190" cy="250" r="3" fill="#ff6b6b"/>
+  <circle cx="80" cy="240" r="3" fill="#51cf66"/>
+  <circle cx="150" cy="150" r="3" fill="#ccc"/>
+  <text x="130" y="345" text-anchor="middle" fill="#777" font-size="12">随机两点夹角≈45°（不太远）</text>
+
+  <!-- 1024D -->
+  <rect x="270" y="10" width="240" height="350" rx="8" fill="#fff" stroke="#f0a050" stroke-width="1"/>
+  <text x="390" y="45" text-anchor="middle" fill="#f0a050" font-size="15" font-weight="bold">1024维空间</text>
+  <circle cx="390" cy="220" r="100" fill="none" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="3"/>
+  <!-- Sparse random points -->
+  <circle cx="370" cy="180" r="3" fill="#5b8def"/>
+  <circle cx="410" cy="260" r="3" fill="#7ecfff"/>
+  <circle cx="360" cy="250" r="3" fill="#f0a050"/>
+  <circle cx="420" cy="170" r="3" fill="#ff6b6b"/>
+  <text x="390" y="345" text-anchor="middle" fill="#f0a050" font-size="12">随机两点夹角≈90°（几乎垂直！）</text>
+  <text x="390" y="365" text-anchor="middle" fill="#777" font-size="11">高维空间太"空旷"</text>
+
+  <!-- Explanation panel -->
+  <rect x="530" y="10" width="240" height="350" rx="8" fill="#fff" stroke="#e0e0e0"/>
+  <text x="650" y="45" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">对GEO的含义</text>
+  
+  <rect x="550" y="70" width="200" height="80" rx="6" fill="#e8f5e9"/>
+  <text x="560" y="95" fill="#51cf66" font-size="13">你的文章和用户问题</text>
+  <text x="560" y="115" fill="#51cf66" font-size="13">在1024维空间里夹角&lt;40°</text>
+  <text x="560" y="135" fill="#51cf66" font-size="13">→ 不是碰巧，是真的相关</text>
+  
+  <rect x="550" y="170" width="200" height="80" rx="6" fill="#ffe8e8"/>
+  <text x="560" y="195" fill="#ff6b6b" font-size="13">如果只是随机匹配</text>
+  <text x="560" y="215" fill="#ff6b6b" font-size="13">1024维空间里碰对的</text>
+  <text x="560" y="235" fill="#ff6b6b" font-size="13">概率 ≈ 0</text>
+
+  <text x="650" y="290" text-anchor="middle" fill="#555" font-size="12">心理模型：</text>
+  <text x="650" y="315" text-anchor="middle" fill="#555" font-size="12">不需要想象1024维</text>
+  <text x="650" y="335" text-anchor="middle" fill="#555" font-size="12">把向量当成"指纹"</text>
+  <text x="650" y="355" text-anchor="middle" fill="#555" font-size="12">相似的指纹 → 相似的Embedding</text>
+</svg>
+</div>
+<div class="caption">▲ 2维空间里随机两点夹角约45°；1024维空间里随机两点几乎总是垂直。所以两个向量在768维空间里夹角很小，说明它们确实相关。</div>
+</div>
+
+<!-- ==================== 第六章 ==================== -->
+<div class="chapter">
+<h2>第六章 · 矩阵 = 变形机器</h2>
+<span class="geo-tag">🟢 GEO关联：Embedding Model内部 = 12层矩阵乘法把token磨成语义向量</span>
+
+<div class="diagram">
+<svg viewBox="0 0 780 320">
+  <!-- Original vector -->
+  <rect x="20" y="80" width="80" height="50" rx="6" fill="#e8f0ff"/>
+  <text x="60" y="110" text-anchor="middle" fill="#5b8def" font-size="13" font-weight="bold">(1,0)</text>
+
+  <!-- Arrow to matrix -->
+  <text x="130" y="112" fill="#f0a050" font-size="22">→</text>
+  <text x="120" y="135" fill="#777" font-size="10">经过矩阵</text>
+
+  <!-- Matrix -->
+  <rect x="170" y="70" width="100" height="70" rx="6" fill="#fff3e0"/>
+  <text x="195" y="92" fill="#f0a050" font-size="14">┌ 2 1 ┐</text>
+  <text x="195" y="120" fill="#f0a050" font-size="14">└ 0 1 ┘</text>
+
+  <!-- Arrow to result -->
+  <text x="300" y="112" fill="#f0a050" font-size="22">→</text>
+  
+  <!-- Result -->
+  <rect x="340" y="80" width="80" height="50" rx="6" fill="#e8f8e8"/>
+  <text x="380" y="110" text-anchor="middle" fill="#51cf66" font-size="13" font-weight="bold">(2,0)</text>
+  <text x="380" y="145" fill="#777" font-size="11">被拉伸了</text>
+
+  <!-- ================ -->
+  <!-- Transformer visualization -->
+  <text x="60" y="200" fill="#555" font-size="14" font-weight="bold">在Embedding Model里：</text>
+  
+  <!-- Token flow -->
+  <rect x="50" y="220" width="160" height="36" rx="6" fill="#f0f4ff"/>
+  <text x="130" y="243" text-anchor="middle" fill="#7ecfff" font-size="12">"杭州服装品牌GEO"</text>
+  
+  <text x="225" y="243" fill="#f0a050" font-size="16">→</text>
+  
+  <rect x="245" y="220" width="100" height="36" rx="6" fill="#1a2a1a"/>
+  <text x="295" y="243" text-anchor="middle" fill="#f0a050" font-size="11">12层矩阵乘法</text>
+  
+  <text x="360" y="243" fill="#f0a050" font-size="16">→</text>
+  
+  <rect x="380" y="220" width="120" height="36" rx="6" fill="#fff0f0"/>
+  <text x="440" y="243" text-anchor="middle" fill="#ff6b6b" font-size="11">768维向量</text>
+
+  <!-- Layer breakdown -->
+  <text x="60" y="290" fill="#777" font-size="12">每层做的事：</text>
+  <text x="160" y="290" fill="#555" font-size="12">把这个token的向量旋转、拉伸一点点，</text>
+  <text x="160" y="310" fill="#555" font-size="12">直到最后的位置恰好能代表整句话的"核心语义"。</text>
+</svg>
+</div>
+<div class="caption">▲ 矩阵就像一个变形机器：输入向量(1,0)，输出向量(2,0)——方向不变但被拉伸了。神经网络的每一层都是更复杂的矩阵变换。</div>
+</div>
+
+<!-- ==================== 第七章 ==================== -->
+<div class="chapter">
+<h2>第七章 · GEO完整链路（你学的数学在哪一步）</h2>
+<span class="geo-tag">🟢 七帧电影——用户问问题到AI回答的完整路径</span>
+
+<div class="diagram">
+<svg viewBox="0 0 780 500">
+  <!-- Frame 1 -->
+  <rect x="10" y="10" width="130" height="110" rx="8" fill="#fff" stroke="#5b8def" stroke-width="1.5"/>
+  <text x="75" y="35" text-anchor="middle" fill="#5b8def" font-size="12" font-weight="bold">帧1：分词</text>
+  <text x="75" y="58" text-anchor="middle" fill="#555" font-size="11">用户问题→</text>
+  <text x="75" y="76" text-anchor="middle" fill="#555" font-size="11">切成token</text>
+  <text x="75" y="96" text-anchor="middle" fill="#777" font-size="10">(第二章)</text>
+  
+  <text x="148" y="65" fill="#f0a050" font-size="18">→</text>
+
+  <!-- Frame 2 -->
+  <rect x="165" y="10" width="130" height="110" rx="8" fill="#fff" stroke="#7ecfff" stroke-width="1.5"/>
+  <text x="230" y="35" text-anchor="middle" fill="#7ecfff" font-size="12" font-weight="bold">帧2：矩阵变换</text>
+  <text x="230" y="58" text-anchor="middle" fill="#555" font-size="11">12层矩阵×</text>
+  <text x="230" y="76" text-anchor="middle" fill="#555" font-size="11">→ 768维向量</text>
+  <text x="230" y="96" text-anchor="middle" fill="#777" font-size="10">(第六章)</text>
+
+  <text x="303" y="65" fill="#f0a050" font-size="18">→</text>
+
+  <!-- Frame 3 -->
+  <rect x="320" y="10" width="130" height="110" rx="8" fill="#fff" stroke="#51cf66" stroke-width="1.5"/>
+  <text x="385" y="35" text-anchor="middle" fill="#51cf66" font-size="12" font-weight="bold">帧3：向量检索</text>
+  <text x="385" y="58" text-anchor="middle" fill="#555" font-size="11">和1000万篇</text>
+  <text x="385" y="76" text-anchor="middle" fill="#555" font-size="11">算余弦相似度</text>
+  <text x="385" y="96" text-anchor="middle" fill="#777" font-size="10">(第三、四章)</text>
+
+  <text x="458" y="65" fill="#f0a050" font-size="18">→</text>
+
+  <!-- Frame 4 -->
+  <rect x="475" y="10" width="130" height="110" rx="8" fill="#fff" stroke="#f0a050" stroke-width="1.5"/>
+  <text x="540" y="35" text-anchor="middle" fill="#f0a050" font-size="12" font-weight="bold">帧4：TOP100</text>
+  <text x="540" y="58" text-anchor="middle" fill="#555" font-size="11">粗召回</text>
+  <text x="540" y="76" text-anchor="middle" fill="#555" font-size="11">HNSW索引</text>
+  <text x="540" y="96" text-anchor="middle" fill="#777" font-size="10">(第五章)</text>
+
+  <text x="613" y="65" fill="#f0a050" font-size="18">→</text>
+
+  <!-- Frame 5 -->
+  <rect x="630" y="10" width="130" height="110" rx="8" fill="#fff" stroke="#ff6b6b" stroke-width="1.5"/>
+  <text x="695" y="35" text-anchor="middle" fill="#ff6b6b" font-size="12" font-weight="bold">帧5：精排</text>
+  <text x="695" y="58" text-anchor="middle" fill="#555" font-size="11">Cross-encoder</text>
+  <text x="695" y="76" text-anchor="middle" fill="#555" font-size="11">→ TOP10</text>
+  <text x="695" y="96" text-anchor="middle" fill="#777" font-size="10">(信息密度)</text>
+
+  <!-- ====== Row 2 ====== -->
+  <!-- Frame 6 -->
+  <text x="85" y="165" fill="#f0a050" font-size="18">→</text>
+  <rect x="100" y="145" width="160" height="80" rx="8" fill="#e8f5e9" stroke="#51cf66" stroke-width="1.5"/>
+  <text x="180" y="170" text-anchor="middle" fill="#51cf66" font-size="13" font-weight="bold">帧6：LLM引用决策</text>
+  <text x="180" y="195" text-anchor="middle" fill="#555" font-size="11">TOP10喂给LLM</text>
+  <text x="180" y="215" text-anchor="middle" fill="#555" font-size="11">选2-4个来源引用</text>
+
+  <text x="278" y="185" fill="#f0a050" font-size="18">→</text>
+
+  <!-- Frame 7 -->
+  <rect x="295" y="145" width="180" height="80" rx="8" fill="#ffe8e8" stroke="#ff6b6b" stroke-width="1.5"/>
+  <text x="385" y="170" text-anchor="middle" fill="#ff6b6b" font-size="13" font-weight="bold">帧7：AI回答</text>
+  <text x="385" y="195" text-anchor="middle" fill="#555" font-size="12">✅ 你的品牌被提到了</text>
+  <text x="385" y="215" text-anchor="middle" fill="#555" font-size="12">❌ 或没被提到</text>
+
+  <!-- Summary table -->
+  <text x="30" y="265" fill="#333" font-size="15" font-weight="bold">你学的数学在这里：</text>
+  
+  <rect x="30" y="280" width="720" height="70" rx="8" fill="#fff"/>
+  <text x="50" y="308" fill="#5b8def" font-size="12">帧1-2：第二章+第六章</text>
+  <text x="300" y="308" fill="#7ecfff" font-size="12">帧3：第三+第四章</text>
+  <text x="500" y="308" fill="#51cf66" font-size="12">帧4：第五章（高维检索）</text>
+  <text x="50" y="335" fill="#777" font-size="12">向量=数字清单 | 矩阵=变形机器 | 12层变换=token→语义向量</text>
+  <text x="50" y="355" fill="#777" font-size="12">余弦相似度=归一化点积 | 向量数据库=HNSW索引 | 预存归一化向量省除法</text>
+
+  <!-- Key insight -->
+  <rect x="30" y="365" width="720" height="55" rx="8" fill="#fff3e0"/>
+  <text x="60" y="388" fill="#f0a050" font-size="14" font-weight="bold">核心认知：你学的全部数学，就是这场电影的第1帧到第4帧。</text>
+  <text x="60" y="412" fill="#555" font-size="12">第5帧（精排）和第6帧（LLM引用）不靠数学，靠信息密度+结构化+多源一致性——回到GEO内容策略。</text>
+</svg>
+</div>
+<div class="caption">▲ GEO的完整链路——从用户提问到AI回答。你学的线性代数覆盖前4帧。后3帧是GEO内容策略的战场。</div>
+</div>
+
+<!-- ==================== 常见卡壳 图解 ==================== -->
+<div class="chapter">
+<h2>附录 · 三个最容易卡壳的地方（图解）</h2>
+
+<div class="diagram">
+<svg viewBox="0 0 780 280">
+  <text x="20" y="30" fill="#333" font-size="16" font-weight="bold">卡壳1：点积公式和余弦公式混淆</text>
+  
+  <rect x="20" y="50" width="350" height="210" rx="8" fill="#e8f5e9"/>
+  <text x="195" y="80" text-anchor="middle" fill="#51cf66" font-size="14" font-weight="bold">点积 a·b = |a||b|cosθ</text>
+  <text x="195" y="105" text-anchor="middle" fill="#555" font-size="12">含长度 → 长向量天然更大</text>
+  <text x="195" y="130" text-anchor="middle" fill="#555" font-size="12">类比：体重（身高高的人天然重）</text>
+  
+  <rect x="20" y="145" width="350" height="105" rx="6" fill="#1a2a1a"/>
+  <text x="195" y="175" text-anchor="middle" fill="#7ecfff" font-size="14" font-weight="bold">余弦 cosθ = a·b / (|a||b|)</text>
+  <text x="195" y="200" text-anchor="middle" fill="#555" font-size="12">不含长度 → 除以长度后只比方向</text>
+  <text x="195" y="225" text-anchor="middle" fill="#555" font-size="12">类比：BMI（除掉身高，比胖瘦）</text>
+
+  <text x="410" y="155" fill="#f0a050" font-size="22">=</text>
+  
+  <rect x="430" y="120" width="330" height="60" rx="6" fill="#fff3e0"/>
+  <text x="595" y="145" text-anchor="middle" fill="#f0a050" font-size="14" font-weight="bold">记忆口诀</text>
+  <text x="595" y="170" text-anchor="middle" fill="#555" font-size="13">cosθ = 点积 ÷ (长度×长度)</text>
+</svg>
+</div>
+
+<div class="diagram">
+<svg viewBox="0 0 780 220">
+  <text x="20" y="30" fill="#333" font-size="16" font-weight="bold">卡壳2：矩阵乘法方向记反了</text>
+  
+  <rect x="50" y="50" width="80" height="40" rx="6" fill="#5b8def" opacity="0.3"/>
+  <text x="90" y="75" text-anchor="middle" fill="#5b8def" font-size="14" font-weight="bold">3×4</text>
+  <text x="90" y="105" text-anchor="middle" fill="#777" font-size="11">3行4列</text>
+
+  <text x="145" y="75" fill="#f0a050" font-size="22">×</text>
+
+  <rect x="170" y="50" width="80" height="40" rx="6" fill="#7ecfff" opacity="0.3"/>
+  <text x="210" y="75" text-anchor="middle" fill="#7ecfff" font-size="14" font-weight="bold">4×2</text>
+  <text x="210" y="105" text-anchor="middle" fill="#777" font-size="11">4行2列</text>
+
+  <text x="265" y="75" fill="#f0a050" font-size="22">=</text>
+
+  <rect x="290" y="50" width="80" height="40" rx="6" fill="#51cf66" opacity="0.3"/>
+  <text x="330" y="75" text-anchor="middle" fill="#51cf66" font-size="14" font-weight="bold">3×2</text>
+  <text x="330" y="105" text-anchor="middle" fill="#777" font-size="11">3行2列</text>
+
+  <!-- Rule -->
+  <text x="450" y="75" fill="#f0a050" font-size="15" font-weight="bold">规则：两边的4必须相等（3×<b>4</b> × <b>4</b>×2），结果取两边的数3×2</text>
+  
+  <rect x="50" y="140" width="680" height="55" rx="8" fill="#ffe8e8"/>
+  <text x="75" y="163" fill="#ff6b6b" font-size="13">❌ 3×4 乘 3×2 = 不行！相邻的4 ≠ 3</text>
+  <text x="75" y="185" fill="#51cf66" font-size="13">✅ 3×4 乘 4×2 = 3×2 的矩阵（3行2列）</text>
+</svg>
+</div>
+
+<div class="diagram">
+<svg viewBox="0 0 780 200">
+  <text x="20" y="30" fill="#333" font-size="16" font-weight="bold">卡壳3：高维向量无法想象 → 换思维模型</text>
+  
+  <rect x="50" y="50" width="200" height="120" rx="8" fill="#f0f4ff"/>
+  <text x="150" y="80" text-anchor="middle" fill="#7ecfff" font-size="14" font-weight="bold">模型A：指纹</text>
+  <text x="150" y="105" text-anchor="middle" fill="#555" font-size="12">每篇文章有独特"指纹"</text>
+  <text x="150" y="125" text-anchor="middle" fill="#555" font-size="12">相似的文章指纹相近</text>
+  <text x="150" y="145" text-anchor="middle" fill="#777" font-size="11">不需要"看见"1024维的指纹</text>
+
+  <rect x="290" y="50" width="200" height="120" rx="8" fill="#1a2a1a"/>
+  <text x="390" y="80" text-anchor="middle" fill="#51cf66" font-size="14" font-weight="bold">模型B：雷达图</text>
+  <text x="390" y="105" text-anchor="middle" fill="#555" font-size="12">每条轴是一个维度</text>
+  <text x="390" y="125" text-anchor="middle" fill="#555" font-size="12">图形形状相似→语义相似</text>
+  <text x="390" y="145" text-anchor="middle" fill="#777" font-size="11">虽然画不出1024条轴</text>
+
+  <rect x="530" y="50" width="210" height="120" rx="8" fill="#fff0f0"/>
+  <text x="635" y="80" text-anchor="middle" fill="#f0a050" font-size="14" font-weight="bold">底线策略</text>
+  <text x="635" y="105" text-anchor="middle" fill="#555" font-size="12">在3维建立的直觉</text>
+  <text x="635" y="125" text-anchor="middle" fill="#555" font-size="12">在1024维完全成立</text>
+  <text x="635" y="145" text-anchor="middle" fill="#555" font-size="12">相信数学规则一致</text>
+</svg>
+</div>
+</div>
+
+<div class="footer">
+  配合飞书文档阅读：https://cp8z7brjmy.feishu.cn/docx/LITAdax8RoFFdRxidHHcXhZ8nvq<br/>
+  海风老师 | AI技术咨询 / GEO优化 / 微信：frankhzheng
+</div>
+</div>
+</body>
+</html>

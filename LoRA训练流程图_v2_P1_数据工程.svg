@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 580" width="100%">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arr-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <style>
+    .t{font-family:system-ui,-apple-system,sans-serif;font-size:14px;fill:#1f2937}
+    .ts{font-family:system-ui,-apple-system,sans-serif;font-size:12px;fill:#6b7280}
+    .th{font-family:system-ui,-apple-system,sans-serif;font-size:14px;font-weight:500;fill:#1f2937}
+    .tsm{font-family:system-ui,-apple-system,sans-serif;font-size:11px;fill:#6b7280}
+  </style>
+</defs>
+<rect width="680" height="580" fill="white"/>
+<text class="th" x="340" y="30" text-anchor="middle">传统 LoRA 训练完整流程</text>
+<text class="ts" x="340" y="48" text-anchor="middle">Page 1 / 3 — Phase 1 数据工程（70% 工作量）</text>
+
+<!-- Phase 1 Container -->
+<rect x="40" y="70" width="600" height="460" rx="12" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+<text class="th" x="340" y="96" text-anchor="middle" fill="#534AB7">Phase 1  数据工程（70% 工作量）</text>
+
+<!-- Sub-phase A divider -->
+<rect x="48" y="112" width="584" height="2" rx="1" fill="#CECBF6"/>
+<text class="th" x="60" y="126" text-anchor="start" fill="#3C3489" font-size="13">阶段A: 大库采集与基线锁定</text>
+<text class="tsm" x="620" y="126" text-anchor="end" fill="#7F77DD">储备库 12.6万张 → 结构化清单</text>
+
+<!-- A1: 全量扫描 -->
+<rect x="56" y="140" width="268" height="52" rx="8" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.5"/>
+<text class="th" x="190" y="158" text-anchor="middle" fill="#3C3489">全量扫描</text>
+<text class="ts" x="190" y="176" text-anchor="middle" fill="#534AB7">inventory.csv · 文件路径/格式/大小</text>
+
+<!-- A2: 杂质清理 -->
+<rect x="356" y="140" width="268" height="52" rx="8" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.5"/>
+<text class="th" x="490" y="158" text-anchor="middle" fill="#3C3489">杂质清理</text>
+<text class="ts" x="490" y="176" text-anchor="middle" fill="#534AB7">剔除非图片 · Thumbs.db/PSD/MP4/ZIP</text>
+
+<!-- A3: 命名规则审计 -->
+<rect x="56" y="204" width="268" height="52" rx="8" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.5"/>
+<text class="th" x="190" y="222" text-anchor="middle" fill="#3C3489">命名规则审计</text>
+<text class="ts" x="190" y="240" text-anchor="middle" fill="#534AB7">统计命名模式分布 · 摸清混乱程度</text>
+
+<!-- A4: 质量预筛选 -->
+<rect x="356" y="204" width="268" height="52" rx="8" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.5"/>
+<text class="th" x="490" y="222" text-anchor="middle" fill="#3C3489">质量预筛选</text>
+<text class="ts" x="490" y="240" text-anchor="middle" fill="#534AB7">模糊/过小/零字节/重复 → 标记不删除</text>
+
+<!-- Arrow A→B -->
+<path d="M340 264 L340 280" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+<!-- Sub-phase B divider -->
+<rect x="48" y="290" width="584" height="2" rx="1" fill="#CECBF6"/>
+<text class="th" x="60" y="304" text-anchor="start" fill="#3C3489" font-size="13">阶段B: 训练集构建与验证</text>
+<text class="tsm" x="620" y="304" text-anchor="end" fill="#7F77DD">视觉验证兜底 → 每品类精选</text>
+
+<!-- B1: CLIP语义聚类 -->
+<rect x="56" y="318" width="268" height="52" rx="8" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.5"/>
+<text class="th" x="190" y="336" text-anchor="middle" fill="#3C3489">CLIP 语义聚类</text>
+<text class="ts" x="190" y="354" text-anchor="middle" fill="#534AB7">Chinese-CLIP 自动分组 · 解决多创作者命名乱</text>
+
+<!-- B2: 类目映射审核 -->
+<rect x="356" y="318" width="268" height="52" rx="8" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.5"/>
+<text class="th" x="490" y="336" text-anchor="middle" fill="#3C3489">类目映射与审核</text>
+<text class="ts" x="490" y="354" text-anchor="middle" fill="#534AB7">机器分组 → 你审核映射品类标签</text>
+
+<!-- B3: 每品类精选 -->
+<rect x="56" y="382" width="268" height="52" rx="8" fill="#AFA9EC" stroke="#7F77DD" stroke-width="0.5"/>
+<text class="th" x="190" y="400" text-anchor="middle" fill="#3C3489">每品类精选</text>
+<text class="ts" x="190" y="418" text-anchor="middle" fill="#534AB7">均衡质量/视角/背景 → 30-200 张/品类</text>
+
+<!-- B4: QC验收 -->
+<rect x="356" y="382" width="268" height="52" rx="8" fill="#AFA9EC" stroke="#7F77DD" stroke-width="0.5"/>
+<text class="th" x="490" y="400" text-anchor="middle" fill="#3C3489">QC 验收</text>
+<text class="ts" x="490" y="418" text-anchor="middle" fill="#534AB7">去重 / 污染检查 / 词频分析</text>
+
+<!-- Arrow B→Bottom -->
+<path d="M340 442 L340 466" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+<!-- Captioning + Dataset split side by side -->
+<rect x="56" y="468" width="268" height="44" rx="8" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.5"/>
+<text class="th" x="190" y="490" text-anchor="middle" fill="#3C3489">标注 Captioning</text>
+<text class="ts" x="190" y="504" text-anchor="middle" fill="#534AB7">FLUX 纯自然语言 40-100 词</text>
+
+<rect x="356" y="468" width="268" height="44" rx="8" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.5"/>
+<text class="th" x="490" y="490" text-anchor="middle" fill="#3C3489">数据集拆分</text>
+<text class="ts" x="490" y="504" text-anchor="middle" fill="#534AB7">train/ (80-90%)  ↔  val/ (10-20%)</text>
+
+<!-- Navigation hint -->
+<rect x="240" y="540" width="200" height="28" rx="14" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.3"/>
+<text class="ts" x="340" y="554" text-anchor="middle" fill="#5F5E5A">→ 进入 Phase 2-5 环境/训练/测试/交付</text>
+</svg>

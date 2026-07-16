@@ -1,0 +1,166 @@
+<title>视频复刻方案执行设计：FFmpeg + LibTV 参考图生成</title>
+<callout emoji="bulb" background-color="light-blue">核心工具链：FFmpeg（拆解/合成）+ LibTV（参考图生成+画布编排）+ Python（可选精确控制）+ 本地存储（资产管理）</callout>
+<h1>一、工具组全景</h1>
+<p><b>FFmpeg — 拆解/合成层</b></p>
+<ul><li>场景检测 &amp; 关键帧提取</li><li>逐帧导出 &amp; 按场景分组</li><li>音频分离（人声/BGM/音效）</li><li>最终合成（画面+音频+转场+调色）</li></ul>
+<p><b>LibTV — 参考图生成 &amp; 画布编排层</b></p>
+<ul><li>image 节点 + 参考图（图生图换人物/场景）</li><li>image shortcut（风格迁移/光影校正/九宫格多角度）</li><li>video 节点（图生视频/参考视频→视频）</li><li>video-clip 节点（时间线合成，精确剪辑拼接）</li><li>script + storyboard（分镜脚本→分镜图生成）</li></ul>
+<p><b>Python（可选）— 精确控制层</b></p>
+<ul><li>LMM 多模态分析（场景识别/构图提取/运动分析）</li><li>OpenCV 光流分析（camera motion 参数提取）</li><li>ControlNet 骨架提取（OpenPose/Depth/Canny）</li><li>Ebsynth 光流传播（质量+效率均衡方案）</li></ul>
+<p><b>本地存储 — 资产管理层</b></p>
+<ul><li>分层文件树（分析/源/场景/音频/合成）</li></ul>
+<h1>二、各工具的选择依据</h1>
+<h2>为什么用 FFmpeg + LibTV 而非纯代码方案</h2>
+<table><colgroup><col width="140"/><col width="160"/><col width="160"/><col width="110"/></colgroup>
+<thead><tr><th>维度</th><th>FFmpeg + LibTV</th><th>纯 Diffusers 代码</th><th>Ebsynth</th></tr></thead>
+<tbody>
+<tr><td>人物/场景替换精确度</td><td>⭐⭐⭐⭐⭐ 参考图生图</td><td>⭐⭐⭐⭐⭐ ControlNet</td><td>⭐⭐⭐ 只传播不替换</td></tr>
+<tr><td>操作可视化</td><td>⭐⭐⭐⭐⭐ 画布可见</td><td>⭐⭐ 代码不可视</td><td>⭐⭐⭐ 需额外工具</td></tr>
+<tr><td>批量效率</td><td>⭐⭐⭐⭐ 半自动</td><td>⭐⭐⭐⭐⭐ 全自动</td><td>⭐⭐⭐⭐⭐ 最快</td></tr>
+<tr><td>人物一致性</td><td>⭐⭐⭐⭐⭐ 参考图绑定</td><td>⭐⭐⭐⭐⭐ LoRA</td><td>⭐⭐ 依赖初始帧</td></tr>
+<tr><td>可调性</td><td>⭐⭐⭐⭐⭐ 画布改参数</td><td>⭐⭐⭐ 改代码</td><td>⭐⭐ 调参有限</td></tr>
+</tbody></table>
+<p><b>结论：</b>FFmpeg + LibTV 组合在「人物/场景替换」这个核心诉求上，精确度最高、可调性最强。若后续需要大规模批量，可在 Python 层补充 ControlNet + Ebsynth 脚本。</p>
+<h1>三、完整执行流程</h1>
+<h2>Phase 0：分析 ▸ 工具：LMM + FFmpeg</h2>
+<pre lang="text">原视频 → 分析产物
+├─ FFmpeg scene detect → pacing.json（镜头切分表）
+├─ LMM（GPT-4o/Claude）→ composition.json
+│  输入：每个镜头的首帧+中间帧+末帧
+│  输出：构图类型/主体位置/色调/运镜描述
+└─ FFmpeg 音频提取 → audio_map.json</pre>
+<h2>Phase 1：拆解 ▸ 工具：FFmpeg</h2>
+<pre lang="text">原视频
+├─ 逐帧导出：ffmpeg -i src.mp4 -q:v 2 frames/%05d.png
+├─ 按节奏表分场景（scene_001/ scene_002/ ...）
+├─ 每个场景选关键帧
+│  ├─ keyframe_start.png
+│  ├─ keyframe_mid.png
+│  ├─ keyframe_end.png
+│  └─ ref_person.png（人物参考）
+└─ 音频分离：demucs --two-stems=vocals</pre>
+<h2>Phase 2：资产准备 ▸ 工具：LibTV（核心）</h2>
+<callout emoji="bulb" background-color="light-blue">核心环节——用 LibTV 的参考图生成功能替换人物和场景。</callout>
+<h3>2a 参考图上传</h3>
+<pre lang="bash">libtv project use &lt;画布UUID&gt;
+libtv upload "原场景A_参考图" -t image --resource ./scene_001/ref_person.png
+libtv upload "新人物_正面" -t image --resource ./new_person_front.png
+libtv upload "新场景_室内" -t image --resource ./new_scene_interior.png</pre>
+<h3>2b 图生图替换人物</h3>
+<pre lang="bash">libtv node create "场景A_新人物帧" -t image \
+  --prompt "新人物在场景中保持原构图" \
+  --set "model=LibNano Pro" --set ratio=16:9 --set quality=2K \
+  --left "原场景A_参考图" --left "新人物_正面"
+
+libtv node create "场景A_基础帧" -t image \
+  --set ratio=16:9 --set quality=2K --left "原场景A_参考图"
+libtv image shortcut cinematic_lighting_correction -n "场景A_基础帧"</pre>
+<h3>2c 多角度参考图生成</h3>
+<pre lang="text">场景A（正面特写）→ ref=新人物正面照 → 图生图
+场景B（侧面中景）→ ref=新人物侧面照 → 图生图
+场景C（全身远景）→ ref=新人物全身照 → 图生图
+可用 image shortcut 九宫格生成多角度版本</pre>
+<h3>2d 场景替换流程（三级）</h3>
+<p><b>L1 纯替换背景：</b></p>
+<pre lang="bash">libtv node create "新背景" -t image \
+  --prompt "现代极简室内，浅色调" --left "原场景_关键帧"</pre>
+<p><b>L2 保留结构换风格：</b></p>
+<pre lang="bash">libtv node create "新风格帧" -t image \
+  --prompt "赛博朋克风格，霓虹灯" --left "原场景_关键帧"</pre>
+<p><b>L3 完全替换（人物+场景都换）：</b></p>
+<pre lang="bash">libtv node create "新背景_无人物" -t image \
+  --prompt "空场景，室内，无人" --left "原场景_关键帧"
+libtv node create "合成帧" -t image \
+  --prompt "新人物放在场景中" \
+  --left "新背景_无人物" --left "新人物_全身"</pre>
+<h2>Phase 3：音频制作 ▸ 工具：FFmpeg + LibTV</h2>
+<pre lang="text">原音频分离：vocals.wav → 换人声（TTS/真人配音）
+          no_vocals.wav → 新BGM对齐原节奏结构
+          sfx/ → 时间点保留，可选换音色
+LibTV上传：libtv upload "新配音" -t audio --resource voiceover_new.mp3
+          libtv upload "新BGM" -t audio --resource bgm_new.mp3</pre>
+<h2>Phase 4：合成 ▸ 工具：LibTV video-clip + FFmpeg</h2>
+<pre lang="text">1. 每场景帧序列合成video片段
+2. 上传所有video片段到LibTV画布
+3. 创建video-clip节点
+4. 用--left连接所有video/audio节点
+5. 用-u clipTimelineData设置精确时间线
+6. --run出片
+7. FFmpeg定版调色输出</pre>
+<h1>四、拆解后的画面和音频放哪里</h1>
+<pre lang="text">&lt;project_name&gt;/
+├── 0_analysis/   → Phase0分析产物
+├── 1_source/     → 原视频+原始帧+音频轨
+├── 2_scenes/     → 按场景分组的帧+关键帧
+├── 3_generated/  → LibTV/AI生成的新帧
+├── 4_audio_new/  → 新音频资产
+├── 5_composite/  → 合成+最终输出
+└── libtv_assets/ → LibTV上传缓存</pre>
+<p><b>设计原则：</b>0_analysis/ 和 1_source/ 只读不改（断点可重来）；2_scenes/ 是手工精选（人的判断）；3_generated/ 是AI结果可清掉重跑；4_audio_new/ 可替换版本；5_composite/ 不污染中间文件。</p>
+<h1>五、LibTV 参考图生成具体操作</h1>
+<h2>核心命令链</h2>
+<pre lang="bash"># 登录+绑定
+libtv login web
+libtv project use &lt;画布UUID&gt;
+
+# Step1 上传参考图
+libtv upload "原场景-镜头1" -t image --resource ./scene_001/keyframe_start.png
+libtv upload "新人物-正面" -t image --resource ./assets/new_person.png
+
+# Step2 图生图换人物
+libtv node create "新版本-镜头1" -t image \
+  --prompt "新人物穿着日常服装，在原场景中" \
+  --set "model=LibNano Pro" --set ratio=9:16 --set quality=2K \
+  --left "原场景-镜头1" --left "新人物-正面"
+
+# Step3 下载结果
+libtv node "新版本-镜头1"
+curl -o ./3_generated/scene_001/new_keyframe_001.png &lt;url&gt;
+
+# Step4 批量处理+shortcut
+libtv image shortcut "电影级光影校正" -n "新版本-镜头1"</pre>
+<h2>可用模型</h2>
+<ul><li><b>LibNano Pro</b> — 高性能图生图，适合人物/场景替换</li><li><b>Nebula Ultra</b> — 高质量视觉生成</li><li><b>Seedream 4.0</b> — 中文场景优化</li></ul>
+<h2>LMM + 脚本调度（可选）</h2>
+<pre lang="text">LMM分析原视频 → 输出每场景结构化描述 →
+Python脚本自动组织libtv命令 → 批量生成关键帧 →
+人工审核挑选 → 进入合成阶段</pre>
+<h1>六、总体对比</h1>
+<table><colgroup><col width="130"/><col width="145"/><col width="145"/><col width="140"/></colgroup>
+<thead><tr><th>维度</th><th>FFmpeg + LibTV</th><th>纯 Diffusers 代码</th><th>ComfyUI 逐帧</th></tr></thead>
+<tbody>
+<tr><td>人物/场景替换</td><td>✅ 参考图生图</td><td>✅ ControlNet</td><td>✅ ControlNet</td></tr>
+<tr><td>操作门槛</td><td>🟡 中等</td><td>🔴 需写代码</td><td>🟢 拖节点</td></tr>
+<tr><td>可视化反馈</td><td>✅ 画布可见</td><td>❌ 不可见</td><td>✅ GUI可见</td></tr>
+<tr><td>批量处理</td><td>🟡 半自动</td><td>✅ 全自动</td><td>🟡 需插件</td></tr>
+<tr><td>本地算力</td><td>🟢 低（云端）</td><td>🔴 高（本地）</td><td>🔴 高（本地）</td></tr>
+<tr><td>合成能力</td><td>✅ video-clip</td><td>❌ 需外部</td><td>❌ 需外部</td></tr>
+<tr><td>音频处理</td><td>✅ 画布内</td><td>❌ 需外部</td><td>❌ 需外部</td></tr>
+</tbody></table>
+<pre lang="text">FFmpeg + LibTV = 参考图生成 + 不用本地GPU + 画布编排 + video-clip剪辑</pre>
+<h1>七、执行建议</h1>
+<h2>一条视频的操作流程</h2>
+<table><colgroup><col width="40"/><col width="250"/><col width="80"/></colgroup>
+<thead><tr><th>#</th><th>操作</th><th>耗时</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>FFmpeg 场景检测</td><td>1分钟</td></tr>
+<tr><td>2</td><td>挑关键帧+参考图</td><td>5分钟</td></tr>
+<tr><td>3</td><td>LibTV 图生图替换</td><td>10-20分钟</td></tr>
+<tr><td>4</td><td>挑选结果下载</td><td>5分钟</td></tr>
+<tr><td>5</td><td>补中间帧</td><td>视工具</td></tr>
+<tr><td>6</td><td>替换音频</td><td>10分钟</td></tr>
+<tr><td>7</td><td>video-clip合成</td><td>5分钟</td></tr>
+<tr><td>8</td><td>FFmpeg调色输出</td><td>2分钟</td></tr>
+</tbody></table>
+<p><b>一条15-30秒视频总耗时约40-50分钟</b>，人工判断约10分钟，其余为工具执行时间。</p>
+<h2>关键要点</h2>
+<ol>
+<li>每场景独立参考，不同场景不同参考图</li>
+<li>有运镜的场景先用image shortcut九宫格生成多角度</li>
+<li>同一人物跨场景时用script节点统一描述</li>
+<li>原视频关键帧尽量选最清晰的画面</li>
+<li>最终合成用video-clip，比FFmpeg手写拼接更精确</li>
+</ol>
+<hr/>
+<p><b>作者信息</b></p>
+<p>海风老师 | AI技术咨询 / LoRA模型训练 / 电商AI落地 / GEO优化<br/>微信：frankhzheng<br/>内容资产库：https://github.com/frankhzh-source/hf-ai-articles</p>

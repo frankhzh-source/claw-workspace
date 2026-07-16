@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LoRA训练 + ControlNet 详解</title>
+<style>
+  :root {
+    --bg: #0d1117; --card: #161b22; --border: #30363d;
+    --text: #c9d1d9; --dim: #8b949e;
+    --red: #ff6b6b; --orange: #f0a500; --blue: #58a6ff;
+    --green: #3fb950; --purple: #bc8cff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.75; padding: 36px 24px 80px; max-width: 960px; margin: 0 auto;
+  }
+  h1 { font-size: 26px; color: #fff; }
+  .sub { color: var(--dim); font-size: 13px; margin: 4px 0 28px; }
+  h2 { font-size: 20px; color: #fff; margin: 36px 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 16px; color: #e6edf3; margin: 24px 0 8px; padding-left: 8px; border-left: 3px solid var(--blue); }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 16px 20px; margin: 12px 0; font-size: 13.5px;
+  }
+  .card h4 { color: #e6edf3; margin-bottom: 8px; }
+  .card ul { padding-left: 18px; }
+  .card li { margin: 3px 0; color: var(--dim); }
+  .card li strong { color: var(--text); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0 16px; }
+  th { background: var(--card); color: var(--dim); font-weight: 500; text-align: left; padding: 8px 10px; border: 1px solid var(--border); }
+  td { padding: 7px 10px; border: 1px solid var(--border); }
+  td strong { color: var(--text); }
+
+  .code {
+    background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+    padding: 14px 16px; margin: 10px 0; font-size: 12.5px;
+    font-family: "SF Mono","Consolas",monospace; color: var(--dim); white-space: pre-wrap;
+  }
+  .code .kw { color: var(--orange); }
+  .code .cm { color: var(--dim); font-style: italic; }
+  .code .val { color: var(--green); }
+
+  .formula {
+    background: var(--card); border-left: 3px solid var(--orange);
+    padding: 10px 14px; margin: 10px 0; font-size: 13px;
+    font-family: "SF Mono",monospace; line-height: 1.6;
+  }
+
+  .tag {
+    display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px;
+    margin-left: 6px; font-weight: 600;
+  }
+  .tag.rec { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag.pit { background: rgba(255,107,107,0.15); color: var(--red); }
+  .tag.note { background: rgba(240,165,0,0.15); color: var(--orange); }
+
+  .img-placeholder {
+    background: var(--card); border: 1px dashed var(--border); border-radius: 8px;
+    padding: 20px; text-align: center; color: var(--dim); font-size: 12px; margin: 12px 0;
+  }
+
+  .highlight-box {
+    background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.2);
+    border-radius: 6px; padding: 12px 16px; margin: 12px 0; font-size: 13px;
+  }
+  .highlight-box h4 { color: var(--red); font-size: 13px; margin-bottom: 6px; }
+
+  .step-box {
+    background: rgba(88,166,255,0.06); border: 1px solid rgba(88,166,255,0.2);
+    border-radius: 6px; padding: 12px 16px; margin: 10px 0; font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<h1>LoRA 训练 + ControlNet 控制 — 详解</h1>
+<p class="sub">FDE学习手册 2A进阶B 展开 | 面向电商AI落地实战</p>
+
+<!-- ===== PART 1: WHAT IS LORA ===== -->
+<h2>一、LoRA 是什么？为什么你需要它？</h2>
+
+<div class="card">
+  <h4>一句话说清楚</h4>
+  <p>LoRA = Low-Rank Adaptation（低秩适配）。在不改动原模型的前提下，在"旁路"添加一小块可训练的矩阵，让模型学会新的风格/人物/物体/场景。</p>
+  <p style="margin-top:8px; color:var(--dim);">打个比方：SD模型是一本巨大的百科全书，LoRA就像在书页边缘贴的便利贴。书本身不动，便利贴告诉你"遇到这类图时，往这个方向偏一点"。</p>
+</div>
+
+<div class="formula">
+  # LoRA 的核心公式
+  原模型输出 = W₀ · x      (W₀ 不动)
+  LoRA 修正    = B · A · x  (B和A是低秩小矩阵，只有它们被训练)
+  最终输出    = W₀ · x + B · A · x
+
+  # 参数量对比
+  SDXL 模型: ~2.6B 参数（全量微调需要~24GB显存）
+  LoRA 模型: ~10-50MB（一张小文件，训练只需~8-12GB显存）
+</div>
+
+<div class="card">
+  <h4>什么时候用 LoRA，什么时候用全量微调？</h4>
+  <table>
+    <tr><th>场景</th><th>全量微调</th><th>LoRA</th></tr>
+    <tr><td>学一个新风格/画风</td><td>可以，但浪费</td><td class="val" style="color:var(--green);">最适合</td></tr>
+    <tr><td>固定品牌视觉风格</td><td>可以，但浪费</td><td class="val" style="color:var(--green);">最适合</td></tr>
+    <tr><td>学一个特定人物/产品</td><td>可以，但浪费</td><td class="val" style="color:var(--green);">最适合</td></tr>
+    <tr><td>改变模型的基础知识</td><td class="val" style="color:var(--green);">需要</td><td>做不到</td></tr>
+    <tr><td>让模型学会全新的概念</td><td class="val" style="color:var(--green);">需要</td><td>较难（可尝试但效果不稳定）</td></tr>
+  </table>
+  <p style="margin-top:8px; color:var(--dim);">电商场景 90% 的需求都是 LoRA 能解决的——统一品牌风格、固定产品外观、控制特定场景氛围。</p>
+</div>
+
+<!-- ===== PART 2: DATA PREPARATION ===== -->
+<h2>二、训练数据准备（最重要的一步）</h2>
+
+<div class="card">
+  <h4>数据质量规则</h4>
+  <ul>
+    <li><strong>数量：</strong>20-30 张高质量图片即可，50 张以上基本到天花板。10 张好图 > 100 张糊图</li>
+    <li><strong>分辨率：</strong>SD 1.5 用 512x512，SDXL 用 1024x1024。所有图片必须统一分辨率，不能混</li>
+    <li><strong>格式：</strong>PNG 或 JPG 都行，推荐 PNG（无损）</li>
+    <li><strong>多样性：</strong>不同角度、不同光照、不同背景，但不能跨类——练"产品风格"就全是产品图，练"人物"就全是人物</li>
+    <li><strong>一致性：</strong>主体占画面 50-80%，不要有裁剪/遮挡/文字/水印</li>
+  </ul>
+</div>
+
+<div class="highlight-box">
+  <h4>电商训练集准备的三条铁律</h4>
+  <ol style="padding-left:18px; color:var(--dim);">
+    <li><strong>产品图最好是白底或纯色底：</strong>让 LoRA 专注学产品本身，别被复杂背景分散注意力</li>
+    <li><strong>风格参考图要找最好的那几张：</strong>不要拿"凑合"的图来训练，LoRA 会学到"凑合感"</li>
+    <li><strong>标注（Captioning）不能省：</strong>每张图配上描述文字，这是 LoRA 理解"这张图是什么"的关键</li>
+  </ol>
+</div>
+
+<div class="card">
+  <h4>标注（Captioning）怎么做？</h4>
+  <p style="color:var(--dim); margin-bottom:8px;">每张训练图片需要一个 .txt 文件，里面写描述文字。这是 LoRA 训练中最容易被跳过但最关键的一步。</p>
+  <table>
+    <tr><th>方式</th><th>做法</th><th>适用场景</th></tr>
+    <tr><td><strong>自动标注</strong></td><td>用 BLIP/WD14 Tagger 等工具自动生成描述</td><td>数量多、风格图、通用场景</td></tr>
+    <tr><td><strong>手动标注</strong></td><td>人工写下每个图的关键要素</td><td>产品图（精确度要求高）、人物训练</td></tr>
+    <tr><td><strong>半自动</strong></td><td>自动生成 + 人工修正</td><td>推荐的通用方案</td></tr>
+  </table>
+  <div class="code">
+<span class="cm"># 标注示例：同一件白色陶瓷杯的不同角度</span>
+<span class="cm"># white_ceramic_mug_01.txt</span>
+A white ceramic coffee mug with minimalist design, front view, product photography, studio lighting, white background
+
+<span class="cm"># white_ceramic_mug_02.txt</span>
+A white ceramic coffee mug, side view showing the handle, product photography, clean background
+
+<span class="cm"># 关键原则</span>
+<span class="cm"># 1. 描述"图里有什么"，不要描述"这是什么东西"（那是触发词做的事）</span>
+<span class="cm"># 2. 品牌/产品名不放描述里，单独做触发词</span>
+<span class="cm"># 3. 每张图独有特征（角度/光照/细节）写清楚，共性特征（产品材质/风格）可以省略</span></div>
+</div>
+
+<!-- ===== PART 3: CORE PARAMETERS ===== -->
+<h2>三、核心训练参数详解</h2>
+
+<div class="card">
+  <table>
+    <tr><th style="width:16%">参数</th><th style="width:14%">推荐值</th><th style="width:35%">含义</th><th style="width:35%">调高/调低的后果</th></tr>
+    <tr>
+      <td><strong>Epoch（轮数）</strong></td>
+      <td>10-20</td>
+      <td>训练集完整过多少遍</td>
+      <td><strong>太少：</strong>没学到，出图和训练集完全不像<br><strong>太多：</strong>过拟合，除了训练集的内容其他都不会画了</td>
+    </tr>
+    <tr>
+      <td><strong>Learning Rate（学习率）</strong></td>
+      <td>1e-4（0.0001）</td>
+      <td>每次更新参数时迈多大步</td>
+      <td><strong>太低：</strong>学太慢，20个epoch还像没训<br><strong>太高：</strong>一步太大直接跑偏，画面崩溃/颜色爆炸</td>
+    </tr>
+    <tr>
+      <td><strong>Batch Size（批次大小）</strong></td>
+      <td>1-4</td>
+      <td>一次喂几张图给模型</td>
+      <td><strong>太小的Batch：</strong>训练不稳定，曲线抖动大<br><strong>太大的Batch：</strong>显存不够（OOM）</td>
+    </tr>
+    <tr>
+      <td><strong>Network Rank（秩）</strong></td>
+      <td>8-32</td>
+      <td>LoRA 矩阵的"容量"，越大能学的东西越多</td>
+      <td><strong>Rank 4-8：</strong>轻量风格、氛围微调<br><strong>Rank 16-32：</strong>人物/产品固定、复杂风格<br><strong>Rank 64+：</strong>很少需要，文件大但提升有限</td>
+    </tr>
+    <tr>
+      <td><strong>Network Alpha</strong></td>
+      <td>= Rank（或 Rank/2）</td>
+      <td>LoRA 生效强度的缩放因子</td>
+      <td>Alpha 越小 → LoRA 效果越弱（出图更接近原模型）<br>Alpha = Rank 是标准配置</td>
+    </tr>
+    <tr>
+      <td><strong>Optimizer（优化器）</strong></td>
+      <td>AdamW8bit</td>
+      <td>用什么算法更新参数</td>
+      <td>AdamW8bit 省显存且效果稳定，不要随意换</td>
+    </tr>
+    <tr>
+      <td><strong>LR Scheduler</strong></td>
+      <td>cosine</td>
+      <td>学习率的变化曲线</td>
+      <td>cosine = 先大后小，稳步收敛。constant = 全程不变，容易震荡</td>
+    </tr>
+  </table>
+</div>
+
+<div class="step-box">
+  <h4>新手推荐配置（拿来就能用）</h4>
+  <div class="code">
+<span class="cm"># SD 1.5 模型 LoRA 训练推荐配置</span>
+Resolution:    <span class="val">512x512</span>
+Epoch:         <span class="val">10</span>
+Learning Rate: <span class="val">1e-4</span>
+Batch Size:    <span class="val">2</span>
+Network Rank:  <span class="val">16</span>
+Network Alpha: <span class="val">16</span>
+Optimizer:     <span class="val">AdamW8bit</span>
+LR Scheduler:  <span class="val">cosine</span>
+
+<span class="cm"># SDXL 模型 LoRA 训练推荐配置</span>
+Resolution:    <span class="val">1024x1024</span>
+Epoch:         <span class="val">10</span>
+Learning Rate: <span class="val">1e-4</span>
+Batch Size:    <span class="val">1</span>
+Network Rank:  <span class="val">16</span>
+Network Alpha: <span class="val">16</span>
+Optimizer:     <span class="val">AdamW8bit</span>
+LR Scheduler:  <span class="val">cosine</span>
+<span class="cm"># SDXL 对显存要求更高，Batch Size 老老实实设1</span></div>
+</div>
+
+<!-- ===== PART 4: TOOLS ===== -->
+<h2>四、训练工具选型</h2>
+
+<div class="card">
+  <table>
+    <tr><th style="width:18%">工具</th><th style="width:25%">特点</th><th style="width:25%">适合谁</th><th style="width:15%">上手难度</th><th style="width:17%">推荐度</th></tr>
+    <tr>
+      <td><strong>kohya_ss</strong></td>
+      <td>功能最全、教程最多、社区最活跃。支持 SD1.5/SDXL/FLUX 的 LoRA 训练</td>
+      <td>大多数人（入门到进阶）</td>
+      <td>中等</td>
+      <td style="color:var(--green);">首选</td>
+    </tr>
+    <tr>
+      <td><strong>OneTrainer</strong></td>
+      <td>界面更现代、一键配置更友好、训练速度略快</td>
+      <td>喜欢现代 UI、不想折腾环境的人</td>
+      <td>低</td>
+      <td style="color:var(--green);">推荐</td>
+    </tr>
+    <tr>
+      <td><strong>秋叶整合包内置</strong></td>
+      <td>和 SD WebUI 深度集成，一键训练+一键使用</td>
+      <td>已经用秋叶整合包的人</td>
+      <td>最低</td>
+      <td style="color:var(--orange);">中文用户可用</td>
+    </tr>
+    <tr>
+      <td><strong>AI-Toolkit (FLUX专用)</strong></td>
+      <td>专为 FLUX 模型设计，训练质量高但显存要求大</td>
+      <td>只用 FLUX 做主力模型的团队</td>
+      <td>高</td>
+      <td>特定场景</td>
+    </tr>
+  </table>
+</div>
+
+<div class="step-box">
+  <h4>kohya_ss 训练流程（最简版 8 步）</h4>
+  <ol style="padding-left:18px; color:var(--dim); line-height:2.2;">
+    <li><strong>准备图片：</strong>20-30 张统一分辨率的 PNG，放到一个文件夹</li>
+    <li><strong>标注图片：</strong>每张图片配一个同名 .txt 描述文件（用 BLIP/WD14 自动 + 人工复核）</li>
+    <li><strong>启动 kohya_ss：</strong>双击 gui.bat 或运行 `python kohya_gui.py`</li>
+    <li><strong>选择 Source Model 标签页：</strong>选你的基础模型（SD1.5 的 .safetensors 文件），设置输出目录</li>
+    <li><strong>选择 Folders 标签页：</strong>指定图片文件夹路径，设置 Resolution 为 512 或 1024</li>
+    <li><strong>选择 Parameters 标签页：</strong>按上面的新手配置填入参数</li>
+    <li><strong>点 Start Training：</strong>等着。10-20 epoch 在 RTX 3060 12G 上大概 10-30 分钟</li>
+    <li><strong>测试 LoRA：</strong>把生成的 .safetensors 文件放到 SD 的 models/Lora/ 目录，Prompt 里加上 `&lt;lora:你的LoRA名:0.8&gt;` 测试效果</li>
+  </ol>
+</div>
+
+<!-- ===== PART 5: CONTROLNET ===== -->
+<h2>五、ControlNet — 精准控制构图的武器</h2>
+
+<div class="card">
+  <h4>为什么需要 ControlNet？</h4>
+  <p style="color:var(--dim);">文生图最大的痛点是<strong>不可控</strong>——你写了一堆 Prompt，出来的构图、姿势、细节全凭运气。ControlNet 给你一个"方向盘"：上传一张参考图（可以是线稿、骨架、深度图），告诉 SD"按这个结构画，内容你自由发挥"。</p>
+</div>
+
+<div class="card">
+  <h4>六种核心模式对比</h4>
+  <table>
+    <tr><th style="width:14%">模式</th><th style="width:22%">输入什么</th><th style="width:22%">控制什么</th><th style="width:22%">电商最佳场景</th><th style="width:20%">推荐强度</th></tr>
+    <tr>
+      <td><strong>Canny</strong></td>
+      <td>边缘检测图（黑白线条）</td>
+      <td>物体的外形轮廓</td>
+      <td>产品形状不变，换背景/材质/风格</td>
+      <td>0.7-0.9</td>
+    </tr>
+    <tr>
+      <td><strong>Lineart</strong></td>
+      <td>线稿图（比Canny更干净）</td>
+      <td>物体的线条结构</td>
+      <td>服装/鞋包等轮廓清晰的品类</td>
+      <td>0.7-0.9</td>
+    </tr>
+    <tr>
+      <td><strong>Depth</strong></td>
+      <td>深度图（灰度，越白越近）</td>
+      <td>物体的空间位置和透视</td>
+      <td>场景图（产品在桌子/沙发上）</td>
+      <td>0.5-0.8</td>
+    </tr>
+    <tr>
+      <td><strong>OpenPose</strong></td>
+      <td>人体骨架图</td>
+      <td>人物的姿势</td>
+      <td>模特展示图（控制站姿/手势）</td>
+      <td>0.8-1.0</td>
+    </tr>
+    <tr>
+      <td><strong>IP-Adapter</strong></td>
+      <td>参考图（人脸/风格）</td>
+      <td>图像整体风格、面部特征</td>
+      <td>保持模特面部一致、品牌风格一致</td>
+      <td>0.5-0.8</td>
+    </tr>
+    <tr>
+      <td><strong>SoftEdge</strong></td>
+      <td>柔和边缘图</td>
+      <td>松散的轮廓控制</td>
+      <td>不想太死板、需要一点自由度时</td>
+      <td>0.4-0.6</td>
+    </tr>
+  </table>
+</div>
+
+<div class="card">
+  <h4>电商场景最佳实践：产品图流水线</h4>
+  <div class="code">
+<span class="cm"># 商品图标准化流水线（ComfyUI 节点流程）</span>
+
+步骤1: 输入产品白底图
+步骤2: ControlNet Canny → 提取产品轮廓
+步骤3: 加载品牌 LoRA（之前训练好的）
+步骤4: 加载场景 LoRA（咖啡厅/卧室/户外...）
+步骤5: Prompt: "A [产品名] on a wooden table, morning sunlight, cozy cafe..."
+步骤6: SD 生成 → 产品形状不变 + 品牌风格一致 + 场景替换成功
+
+<span class="cm"># 模特换装流水线</span>
+
+步骤1: 输入参考姿势图（从目标模特/网图提取）
+步骤2: ControlNet OpenPose → 提取骨架
+步骤3: ControlNet IP-Adapter → 固定模特面部
+步骤4: 加载服装 LoRA（目标服装训练的）
+步骤5: 加载场景/风格 LoRA
+步骤6: Prompt: "A fashion model wearing [服装], walking on a city street..."
+步骤7: SD 生成 → 姿势对 + 脸没变 + 衣服对 + 场景对</div>
+</div>
+
+<!-- ===== PART 6: COMMON PITFALLS ===== -->
+<h2>六、常见踩坑与解决</h2>
+
+<div class="card">
+  <table>
+    <tr><th style="width:22%">问题</th><th style="width:30%">现象</th><th style="width:48%">解决方案</th></tr>
+    <tr>
+      <td><strong>过拟合</strong></td>
+      <td>LoRA 强度开 0.5 以上就崩，只能出训练集里的图，不会泛化</td>
+      <td>①减少 Epoch（10->7）②提高学习率让训练更"粗糙"③增加训练集多样性④降低 Network Rank</td>
+    </tr>
+    <tr>
+      <td><strong>欠拟合</strong></td>
+      <td>LoRA 开到 1.0 了还是不像，出图跟没加载 LoRA 差不多</td>
+      <td>①增加 Epoch②降低学习率③检查标注是否太笼统④数据集质量差（图片模糊/大小不一）</td>
+    </tr>
+    <tr>
+      <td><strong>色彩偏色</strong></td>
+      <td>所有出图都偏某个颜色（如发黄/发蓝）</td>
+      <td>训练集照片的色温不一致导致。统一调色后再训练；或降低 Network Alpha 减弱 LoRA 影响</td>
+    </tr>
+    <tr>
+      <td><strong>LoRA 和基础模型不兼容</strong></td>
+      <td>用 SDXL 练的 LoRA 放到 SD1.5 模型上用，出图全乱</td>
+      <td>LoRA 必须和训练时用的基础模型版本一致。SD1.5→SD1.5，SDXL→SDXL，FLUX→FLUX</td>
+    </tr>
+    <tr>
+      <td><strong>CUDA Out of Memory</strong></td>
+      <td>训练到一半显存爆了</td>
+      <td>①降 Batch Size 到 1②降分辨率③用 AdamW8bit 代替 AdamW④勾选 Gradient Checkpointing⑤换更大显存的显卡</td>
+    </tr>
+    <tr>
+      <td><strong>标注错误</strong></td>
+      <td>Prompt 里写了某个词，LoRA 反而把那个东西画错了</td>
+      <td>标注时把"你想要 LoRA 学会的东西"从描述里去掉，只保留背景/环境/角度等。比如练杯子，描述里就不要出现"white cup"，只写"product photography, studio lighting"</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ===== PART 7: WHEN TO USE WHAT ===== -->
+<h2>七、LoRA + ControlNet 组合策略</h2>
+
+<div class="card">
+  <h4>四种经典组合方案</h4>
+  <table>
+    <tr><th>方案</th><th>组合</th><th>解决的问题</th><th>电商案例</th></tr>
+    <tr>
+      <td><strong>风格固定</strong></td>
+      <td>品牌 LoRA（强，0.8-1.0）</td>
+      <td>每次出图的色调/质感/氛围统一</td>
+      <td>全店商品图风格一致，像同一个摄影师拍的</td>
+    </tr>
+    <tr>
+      <td><strong>产品固定+场景换</strong></td>
+      <td>产品 LoRA（强） + ControlNet Canny + 场景 Prompt</td>
+      <td>产品不变，换不同背景/场景</td>
+      <td>同一个杯子，今天出咖啡厅场景图，明天出户外野餐场景图</td>
+    </tr>
+    <tr>
+      <td><strong>模特固定+服装换</strong></td>
+      <td>IP-Adapter（面部） + OpenPose + 服装 LoRA</td>
+      <td>同一个模特穿不同衣服，姿势可控</td>
+      <td>品牌签约模特的AI替身，不用真人反复拍</td>
+    </tr>
+    <tr>
+      <td><strong>全要素控制</strong></td>
+      <td>品牌 LoRA + 产品 LoRA + ControlNet + IP-Adapter</td>
+      <td>风格、产品、构图、面部全部可控</td>
+      <td>高端品牌的完整产品详情页素材生产</td>
+    </tr>
+  </table>
+  <p style="margin-top:8px; color:var(--dim);">⚠ 全要素控制的 LoRA 不能堆太多（3个以上容易互相打架），且推理速度会显著下降。建议一个场景不超过 2 个 LoRA + 1 个 ControlNet。</p>
+</div>
+
+<div class="step-box" style="margin-top:16px;">
+  <h4>学习路径建议</h4>
+  <p style="color:var(--dim); font-size:13px;">
+    <strong>第一步（1天）：</strong>用 kohya_ss 跑通第一个 LoRA，选最简单的——比如练自己桌面的杯子，10 张图，默认参数，先感受一下训练是什么<br>
+    <strong>第二步（2天）：</strong>用品牌的产品图训一个品牌 LoRA，调参到出图风格稳定统一<br>
+    <strong>第三步（2天）：</strong>把品牌 LoRA + ControlNet Canny 组合，实现产品固定+场景替换<br>
+    <strong>第四步（3天）：</strong>扩展到 ComfyUI 工作流，实现 CSV 批量调用，产出 50+ 张统一风格图<br><br>
+    两周内把这条流水线跑通，你就有了电商 AI 生图的核心交付能力。
+  </p>
+</div>
+
+</body>
+</html>

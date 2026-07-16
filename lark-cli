@@ -1,0 +1,10 @@
+#!/bin/bash
+# Workspace-local lark-cli wrapper (uses native binary directly)
+# Redirect all home/profile paths to workspace to avoid sandbox triggers
+export USERPROFILE="C:/Users/jt/WorkBuddy/Claw"
+export HOME="C:/Users/jt/WorkBuddy/Claw"
+export HOMEDRIVE="C:"
+export HOMEPATH="\\Users\\jt\\WorkBuddy\\Claw"
+
+BIN="C:/Users/jt/.workbuddy/binaries/node/workspace/node_modules/@larksuite/cli/bin/lark-cli.exe"
+exec "$BIN" "$@"

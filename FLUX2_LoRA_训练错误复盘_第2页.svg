@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1130" width="210mm" height="297mm">
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+    .ttl { font-size: 18px; font-weight: 600; fill: #fff; }
+    .sub { font-size: 12px; fill: #94a3b8; }
+    .h2 { font-size: 12px; font-weight: 600; }
+    .bd11 { font-size: 11px; fill: #374151; }
+    .bd10 { font-size: 10px; fill: #6b7280; }
+    .tag-txt { font-size: 10px; font-weight: 600; fill: #fff; }
+    .stbl-v { font-size: 10px; font-weight: 600; }
+    .stbl-d { font-size: 10px; fill: #6b7280; }
+  </style>
+  <rect x="0" y="0" width="800" height="1130" fill="#fff"/>
+  <text x="42" y="45" font-size="11" fill="#059669">tion_rework_v1，配置指向新 dataset。</text>
+  <!-- Error 6 -->
+  <rect x="30" y="71" width="740" height="78" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="0.5"/>
+  <rect x="30" y="71" width="4" height="78" rx="2" fill="#16a34a"/>
+  <rect x="40" y="76" width="50" height="16" rx="4" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="0.5"/>
+  <text x="65" y="87" text-anchor="middle" font-size="9" font-weight="700" fill="轻微">轻微</text>
+  <text x="98" y="88" font-size="12" font-weight="600" fill="#16a34a">#6 授权服务 503 处理不够主动</text>
+  <text x="42" y="107" font-size="11" fill="#374151">问题：多次 D 盘写入授权失败或 503，未第一时间用清晰状态同步说明，导致任务表面停滞。</text>
+  <text x="42" y="120" font-size="11" fill="#059669">修正：遇到授权失败应立即给出：完成内容 / 卡点 / 可执行命令 / 预期输出 / 下一步复核（5 步 SOP）。</text>
+  <!-- Error 7 -->
+  <rect x="30" y="159" width="740" height="78" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="0.5"/>
+  <rect x="30" y="159" width="4" height="78" rx="2" fill="#16a34a"/>
+  <rect x="40" y="164" width="50" height="16" rx="4" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="0.5"/>
+  <text x="65" y="175" text-anchor="middle" font-size="9" font-weight="700" fill="轻微">轻微</text>
+  <text x="98" y="176" font-size="12" font-weight="600" fill="#16a34a">#7 C 盘迁移脚本二次执行逻辑不完善</text>
+  <text x="42" y="195" font-size="11" fill="#374151">问题：Outputs 迁移 D 盘后，脚本对已存在备份和 junction 的状态处理不完整，导致二次运行报错。</text>
+  <text x="42" y="208" font-size="11" fill="#059669">修正：修复脚本，完成 outputs 迁移，D 盘保留正式 outputs + backup，C 盘释放空间。</text>
+  <!-- Error 8 -->
+  <rect x="30" y="247" width="740" height="78" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="0.5"/>
+  <rect x="30" y="247" width="4" height="78" rx="2" fill="#16a34a"/>
+  <rect x="40" y="252" width="50" height="16" rx="4" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="0.5"/>
+  <text x="65" y="263" text-anchor="middle" font-size="9" font-weight="700" fill="轻微">轻微</text>
+  <text x="98" y="264" font-size="12" font-weight="600" fill="#16a34a">#8 Caption 质检脚本误判触发词污染</text>
+  <text x="42" y="283" font-size="11" fill="#374151">问题：validate_flux2_captions.py 将下划线触发词误判为连字符污染，导致 120 条</text>
+  <text x="42" y="296" font-size="11" fill="#374151"> caption 全部错误显示失败。</text>
+  <text x="42" y="309" font-size="11" fill="#059669">修正：已修正脚本逻辑，重新验证结果为 120 passed / 0 failed。</text>
+  <!-- Error 9 -->
+  <rect x="30" y="335" width="740" height="78" rx="6" fill="#f9fafb" stroke="#d1d5db" stroke-width="0.5"/>
+  <rect x="30" y="335" width="4" height="78" rx="2" fill="#6b7280"/>
+  <rect x="40" y="340" width="50" height="16" rx="4" fill="#f9fafb" stroke="#d1d5db" stroke-width="0.5"/>
+  <text x="65" y="351" text-anchor="middle" font-size="9" font-weight="700" fill="待解">待解</text>
+  <text x="98" y="352" font-size="12" font-weight="600" fill="#6b7280">#9 模型格式问题与数据工程边界不清</text>
+  <text x="42" y="371" font-size="11" fill="#374151">问题：AI-ToolKit precheck 失败根因是模型格式：ComfyUI/Diffusers 格式与</text>
+  <text x="42" y="384" font-size="11" fill="#374151"> native safetensors 不一致。</text>
+  <text x="42" y="397" font-size="11" fill="#059669">修正：分开处理：先完成数据工程 → 再处理模型权重格式 → 再做 1-step precheck，避免混合讨论。</text>
+  <!-- Error 10 -->
+  <rect x="30" y="423" width="740" height="78" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="0.5"/>
+  <rect x="30" y="423" width="4" height="78" rx="2" fill="#dc2626"/>
+  <rect x="40" y="428" width="50" height="16" rx="4" fill="#fef2f2" stroke="#fecaca" stroke-width="0.5"/>
+  <text x="65" y="439" text-anchor="middle" font-size="9" font-weight="700" fill="致命">致命</text>
+  <text x="98" y="440" font-size="12" font-weight="600" fill="#dc2626">#10 没有持续维护总控进度表</text>
+  <text x="42" y="459" font-size="11" fill="#374151">问题：项目横跨 8 个模块（图片/分类/caption/配置/环境/模型/precheck/训练），</text>
+  <text x="42" y="472" font-size="11" fill="#374151">无长期维护的完成/阻塞表。</text>
+  <text x="42" y="485" font-size="11" fill="#059669">修正：按总控清单推进，每阶段输出明确 STATUS 标签，确保信息透明。</text>
+  <rect x="30" y="516" width="740" height="28" rx="6" fill="#374151"/>
+  <text x="46" y="535" font-size="12" font-weight="600" fill="#fff">当前真实状态</text>
+  <rect x="30" y="551" width="180" height="26" fill="#374151"/>
+  <text x="120" y="568" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">模块</text>
+  <rect x="210" y="551" width="90" height="26" fill="#374151"/>
+  <text x="255" y="568" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">状态</text>
+  <rect x="300" y="551" width="470" height="26" fill="#374151"/>
+  <text x="535" y="568" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">详细说明</text>
+  <rect x="30" y="577" width="180" height="24" fill="#fff" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="44" y="593" font-size="11" fill="#374151">图片数据</text>
+  <rect x="210" y="577" width="90" height="24" fill="#f0fdf4" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="255" y="593" text-anchor="middle" class="stbl-v" fill="#059669">基本完成</text>
+  <rect x="300" y="577" width="470" height="24" fill="#fff" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="314" y="593" class="stbl-d">4 组 x 30 张 = 120 张</text>
+  <rect x="30" y="601" width="180" height="24" fill="#f9fafb" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="44" y="617" font-size="11" fill="#374151">Caption</text>
+  <rect x="210" y="601" width="90" height="24" fill="#f0fdf4" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="255" y="617" text-anchor="middle" class="stbl-v" fill="#059669">已完成</text>
+  <rect x="300" y="601" width="470" height="24" fill="#f9fafb" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="314" y="617" class="stbl-d">120 条自然语言，120/120 通过质检</text>
+  <rect x="30" y="625" width="180" height="24" fill="#fff" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="44" y="641" font-size="11" fill="#374151">新 Dataset</text>
+  <rect x="210" y="625" width="90" height="24" fill="#f0fdf4" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="255" y="641" text-anchor="middle" class="stbl-v" fill="#059669">已完成</text>
+  <rect x="300" y="625" width="470" height="24" fill="#fff" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="314" y="641" class="stbl-d">dvc_lora_v5_strict_caption_rework_v1</text>
+  <rect x="30" y="649" width="180" height="24" fill="#f9fafb" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="44" y="665" font-size="11" fill="#374151">Config/Script</text>
+  <rect x="210" y="649" width="90" height="24" fill="#fffbeb" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="255" y="665" text-anchor="middle" class="stbl-v" fill="#d97706">待确认</text>
+  <rect x="300" y="649" width="470" height="24" fill="#f9fafb" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="314" y="665" class="stbl-d">需确认 bat 旧 output 残留已修复</text>
+  <rect x="30" y="673" width="180" height="24" fill="#fff" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="44" y="689" font-size="11" fill="#374151">模型格式</text>
+  <rect x="210" y="673" width="90" height="24" fill="#fef2f2" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="255" y="689" text-anchor="middle" class="stbl-v" fill="#dc2626">阻塞</text>
+  <rect x="300" y="673" width="470" height="24" fill="#fff" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="314" y="689" class="stbl-d">需 native flux-2-klein-base-4b.safetensors</text>
+  <rect x="30" y="697" width="180" height="24" fill="#f9fafb" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="44" y="713" font-size="11" fill="#374151">训练</text>
+  <rect x="210" y="697" width="90" height="24" fill="#f3f4f6" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="255" y="713" text-anchor="middle" class="stbl-v" fill="#9ca3af">未开始</text>
+  <rect x="300" y="697" width="470" height="24" fill="#f9fafb" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="314" y="713" class="stbl-d">需先做 1-step precheck</text>
+  <rect x="30" y="729" width="740" height="28" rx="6" fill="#374151"/>
+  <text x="46" y="748" font-size="12" font-weight="600" fill="#fff">后续正确推进顺序（5 步）</text>
+  <rect x="30" y="767" width="740" height="42" rx="6" fill="#f9fafb" stroke="#e5e7eb" stroke-width="0.5"/>
+  <rect x="30" y="767" width="36" height="42" rx="6" fill="#3b82f6"/>
+  <text x="48" y="792" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">1</text>
+  <text x="80" y="785" font-size="11" font-weight="600" fill="#374151">确认脚本路径</text>
+  <text x="80" y="801" font-size="10" fill="#6b7280">确认新 bat 脚本旧 output 路径残留已修复，目标 RemainingOldPathMatches = 0</text>
+  <polyline points="48,811 48,817" fill="none" stroke="#3b82f6" stroke-width="1.5"/>
+  <polyline points="44,813 48,819 52,813" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="30" y="819" width="740" height="42" rx="6" fill="#f9fafb" stroke="#e5e7eb" stroke-width="0.5"/>
+  <rect x="30" y="819" width="36" height="42" rx="6" fill="#8b5cf6"/>
+  <text x="48" y="844" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">2</text>
+  <text x="80" y="837" font-size="11" font-weight="600" fill="#374151">完整性报告</text>
+  <text x="80" y="853" font-size="10" fill="#6b7280">生成训练资料完整性报告：dataset/caption/config/script/output 全部闭环</text>
+  <polyline points="48,863 48,869" fill="none" stroke="#8b5cf6" stroke-width="1.5"/>
+  <polyline points="44,865 48,871 52,865" fill="none" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="30" y="871" width="740" height="42" rx="6" fill="#f9fafb" stroke="#e5e7eb" stroke-width="0.5"/>
+  <rect x="30" y="871" width="36" height="42" rx="6" fill="#eab308"/>
+  <text x="48" y="896" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">3</text>
+  <text x="80" y="889" font-size="11" font-weight="600" fill="#374151">模型权重就绪</text>
+  <text x="80" y="905" font-size="10" fill="#6b7280">确认 AI-ToolKit 可加载的 native FLUX.2 Klein 模型权重</text>
+  <polyline points="48,915 48,921" fill="none" stroke="#eab308" stroke-width="1.5"/>
+  <polyline points="44,917 48,923 52,917" fill="none" stroke="#eab308" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="30" y="923" width="740" height="42" rx="6" fill="#f9fafb" stroke="#e5e7eb" stroke-width="0.5"/>
+  <rect x="30" y="923" width="36" height="42" rx="6" fill="#22c55e"/>
+  <text x="48" y="948" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">4</text>
+  <text x="80" y="941" font-size="11" font-weight="600" fill="#374151">1-step Precheck</text>
+  <text x="80" y="957" font-size="10" fill="#6b7280">单方向 precheck，验证环境/模型/数据可正常加载，不直接进入训练</text>
+  <polyline points="48,967 48,973" fill="none" stroke="#22c55e" stroke-width="1.5"/>
+  <polyline points="44,969 48,975 52,969" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="30" y="975" width="740" height="42" rx="6" fill="#f9fafb" stroke="#e5e7eb" stroke-width="0.5"/>
+  <rect x="30" y="975" width="36" height="42" rx="6" fill="#059669"/>
+  <text x="400" y="1110" text-anchor="middle" font-size="10" fill="#9ca3af" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">FLUX.2 LoRA 训练错误复盘 - 2/3</text>
+</svg>

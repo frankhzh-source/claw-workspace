@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPT Image 2 成本详解 + 电商品质优先组合</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: #0f0f14; color: #e8e8ec; padding: 24px; display: flex; justify-content: center; }
+.page { max-width: 1400px; width: 100%; background: #16161d; border-radius: 12px; padding: 28px 32px; }
+h1 { font-size: 21px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+.subtitle { font-size: 11px; color: #888; margin-bottom: 18px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.grid13 { display: grid; grid-template-columns: 1fr 2fr; gap: 14px; margin-bottom: 14px; }
+.card { background: #1c1c26; border-radius: 8px; padding: 12px 15px; border: 1px solid #2a2a3a; }
+.card-title { font-size: 12px; font-weight: 700; color: #7c8aff; margin-bottom: 8px; letter-spacing: 0.3px; }
+table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+th { background: #232336; color: #aaa; font-weight: 500; text-align: left; padding: 5px 7px; border-bottom: 1px solid #2a2a3a; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 4px 7px; border-bottom: 1px solid #1e1e2a; }
+tr:last-child td { border-bottom: none; }
+.tag { display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 9.5px; font-weight: 600; }
+.tag-g { background: #1a3a1a; color: #5cdb5c; }
+.tag-y { background: #3a351a; color: #e8c84a; }
+.tag-r { background: #3a1a1a; color: #e85c5c; }
+.tag-b { background: #1a2a3a; color: #5ca8e8; }
+.tag-p { background: #2a1a3a; color: #b05ce8; }
+.num { font-family: "SF Mono", "Consolas", monospace; font-weight: 600; }
+.high { color: #5cdb5c; }
+.mid { color: #e8c84a; }
+.low { color: #e85c5c; }
+.accent { color: #7c8aff; font-weight: 600; }
+.warn { color: #e8a040; font-weight: 600; }
+.arch-flow { display: flex; gap: 6px; align-items: stretch; margin-top: 6px; }
+.arch-box { flex: 1; background: #1c1c26; border-radius: 6px; padding: 10px; border: 1px solid #2a2a3a; text-align: center; }
+.arch-box h4 { font-size: 10px; color: #7c8aff; margin-bottom: 5px; }
+.arch-box .model { font-size: 13px; font-weight: 700; color: #fff; }
+.arch-box .role { font-size: 9.5px; color: #aaa; margin-top: 3px; line-height: 1.4; }
+.arch-box .cost { font-size: 9.5px; color: #5cdb5c; margin-top: 4px; font-weight: 600; }
+.arrow { display: flex; align-items: center; color: #444; font-size: 14px; flex-shrink: 0; }
+.divider { border-top: 1px solid #2a2a3a; margin: 12px 0; }
+.note { font-size: 9.5px; color: #666; margin-top: 5px; line-height: 1.5; }
+.warn-box { background: #2a1a0a; border: 1px solid #3a2a1a; border-radius: 6px; padding: 8px 12px; font-size: 10.5px; margin-bottom: 14px; }
+.warn-box strong { color: #e8a040; }
+.footer { margin-top: 12px; padding-top: 10px; border-top: 1px solid #2a2a3a; font-size: 9.5px; color: #555; display: flex; justify-content: space-between; }
+.bar-wrap { height: 5px; background: #232336; border-radius: 2px; overflow: hidden; margin-top: 2px; }
+.bar { height: 100%; border-radius: 2px; }
+.bar-g { background: #5cdb5c; }
+.bar-b { background: #7c8aff; }
+.flow-row { display: flex; gap: 4px; align-items: center; margin: 6px 0; flex-wrap: wrap; }
+.step { padding: 6px 12px; border-radius: 5px; font-size: 10px; font-weight: 600; text-align: center; }
+.step1 { background: #1a2a3a; color: #5ca8e8; }
+.step2 { background: #1a3a1a; color: #5cdb5c; }
+.step3 { background: #2a1a3a; color: #b05ce8; }
+.step4 { background: #3a351a; color: #e8c84a; }
+.step-icon { font-size: 11px; color: #555; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>GPT Image 2 成本详解 + 电商品质优先组合方案</h1>
+<p class="subtitle">2026年5月 · 回答两个问题：GPT Image 2 到底多少钱？纯品质优先，电商主图/详情页怎么搭？</p>
+
+<!-- 核心判断 -->
+<div class="warn-box">
+  <strong>核心判断：为什么不能只用 GPT Image 2？</strong> — GPT Image 2 <span style="color:#e85c5c;">不支持 LoRA</span>。没有 LoRA，它不知道你的产品长什么样。画得再好，不是你的产品 = 废片。产品形态准确性是电商的命门，只有 LoRA 能保证。→ <strong>LoRA 做地基（不可替代），GPT Image 2 做增强（锦上添花）。</strong>
+</div>
+
+<!-- 第一行：成本拆解 -->
+<div class="grid2">
+  <!-- 官方价格 -->
+  <div class="card">
+    <div class="card-title">GPT Image 2 · 官方 API 价格（2026.05 OpenAI 直连）</div>
+    <table>
+      <tr><th>输出尺寸</th><th>Low</th><th>Medium</th><th>High</th></tr>
+      <tr><td>1024×1024</td><td class="num">$0.006</td><td class="num">$0.053</td><td class="num high">$0.211</td></tr>
+      <tr><td>1024×1536 竖图</td><td class="num">$0.005</td><td class="num">$0.041</td><td class="num accent">$0.165</td></tr>
+      <tr><td>1536×1024 横图</td><td class="num">$0.005</td><td class="num">$0.041</td><td class="num accent">$0.165</td></tr>
+    </table>
+    <div class="note">反直觉：1024×1536（150 万像素）比 1024×1024（100 万像素）<span class="high">更便宜</span>。定价不按像素面积。</div>
+  </div>
+
+  <!-- 隐藏成本 + 渠道 -->
+  <div class="card">
+    <div class="card-title">隐藏成本 & 渠道对比</div>
+    <table>
+      <tr><th>成本项</th><th>价格</th><th></th></tr>
+      <tr><td>文字输入（Prompt）</td><td class="num">$5.00/M tokens</td><td><span class="tag tag-y">每次都有</span></td></tr>
+      <tr><td>图片输入（参考图）</td><td class="num">$8.00/M tokens</td><td><span class="tag tag-y">参考图时有</span></td></tr>
+      <tr><td>图片输出</td><td class="num">$30.00/M tokens</td><td><span class="tag tag-r">主成本</span></td></tr>
+      <tr><td colspan="3" style="padding-top:6px;"><strong>真实账单 ≈ 输出费 + 输入费 + 参考图 + 重试</strong></td></tr>
+    </table>
+    <table style="margin-top:6px;">
+      <tr><th>渠道</th><th>单价</th><th>备注</th></tr>
+      <tr><td>OpenAI 直连 High</td><td class="num">~$0.17</td><td>最高质量</td></tr>
+      <tr><td>OpenAI Batch API</td><td class="num high">直连 50%</td><td>异步批量</td></tr>
+      <tr><td>第三方（hiapi等）</td><td class="num high">$0.03-0.06</td><td>最便宜，非官方</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- 第二行：月成本速算 -->
+<div class="card" style="margin-bottom:14px;">
+  <div class="card-title">月成本速算（月产 3000 张）</div>
+  <table>
+    <tr><th>用法</th><th>质量</th><th>日均</th><th>月成本</th><th>判据</th></tr>
+    <tr><td>仅广告大片</td><td>High 2K</td><td class="num">3张</td><td class="num high">¥65</td><td><span class="tag tag-g">值得</span></td></tr>
+    <tr><td>所有主图</td><td>High 2K</td><td class="num">15张</td><td class="num mid">¥325</td><td><span class="tag tag-y">成本开始明显</span></td></tr>
+    <tr><td>全部图片走量</td><td>Medium 2K</td><td class="num">100张</td><td class="num">¥560</td><td><span class="tag tag-y">质量妥协</span></td></tr>
+    <tr><td>全部图片 High</td><td>High 2K</td><td class="num">100张</td><td class="num low">¥2,400</td><td><span class="tag tag-r">不建议</span></td></tr>
+  </table>
+</div>
+
+<!-- 品质优先五层架构 -->
+<div class="card" style="margin-bottom:14px; border-color: #7c8aff;">
+  <div class="card-title">品质优先 · 五层架构（月产 43 张/天 → 月成本 ¥612 / 有本地 4090 → ¥432）</div>
+  <div class="arch-flow">
+    <div class="arch-box" style="border-color:#5ca8e8;">
+      <h4>环节 1 · 地基</h4>
+      <div class="model">FLUX.2 dev + LoRA</div>
+      <div class="role">产品形态锚定<br>所有图的基座</div>
+      <div class="cost">¥210/月</div>
+      <div style="margin-top:4px;"><span class="tag tag-b">不可替代</span></div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="arch-box" style="border-color:#5cdb5c;">
+      <h4>环节 2 · 主图增强</h4>
+      <div class="model">GPT Image 2 High 2K</div>
+      <div class="role">质感+光影<br>99% 文字准确率</div>
+      <div class="cost">¥90/月</div>
+      <div style="margin-top:4px;"><span class="tag tag-g">锦上添花</span></div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="arch-box" style="border-color:#b05ce8;">
+      <h4>环节 3 · 详情</h4>
+      <div class="model">GPT Img 2 + Seedream 5</div>
+      <div class="role">文字页(规格/参数)<br>中文 banner</div>
+      <div class="cost">¥102/月</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="arch-box" style="border-color:#e8c84a;">
+      <h4>环节 4 · 精品</h4>
+      <div class="model">MJ V7 + sref</div>
+      <div class="role">广告大片<br>审美天花板</div>
+      <div class="cost">¥210/月</div>
+      <div style="margin-top:4px;"><span class="tag tag-y">每周 3-5 张</span></div>
+    </div>
+  </div>
+  <div class="note" style="margin-top:8px;">每个环节的输入都是环节 1 的 LoRA 产物。地基不准，后面全白费。</div>
+</div>
+
+<!-- 第三行：品质 vs 成本 + 实施路径 -->
+<div class="grid2">
+  <div class="card">
+    <div class="card-title">品质优先 vs 成本优先</div>
+    <table>
+      <tr><th>维度</th><th>品质优先</th><th>成本优先</th></tr>
+      <tr><td>基座</td><td colspan="2" class="accent">FLUX.2 dev + LoRA（相同）</td></tr>
+      <tr><td>主图增强</td><td class="accent">GPT Image 2 High</td><td>FLUX+LoRA 直出</td></tr>
+      <tr><td>详情文字</td><td class="accent">GPT Image 2</td><td>Seedream 5</td></tr>
+      <tr><td>场景图</td><td class="accent">MJ V7</td><td>NB Pro</td></tr>
+      <tr><td>月成本</td><td class="num">¥612</td><td class="num high">¥280</td></tr>
+      <tr><td>主图质感</td><td class="high">顶级</td><td>优秀</td></tr>
+      <tr><td>文字准确率</td><td class="high">99%</td><td>90%</td></tr>
+      <tr><td>适合</td><td>品牌旗舰店</td><td>白牌/性价比</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">实施路径 · 四周走完</div>
+    <table>
+      <tr><th>周</th><th>做什么</th><th>验收</th></tr>
+      <tr><td><span class="tag tag-b">W1</span></td><td>训练品牌 LoRA（地基）<br>3 个 SKU × 20 张图 → fal.ai</td><td>不同背景下产品形态一致</td></tr>
+      <tr><td><span class="tag tag-g">W2</span></td><td>接入 GPT Image 2 增强层<br>LoRA 稿 → 参考图 → High 渲染</td><td>对比直出 vs 增强差距</td></tr>
+      <tr><td><span class="tag tag-p">W3</span></td><td>接入 MJ V7 精品层<br>建立品牌 sref 风格锚点库</td><td>广告级质感达标</td></tr>
+      <tr><td><span class="tag tag-y">W4</span></td><td>全链路跑通<br>批量→自动判断→路由→质检</td><td>产品形态+文字+色调全检</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- 关键问答 -->
+<div class="grid2">
+  <div class="card">
+    <div class="card-title">Q: FLUX.2+LoRA 直出不够吗？</div>
+    <div class="note" style="color:#ccc;font-size:10.5px;">
+      够。但 GPT Image 2 增强在三个地方明显更好：<br>
+      1. <span class="accent">光影质感</span> — 光线/反射/材质处理更高级<br>
+      2. <span class="accent">文字</span> — 需要叠加文字时唯一靠谱选择<br>
+      3. <span class="accent">细节</span> — 4K 下纹理/反光/透明感无法替代<br>
+      <strong>日用百货/食品不需要增强，奢侈品/美妆建议增强。</strong>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Q: 为什么不用 GPT Image 2 直接出图？</div>
+    <div class="note" style="color:#ccc;font-size:10.5px;">
+      不支持 LoRA → 不知道你的产品长什么样。<br>
+      描述"红色圆柱形口红，金色盖子"→ 画得很好<br>
+      <span style="color:#e85c5c;">但——不是你的产品。</span><br>
+      <strong>产品形态零偏差 = 电商生命线。LoRA 是唯一解。</strong>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>2026-05-31 · 海风老师 · AI产业观察者</span>
+  <span>品质优先最优解：FLUX.2+LoRA(地基) → GPT Img 2 High(增强) → MJ V7(精品) → Seedream 5(中文)</span>
+</div>
+
+</div>
+</body>
+</html>

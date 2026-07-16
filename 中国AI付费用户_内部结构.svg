@@ -1,0 +1,58 @@
+<svg viewBox="0 0 680 540" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>中国AI付费用户内部结构分层</title>
+  <desc>在已付费的800-1500万用户中，内部再分五层：基础月付65%, 多平台付费18%, API调用者10%, 本地+云端5%, 全栈投入2%</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <text x="340" y="28" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="500" fill="var(--color-text-primary)">中国AI付费用户 · 内部结构分层</text>
+  <text x="340" y="46" text-anchor="middle" font-family="sans-serif" font-size="12" fill="var(--color-text-secondary)">基数为800-1500万已付费用户 · 看付费深度而不是绝对值</text>
+
+  <rect x="100" y="60" width="480" height="58" rx="8" ry="8" fill="none" stroke="#F09595" stroke-width="1" stroke-dasharray="6,3"/>
+  <text x="340" y="82" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="500" fill="#E24B4A">付费总人群 · 800-1500万（占中国人口约1%）</text>
+  <text x="340" y="100" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#F09595">以下分层均以此群体为100%</text>
+
+  <g>
+    <rect x="120" y="135" width="440" height="68" rx="8" ry="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.8"/>
+    <text x="340" y="162" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#5F5E5A">基础月付用户</text>
+    <text x="340" y="180" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#888780">占付费群体约65% · 大概500-1000万人</text>
+    <text x="340" y="196" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#B4B2A9">单个平台会员，月均消费10-30元；典型：豆包会员、DeepSeek Pro</text>
+  </g>
+
+  <g>
+    <rect x="150" y="215" width="380" height="63" rx="8" ry="8" fill="#FAEEDA" stroke="#EF9F27" stroke-width="0.8"/>
+    <text x="340" y="240" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#854F0B">多平台付费用户</text>
+    <text x="340" y="258" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#BA7517">占付费群体约18% · 大概150-270万人</text>
+    <text x="340" y="272" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#EF9F27">同时订阅2-3个平台；月均消费50-150元</text>
+  </g>
+
+  <g>
+    <rect x="175" y="290" width="330" height="63" rx="8" ry="8" fill="#FCEBEB" stroke="#F09595" stroke-width="0.8"/>
+    <text x="340" y="315" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#A32D2D">API调用用户</text>
+    <text x="340" y="333" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#E24B4A">占付费群体约10% · 大概80-150万人</text>
+    <text x="340" y="347" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#F09595">开发者、自媒体、小型团队；月均API消费200-2000元</text>
+  </g>
+
+  <g>
+    <rect x="200" y="365" width="280" height="58" rx="8" ry="8" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.8"/>
+    <text x="340" y="388" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#534AB7">本地+云端混合用户</text>
+    <text x="340" y="406" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#7F77DD">占付费群体约5% · 大概40-75万人</text>
+    <text x="340" y="420" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#AFA9EC">有本地GPU + API调用 + 多平台订阅</text>
+  </g>
+
+  <g>
+    <rect x="240" y="435" width="200" height="50" rx="8" ry="8" fill="#E6F1FB" stroke="#85B7EB" stroke-width="1.2"/>
+    <text x="340" y="456" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#185FA5">全栈AI投入者</text>
+    <text x="340" y="472" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#378ADD">占付费群体约2% · 大概15-30万人</text>
+  </g>
+
+  <line x1="440" y1="460" x2="510" y2="460" stroke="#185FA5" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <circle cx="515" cy="460" r="4" fill="#185FA5"/>
+  <text x="525" y="456" font-family="sans-serif" font-size="12" font-weight="500" fill="#185FA5">海风</text>
+  <text x="525" y="472" font-family="sans-serif" font-size="10" fill="#378ADD">本地5090D · 多平台付费</text>
+  <text x="525" y="486" font-family="sans-serif" font-size="10" fill="#85B7EB">API调用 · LoRA训练管线</text>
+
+  <text x="340" y="525" text-anchor="middle" font-family="sans-serif" font-size="12" fill="var(--color-text-secondary)">在付费群体中，海风在最内层2% · 全国约15-30万人处在同一层级</text>
+</svg>

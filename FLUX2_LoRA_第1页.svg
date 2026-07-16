@@ -1,0 +1,43 @@
+<svg viewBox="0 0 800 1130" width="100%" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .t { font-family: -apple-system, "Microsoft YaHei", sans-serif; }
+      .tb { font-family: -apple-system, "Microsoft YaHei", sans-serif; font-weight: bold; }
+    </style>
+  </defs>
+  <rect width="800" height="1130" fill="#F8F9FA"/>
+  <!-- 顶部装饰线 -->
+  <rect x="100" y="200" width="600" height="3" rx="1.5" fill="#3C3489"/>
+  <!-- 标题 -->
+  <text class="tb" x="400" y="270" text-anchor="middle" font-size="32" fill="#1a1a2e">FLUX.2 LoRA</text>
+  <text class="tb" x="400" y="315" text-anchor="middle" font-size="32" fill="#1a1a2e">标注工程完全指南</text>
+  <text class="t" x="400" y="350" text-anchor="middle" font-size="16" fill="#888">教学版 - 修复版 (2026-06-05)</text>
+  <!-- 分割线 -->
+  <rect x="200" y="370" width="400" height="1" fill="#3C3489" opacity="0.3"/>
+  <!-- 信息 -->
+  <text class="t" x="400" y="410" text-anchor="middle" font-size="14" fill="#555">模型：FLUX.2-klein-4B | 编码器：Mistral-3 7B</text>
+  <text class="t" x="400" y="435" text-anchor="middle" font-size="14" fill="#555">触发词：ohwx person | 服装 LoRA (17品3源)</text>
+  <text class="t" x="400" y="460" text-anchor="middle" font-size="14" fill="#555">硬件：RTX 5090D v2 (24GB)</text>
+  <!-- 五阶段 -->
+  <rect x="150" y="510" width="500" height="120" rx="10" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1"/>
+  <text class="tb" x="400" y="540" text-anchor="middle" font-size="16" fill="#3C3489">五阶段渐进式学习路径</text>
+  <!-- 阶段块 -->
+  <rect x="70" y="560" width="120" height="36" rx="6" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1"/>
+  <text class="tb" x="130" y="584" text-anchor="middle" font-size="13" fill="#3C3489">入门</text>
+  <text class="t" x="200" y="582" font-size="18" fill="#888">→</text>
+  <rect x="215" y="560" width="120" height="36" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text class="tb" x="275" y="584" text-anchor="middle" font-size="13" fill="#185FA5">基础</text>
+  <text class="t" x="345" y="582" font-size="18" fill="#888">→</text>
+  <rect x="360" y="560" width="120" height="36" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text class="tb" x="420" y="584" text-anchor="middle" font-size="13" fill="#0F6E56">进阶</text>
+  <text class="t" x="490" y="582" font-size="18" fill="#888">→</text>
+  <rect x="505" y="560" width="120" height="36" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
+  <text class="tb" x="565" y="584" text-anchor="middle" font-size="13" fill="#854F0B">专家</text>
+  <text class="t" x="635" y="582" font-size="18" fill="#888">→</text>
+  <rect x="650" y="560" width="100" height="36" rx="6" fill="#FBEAF0" stroke="#D4537E" stroke-width="1"/>
+  <text class="tb" x="700" y="584" text-anchor="middle" font-size="13" fill="#993556">大师</text>
+  <!-- 底部说明 -->
+  <text class="t" x="400" y="660" text-anchor="middle" font-size="13" fill="#888">共 10 章完整内容 + 4 个 Python 脚本 + 6 张快速参考表</text>
+  <!-- 页脚 -->
+  <text class="t" x="400" y="1100" text-anchor="middle" font-size="11" fill="#ccc">第 1 页 / 共 4 页</text>
+</svg>

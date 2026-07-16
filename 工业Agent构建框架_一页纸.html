@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工业Agent构建框架 - 一页纸</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
+  background: #0a0a14; display: flex; justify-content: center; align-items: center;
+  min-height: 100vh; padding: 20px;
+}
+.page {
+  width: 1200px; min-height: 1600px;
+  background: #0d0d1a;
+  padding: 44px 52px; color: #d0d0e0;
+}
+
+h1 {
+  font-size: 38px; font-weight: 800; text-align: center;
+  background: linear-gradient(135deg, #f87171 0%, #fbbf24 50%, #818cf8 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 4px; letter-spacing: 1px;
+}
+.subhead {
+  text-align: center; color: #6b7280; font-size: 14px; margin-bottom: 28px;
+}
+
+/* === 核心公式 === */
+.formula-box {
+  background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(245,158,11,0.08));
+  border-radius: 12px; padding: 16px 28px; text-align: center; margin-bottom: 24px;
+  border-left: 4px solid #ef4444;
+}
+.formula-wrong {
+  font-size: 15px; color: #9ca3af; margin-bottom: 4px; opacity: 0.5;
+}
+.formula-right {
+  font-size: 16px; font-weight: 700; color: #34d399;
+}
+
+/* === 两类Agent对比 === */
+.compare-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px;
+}
+.compare-card {
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px; padding: 18px;
+}
+.compare-card.chat { border-left: 3px solid #fbbf24; }
+.compare-card.industry { border-left: 3px solid #f87171; }
+.compare-card .card-title {
+  font-size: 16px; font-weight: 700; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.compare-card.chat .card-title { color: #fbbf24; }
+.compare-card.industry .card-title { color: #f87171; }
+.compare-card .row {
+  display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px;
+}
+.compare-card .row .label { color: #6b7280; }
+.compare-card .row .val { color: #d0d0e0; }
+.compare-card .row .val.danger { color: #f87171; font-weight: 600; }
+
+/* === 四条铁律 === */
+.rules-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-bottom: 28px;
+}
+.rule-card {
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px; padding: 16px 16px 16px 14px;
+}
+.rule-card:nth-child(1) { border-left: 3px solid #ef4444; }
+.rule-card:nth-child(2) { border-left: 3px solid #f59e0b; }
+.rule-card:nth-child(3) { border-left: 3px solid #6366f1; }
+.rule-card:nth-child(4) { border-left: 3px solid #10b981; }
+.rule-card .rule-num { font-size: 11px; color: #6b7280; margin-bottom: 4px; }
+.rule-card .rule-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.rule-card:nth-child(1) .rule-title { color: #f87171; }
+.rule-card:nth-child(2) .rule-title { color: #fbbf24; }
+.rule-card:nth-child(3) .rule-title { color: #818cf8; }
+.rule-card:nth-child(4) .rule-title { color: #34d399; }
+.rule-card .rule-desc { font-size: 12px; color: #9ca3af; line-height: 1.6; }
+.rule-card .rule-why { font-size: 12px; color: #6b7280; margin-top: 8px; font-style: italic; }
+
+/* === 架构分层 === */
+.arch-title {
+  font-size: 18px; font-weight: 700; color: #d0d0e0; margin-bottom: 14px;
+  padding-left: 14px; border-left: 3px solid #f87171;
+}
+.arch-stack {
+  display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px;
+}
+.arch-layer {
+  display: flex; align-items: center; gap: 16px; padding: 14px 20px;
+  border-radius: 10px;
+}
+.arch-layer.human { background: rgba(99,102,241,0.1); border-left: 3px solid #818cf8; }
+.arch-layer.decision { background: rgba(245,158,11,0.08); border-left: 3px solid #fbbf24; }
+.arch-layer.verify { background: rgba(239,68,68,0.08); border-left: 3px solid #f87171; }
+.arch-layer.execute { background: rgba(16,185,129,0.08); border-left: 3px solid #34d399; }
+.arch-layer .layer-label {
+  min-width: 80px; font-size: 13px; font-weight: 700;
+}
+.arch-layer.human .layer-label { color: #818cf8; }
+.arch-layer.decision .layer-label { color: #fbbf24; }
+.arch-layer.verify .layer-label { color: #f87171; }
+.arch-layer.execute .layer-label { color: #34d399; }
+.arch-layer .layer-content { font-size: 12px; color: #9ca3af; flex: 1; }
+.arch-layer.human .layer-note { font-size: 11px; color: #818cf8; }
+.arch-layer.verify .layer-note { font-size: 11px; color: #f87171; font-weight: 700; }
+
+/* === 闭环 + 安全机制 === */
+.loop-section {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px;
+}
+.loop-box {
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px; padding: 18px;
+}
+.loop-box:nth-child(1) { border-left: 3px solid #818cf8; }
+.loop-box:nth-child(2) { border-left: 3px solid #fbbf24; }
+.loop-box h3 { font-size: 15px; font-weight: 700; color: #818cf8; margin-bottom: 10px; }
+.loop-box .loop-row {
+  display: flex; align-items: center; gap: 8px; font-size: 12px;
+  color: #9ca3af; margin-bottom: 6px;
+}
+.loop-box .loop-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.loop-box .loop-arrow { color: #f87171; }
+
+/* === 启示映射 === */
+.insight-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 28px;
+}
+.insight-card {
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px; padding: 16px;
+}
+.insight-card:nth-child(1) { border-left: 3px solid #818cf8; }
+.insight-card:nth-child(2) { border-left: 3px solid #f87171; }
+.insight-card:nth-child(3) { border-left: 3px solid #34d399; }
+.insight-card .insight-icon { font-size: 20px; margin-bottom: 8px; }
+.insight-card .insight-name { font-size: 14px; font-weight: 700; color: #d0d0e0; margin-bottom: 6px; }
+.insight-card .insight-item { font-size: 12px; color: #9ca3af; line-height: 1.6; }
+.insight-card .insight-item.gap { color: #f87171; }
+.insight-card .insight-item.gap::before { content: '缺：'; }
+
+/* === 底部金句 === */
+.final-box {
+  background: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(99,102,241,0.1));
+  border-radius: 14px; padding: 20px 32px; text-align: center;
+  border-left: 4px solid #fbbf24;
+}
+.final-box .final-text {
+  font-size: 17px; font-weight: 700; color: #c7d2fe; line-height: 1.8;
+}
+.final-box .final-highlight {
+  background: linear-gradient(135deg, #f87171, #fbbf24, #818cf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  font-size: 20px;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>工业 Agent 构建框架</h1>
+<div class="subhead">不是做聪明的AI，是做不出事的系统</div>
+
+<div class="formula-box">
+  <div class="formula-wrong">工业Agent = 大模型 + RAG（会出事故）</div>
+  <div class="formula-right">工业Agent = 大模型(决策) + 规则系统(校验) + 人工(裁决) + 边缘(执行)</div>
+</div>
+
+<div class="compare-grid">
+  <div class="compare-card chat">
+    <div class="card-title">聊天 Agent</div>
+    <div class="row"><span class="label">核心目标</span><span class="val">给用户满意回答</span></div>
+    <div class="row"><span class="label">错误代价</span><span class="val">不满意，重试即可</span></div>
+    <div class="row"><span class="label">响应时间</span><span class="val">秒级可接受</span></div>
+    <div class="row"><span class="label">可用性</span><span class="val">99% 在线即可</span></div>
+    <div class="row"><span class="label">失败模式</span><span class="val">幻觉 → 给错信息</span></div>
+    <div class="row"><span class="label">模型角色</span><span class="val">主角</span></div>
+  </div>
+  <div class="compare-card industry">
+    <div class="card-title">工业 Agent</div>
+    <div class="row"><span class="label">核心目标</span><span class="val danger">不出事故</span></div>
+    <div class="row"><span class="label">错误代价</span><span class="val danger">停产/设备损坏/伤亡</span></div>
+    <div class="row"><span class="label">响应时间</span><span class="val danger">毫秒级，超时就出事</span></div>
+    <div class="row"><span class="label">可用性</span><span class="val danger">7x24 不崩溃</span></div>
+    <div class="row"><span class="label">失败模式</span><span class="val danger">幻觉 → 炸反应釜</span></div>
+    <div class="row"><span class="label">模型角色</span><span class="val danger">配角（被管着）</span></div>
+  </div>
+</div>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-num">铁律 1</div>
+    <div class="rule-title">不能错</div>
+    <div class="rule-desc">错一次可能导致停产或事故。架构上必须假设AI会出错，设计多层冗余兜底</div>
+    <div class="rule-why">本质不是"追求100%准确"，而是"出错也不会造成伤害"</div>
+  </div>
+  <div class="rule-card">
+    <div class="rule-num">铁律 2</div>
+    <div class="rule-title">必须可控</div>
+    <div class="rule-desc">人能随时接管，每一步可解释、可干预、可降级。控制逻辑在边缘不在云端</div>
+    <div class="rule-why">本质不是技术问题，是责任边界——没人允许黑盒做百万决策</div>
+  </div>
+  <div class="rule-card">
+    <div class="rule-num">铁律 3</div>
+    <div class="rule-title">毫秒级响应</div>
+    <div class="rule-desc">实时链路里大模型坐不住——秒级推理 vs 毫秒级安全窗口不匹配</div>
+    <div class="rule-why">大模型负责"该做什么"，规则引擎负责"安全地做"</div>
+  </div>
+  <div class="rule-card">
+    <div class="rule-num">铁律 4</div>
+    <div class="rule-title">7x24不崩溃</div>
+    <div class="rule-desc">软件不崩溃 + 行为不漂移。今天和明天的判断不能随机波动</div>
+    <div class="rule-why">大模型做非确定性推理，规则系统做确定性判断——各司其职</div>
+  </div>
+</div>
+
+<div class="arch-title">工业Agent正确架构：四层分离</div>
+<div class="arch-stack">
+  <div class="arch-layer human">
+    <div class="layer-label">人工层</div>
+    <div class="layer-content">最终裁决 · 异常接管 · 高危指令二次确认</div>
+    <div class="layer-note">最高权威</div>
+  </div>
+  <div class="arch-layer decision">
+    <div class="layer-label">决策层</div>
+    <div class="layer-content">大模型：根因分析 · 策略建议 · 非确定性推理</div>
+    <div class="layer-note">可想，不可直接执行</div>
+  </div>
+  <div class="arch-layer verify">
+    <div class="layer-label">校验层</div>
+    <div class="layer-content">规则引擎：阈值检查 · 白名单过滤 · 确定性判断</div>
+    <div class="layer-note">大模型不能越过这一层</div>
+  </div>
+  <div class="arch-layer execute">
+    <div class="layer-label">执行层</div>
+    <div class="layer-content">边缘设备：协议转换 · 指令下发 · 确认回执 · 断网降级</div>
+    <div class="layer-note">毫秒级响应</div>
+  </div>
+</div>
+
+<div class="loop-section">
+  <div class="loop-box">
+    <h3>闭环设计 6 环节</h3>
+    <div class="loop-row">
+      <div class="loop-dot" style="background:#818cf8;"></div> 感知
+      <span class="loop-arrow">&rarr;</span>
+      <div class="loop-dot" style="background:#fbbf24;"></div> 决策
+      <span class="loop-arrow">&rarr;</span>
+      <div class="loop-dot" style="background:#10b981;"></div> 执行
+    </div>
+    <div class="loop-row" style="padding-left: 26px;">
+      <span class="loop-arrow">&#8635;</span> 反馈 &rarr; 校验 &rarr; 修正 &rarr; 回到感知
+    </div>
+    <div style="font-size:12px;color:#6b7280;margin-top:8px;">
+      校验发现异常 &rarr; 触发修正 &rarr; 不是"再试试"而是"记录原因+自动降级+人工接管"
+    </div>
+  </div>
+  <div class="loop-box">
+    <h3>安全机制</h3>
+    <div class="loop-row"><span style="color:#fbbf24;">白名单</span><span style="color:#9ca3af;"> 只有列出的指令能执行（不是"哪些不能"）</span></div>
+    <div class="loop-row"><span style="color:#818cf8;">分权限</span><span style="color:#9ca3af;"> 读=AI自动 / 调参=建议+人确认 / 启停=人执行</span></div>
+    <div class="loop-row"><span style="color:#34d399;">二次确认</span><span style="color:#9ca3af;"> 关键操作必须再次确认——不是不信AI，是让人知道发生了什么</span></div>
+    <div class="loop-row"><span style="color:#f87171;">全量留痕</span><span style="color:#9ca3af;"> 每次决策记录：谁/何时/做什么/为什么</span></div>
+    <div class="loop-row"><span style="color:#fbbf24;">不确定不执行</span><span style="color:#9ca3af;"> 能验证走RAG，不确定的绝不自动执行</span></div>
+  </div>
+</div>
+
+<div class="arch-title" style="border-left-color: #818cf8;">对你当前项目的三层映射</div>
+<div class="insight-grid">
+  <div class="insight-card">
+    <div class="insight-name">记忆系统 Elite</div>
+    <div class="insight-item">L1 寄存器 = 实时留痕</div>
+    <div class="insight-item">WAL = 防丢+可回溯</div>
+    <div class="insight-item">L6 知识图谱 = 决策链关联</div>
+    <div class="insight-item gap">可审计的决策日志——记录了内容，没记录"为什么"</div>
+  </div>
+  <div class="insight-card">
+    <div class="insight-name">AI生图管线</div>
+    <div class="insight-item">感知(产品) &rarr; 决策(模板) &rarr; 执行(FLUX)</div>
+    <div class="insight-item">反馈(6维评分) &rarr; 复盘</div>
+    <div class="insight-item gap">自动化校验层——颜色漂移还是人工看</div>
+    <div class="insight-item gap">自动修正——失败后需手动调参重跑</div>
+  </div>
+  <div class="insight-card">
+    <div class="insight-name">AI培训业务</div>
+    <div class="insight-item">框架 = 培训内容的黄金类比</div>
+    <div class="insight-item">大模型 = 创意层（干什么）</div>
+    <div class="insight-item">规则系统 = SOP层（怎么安全地干）</div>
+    <div class="insight-item">人工 = 决策层（该不该干）</div>
+    <div class="insight-item" style="color:#34d399;">"AI帮你想，规则帮你查，你来定" &rarr; 比"AI替代你"可信100倍</div>
+  </div>
+</div>
+
+<div class="final-box">
+  <div class="final-text">
+    工业Agent的本质不是<span style="color:#fbbf24;">"让AI更聪明"</span>，
+  </div>
+  <div class="final-text">
+    而是在<span style="color:#f87171;">承认AI会出错</span>的前提下，
+  </div>
+  <div class="final-text" style="margin-bottom: 8px;">
+    设计一个<span style="color:#34d399;">出错也不会有灾难</span>的系统。
+  </div>
+  <div class="final-text" style="font-size: 14px; color: #6b7280; margin-top: 8px;">
+    大模型负责"该做什么"，规则系统负责"安全地做" —— 这不是不信任AI，这是基本的工程安全原则
+  </div>
+</div>
+
+</div>
+</body>
+</html>

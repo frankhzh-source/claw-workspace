@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI大模型落地 - 核心技能与思路</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
+  background: #0a0a14; display: flex; justify-content: center; align-items: center;
+  min-height: 100vh; padding: 20px;
+}
+.page {
+  width: 1200px; min-height: 1600px;
+  background: #0d0d1a; padding: 44px 52px; color: #d0d0e0;
+}
+
+h1 {
+  font-size: 36px; font-weight: 800; text-align: center;
+  background: linear-gradient(135deg, #34d399 0%, #818cf8 50%, #fbbf24 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 4px; letter-spacing: 1px;
+}
+.subhead { text-align: center; color: #6b7280; font-size: 14px; margin-bottom: 28px; }
+
+/* === 三大技能模块 === */
+.skills-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px;
+}
+.skill-col {
+  background: rgba(255,255,255,0.02); border-radius: 14px; padding: 20px;
+}
+.skill-col h2 { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+.skill-col.tech { border-left: 3px solid #34d399; }
+.skill-col.tech h2 { color: #34d399; }
+.skill-col.biz { border-left: 3px solid #fbbf24; }
+.skill-col.biz h2 { color: #fbbf24; }
+
+.skill-sub { margin-bottom: 12px; }
+.skill-sub h3 { font-size: 13px; font-weight: 700; color: #d0d0e0; margin-bottom: 6px; }
+.skill-sub .items { display: flex; flex-direction: column; gap: 4px; padding-left: 12px; }
+.skill-sub .items .item { font-size: 11px; color: #9ca3af; line-height: 1.6; }
+.skill-sub .items .item .tag { color: #34d399; font-weight: 600; }
+.skill-sub.biz-items .items .item .tag { color: #fbbf24; }
+
+/* === 五阶段管道 === */
+.pipe-title {
+  font-size: 18px; font-weight: 700; color: #d0d0e0; margin-bottom: 14px;
+  padding-left: 14px; border-left: 3px solid #818cf8;
+}
+.pipe {
+  display: flex; align-items: stretch; gap: 0; margin-bottom: 28px;
+}
+.pipe-step {
+  flex: 1; background: rgba(255,255,255,0.02); padding: 16px 12px;
+  position: relative;
+}
+.pipe-step:nth-child(1) { background: rgba(16,185,129,0.06); }
+.pipe-step:nth-child(2) { background: rgba(99,102,241,0.06); }
+.pipe-step:nth-child(3) { background: rgba(245,158,11,0.06); }
+.pipe-step:nth-child(4) { background: rgba(239,68,68,0.06); }
+.pipe-step:nth-child(5) { background: rgba(167,139,250,0.06); }
+.pipe-step .step-num { font-size: 11px; font-weight: 700; margin-bottom: 4px; }
+.pipe-step:nth-child(1) .step-num { color: #34d399; }
+.pipe-step:nth-child(2) .step-num { color: #818cf8; }
+.pipe-step:nth-child(3) .step-num { color: #fbbf24; }
+.pipe-step:nth-child(4) .step-num { color: #f87171; }
+.pipe-step:nth-child(5) .step-num { color: #a78bfa; }
+.pipe-step .step-head { font-size: 13px; font-weight: 700; color: #d0d0e0; margin-bottom: 6px; }
+.pipe-step .step-item { font-size: 11px; color: #9ca3af; line-height: 1.6; margin-bottom: 2px; }
+.pipe-step .step-item::before { content: '\2022'; margin-right: 4px; opacity: 0.5; }
+.pipe-arrow {
+  display: flex; align-items: center; color: #4b5563; font-size: 20px;
+  flex-shrink: 0; padding: 0 2px;
+}
+
+/* === 综合映射 === */
+.map-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 28px;
+}
+.map-card {
+  background: rgba(255,255,255,0.02); border-radius: 12px; padding: 16px;
+}
+.map-card:nth-child(1) { border-left: 3px solid #34d399; }
+.map-card:nth-child(2) { border-left: 3px solid #fbbf24; }
+.map-card:nth-child(3) { border-left: 3px solid #818cf8; }
+.map-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+.map-card:nth-child(1) h3 { color: #34d399; }
+.map-card:nth-child(2) h3 { color: #fbbf24; }
+.map-card:nth-child(3) h3 { color: #818cf8; }
+.map-card .row { font-size: 11px; color: #9ca3af; line-height: 1.7; }
+.map-card .row .green { color: #34d399; }
+.map-card .row .yellow { color: #fbbf24; }
+.map-card .row .purple { color: #818cf8; }
+.map-card .row .gap { color: #f87171; }
+.map-card .row .gap::before { content: '待补: '; }
+
+.final-box {
+  background: linear-gradient(135deg, rgba(52,211,153,0.08), rgba(129,140,248,0.06));
+  border-radius: 14px; padding: 18px 32px; text-align: center;
+  border-left: 4px solid #34d399;
+}
+.final-box .t1 { font-size: 16px; font-weight: 700; color: #c7d2fe; line-height: 1.8; }
+.final-box .t2 { font-size: 13px; color: #6b7280; margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>AI 大模型落地：核心技能与实施思路</h1>
+<div class="subhead">从"会用"到"能落地"的系统框架</div>
+
+<!-- 两大技能模块 -->
+<div class="skills-grid">
+  <div class="skill-col tech">
+    <h2>技术硬技能</h2>
+    <div class="skill-sub">
+      <h3>1. 数据处理能力</h3>
+      <div class="items">
+        <div class="item"><span class="tag">脏数据清洗</span>：去重、格式修正、缺失值填补</div>
+        <div class="item"><span class="tag">数据标注与增强</span>：人工标注 + 同义词替换/句式变换等扩充</div>
+      </div>
+    </div>
+    <div class="skill-sub">
+      <h3>2. 工程优化能力</h3>
+      <div class="items">
+        <div class="item"><span class="tag">量化加速</span>：INT8等量化技术，降低计算存储开销</div>
+        <div class="item"><span class="tag">显存优化</span>：模型并行、显存分片，适配显存受限设备</div>
+        <div class="item"><span class="tag">并发处理</span>：多线程、异步编程解决高并发瓶颈</div>
+        <div class="item"><span class="tag">胶水代码</span>：连接大模型与数据库/业务API等系统</div>
+      </div>
+    </div>
+    <div class="skill-sub">
+      <h3>3. 模型应用与调优能力</h3>
+      <div class="items">
+        <div class="item"><span class="tag">提示词工程</span>：减少幻觉，引导生成符合业务需求的内容</div>
+        <div class="item"><span class="tag">参数调优</span>：Temperature/Top-p 等参数调整</div>
+        <div class="item"><span class="tag">多模型适配</span>：根据成本/性能灵活切换 GPT/Claude 等</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skill-col biz">
+    <h2>业务软技能</h2>
+    <div class="skill-sub biz-items">
+      <h3>1. 业务场景理解</h3>
+      <div class="items">
+        <div class="item"><span class="tag">深入行业</span>：理解业务流程和痛点，针对性设计方案</div>
+        <div class="item"><span class="tag">用户洞察</span>：如电商客服场景中的咨询习惯、问题类型</div>
+      </div>
+    </div>
+    <div class="skill-sub biz-items">
+      <h3>2. 问题解决思维</h3>
+      <div class="items">
+        <div class="item">面对落地问题（幻觉、检索错误）</div>
+        <div class="item"><span class="tag">多维分析</span>：从技术、业务多角度提出可行方案</div>
+      </div>
+    </div>
+    <div class="skill-sub biz-items">
+      <h3>3. 沟通协作能力</h3>
+      <div class="items">
+        <div class="item">与<span class="tag">业务/开发/标注团队</span>有效沟通</div>
+        <div class="item">明确需求、同步进度、解决协作问题</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 五阶段管道 -->
+<div class="pipe-title">实施五阶段管道</div>
+<div class="pipe">
+  <div class="pipe-step">
+    <div class="step-num">阶段 1</div>
+    <div class="step-head">需求调研与分析</div>
+    <div class="step-item">与业务方深入沟通</div>
+    <div class="step-item">明确场景/需求/痛点</div>
+    <div class="step-item">分析数据规模与质量</div>
+  </div>
+  <div class="pipe-arrow">&rarr;</div>
+  <div class="pipe-step">
+    <div class="step-num">阶段 2</div>
+    <div class="step-head">技术方案设计</div>
+    <div class="step-item">模型选择与适配</div>
+    <div class="step-item">工程架构设计</div>
+    <div class="step-item">长尾效应与Benchmark规划</div>
+  </div>
+  <div class="pipe-arrow">&rarr;</div>
+  <div class="pipe-step">
+    <div class="step-num">阶段 3</div>
+    <div class="step-head">开发与调优</div>
+    <div class="step-item">数据清洗/标注/增强</div>
+    <div class="step-item">胶水代码+量化+显存优化</div>
+    <div class="step-item">提示词+参数调优测试</div>
+  </div>
+  <div class="pipe-arrow">&rarr;</div>
+  <div class="pipe-step">
+    <div class="step-num">阶段 4</div>
+    <div class="step-head">测试与迭代</div>
+    <div class="step-item">Benchmark全面测试</div>
+    <div class="step-item">收集业务反馈</div>
+    <div class="step-item">持续迭代优化</div>
+  </div>
+  <div class="pipe-arrow">&rarr;</div>
+  <div class="pipe-step">
+    <div class="step-num">阶段 5</div>
+    <div class="step-head">运维与优化</div>
+    <div class="step-item">监控响应时间/资源</div>
+    <div class="step-item">处理并发报错</div>
+    <div class="step-item">引入新优化技术</div>
+  </div>
+</div>
+
+<!-- 对海风项目的映射 -->
+<div class="pipe-title" style="border-left-color:#fbbf24;">框架对照：海风当前项目的技能覆盖与缺口</div>
+<div class="map-grid">
+  <div class="map-card">
+    <h3>AI 生图管线</h3>
+    <div class="row"><span class="green">数据清洗</span>：产品基地176条已清洗</div>
+    <div class="row"><span class="green">工程优化</span>：FLUX本地部署+多供应商协作</div>
+    <div class="row"><span class="green">提示词工程</span>：18个Prompt模板+参数调优</div>
+    <div class="row"><span class="gap">量化加速/显存优化</span></div>
+    <div class="row"><span class="gap">Benchmark系统评测</span></div>
+  </div>
+  <div class="map-card">
+    <h3>Elite 记忆系统</h3>
+    <div class="row"><span class="yellow">胶水代码</span>：6层架构+WAL全部自研</div>
+    <div class="row"><span class="yellow">多模型适配</span>：Ollama+LanceDB+SQLite</div>
+    <div class="row"><span class="yellow">并发处理</span>：MCP Server 28工具</div>
+    <div class="row"><span class="gap">业务场景理解（记忆≠数据库）</span></div>
+  </div>
+  <div class="map-card">
+    <h3>AI 培训业务</h3>
+    <div class="row"><span class="purple">业务洞察</span>：电商行业深度理解</div>
+    <div class="row"><span class="purple">沟通协作</span>：企业AI培训实战经验</div>
+    <div class="row"><span class="purple">问题解决</span>：从技术到商业的完整视角</div>
+    <div class="row">培训内容已覆盖<span class="green">硬技能+软技能+方法论</span>三层</div>
+  </div>
+</div>
+
+<div class="final-box">
+  <div class="t1">
+    AI 落地的核心竞争力不是会<span style="color:#34d399;">"用什么工具"</span>，
+    而是能走通从<span style="color:#fbbf24;">"脏数据"</span>到<span style="color:#818cf8;">"稳定系统"</span>的全链路。
+  </div>
+  <div class="t2">
+    技术硬技能决定下限 &sdot; 业务软技能决定上限 &sdot; 五阶段管道保证可复制
+  </div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Cover temp files
+_cover_*.png
+_cover_*.svg
+_wechat_cover.png
+_pub_update.txt
+_doc_*.txt
+_doc_*.xml
+
+# IDE/config
+.vscode/
+.idea/
+
+# Large dirs
+workspace_kiwi/
+AppData/
+tmp_review_imgs/
+
+# OS
+Thumbs.db
+.DS_Store
+*.tmp
+
+# Keep .gitignore itself
+!.gitignore
+nul

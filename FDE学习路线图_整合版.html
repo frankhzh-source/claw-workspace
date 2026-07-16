@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FDE电商AI落地学习体系 — 整合优化版</title>
+<style>
+  :root {
+    --bg: #0d1117; --card-bg: #161b22; --border: #30363d;
+    --text: #c9d1d9; --text-dim: #8b949e;
+    --l1: #ff6b6b; --l2: #f0a500; --l3: #58a6ff;
+    --green: #3fb950; --purple: #bc8cff;
+    --added: rgba(63,185,80,0.12); --added-border: #3fb950;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.7; padding: 40px 24px 80px; max-width: 1100px; margin: 0 auto;
+  }
+  h1 { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .subtitle { color: var(--text-dim); font-size: 14px; margin-bottom: 28px; }
+
+  .change-log {
+    background: rgba(63,185,80,0.08); border: 1px solid var(--added-border);
+    border-radius: 8px; padding: 16px 20px; margin-bottom: 32px;
+    font-size: 13px;
+  }
+  .change-log h3 { color: var(--green); font-size: 14px; margin-bottom: 8px; }
+  .change-log ul { list-style: none; padding: 0; }
+  .change-log li { padding: 2px 0; color: var(--text-dim); }
+  .change-log li::before { content: "+ "; color: var(--green); }
+
+  .section-title {
+    font-size: 20px; font-weight: 700; margin: 40px 0 16px;
+    padding-bottom: 8px; border-bottom: 2px solid var(--border);
+  }
+
+  .added-block {
+    background: var(--added); border: 1px solid var(--added-border);
+    border-radius: 8px; padding: 18px 20px; margin: 16px 0;
+    position: relative;
+  }
+  .added-block::before {
+    content: "新增/调整"; position: absolute; top: -10px; left: 16px;
+    background: var(--green); color: #000; font-size: 10px; font-weight: 700;
+    padding: 2px 10px; border-radius: 3px;
+  }
+
+  table {
+    width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 20px;
+  }
+  th {
+    background: var(--card-bg); color: var(--text-dim); font-weight: 500;
+    text-align: left; padding: 9px 12px; border: 1px solid var(--border);
+  }
+  td { padding: 8px 12px; border: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: rgba(88,166,255,0.04); }
+
+  .dep-graph {
+    display: flex; gap: 32px; align-items: flex-start;
+    padding: 20px; background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 8px; margin-bottom: 24px;
+  }
+  .dep-group { flex: 0 0 auto; }
+  .dep-group .title { font-size: 11px; color: var(--text-dim); margin-bottom: 6px; }
+  .dep-node {
+    display: inline-block; padding: 4px 12px; border-radius: 4px;
+    font-size: 13px; font-weight: 600; margin: 3px;
+  }
+  .dep-node.a { background: rgba(255,107,107,0.2); color: var(--l1); }
+  .dep-node.b { background: rgba(240,165,0,0.2); color: var(--l2); }
+  .dep-node.f { background: rgba(88,166,255,0.2); color: var(--l3); }
+  .dep-node.d { background: rgba(188,140,255,0.2); color: var(--purple); }
+  .dep-node.e { background: rgba(57,212,197,0.2); color: #39d4c5; }
+  .dep-node.c { background: rgba(255,255,255,0.06); color: var(--text-dim); }
+  .dep-arrow { color: var(--text-dim); margin: 0 8px; font-size: 18px; }
+
+  .flow-line {
+    font-size: 13px; color: var(--text); line-height: 2.2;
+    padding: 16px 20px; background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 8px; margin-bottom: 24px;
+  }
+  .flow-line .hl { color: var(--green); font-weight: 600; }
+  .flow-line .step-label {
+    display: inline-block; padding: 1px 8px; border-radius: 3px;
+    font-size: 11px; font-weight: 600; margin: 0 4px;
+  }
+  .step-label.p1 { background: rgba(255,107,107,0.15); color: var(--l1); }
+  .step-label.p2 { background: rgba(240,165,0,0.15); color: var(--l2); }
+  .step-label.p3 { background: rgba(88,166,255,0.15); color: var(--l3); }
+
+  .note { font-size: 13px; color: var(--text-dim); padding: 12px 16px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin: 12px 0; }
+  .note strong { color: var(--text); }
+
+  .principle {
+    font-size: 13px; color: var(--text); line-height: 1.8;
+    padding: 14px 18px; background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 8px; margin: 12px 0;
+  }
+</style>
+</head>
+<body>
+
+<h1>FDE电商AI落地学习体系 — 整合优化版</h1>
+<p class="subtitle">原文档 by 海风 | 优化建议 by Kiwi | 2026-05-31</p>
+
+<div class="change-log">
+  <h3>本版相对原文档的 3 处核心调整</h3>
+  <ul>
+    <li><strong>调整1:</strong> 在2A文生图"实战"阶段内置"轻闭环验证"，Phase 3 从"首次做"变为"体系化升级"</li>
+    <li><strong>调整2:</strong> 2B文生视频和2F电商运营实战中嵌入平台算法背景知识，带着问题学</li>
+    <li><strong>调整3:</strong> 学习路径末尾增加"轻闭环 vs 重闭环"对比说明</li>
+  </ul>
+</div>
+
+<!-- ========== 场景依赖关系 ========== -->
+<div class="section-title">场景依赖关系（原文档已修正，保持不变）</div>
+
+<div class="dep-graph">
+  <div class="dep-group">
+    <div class="title">视觉线</div>
+    <span class="dep-node a">2A 文生图</span>
+    <span class="dep-arrow">→</span>
+    <span class="dep-node b">2B 文生视频</span>
+    <span class="dep-arrow">→</span>
+    <span class="dep-node f">2F 电商运营</span>
+  </div>
+  <div class="dep-group">
+    <div class="title">直播线</div>
+    <span class="dep-node d">2D 直播运营</span>
+    <span class="dep-arrow">→</span>
+    <span class="dep-node e">2E 数字人</span>
+  </div>
+  <div class="dep-group">
+    <div class="title">独立线</div>
+    <span class="dep-node c">2C 智能客服</span>
+  </div>
+</div>
+
+<!-- ========== Phase 1 ========== -->
+<div class="section-title">Phase 1：基础能力（2-3周）【无调整】</div>
+
+<table>
+  <tr><th style="width:6%">序号</th><th style="width:16%">模块</th><th style="width:36%">内容</th><th style="width:28%">实操任务</th><th style="width:14%">考核标准</th></tr>
+  <tr>
+    <td>1.1</td><td>分步推理Prompt</td>
+    <td>结构化prompt写法、Few-shot、Chain-of-Thought</td>
+    <td>用同一产品写5个平台的商品文案，对比效果</td><td>文案可用率>80%</td>
+  </tr>
+  <tr>
+    <td>1.2</td><td>AI图片基础</td>
+    <td>MidJourney/SD基本操作、风格控制、商品抠图换背景</td>
+    <td>给3个商品各出5张场景图</td><td>主图点击率>同品类均值</td>
+  </tr>
+  <tr>
+    <td>1.3</td><td>数据工具</td>
+    <td>生意参谋/罗盘核心指标解读、Excel+AI数据分析</td>
+    <td>用示例数据集完成一次AI辅助诊断</td><td>报告结论与人工判断一致</td>
+  </tr>
+  <tr>
+    <td>1.4</td><td>工具选型方法论</td>
+    <td>如何评估和对比AI工具（成本/效果/上手成本/平台适配）</td>
+    <td>选定1个场景，输出3个工具的对比报告</td><td>报告结论清晰、有数据支撑</td>
+  </tr>
+</table>
+
+<!-- ========== Phase 2 ========== -->
+<div class="section-title">Phase 2：单场景精通（4-6周）</div>
+
+<!-- 2A -->
+<div style="margin-bottom:24px; border-left:3px solid var(--l1); padding-left:16px;">
+<h3 style="color:#e6edf3; margin-bottom:12px;">2A 文生图（电商视觉）</h3>
+<p style="font-size:13px; color:var(--text-dim); margin-bottom:12px;">依赖：Phase 1全部 | 后续支撑：2B文生视频、2F电商运营</p>
+
+<table>
+  <tr><th style="width:8%">阶段</th><th style="width:25%">学习内容</th><th style="width:25%">实操</th><th style="width:10%">产出</th><th style="width:12%">考核标准</th><th style="width:10%">标志</th></tr>
+  <tr>
+    <td>入门</td>
+    <td>可灵/MJ/通义万相对比选型、prompt模板库搭建</td>
+    <td>同一商品3个平台各出10张图</td><td>选型报告+模板库</td><td>主图视觉质量>行业均值</td><td></td>
+  </tr>
+  <tr>
+    <td>进阶A</td>
+    <td>本地部署SD（ComfyUI/A1111）、GPU环境搭建</td>
+    <td>在本地跑通SD出图流程</td><td>环境可用、出图稳定</td><td>能独立完成从安装到出图</td><td></td>
+  </tr>
+  <tr>
+    <td>进阶B</td>
+    <td>品牌风格固定（LoRA微调训练）、构图控制（ControlNet）</td>
+    <td>训练品牌专属风格模型，出50张统一风格图</td><td>风格一致性>90%</td><td>风格可复用于不同商品</td><td></td>
+  </tr>
+  <tr>
+    <td>实战</td>
+    <td>批量出图自动化（API调用+模板+人工质检）</td>
+    <td>搭建月产500+商品图的工作流</td><td>工作流SOP文档</td><td>人工审核时间降低50%</td><td>--</td>
+  </tr>
+</table>
+
+<!-- 调整1: 2A轻闭环 -->
+<div class="added-block">
+  <h4 style="color:var(--green); margin-bottom:8px;">调整1: 在2A实战中嵌入"轻闭环验证"</h4>
+  <p style="font-size:13px; color:var(--text-dim); margin-bottom:10px;">
+    不需要等Phase 3统一做闭环。在2A跑通后就立刻做一次轻量闭环，验证方法论：
+  </p>
+  <table>
+    <tr><th style="width:10%">步骤</th><th style="width:35%">内容</th><th style="width:35%">实操</th><th style="width:20%">验收</th></tr>
+    <tr>
+      <td>📏 定义KPI</td>
+      <td>为2A定义3个核心指标：主图CTR、人工耗时/图、月产能</td>
+      <td>记录上线前后数据基线</td>
+      <td>KPI定义可量化、可追踪</td>
+    </tr>
+    <tr>
+      <td>💰 算ROI</td>
+      <td>AI工具成本 vs 原有拍摄成本 | 月节省金额</td>
+      <td>填一张ROI计算表（AI成本+人力+效果提升）</td>
+      <td>数字真实、逻辑自洽</td>
+    </tr>
+    <tr>
+      <td>📝 写SOP</td>
+      <td>把2A全流程写成标准操作文档</td>
+      <td>SOP含：环境准备→Prompt→出图→质检→上传</td>
+      <td>同事可独立执行</td>
+    </tr>
+    <tr>
+      <td>🔄 复盘</td>
+      <td>什么做对了？什么卡住了？下一步优化方向？</td>
+      <td>一篇复盘文档（500字即可）</td>
+      <td>有 actionable 的优化项</td>
+    </tr>
+  </table>
+  <p style="font-size:12px; color:var(--text-dim); margin-top:10px;">
+    <strong>这个"轻闭环"做完后，2A才算真正走通。</strong>
+    Phase 3 的定位从"第一次做闭环"变为"把轻闭环体系化、标准化、可复制"。
+  </p>
+</div>
+</div>
+
+<!-- 2B -->
+<div style="margin-bottom:24px; border-left:3px solid var(--l2); padding-left:16px;">
+<h3 style="color:#e6edf3; margin-bottom:12px;">2B 文生视频</h3>
+<p style="font-size:13px; color:var(--text-dim); margin-bottom:12px;">依赖：2A文生图（图片是视频素材基础） | 后续支撑：2D直播运营（切片视频）</p>
+
+<table>
+  <tr><th style="width:8%">阶段</th><th style="width:25%">学习内容</th><th style="width:27%">实操</th><th style="width:10%">产出</th><th style="width:18%">考核标准</th></tr>
+  <tr>
+    <td>入门</td>
+    <td>可灵/即梦/Runway对比、不同时长模板（15s/30s/60s）</td>
+    <td>3个商品各出2条视频</td><td>选型报告</td><td>视频质量>平台新手均值</td>
+  </tr>
+  <tr>
+    <td>进阶</td>
+    <td>图生视频、视频改写、实拍+AI混剪</td>
+    <td>一条完整混剪短视频</td><td>成片</td><td>完播率>平台品类均值</td>
+  </tr>
+  <tr>
+    <td>实战</td>
+    <td>信息流投放视频批量生产+AB测试</td>
+    <td>10条素材+投放数据复盘</td><td>复盘报告+最优模板</td><td>找出CTR最高的素材模式</td>
+  </tr>
+</table>
+
+<!-- 调整2a: 2B嵌入平台算法 -->
+<div class="added-block" style="margin-top:12px;">
+  <h4 style="color:var(--green); margin-bottom:8px;">调整2a: 2B实战中嵌入平台算法背景知识</h4>
+  <p style="font-size:13px; color:var(--text-dim); margin-bottom:8px;">
+    在<strong>实战阶段做AB测试时</strong>，同步学习：
+  </p>
+  <table>
+    <tr><th style="width:20%">嵌入点</th><th style="width:40%">学什么</th><th style="width:40%">为什么在这学</th></tr>
+    <tr>
+      <td>投10条素材做AB测试时</td>
+      <td>抖音信息流分发逻辑：完播率权重 > 点赞权重、3秒钩子对冷启动的影响、ECPM竞价模型</td>
+      <td>不是干学算法理论，而是看着自己素材的真实完播率/CTR去理解"为什么这条爆了那条没爆"</td>
+    </tr>
+    <tr>
+      <td>分析不同时长素材的表现时</td>
+      <td>平台推荐对不同时长内容的偏好：15s完播率敏感 vs 60s深度观看权重</td>
+      <td>数据就摆在眼前，比"先学理论再做"直观10倍</td>
+    </tr>
+  </table>
+  <p style="font-size:12px; color:var(--text-dim); margin-top:8px;">
+    这些内容原属5B"平台算法"，但干巴巴学效果差。嵌入真实的AB测试场景后，学员带着"我的素材为什么跑不动"的痛点去理解，知识留存率远高于独立模块。
+  </p>
+</div>
+</div>
+
+<!-- 2C -->
+<div style="margin-bottom:24px; border-left:3px solid var(--text-dim); padding-left:16px;">
+<h3 style="color:#e6edf3; margin-bottom:12px;">2C 智能客服</h3>
+<p style="font-size:13px; color:var(--text-dim); margin-bottom:12px;">依赖：Phase 1（1.1分步推理Prompt） | 相对独立，可并行推进</p>
+
+<table>
+  <tr><th style="width:8%">阶段</th><th style="width:25%">学习内容</th><th style="width:27%">实操</th><th style="width:10%">产出</th><th style="width:18%">考核标准</th></tr>
+  <tr><td>入门</td><td>知识库搭建（FAQ结构化）、意图分类设计</td><td>搭建单品类客服知识库</td><td>知识库文档</td><td>覆盖80%常见咨询</td></tr>
+  <tr><td>进阶A</td><td>平台客服API基础（抖音小店/淘宝/京东的接口与接入方式）</td><td>完成一个平台的API接入测试</td><td>接入文档</td><td>能调通至少一个平台</td></tr>
+  <tr><td>进阶B</td><td>多轮对话流程、情绪检测、人工接管策略</td><td>设计售后纠纷处理对话流</td><td>对话流程图</td><td>转人工率<15%</td></tr>
+  <tr><td>实战</td><td>多平台客服上线运行+质检自动化</td><td>上线1周，输出质检报告</td><td>质检报告</td><td>客户满意度不低于纯人工</td></tr>
+</table>
+<p style="font-size:12px; color:var(--text-dim); margin-top:6px;">【无额外调整，保持原文档】</p>
+</div>
+
+<!-- 2D -->
+<div style="margin-bottom:24px; border-left:3px solid var(--purple); padding-left:16px;">
+<h3 style="color:#e6edf3; margin-bottom:12px;">2D 直播运营</h3>
+<p style="font-size:13px; color:var(--text-dim); margin-bottom:12px;">依赖：2A文生图、2B文生视频 | 后续支撑：2E数字人主播</p>
+
+<table>
+  <tr><th style="width:8%">阶段</th><th style="width:25%">学习内容</th><th style="width:27%">实操</th><th style="width:10%">产出</th><th style="width:18%">考核标准</th></tr>
+  <tr><td>入门</td><td>直播脚本结构（5分钟切片法）、AI生成脚本</td><td>用AI生成一场2小时直播完整脚本</td><td>脚本文档</td><td>脚本可执行（评审通过）</td></tr>
+  <tr><td>进阶</td><td>弹幕实时分析、停留/转化流失节点识别、实时话术优化</td><td>搭建直播数据看板+实时提词系统</td><td>看板+提词工具</td><td>人均停留时长提升10%</td></tr>
+  <tr><td>实战</td><td>直播回放AI切片（调用2B视频能力生成切片短视频）、AB话术测试</td><td>一场直播产出10条切片短视频</td><td>10条短视频</td><td>切片播放量>直播自然流量</td></tr>
+</table>
+<p style="font-size:12px; color:var(--text-dim); margin-top:6px;">【无额外调整，保持原文档】</p>
+</div>
+
+<!-- 2E -->
+<div style="margin-bottom:24px; border-left:3px solid #39d4c5; padding-left:16px;">
+<h3 style="color:#e6edf3; margin-bottom:12px;">2E 数字人主播</h3>
+<p style="font-size:13px; color:var(--text-dim); margin-bottom:12px;">依赖：2D直播运营 | 不硬套模板，改为"选型搭建→优化运营→矩阵扩展"</p>
+
+<table>
+  <tr><th style="width:8%">阶段</th><th style="width:25%">学习内容</th><th style="width:27%">实操</th><th style="width:10%">产出</th><th style="width:18%">考核标准</th></tr>
+  <tr><td>选型搭建</td><td>平台对比（硅基智能/闪剪/腾讯/快手）、形象克隆流程、直播推流全流程</td><td>克隆1个数字人形象并搭建直播间</td><td>可运行的数字人直播间</td><td>形象自然度可接受、推流稳定</td></tr>
+  <tr><td>优化运营</td><td>数字人直播数据优化（停留/转化/流失分析）、与真人主播的协作排班</td><td>优化数字人直播间至稳定运行</td><td>优化报告</td><td>场观>真人低峰时段均值</td></tr>
+  <tr><td>矩阵扩展</td><td>多账号矩阵运营、成本核算、合规要点</td><td>运行1周多账号矩阵</td><td>ROI报告</td><td>综合ROI>1</td></tr>
+</table>
+<p style="font-size:12px; color:var(--text-dim); margin-top:6px;">【打破三阶段模板已做，无额外调整】</p>
+</div>
+
+<!-- 2F -->
+<div style="margin-bottom:24px; border-left:3px solid var(--l3); padding-left:16px;">
+<h3 style="color:#e6edf3; margin-bottom:12px;">2F 电商运营（AI化）</h3>
+<p style="font-size:13px; color:var(--text-dim); margin-bottom:12px;">依赖：2A文生图（商品视觉基础）</p>
+
+<table>
+  <tr><th style="width:8%">阶段</th><th style="width:25%">学习内容</th><th style="width:27%">实操</th><th style="width:10%">产出</th><th style="width:18%">考核标准</th></tr>
+  <tr><td>入门</td><td>AI选品（数据源对接+趋势分析）、AI标题/详情页批量生成</td><td>选出5个潜力品+生成完整listing</td><td>选品报告+listing文档</td><td>选品命中率>行业随机水平</td></tr>
+  <tr><td>进阶</td><td>动态定价模型、库存预测、竞品自动化监控</td><td>搭建价格监控+自动调价规则</td><td>监控看板+调价规则</td><td>毛利率不降、转化率提升</td></tr>
+  <tr><td>实战</td><td>全链路AI化：选品→上架→推广→客服→复购闭环</td><td>跑通一个小品类全流程</td><td>全流程SOP</td><td>全链路效率提升30%+</td></tr>
+</table>
+
+<!-- 调整2b: 2F嵌入消费者洞察 -->
+<div class="added-block" style="margin-top:12px;">
+  <h4 style="color:var(--green); margin-bottom:8px;">调整2b: 2F入门阶段嵌入消费者洞察</h4>
+  <p style="font-size:13px; color:var(--text-dim); margin-bottom:8px;">
+    在<strong>AI选品环节</strong>，同步学习：
+  </p>
+  <table>
+    <tr><th style="width:20%">嵌入点</th><th style="width:40%">学什么</th><th style="width:40%">为什么在这学</th></tr>
+    <tr>
+      <td>AI生成选品报告时</td>
+      <td>用户画像构建（搜索词→需求→人群）、购买路径分析（浏览→加购→下单→复购的转化漏斗）</td>
+      <td>选品本质是选"人"不是选"品"。用AI分析搜索趋势和竞品评论时，自然就会触碰消费者洞察</td>
+    </tr>
+    <tr>
+      <td>分析竞品listing时</td>
+      <td>消费者决策因素权重（价格敏感度、视觉敏感度、评价敏感度）</td>
+      <td>拆竞品为什么卖得好，自然就要拆消费者为什么买</td>
+    </tr>
+  </table>
+  <p style="font-size:12px; color:var(--text-dim); margin-top:8px;">
+    这些内容原属5B"消费者洞察"。嵌入选品实战场景后，知识变成"分析工具"而非"考试内容"。
+  </p>
+</div>
+</div>
+
+<!-- ========== Phase 3 ========== -->
+<div class="section-title">Phase 3：闭环体系化（2-4周）</div>
+
+<div class="added-block" style="margin-bottom:20px;">
+  <h4 style="color:var(--green); margin-bottom:8px;">调整1的延续: Phase 3重新定位</h4>
+  <p style="font-size:13px; color:var(--text-dim);">
+    <strong>定位变化：</strong>原来Phase 3是从零开始做闭环。<br>
+    调整后：<strong>2A跑通时已经做过一次"轻闭环"</strong>（定义KPI + 算ROI + 写SOP + 复盘）。<br>
+    Phase 3的任务是：把轻闭环升级为标准化的、可复制的、覆盖多场景的<strong>体系</strong>。
+  </p>
+</div>
+
+<table>
+  <tr><th style="width:6%">序号</th><th style="width:18%">模块</th><th style="width:36%">内容</th><th style="width:26%">实操</th><th style="width:14%">考核标准</th></tr>
+  <tr>
+    <td>3.1</td><td>数据闭环</td>
+    <td>落地效果测量框架（每个场景的KPI定义+数据采集+追踪看板）</td>
+    <td>为已落地场景建立数据看板</td><td>看板可自动更新、指标完整</td>
+  </tr>
+  <tr>
+    <td>3.2</td><td>ROI核算</td>
+    <td>AI工具成本 vs 人工成本 vs 效果提升的量化对比</td>
+    <td>输出每场景ROI计算表</td><td>计算逻辑清晰、有真实数据</td>
+  </tr>
+  <tr>
+    <td>3.3</td><td>流程标准化</td>
+    <td>SOP文档+模板+检查清单</td>
+    <td>输出2个场景的完整SOP</td><td>SOP可由新人独立执行</td>
+  </tr>
+  <tr>
+    <td>3.4</td><td>团队培训</td>
+    <td>如何把AI能力传递给团队（培训设计+考核机制）</td>
+    <td>培训一次小团队并考核</td><td>学员独立完成率>60%</td>
+  </tr>
+  <tr>
+    <td>3.5</td><td>持续迭代</td>
+    <td>新工具评估机制、行业动态跟踪</td>
+    <td>每月输出一份AI工具/能力更新报告</td><td>报告对实际决策有参考价值</td>
+  </tr>
+</table>
+
+<div class="principle">
+  <strong>轻闭环 vs 重闭环的对比（新增对照表）</strong><br><br>
+  <table>
+    <tr><th style="width:10%"></th><th style="width:30%">轻闭环（2A实战做）</th><th style="width:30%">重闭环（Phase 3做）</th></tr>
+    <tr>
+      <td><strong>时机</strong></td><td>第一个场景跑通后立刻做</td><td>至少2个场景有业务数据后</td>
+    </tr>
+    <tr>
+      <td><strong>范围</strong></td><td>单一场景（仅2A）</td><td>多场景，跨场景对比</td>
+    </tr>
+    <tr>
+      <td><strong>产出</strong></td><td>1张KPI表 + 1张ROI表 + 1份SOP + 1篇复盘</td><td>多场景数据看板 + 标准化SOP模板 + 培训课程</td>
+    </tr>
+    <tr>
+      <td><strong>深度</strong></td><td>够用就好，验证"这个方法行得通"</td><td>体系化，证明"这个方法可复制"</td>
+    </tr>
+    <tr>
+      <td><strong>耗时</strong></td><td>附加在2A实战末尾，额外2-3天</td><td>独立阶段，2-4周</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ========== 进阶 ========== -->
+<div class="section-title">进阶知识体系（5A/5B/5C）</div>
+
+<div class="note">
+  <strong>调整2的延续:</strong> 5B中"平台算法"和"消费者洞察"已在2B和2F实战中嵌入式学习，此处保留但标注"已嵌入学"。
+  学员到达进阶阶段时，这些知识已有实战体感，不是从零开始。
+  5A和5C无调整。
+</div>
+
+<table>
+  <tr><th>层级</th><th>方向</th><th>业务含义</th><th>技术名词</th><th style="width:14%">状态</th></tr>
+  <tr>
+    <td rowspan="5"><strong>5A<br>技术深度</strong></td>
+    <td>模型原理</td><td>理解AI生成图片/文字/视频的底层逻辑</td><td>Diffusion、Transformer</td><td></td>
+  </tr>
+  <tr>
+    <td>API集成</td><td>批量调用AI服务接口，实现自动化生产</td><td>OpenAI/可灵/通义API</td><td></td>
+  </tr>
+  <tr>
+    <td>企业知识库检索</td><td>让AI基于你的业务资料回答问题</td><td>RAG</td><td></td>
+  </tr>
+  <tr>
+    <td>多步骤自动化</td><td>搭建AI工作流，多工具串联</td><td>Agent、n8n/Dify/Coze</td><td></td>
+  </tr>
+  <tr>
+    <td>数据工程</td><td>数据采集→清洗→分析→可视化</td><td>--</td><td></td>
+  </tr>
+  <tr>
+    <td rowspan="5"><strong>5B<br>商业深度</strong></td>
+    <td>平台算法</td><td>抖音/淘宝/京东的内容分发与转化算法</td><td>--</td><td><span style="color:var(--green); font-size:11px;">已嵌入2B</span></td>
+  </tr>
+  <tr>
+    <td>消费者洞察</td><td>AI辅助用户画像+购买路径分析</td><td>--</td><td><span style="color:var(--green); font-size:11px;">已嵌入2F</span></td>
+  </tr>
+  <tr>
+    <td>竞争分析</td><td>AI竞品监控（价格、内容、策略）</td><td>--</td><td></td>
+  </tr>
+  <tr>
+    <td>商业模型</td><td>AI赋能下的成本结构重塑</td><td>--</td><td></td>
+  </tr>
+  <tr>
+    <td>组织变革</td><td>AI团队架构、人机分工、绩效考核</td><td>--</td><td></td>
+  </tr>
+  <tr>
+    <td rowspan="5"><strong>5C<br>战略深度</strong></td>
+    <td>行业趋势</td><td>电商AI年度趋势、新技术路线图</td><td>--</td><td></td>
+  </tr>
+  <tr>
+    <td>合规与伦理</td><td>AI生成内容的法律边界、平台政策走向</td><td>--</td><td></td>
+  </tr>
+  <tr>
+    <td>IP与品牌</td><td>AI时代的品牌差异化策略</td><td>--</td><td></td>
+  </tr>
+  <tr>
+    <td>出海AI</td><td>跨境电商的AI工具链</td><td>--</td><td></td>
+  </tr>
+  <tr>
+    <td>投资判断</td><td>评估AI工具/服务的商业价值</td><td>--</td><td></td>
+  </tr>
+</table>
+
+<!-- ========== 学习路径 ========== -->
+<div class="section-title">推荐学习顺序（最小可行路径）</div>
+
+<div class="flow-line">
+  <span class="step-label p1">Phase 1</span> 基础能力（2-3周）
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;↓
+  <br>
+  <span class="step-label p2">2A</span> 文生图（落地最快、需求最高）
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;↓
+  <br>
+  <span style="color:var(--green); font-size:12px;"><strong>【新增】2A轻闭环</strong> → 定义KPI + 算ROI + 写SOP + 复盘（附加2-3天）</span>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;↓
+  <br>
+  <span class="step-label p2">2B</span> 文生视频（图→视频自然延伸）<span style="color:var(--green); font-size:11px;">【含平台算法嵌入】</span>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;↓
+  <br>
+  <span class="step-label p2">2F</span> 电商运营 <span style="color:var(--green); font-size:11px;">【含消费者洞察嵌入】</span>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;↓
+  <br>
+  <span class="step-label p2">2D</span> 直播运营（核心商业场景）
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;↓
+  <br>
+  <span class="step-label p2">2E</span> 数字人（直播的延伸）
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;↓
+  <br>
+  <span class="step-label p2">2C</span> 智能客服（按需，可提前并行推进）
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;↓
+  <br>
+  <span class="step-label p3">Phase 3</span> 闭环体系化（把轻闭环升级为标准化体系）
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;↓
+  <br>
+  <span style="color:var(--text-dim);">进阶知识（5A/5B/5C）按需学习，不强制按顺序</span>
+</div>
+
+<div class="principle" style="margin-top:16px;">
+  <strong>关键原则：</strong><br>
+  1. 每个场景走通一个完整闭环后再扩展下一个，不贪多<br>
+  2. <span class="hl">2A跑通后立刻做轻闭环</span>，验证方法论可用后再复制到后续场景<br>
+  3. Phase 3的闭环不再是"第一次做"，而是把已验证的方法体系化、标准化<br>
+  4. 预计总周期（每周15-20小时）：3-4个月达到L3，6个月+达到L4
+</div>
+
+<div class="note" style="margin-top:24px;">
+  <strong>本版与原文档差异总结：</strong><br>
+  1. 2A实战末尾新增"轻闭环验证"环节（定义KPI/算ROI/写SOP/复盘）<br>
+  2. Phase 3定位从"首次闭环"调整为"体系化升级"，新增轻/重闭环对比表<br>
+  3. 2B实战嵌入"平台算法"背景知识，2F入门嵌入"消费者洞察"背景知识<br>
+  4. 5B中对应两项标注"已嵌入学"，进阶阶段直接进入深度讨论<br>
+  5. 其余全部内容保持原文档不变
+</div>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI用户分层 · 全球 vs 中国 多维度对比</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif; background: #f4f6f9; color: #2d3748; padding: 32px 16px; }
+  .container { max-width: 760px; margin: 0 auto; }
+  .hdr { text-align: center; margin-bottom: 24px; }
+  .hdr h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+  .hdr .sub { font-size: 13px; color: #666; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .col { background: #fff; border: 0.5px solid #e2e4e8; border-radius: 12px; padding: 20px; }
+  .col h2 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+  .col .pop { font-size: 12px; color: #888; margin-bottom: 14px; }
+
+  .tier { display: flex; align-items: center; padding: 5px 0; gap: 10px; font-size: 12px; }
+  .tier .lbl { width: 64px; flex-shrink: 0; text-align: right; font-size: 12px; color: #666; }
+  .tier .bar-wrap { flex: 1; height: 22px; background: #f1f0ed; border-radius: 4px; overflow: hidden; position: relative; }
+  .tier .bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 10px; color: #fff; font-weight: 600; white-space: nowrap; }
+  .tier .num { width: 52px; flex-shrink: 0; font-size: 12px; font-weight: 500; text-align: right; }
+
+  .sep { border: none; border-top: 0.5px solid #e2e4e8; margin: 16px 0; }
+  .paid-hdr { font-size: 13px; font-weight: 600; margin: 14px 0 8px; }
+
+  .paid-tier { display: flex; align-items: center; padding: 3px 0; gap: 10px; font-size: 11px; }
+  .paid-tier .lbl { width: 64px; flex-shrink: 0; text-align: right; font-size: 11px; color: #666; }
+  .paid-tier .bar-wrap { flex: 1; height: 17px; background: #f1f0ed; border-radius: 3px; overflow: hidden; }
+  .paid-tier .bar { height: 100%; border-radius: 3px; display: flex; align-items: center; padding-left: 5px; font-size: 9px; color: #fff; font-weight: 600; white-space: nowrap; }
+  .paid-tier .num { width: 52px; flex-shrink: 0; font-size: 11px; font-weight: 500; text-align: right; }
+
+  .marker { border-left: 3px solid #185FA5; padding-left: 10px; margin-top: 10px; font-size: 11px; color: #666; background: #f6f8fc; border-radius: 4px; padding: 8px 10px; }
+
+  .insights { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .insight-card { background: #fff; border: 0.5px solid #e2e4e8; border-radius: 10px; padding: 14px; }
+  .insight-card h4 { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .insight-card p { font-size: 11px; color: #666; }
+
+  .foot { margin-top: 16px; text-align: center; font-size: 11px; color: #999; padding-top: 16px; border-top: 0.5px solid #e2e4e8; }
+
+  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } .insights { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="hdr">
+    <h1>AI用户分层 · 全球 vs 中国 多维度对比</h1>
+    <div class="sub">按付费行为重新定义 · 数据来源为多路交叉推算</div>
+  </div>
+
+  <div class="cols">
+
+    <!-- GLOBAL -->
+    <div class="col">
+      <h2>全球</h2>
+      <div class="pop">81亿人口</div>
+
+      <div class="tier">
+        <span class="lbl">从未接触</span>
+        <div class="bar-wrap"><div class="bar" style="width:93%;background:#B4B2A9;">75% · ~60亿</div></div>
+      </div>
+      <div class="tier">
+        <span class="lbl">浅度尝试</span>
+        <div class="bar-wrap"><div class="bar" style="width:30%;background:#5DCAA5;">24% · ~20亿</div></div>
+      </div>
+      <div class="tier">
+        <span class="lbl">免费活跃</span>
+        <div class="bar-wrap"><div class="bar" style="width:4%;background:#EF9F27;">0.3% · ~2700万</div></div>
+      </div>
+      <div class="tier">
+        <span class="lbl">基础付费</span>
+        <div class="bar-wrap"><div class="bar" style="width:1%;background:#F09595;">0.7% · ~6000万</div></div>
+      </div>
+      <div class="tier">
+        <span class="lbl">付费重度</span>
+        <div class="bar-wrap"><div class="bar" style="width:0.15%;background:#AFA9EC;">0.12% · ~1000万</div></div>
+      </div>
+
+      <hr class="sep">
+
+      <div class="paid-hdr">付费用户内部结构</div>
+      <div style="font-size:11px;color:#888;margin-bottom:6px;">分母 = 付费总人群 ~6000万</div>
+
+      <div class="paid-tier">
+        <span class="lbl">基础月付</span>
+        <div class="bar-wrap"><div class="bar" style="width:75%;background:#B4B2A9;">70% · ~4200万</div></div>
+      </div>
+      <div class="paid-tier">
+        <span class="lbl">多平台</span>
+        <div class="bar-wrap"><div class="bar" style="width:18%;background:#EF9F27;">18% · ~1100万</div></div>
+      </div>
+      <div class="paid-tier">
+        <span class="lbl">API</span>
+        <div class="bar-wrap"><div class="bar" style="width:8%;background:#F09595;">8% · ~500万</div></div>
+      </div>
+      <div class="paid-tier">
+        <span class="lbl">本地+云端</span>
+        <div class="bar-wrap"><div class="bar" style="width:3%;background:#AFA9EC;">3% · ~180万</div></div>
+      </div>
+      <div class="paid-tier">
+        <span class="lbl">全栈投入</span>
+        <div class="bar-wrap"><div class="bar" style="width:1%;background:#85B7EB;">1% · ~60万</div></div>
+      </div>
+
+      <div class="marker">海风在全球全栈层约50-70万人中</div>
+    </div>
+
+    <!-- CHINA -->
+    <div class="col">
+      <h2>中国</h2>
+      <div class="pop">14亿人口</div>
+
+      <div class="tier">
+        <span class="lbl">从未接触</span>
+        <div class="bar-wrap"><div class="bar" style="width:85%;background:#B4B2A9;">68% · ~9.5亿</div></div>
+      </div>
+      <div class="tier">
+        <span class="lbl">浅度尝试</span>
+        <div class="bar-wrap"><div class="bar" style="width:36%;background:#5DCAA5;">29% · ~4亿</div></div>
+      </div>
+      <div class="tier">
+        <span class="lbl">免费活跃</span>
+        <div class="bar-wrap"><div class="bar" style="width:3.5%;background:#EF9F27;">3% · ~4000万</div></div>
+      </div>
+      <div class="tier">
+        <span class="lbl">基础付费</span>
+        <div class="bar-wrap"><div class="bar" style="width:1.1%;background:#F09595;">0.8% · ~1100万</div></div>
+      </div>
+      <div class="tier">
+        <span class="lbl">付费重度</span>
+        <div class="bar-wrap"><div class="bar" style="width:0.2%;background:#AFA9EC;">0.2% · ~250万</div></div>
+      </div>
+
+      <hr class="sep">
+
+      <div class="paid-hdr">付费用户内部结构</div>
+      <div style="font-size:11px;color:#888;margin-bottom:6px;">分母 = 付费总人群 ~1100万</div>
+
+      <div class="paid-tier">
+        <span class="lbl">基础月付</span>
+        <div class="bar-wrap"><div class="bar" style="width:65%;background:#B4B2A9;">65% · ~700万</div></div>
+      </div>
+      <div class="paid-tier">
+        <span class="lbl">多平台</span>
+        <div class="bar-wrap"><div class="bar" style="width:18%;background:#EF9F27;">18% · ~200万</div></div>
+      </div>
+      <div class="paid-tier">
+        <span class="lbl">API</span>
+        <div class="bar-wrap"><div class="bar" style="width:10%;background:#F09595;">10% · ~110万</div></div>
+      </div>
+      <div class="paid-tier">
+        <span class="lbl">本地+云端</span>
+        <div class="bar-wrap"><div class="bar" style="width:5%;background:#AFA9EC;">5% · ~55万</div></div>
+      </div>
+      <div class="paid-tier">
+        <span class="lbl">全栈投入</span>
+        <div class="bar-wrap"><div class="bar" style="width:2%;background:#85B7EB;">2% · ~22万</div></div>
+      </div>
+
+      <div class="marker">海风在国内全栈层约15-30万人中</div>
+    </div>
+
+  </div>
+
+  <!-- Insights -->
+  <div class="insights">
+    <div class="insight-card">
+      <h4>相同点</h4>
+      <p>付费转化率都极低（&lt;1%），免费活跃层是共同的蓄水池。市场远未饱和。</p>
+    </div>
+    <div class="insight-card" style="border-left:3px solid #EF9F27;">
+      <h4>中国差异</h4>
+      <p>基础月付占比更低（65% vs 70%），但API+本地层合计17%远高于全球12%。付费群体更硬核。</p>
+    </div>
+    <div class="insight-card" style="border-left:3px solid #185FA5;">
+      <h4>全球差异</h4>
+      <p>ChatGPT Plus撑起基础付费大盘，但开发者生态相对薄弱。整体付费率高但层次浅。</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    海风位置：在全栈投入层 · 中国约15-30万人 · 全球约50-70万人 · 占全人类的 ~0.00007%
+  </div>
+
+</div>
+</body>
+</html>

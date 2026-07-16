@@ -1,0 +1,181 @@
+<svg viewBox="0 0 800 1130" width="100%" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .t { font-family: -apple-system, "Microsoft YaHei", sans-serif; }
+      .tb { font-family: -apple-system, "Microsoft YaHei", sans-serif; font-weight: bold; }
+      .c1 { fill: #EEEDFE; stroke: #7F77DD; } .c2 { fill: #E6F1FB; stroke: #378ADD; }
+      .r_box { fill: #fff; stroke: #ddd; stroke-width: 0.5; }
+    </style>
+  </defs>
+  <rect width="800" height="1130" fill="#fff"/>
+
+  <!-- Stage 1 -->
+  <rect x="40" y="30" width="720" height="34" rx="6" fill="#3C3489"/>
+  <text class="tb" x="55" y="53" font-size="14" fill="#fff">Stage 1  第一阶段：入门 - 理解原理</text>
+
+  <text class="t" x="55" y="80" font-size="12" fill="#444">Mistral-3 是语言模型，不是标签映射器——标注方式彻底改变。</text>
+
+  <!-- 第一章 -->
+  <rect x="55" y="90" width="3" height="14" rx="1.5" fill="#7F77DD"/>
+  <text class="tb" x="63" y="102" font-size="12" fill="#3C3489">第一章：为什么 FLUX.2 需要自然语言标注</text>
+  <text class="t" x="55" y="118" font-size="11" fill="#555">核心认知：Mistral-3 编码器需要自然语言理解，标签列表=触发词完全无效。自动标注工具=负资产。</text>
+
+  <!-- 对比表 -->
+  <rect x="55" y="128" width="220" height="18" rx="2" fill="#3C3C3C"/>
+  <text class="tb" x="65" y="141" font-size="9" fill="#fff">对比维度</text>
+  <rect x="275" y="128" width="235" height="18" rx="2" fill="#3C3C3C"/>
+  <text class="tb" x="285" y="141" font-size="9" fill="#fff">CLIP 时代 (SD1.5/SDXL)</text>
+  <rect x="510" y="128" width="235" height="18" rx="2" fill="#3C3C3C"/>
+  <text class="tb" x="520" y="141" font-size="9" fill="#fff">FLUX.2 时代</text>
+
+  <rect x="55" y="146" width="220" height="16" rx="0" fill="#f5f5f5"/>
+  <text class="tb" x="65" y="158" font-size="9" fill="#333">文本编码器</text>
+  <rect x="275" y="146" width="235" height="16" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="285" y="158" font-size="9" fill="#444">CLIP (图像-文本对比)</text>
+  <rect x="510" y="146" width="235" height="16" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="520" y="158" font-size="9" fill="#444">Mistral-3 7B (LLM)</text>
+
+  <rect x="55" y="162" width="220" height="16" rx="0"/>
+  <text class="tb" x="65" y="174" font-size="9" fill="#333">理解方式</text>
+  <rect x="275" y="162" width="235" height="16" rx="0"/>
+  <text class="t" x="285" y="174" font-size="9" fill="#444">标签映射 (tag->feature)</text>
+  <rect x="510" y="162" width="235" height="16" rx="0"/>
+  <text class="t" x="520" y="174" font-size="9" fill="#444">自然语言理解</text>
+
+  <rect x="55" y="178" width="220" height="16" rx="0" fill="#f5f5f5"/>
+  <text class="tb" x="65" y="190" font-size="9" fill="#333">标注格式</text>
+  <rect x="275" y="178" width="235" height="16" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="285" y="190" font-size="9" fill="#444">逗号分隔标签列表</text>
+  <rect x="510" y="178" width="235" height="16" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="520" y="190" font-size="9" fill="#444">完整自然语言句子</text>
+
+  <rect x="55" y="194" width="220" height="16" rx="0"/>
+  <text class="tb" x="65" y="206" font-size="9" fill="#333">触发词机制</text>
+  <rect x="275" y="194" width="235" height="16" rx="0"/>
+  <text class="t" x="285" y="206" font-size="9" fill="#444">关键词匹配</text>
+  <rect x="510" y="194" width="235" height="16" rx="0"/>
+  <text class="t" x="520" y="206" font-size="9" fill="#444">语义绑定</text>
+
+  <rect x="55" y="210" width="220" height="16" rx="0" fill="#f5f5f5"/>
+  <text class="tb" x="65" y="222" font-size="9" fill="#333">自动标注</text>
+  <rect x="275" y="210" width="235" height="16" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="285" y="222" font-size="9" fill="#444">可用 (如 WD14 Tagger)</text>
+  <rect x="510" y="210" width="235" height="16" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="520" y="222" font-size="9" fill="#cc3333">负资产 (需全部重做)</text>
+
+  <!-- 实验数据卡片 -->
+  <text class="tb" x="55" y="250" font-size="12" fill="#3C3489">实验数据</text>
+  <rect x="55" y="258" width="130" height="36" rx="6" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1"/>
+  <text class="tb" x="120" y="276" text-anchor="middle" font-size="18" fill="#3C3489">95%</text>
+  <text class="t" x="120" y="290" text-anchor="middle" font-size="9" fill="#534AB7">自然语言有效</text>
+
+  <rect x="195" y="258" width="130" height="36" rx="6" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1"/>
+  <text class="tb" x="260" y="276" text-anchor="middle" font-size="18" fill="#A32D2D">0%</text>
+  <text class="t" x="260" y="290" text-anchor="middle" font-size="9" fill="#A32D2D">标签列表有效</text>
+
+  <rect x="335" y="258" width="130" height="36" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text class="tb" x="400" y="276" text-anchor="middle" font-size="18" fill="#0F6E56">60%</text>
+  <text class="t" x="400" y="290" text-anchor="middle" font-size="9" fill="#0F6E56">混合(时灵时不灵)</text>
+
+  <text class="t" x="55" y="318" font-size="10" fill="#555">[正确] ohwx person stands in a sun-drenched forest clearing, wearing a flowing red dress...</text>
+  <text class="t" x="55" y="333" font-size="10" fill="#cc3333">[错误] ohwx person, red dress, standing, forest, sunny</text>
+
+  <!-- 第二章 -->
+  <rect x="55" y="348" width="3" height="14" rx="1.5" fill="#7F77DD"/>
+  <text class="tb" x="63" y="360" font-size="12" fill="#3C3489">第二章：触发词植入的语义学原理</text>
+  <text class="t" x="55" y="378" font-size="10" fill="#555">> 语义绑定：专属特征(95%) vs 通用属性(0%)</text>
+  <text class="t" x="55" y="393" font-size="10" fill="#555">> 密度2-5%：40-100词中出现2-3次</text>
+  <text class="t" x="55" y="408" font-size="10" fill="#555">> 位置随机：开头30% / 中间40% / 结尾30%</text>
+  <text class="t" x="55" y="423" font-size="10" fill="#cc3333">> 禁止：所有格(ohwx person's)和连字符(ohwx-person)</text>
+
+  <!-- 密度表 -->
+  <rect x="55" y="435" width="60" height="16" rx="2" fill="#3C3C3C"/>
+  <text class="tb" x="65" y="447" font-size="9" fill="#fff">标注长度</text>
+  <rect x="115" y="435" width="60" height="16" rx="2" fill="#3C3C3C"/>
+  <text class="tb" x="125" y="447" font-size="9" fill="#fff">触发词次数</text>
+  <rect x="175" y="435" width="60" height="16" rx="2" fill="#3C3C3C"/>
+  <text class="tb" x="185" y="447" font-size="9" fill="#fff">密度</text>
+
+  <rect x="55" y="451" width="60" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="65" y="462" font-size="9" fill="#444">40词</text>
+  <rect x="115" y="451" width="60" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="125" y="462" font-size="9" fill="#444">1-2次</text>
+  <rect x="175" y="451" width="60" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="185" y="462" font-size="9" fill="#444">2.5-5%</text>
+
+  <rect x="55" y="465" width="60" height="14" rx="0"/>
+  <text class="t" x="65" y="476" font-size="9" fill="#444">70词</text>
+  <rect x="115" y="465" width="60" height="14" rx="0"/>
+  <text class="t" x="125" y="476" font-size="9" fill="#444">2-3次</text>
+  <rect x="175" y="465" width="60" height="14" rx="0"/>
+  <text class="t" x="185" y="476" font-size="9" fill="#444">2.8-4.3%</text>
+
+  <rect x="55" y="479" width="60" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="65" y="490" font-size="9" fill="#444">100词</text>
+  <rect x="115" y="479" width="60" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="125" y="490" font-size="9" fill="#444">2-3次</text>
+  <rect x="175" y="479" width="60" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="185" y="490" font-size="9" fill="#444">2-3%</text>
+
+  <!-- ===== Stage 2 ===== -->
+  <rect x="40" y="510" width="720" height="34" rx="6" fill="#185FA5"/>
+  <text class="tb" x="55" y="533" font-size="14" fill="#fff">Stage 2  第二阶段：基础 - 快速上手</text>
+  <text class="t" x="55" y="558" font-size="12" fill="#444">最小成本验证 + 六要素质量体系。先用10张图验证标准。</text>
+
+  <rect x="55" y="570" width="3" height="14" rx="1.5" fill="#378ADD"/>
+  <text class="tb" x="63" y="582" font-size="12" fill="#185FA5">第三章：10分钟快速开始</text>
+
+  <!-- 流程图 -->
+  <rect x="55" y="596" width="130" height="26" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text class="tb" x="120" y="614" text-anchor="middle" font-size="11" fill="#185FA5">选10张图</text>
+  <text class="tb" x="193" y="614" font-size="13" fill="#888">→</text>
+  <rect x="202" y="596" width="130" height="26" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text class="tb" x="267" y="614" text-anchor="middle" font-size="11" fill="#185FA5">手动标注</text>
+  <text class="tb" x="340" y="614" font-size="13" fill="#888">→</text>
+  <rect x="349" y="596" width="130" height="26" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text class="tb" x="414" y="614" text-anchor="middle" font-size="11" fill="#185FA5">快训300步</text>
+  <text class="tb" x="487" y="614" font-size="13" fill="#888">→</text>
+  <rect x="496" y="596" width="100" height="26" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text class="tb" x="546" y="614" text-anchor="middle" font-size="11" fill="#185FA5">测触发词</text>
+  <text class="tb" x="604" y="614" font-size="13" fill="#888">→</text>
+  <rect x="613" y="596" width="90" height="26" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text class="tb" x="658" y="614" text-anchor="middle" font-size="11" fill="#0F6E56">继续/调整</text>
+
+  <rect x="55" y="636" width="3" height="14" rx="1.5" fill="#378ADD"/>
+  <text class="tb" x="63" y="648" font-size="12" fill="#185FA5">第四章：标注质量标准</text>
+  <text class="t" x="55" y="666" font-size="10" fill="#555">六要素：人物 | 服装 | 场景 | 光线 | 角度 | 情绪(推荐)</text>
+  <text class="t" x="55" y="681" font-size="10" fill="#555">长度40-100词 | 触发词2-3次/条(密度2-5%) | 位置随机</text>
+  <text class="t" x="55" y="696" font-size="10" fill="#cc3333">禁止：所有格/连字符/标签列表</text>
+
+  <!-- 快速验证参数 -->
+  <rect x="55" y="710" width="60" height="16" rx="2" fill="#3C3C3C"/>
+  <text class="tb" x="65" y="722" font-size="9" fill="#fff">参数</text>
+  <rect x="115" y="710" width="80" height="16" rx="2" fill="#3C3C3C"/>
+  <text class="tb" x="125" y="722" font-size="9" fill="#fff">验证值</text>
+  <rect x="195" y="710" width="60" height="16" rx="2" fill="#3C3C3C"/>
+  <text class="tb" x="205" y="722" font-size="9" fill="#fff">说明</text>
+
+  <rect x="55" y="726" width="60" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="65" y="737" font-size="9" fill="#444">lr</text>
+  <rect x="115" y="726" width="80" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="125" y="737" font-size="9" fill="#444">1e-3</text>
+  <rect x="195" y="726" width="60" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="205" y="737" font-size="9" fill="#444">>=5e-4</text>
+
+  <rect x="55" y="740" width="60" height="14" rx="0"/>
+  <text class="t" x="65" y="751" font-size="9" fill="#444">steps</text>
+  <rect x="115" y="740" width="80" height="14" rx="0"/>
+  <text class="t" x="125" y="751" font-size="9" fill="#444">300</text>
+  <rect x="195" y="740" width="60" height="14" rx="0"/>
+  <text class="t" x="205" y="751" font-size="9" fill="#444">仅验证</text>
+
+  <rect x="55" y="754" width="60" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="65" y="765" font-size="9" fill="#444">batch_size</text>
+  <rect x="115" y="754" width="80" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="125" y="765" font-size="9" fill="#444">2</text>
+  <rect x="195" y="754" width="60" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="205" y="765" font-size="9" fill="#444">RTX5090D</text>
+
+  <!-- 页脚 -->
+  <text class="t" x="400" y="1100" text-anchor="middle" font-size="11" fill="#ccc">第 2 页 / 共 4 页</text>
+</svg>

@@ -1,0 +1,303 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1600" style="background: #FAFAFA; font-family: 'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;">
+<defs>
+  <marker id="arrow1" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#666"/></marker>
+  <marker id="arrow2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#185FA5"/></marker>
+  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#185FA5"/><stop offset="100%" stop-color="#2D7DC4"/></linearGradient>
+  <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1A8C5E"/><stop offset="100%" stop-color="#28B376"/></linearGradient>
+  <linearGradient id="g3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#C4552B"/><stop offset="100%" stop-color="#E6743D"/></linearGradient>
+  <linearGradient id="g4" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#7B4DA0"/><stop offset="100%" stop-color="#9B6BBF"/></linearGradient>
+  <linearGradient id="g5" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#8B6914"/><stop offset="100%" stop-color="#BA8E24"/></linearGradient>
+  <linearGradient id="g6" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#A8324A"/><stop offset="100%" stop-color="#CF4A64"/></linearGradient>
+</defs>
+
+  <!-- ===== HEADER ===== -->
+  <rect x="0" y="0" width="1000" height="80" fill="url(#g1)"/>
+  <text x="500" y="35" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">GEO深度学习资料 · 完整框架</text>
+  <text x="500" y="62" text-anchor="middle" font-size="13" fill="#CCDEF2">七大板块 · 从算法原理到商业交付 · v3.0 全量展开版</text>
+
+  <!-- ===== 模块一：算法 ===== -->
+  <rect x="30" y="100" width="940" height="220" rx="10" fill="#fff" stroke="#E0E0E0" stroke-width="1"/>
+  <rect x="30" y="100" width="940" height="36" rx="10" fill="url(#g1)"/>
+  <rect x="30" y="126" width="940" height="10" fill="url(#g1)"/>
+  <text x="50" y="124" font-size="16" font-weight="700" fill="#fff">01 算法深度解析</text>
+  <text x="890" y="124" text-anchor="end" font-size="11" fill="#CCDEF2">学习时间：2-3小时</text>
+
+  <text x="50" y="162" font-size="13" font-weight="600" fill="#333">五步链路详解</text>
+  
+  <!-- 五步流程 -->
+  <rect x="50" y="172" width="160" height="44" rx="6" fill="#E6F1FB"/>
+  <text x="130" y="191" text-anchor="middle" font-size="12" font-weight="600" fill="#185FA5">第1步</text>
+  <text x="130" y="207" text-anchor="middle" font-size="10" fill="#555">爬虫抓取→索引</text>
+  <line x1="210" y1="194" x2="230" y2="194" stroke="#999" stroke-width="1" marker-end="url(#arrow1)"/>
+
+  <rect x="235" y="172" width="160" height="44" rx="6" fill="#E6F1FB"/>
+  <text x="315" y="191" text-anchor="middle" font-size="12" font-weight="600" fill="#185FA5">第2步</text>
+  <text x="315" y="207" text-anchor="middle" font-size="10" fill="#555">语义嵌入</text>
+  <line x1="395" y1="194" x2="415" y2="194" stroke="#999" stroke-width="1" marker-end="url(#arrow1)"/>
+
+  <rect x="420" y="172" width="160" height="44" rx="6" fill="#E6F1FB"/>
+  <text x="500" y="191" text-anchor="middle" font-size="12" font-weight="600" fill="#185FA5">第3步</text>
+  <text x="500" y="207" text-anchor="middle" font-size="10" fill="#555">粗召回(Top-N)</text>
+  <line x1="580" y1="194" x2="600" y2="194" stroke="#999" stroke-width="1" marker-end="url(#arrow1)"/>
+
+  <rect x="605" y="172" width="160" height="44" rx="6" fill="#E6F1FB"/>
+  <text x="685" y="191" text-anchor="middle" font-size="12" font-weight="600" fill="#185FA5">第4步</text>
+  <text x="685" y="207" text-anchor="middle" font-size="10" fill="#555">精排(Re-ranker)</text>
+  <line x1="765" y1="194" x2="785" y2="194" stroke="#999" stroke-width="1" marker-end="url(#arrow1)"/>
+
+  <rect x="790" y="172" width="160" height="44" rx="6" fill="#FFEACE"/>
+  <text x="870" y="191" text-anchor="middle" font-size="12" font-weight="600" fill="#C4552B">第5步</text>
+  <text x="870" y="207" text-anchor="middle" font-size="10" fill="#555">模型内化★</text>
+
+  <!-- 关键概念 -->
+  <text x="50" y="240" font-size="11" fill="#888">关键概念：</text>
+  <rect x="160" y="230" width="120" height="22" rx="4" fill="#F0F5FA"/>
+  <text x="220" y="245" text-anchor="middle" font-size="10" fill="#185FA5">RAG模式</text>
+  <rect x="290" y="230" width="120" height="22" rx="4" fill="#FFF0E6"/>
+  <text x="350" y="245" text-anchor="middle" font-size="10" fill="#C4552B">训练内化模式</text>
+  <rect x="420" y="230" width="120" height="22" rx="4" fill="#F0F5FA"/>
+  <text x="480" y="245" text-anchor="middle" font-size="10" fill="#185FA5">余弦相似度</text>
+  <rect x="550" y="230" width="130" height="22" rx="4" fill="#F0F5FA"/>
+  <text x="615" y="245" text-anchor="middle" font-size="10" fill="#185FA5">精排评分5维度</text>
+  <rect x="690" y="230" width="120" height="22" rx="4" fill="#FFF0E6"/>
+  <text x="750" y="245" text-anchor="middle" font-size="10" fill="#C4552B">来源去重</text>
+
+  <!-- 核心发现 -->
+  <rect x="50" y="262" width="900" height="44" rx="6" fill="#FFF8E6" stroke="#E8C84A" stroke-width="1"/>
+  <text x="65" y="280" font-size="11" font-weight="600" fill="#8B6914">核心发现：</text>
+  <text x="175" y="280" font-size="10" fill="#555">堆量在前两步有用，在精排阶段打折；训练内化模式下约60%不显示来源；模型内化需埋入专属品牌信号</text>
+  <text x="65" y="296" font-size="10" fill="#555">六个执行启示：开头200字决定生死 | 数据密度是通行证 | 结构化是必选项 | 矩阵号需差异化</text>
+
+  <!-- ===== 模块二：诊断 ===== -->
+  <rect x="30" y="340" width="460" height="380" rx="10" fill="#fff" stroke="#E0E0E0" stroke-width="1"/>
+  <rect x="30" y="340" width="460" height="36" rx="10" fill="url(#g2)"/>
+  <rect x="30" y="366" width="460" height="10" fill="url(#g2)"/>
+  <text x="50" y="364" font-size="16" font-weight="700" fill="#fff">02 诊断体系</text>
+  <text x="470" y="364" text-anchor="end" font-size="11" fill="#BBE6D0">学习时间：1.5-2小时</text>
+
+  <text x="50" y="400" font-size="12" font-weight="600" fill="#333">基础诊断（三步定位）</text>
+  <rect x="50" y="412" width="420" height="24" rx="4" fill="#E8F5EE"/>
+  <text x="260" y="429" text-anchor="middle" font-size="11" fill="#1A8C5E">第1步 → 技术可达性诊断（30分钟）</text>
+  <rect x="50" y="442" width="420" height="24" rx="4" fill="#E8F5EE"/>
+  <text x="260" y="459" text-anchor="middle" font-size="11" fill="#1A8C5E">第2步 → 内容质量诊断（1-2小时）</text>
+  <rect x="50" y="472" width="420" height="24" rx="4" fill="#E8F5EE"/>
+  <text x="260" y="489" text-anchor="middle" font-size="11" fill="#1A8C5E">第3步 → 竞品对标诊断（每次新客户必做）</text>
+
+  <text x="50" y="524" font-size="12" font-weight="600" fill="#333">八大诊断维度</text>
+  <rect x="50" y="536" width="200" height="22" rx="4" fill="#FFEBEE"/>
+  <text x="150" y="551" text-anchor="middle" font-size="10" fill="#A8324A">⚠️致命：技术可达性</text>
+  <rect x="260" y="536" width="200" height="22" rx="4" fill="#FFF3E0"/>
+  <text x="360" y="551" text-anchor="middle" font-size="10" fill="#C4552B">高：平台覆盖</text>
+  <rect x="50" y="564" width="200" height="22" rx="4" fill="#FFF3E0"/>
+  <text x="150" y="579" text-anchor="middle" font-size="10" fill="#C4552B">高：语义覆盖</text>
+  <rect x="260" y="564" width="200" height="22" rx="4" fill="#FFF3E0"/>
+  <text x="360" y="579" text-anchor="middle" font-size="10" fill="#C4552B">高：信息密度</text>
+  <rect x="50" y="592" width="200" height="22" rx="4" fill="#FFF3E0"/>
+  <text x="150" y="607" text-anchor="middle" font-size="10" fill="#C4552B">高：结构化程度</text>
+  <rect x="260" y="592" width="200" height="22" rx="4" fill="#FFF3E0"/>
+  <text x="360" y="607" text-anchor="middle" font-size="10" fill="#C4552B">高：问题链完整性★</text>
+  <rect x="50" y="620" width="200" height="22" rx="4" fill="#E8F5EE"/>
+  <text x="150" y="635" text-anchor="middle" font-size="10" fill="#1A8C5E">中：品牌一致性</text>
+  <rect x="260" y="620" width="200" height="22" rx="4" fill="#E8F5EE"/>
+  <text x="360" y="635" text-anchor="middle" font-size="10" fill="#1A8C5E">中：外部互证</text>
+
+  <text x="50" y="664" font-size="11" fill="#888">工具：透镜GEO / ImpetaAI / SheepGeo / 智瞰引擎</text>
+  <text x="50" y="680" font-size="11" fill="#888">合格线：1500字中文≥3个有效数据点 | 覆盖5+决策环节</text>
+  <text x="50" y="696" font-size="11" fill="#888">发现：覆盖5环节被引用概率是覆盖1-2环节的2.7倍</text>
+
+  <!-- ===== 模块三：平台定制 ===== -->
+  <rect x="510" y="340" width="460" height="380" rx="10" fill="#fff" stroke="#E0E0E0" stroke-width="1"/>
+  <rect x="510" y="340" width="460" height="36" rx="10" fill="url(#g3)"/>
+  <rect x="510" y="366" width="460" height="10" fill="url(#g3)"/>
+  <text x="530" y="364" font-size="16" font-weight="700" fill="#fff">03 八大AI平台定制策略</text>
+  <text x="950" y="364" text-anchor="end" font-size="11" fill="#FDD5C0">学习时间：2-3小时</text>
+
+  <text x="530" y="400" font-size="12" font-weight="600" fill="#333">各平台引用偏好速查</text>
+
+  <!-- 平台表格 -->
+  <rect x="530" y="412" width="90" height="24" rx="3" fill="#185FA5"/><text x="575" y="429" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">平台</text>
+  <rect x="625" y="412" width="120" height="24" rx="3" fill="#E6F1FB"/><text x="685" y="429" text-anchor="middle" font-size="10" fill="#333">核心信源</text>
+  <rect x="750" y="412" width="100" height="24" rx="3" fill="#E6F1FB"/><text x="800" y="429" text-anchor="middle" font-size="10" fill="#333">风格偏好</text>
+  <rect x="855" y="412" width="100" height="24" rx="3" fill="#E6F1FB"/><text x="905" y="429" text-anchor="middle" font-size="10" fill="#333">平台优先级</text>
+
+  <rect x="530" y="440" width="90" height="22" rx="3" fill="#F0F5FA"/><text x="575" y="455" text-anchor="middle" font-size="10" fill="#185FA5">豆包</text>
+  <rect x="625" y="440" width="120" height="22" rx="3" fill="#FAFAFA"/><text x="685" y="455" text-anchor="middle" font-size="9" fill="#555">头条>抖音>知乎</text>
+  <rect x="750" y="440" width="100" height="22" rx="3" fill="#FAFAFA"/><text x="800" y="455" text-anchor="middle" font-size="9" fill="#555">通俗实用短段落</text>
+  <rect x="855" y="440" width="100" height="22" rx="3" fill="#FAFAFA"/><text x="905" y="455" text-anchor="middle" font-size="9" fill="#555">头条→知乎</text>
+
+  <rect x="530" y="466" width="90" height="22" rx="3" fill="#F0F5FA"/><text x="575" y="481" text-anchor="middle" font-size="10" fill="#185FA5">文心一言</text>
+  <rect x="625" y="466" width="120" height="22" rx="3" fill="#FAFAFA"/><text x="685" y="481" text-anchor="middle" font-size="9" fill="#555">百度百科>百家号</text>
+  <rect x="750" y="466" width="100" height="22" rx="3" fill="#FAFAFA"/><text x="800" y="481" text-anchor="middle" font-size="9" fill="#555">规范有出处</text>
+  <rect x="855" y="466" width="100" height="22" rx="3" fill="#FAFAFA"/><text x="905" y="481" text-anchor="middle" font-size="9" fill="#555">百家号→百科</text>
+
+  <rect x="530" y="492" width="90" height="22" rx="3" fill="#F0F5FA"/><text x="575" y="507" text-anchor="middle" font-size="10" fill="#185FA5">通义千问</text>
+  <rect x="625" y="492" width="120" height="22" rx="3" fill="#FAFAFA"/><text x="685" y="507" text-anchor="middle" font-size="9" fill="#555">搜狐>网易>知乎</text>
+  <rect x="750" y="492" width="100" height="22" rx="3" fill="#FAFAFA"/><text x="800" y="507" text-anchor="middle" font-size="9" fill="#555">媒体化有观点</text>
+  <rect x="855" y="492" width="100" height="22" rx="3" fill="#FAFAFA"/><text x="905" y="507" text-anchor="middle" font-size="9" fill="#555">知乎→公众号</text>
+
+  <rect x="530" y="518" width="90" height="22" rx="3" fill="#F0F5FA"/><text x="575" y="533" text-anchor="middle" font-size="10" fill="#185FA5">DeepSeek</text>
+  <rect x="625" y="518" width="120" height="22" rx="3" fill="#FAFAFA"/><text x="685" y="533" text-anchor="middle" font-size="9" fill="#555">CSDN>知乎>博客园</text>
+  <rect x="750" y="518" width="100" height="22" rx="3" fill="#FAFAFA"/><text x="800" y="533" text-anchor="middle" font-size="9" fill="#555">深度原创技术</text>
+  <rect x="855" y="518" width="100" height="22" rx="3" fill="#FAFAFA"/><text x="905" y="533" text-anchor="middle" font-size="9" fill="#555">CSDN→知乎</text>
+
+  <rect x="530" y="544" width="90" height="22" rx="3" fill="#F0F5FA"/><text x="575" y="559" text-anchor="middle" font-size="10" fill="#185FA5">元宝</text>
+  <rect x="625" y="544" width="120" height="22" rx="3" fill="#FAFAFA"/><text x="685" y="559" text-anchor="middle" font-size="9" fill="#555">公众号>视频号</text>
+  <rect x="750" y="544" width="100" height="22" rx="3" fill="#FAFAFA"/><text x="800" y="559" text-anchor="middle" font-size="9" fill="#555">科普生活化</text>
+  <rect x="855" y="544" width="100" height="22" rx="3" fill="#FAFAFA"/><text x="905" y="559" text-anchor="middle" font-size="9" fill="#555">公众号→知乎</text>
+
+  <rect x="530" y="570" width="90" height="22" rx="3" fill="#FFEACE"/><text x="575" y="585" text-anchor="middle" font-size="10" font-weight="600" fill="#C4552B">百度AI摘要★</text>
+  <rect x="625" y="570" width="120" height="22" rx="3" fill="#FFF8E6"/><text x="685" y="585" text-anchor="middle" font-size="9" fill="#555">百度百科>百家号</text>
+  <rect x="750" y="570" width="100" height="22" rx="3" fill="#FFF8E6"/><text x="800" y="585" text-anchor="middle" font-size="9" fill="#555">高度结构化</text>
+  <rect x="855" y="570" width="100" height="22" rx="3" fill="#FFF8E6"/><text x="905" y="585" text-anchor="middle" font-size="9" fill="#555">百度百科→百家号</text>
+
+  <text x="530" y="610" font-size="11" fill="#888">趋势：DeepSeek引用CSDN +6.2%↑ | 公众号在通义 +4.6%↑ | 百家号在文心 -7.4%↓</text>
+
+  <rect x="530" y="626" width="420" height="80" rx="6" fill="#F0F5FA"/>
+  <text x="545" y="644" font-size="11" font-weight="600" fill="#185FA5">跨平台定制核心原则</text>
+  <text x="545" y="662" font-size="10" fill="#555">30%时间写正文，70%时间做平台适配</text>
+  <text x="545" y="680" font-size="10" fill="#555">统一内容 → 3个平台版（头条/百家号/知乎），每版改开头+语气+段落结构</text>
+  <text x="545" y="698" font-size="10" fill="#555">差异化分发比复制粘贴的AI引用率高3倍+</text>
+
+  <!-- ===== 模块四+五：内容生产 + 避坑 ===== -->
+  <rect x="30" y="740" width="460" height="200" rx="10" fill="#fff" stroke="#E0E0E0" stroke-width="1"/>
+  <rect x="30" y="740" width="460" height="36" rx="10" fill="url(#g4)"/>
+  <rect x="30" y="766" width="460" height="10" fill="url(#g4)"/>
+  <text x="50" y="764" font-size="16" font-weight="700" fill="#fff">04 内容生产方法论</text>
+  <text x="470" y="764" text-anchor="end" font-size="11" fill="#D5C5E6">1.5-2小时</text>
+
+  <text x="50" y="802" font-size="12" font-weight="600" fill="#333">五步内容生产法</text>
+
+  <!-- 五步流程 -->
+  <rect x="50" y="816" width="74" height="42" rx="5" fill="#E8E0F0"/>
+  <text x="87" y="834" text-anchor="middle" font-size="11" font-weight="600" fill="#7B4DA0">1</text>
+  <text x="87" y="850" text-anchor="middle" font-size="9" fill="#555">问题方向</text>
+
+  <rect x="132" y="816" width="74" height="42" rx="5" fill="#E8E0F0"/>
+  <text x="169" y="834" text-anchor="middle" font-size="11" font-weight="600" fill="#7B4DA0">2</text>
+  <text x="169" y="850" text-anchor="middle" font-size="9" fill="#555">大纲设计</text>
+
+  <rect x="214" y="816" width="74" height="42" rx="5" fill="#E8E0F0"/>
+  <text x="251" y="834" text-anchor="middle" font-size="11" font-weight="600" fill="#7B4DA0">3</text>
+  <text x="251" y="850" text-anchor="middle" font-size="9" fill="#555">数据填充</text>
+
+  <rect x="296" y="816" width="74" height="42" rx="5" fill="#E8E0F0"/>
+  <text x="333" y="834" text-anchor="middle" font-size="11" font-weight="600" fill="#7B4DA0">4</text>
+  <text x="333" y="850" text-anchor="middle" font-size="9" fill="#555">平台适配</text>
+
+  <rect x="378" y="816" width="74" height="42" rx="5" fill="#E8E0F0"/>
+  <text x="415" y="834" text-anchor="middle" font-size="11" font-weight="600" fill="#7B4DA0">5</text>
+  <text x="415" y="850" text-anchor="middle" font-size="9" fill="#555">发布记录</text>
+
+  <text x="50" y="884" font-size="11" fill="#888">AI引用偏好排名：有具体数字和出处(4.4x) > 包含表格(3.1x) > 开头直接给结论(2.9x)</text>
+  <text x="50" y="902" font-size="11" fill="#888">数据来源优先级：自有实测 > 权威报告 > 官方公开 > 行业公认</text>
+  <text x="50" y="920" font-size="11" fill="#888">标准产出：每周4-6篇，每篇2-3小时（30%正文+70%适配）</text>
+
+  <!-- 避坑 -->
+  <rect x="510" y="740" width="460" height="200" rx="10" fill="#fff" stroke="#E0E0E0" stroke-width="1"/>
+  <rect x="510" y="740" width="460" height="36" rx="10" fill="url(#g6)"/>
+  <rect x="510" y="766" width="460" height="10" fill="url(#g6)"/>
+  <text x="530" y="764" font-size="16" font-weight="700" fill="#fff">05 避坑指南（19个坑）</text>
+  <text x="950" y="764" text-anchor="end" font-size="11" fill="#F2C5D0">1-1.5小时</text>
+
+  <text x="530" y="802" font-size="12" font-weight="600" fill="#333">四类坑 · 严重度分级</text>
+
+  <rect x="530" y="816" width="110" height="22" rx="4" fill="#FFEBEE"/>
+  <text x="585" y="831" text-anchor="middle" font-size="10" font-weight="600" fill="#A8324A">⚠️致命（4个）</text>
+  <rect x="530" y="844" width="110" height="22" rx="4" fill="#FFF3E0"/>
+  <text x="585" y="859" text-anchor="middle" font-size="10" font-weight="600" fill="#C4552B">高（9个）</text>
+  <rect x="530" y="872" width="110" height="22" rx="4" fill="#E8F5EE"/>
+  <text x="585" y="887" text-anchor="middle" font-size="10" font-weight="600" fill="#1A8C5E">中（6个）</text>
+
+  <text x="660" y="831" font-size="10" fill="#555">#1-4: 技术层（robots.txt/Cloudflare/仅关注SEO/滥用Schema）</text>
+  <text x="660" y="847" font-size="10" fill="#666">#5-9: 内容结构层（开头无结论/纯散文/无数据/营销腔/品牌不一致）</text>
+  <text x="660" y="863" font-size="10" fill="#666">#10-13: 内容质量层（批量AI/关键词堆砌/只优化博客/只答主问题）</text>
+  <text x="660" y="879" font-size="10" fill="#666">#14-19: 策略层（把GEO当SEO/围绕关键词而非问题/只看流量/无基线/</text>
+  <text x="660" y="895" font-size="10" fill="#666">  短期预期/只做单点不做链★）</text>
+
+  <rect x="530" y="908" width="420" height="22" rx="4" fill="#FFEACE"/>
+  <text x="740" y="923" text-anchor="middle" font-size="10" font-weight="600" fill="#8B6914">★新增#19：只做单点不做链——覆盖5环节被引用概率是覆盖1-2环节的2.7倍</text>
+
+  <!-- ===== 模块六：交付 ===== -->
+  <rect x="30" y="960" width="460" height="280" rx="10" fill="#fff" stroke="#E0E0E0" stroke-width="1"/>
+  <rect x="30" y="960" width="460" height="36" rx="10" fill="url(#g5)"/>
+  <rect x="30" y="986" width="460" height="10" fill="url(#g5)"/>
+  <text x="50" y="984" font-size="16" font-weight="700" fill="#fff">06 独立交付SOP</text>
+  <text x="470" y="984" text-anchor="end" font-size="11" fill="#DCCE96">2-3小时</text>
+
+  <text x="50" y="1020" font-size="12" font-weight="600" fill="#333">四步交付流程</text>
+
+  <rect x="50" y="1032" width="420" height="28" rx="5" fill="#F5F0E0"/>
+  <text x="260" y="1050" text-anchor="middle" font-size="11" fill="#8B6914">第1步：AI可见度诊断（第1周）→ 输出《诊断报告》</text>
+
+  <rect x="50" y="1066" width="420" height="28" rx="5" fill="#F5F0E0"/>
+  <text x="260" y="1084" text-anchor="middle" font-size="11" fill="#8B6914">第2步：建立50问内容矩阵（第1-2周）→ 输出《内容矩阵》</text>
+
+  <rect x="50" y="1100" width="420" height="28" rx="5" fill="#F5F0E0"/>
+  <text x="260" y="1118" text-anchor="middle" font-size="11" fill="#8B6914">第3步：内容生产+分发（6-12周）→ 输出结构化内容</text>
+
+  <rect x="50" y="1134" width="420" height="28" rx="5" fill="#F5F0E0"/>
+  <text x="260" y="1152" text-anchor="middle" font-size="11" fill="#8B6914">第4步：每月监测迭代（持续）→ 输出《月报》</text>
+
+  <text x="50" y="1194" font-size="12" font-weight="600" fill="#333">定价阶梯</text>
+  <rect x="50" y="1206" width="100" height="22" rx="3" fill="#E8F5EE"/><text x="100" y="1221" text-anchor="middle" font-size="9" fill="#1A8C5E">第1单</text>
+  <text x="160" y="1221" font-size="9" fill="#555">3-5千/季</text>
+  <rect x="230" y="1206" width="100" height="22" rx="3" fill="#E8F5EE"/><text x="280" y="1221" text-anchor="middle" font-size="9" fill="#1A8C5E">第2-3单</text>
+  <text x="340" y="1221" font-size="9" fill="#555">0.8-1.2万/季</text>
+  <rect x="50" y="1234" width="100" height="22" rx="3" fill="#FFF3E0"/><text x="100" y="1249" text-anchor="middle" font-size="9" fill="#C4552B">4单以上</text>
+  <text x="160" y="1249" font-size="9" fill="#555">1.5-2万/季</text>
+  <rect x="230" y="1234" width="100" height="22" rx="3" fill="#FFF3E0"/><text x="280" y="1249" text-anchor="middle" font-size="9" fill="#C4552B">稳定期</text>
+  <text x="340" y="1249" font-size="9" fill="#555">3万+/季</text>
+
+  <text x="50" y="1280" font-size="12" font-weight="600" fill="#333">获客方法：让客户在AI里找到你</text>
+  <text x="50" y="1298" font-size="10" fill="#555">阶段1(0-3月)：写50篇GEO内容让AI认识你</text>
+  <text x="50" y="1314" font-size="10" fill="#555">阶段2(3-6月)：用案例包装让AI在行业问题上提到你</text>
+  <text x="50" y="1330" font-size="10" fill="#555">阶段3(6-12月)：让AI在"找GEO服务商"时推荐你</text>
+
+  <!-- ===== 模块七：附录 ===== -->
+  <rect x="510" y="960" width="460" height="280" rx="10" fill="#fff" stroke="#E0E0E0" stroke-width="1"/>
+  <rect x="510" y="960" width="460" height="36" rx="10" fill="#185FA5"/>
+  <rect x="510" y="986" width="460" height="10" fill="#185FA5"/>
+  <text x="530" y="984" font-size="16" font-weight="700" fill="#fff">07 附录 + 工具库</text>
+  <text x="950" y="984" text-anchor="end" font-size="11" fill="#B0CEE6">按需查阅</text>
+
+  <text x="530" y="1020" font-size="12" font-weight="600" fill="#333">GEO vs SEO 速查表</text>
+
+  <rect x="530" y="1032" width="100" height="22" rx="3" fill="#185FA5"/><text x="580" y="1047" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">维度</text>
+  <rect x="635" y="1032" width="100" height="22" rx="3" fill="#E6F1FB"/><text x="685" y="1047" text-anchor="middle" font-size="10" fill="#333">SEO</text>
+  <rect x="740" y="1032" width="100" height="22" rx="3" fill="#E6F1FB"/><text x="790" y="1047" text-anchor="middle" font-size="10" fill="#333">GEO</text>
+
+  <rect x="530" y="1058" width="100" height="18" rx="3" fill="#F5F5F5"/><text x="580" y="1071" text-anchor="middle" font-size="9" fill="#555">目标</text>
+  <rect x="635" y="1058" width="100" height="18" rx="3" fill="#FAFAFA"/><text x="685" y="1071" text-anchor="middle" font-size="9" fill="#555">排名靠前</text>
+  <rect x="740" y="1058" width="100" height="18" rx="3" fill="#FAFAFA"/><text x="790" y="1071" text-anchor="middle" font-size="9" fill="#555">被AI引用</text>
+
+  <rect x="530" y="1080" width="100" height="18" rx="3" fill="#F5F5F5"/><text x="580" y="1093" text-anchor="middle" font-size="9" fill="#555">技术门槛</text>
+  <rect x="635" y="1080" width="100" height="18" rx="3" fill="#FAFAFA"/><text x="685" y="1093" text-anchor="middle" font-size="9" fill="#555">高</text>
+  <rect x="740" y="1080" width="100" height="18" rx="3" fill="#FAFAFA"/><text x="790" y="1093" text-anchor="middle" font-size="9" fill="#555">低</text>
+
+  <rect x="530" y="1102" width="100" height="18" rx="3" fill="#F5F5F5"/><text x="580" y="1115" text-anchor="middle" font-size="9" fill="#555">红利窗口</text>
+  <rect x="635" y="1102" width="100" height="18" rx="3" fill="#FAFAFA"/><text x="685" y="1115" text-anchor="middle" font-size="9" fill="#555">已关闭</text>
+  <rect x="740" y="1102" width="100" height="18" rx="3" fill="#FAFAFA"/><text x="790" y="1115" text-anchor="middle" font-size="9" fill="#555">剩6-12月</text>
+
+  <rect x="530" y="1124" width="100" height="18" rx="3" fill="#F5F5F5"/><text x="580" y="1137" text-anchor="middle" font-size="9" fill="#555">见效周期</text>
+  <rect x="635" y="1124" width="100" height="18" rx="3" fill="#FAFAFA"/><text x="685" y="1137" text-anchor="middle" font-size="9" fill="#555">6-12月</text>
+  <rect x="740" y="1124" width="100" height="18" rx="3" fill="#FAFAFA"/><text x="790" y="1137" text-anchor="middle" font-size="9" fill="#555">3-6月</text>
+
+  <rect x="530" y="1158" width="420" height="72" rx="6" fill="#FFF8E6" stroke="#E8C84A" stroke-width="1"/>
+  <text x="545" y="1176" font-size="11" font-weight="600" fill="#8B6914">第一天就能做的三件事</text>
+  <text x="545" y="1194" font-size="10" fill="#555">① 搜"GEO是什么"→看AI怎么回答，找内容缺口（15分钟）</text>
+  <text x="545" y="1212" font-size="10" fill="#555">② 搜核心关键词→看你的品牌在不在里面（10分钟）</text>
+  <text x="545" y="1230" font-size="10" fill="#555">③ 写300字结构化回答发知乎→表格+编号+FAQ+作者信息（30分钟）</text>
+
+  <text x="530" y="1270" font-size="11" fill="#888">每周5分钟自检：知乎≥1篇 | 百家号≥1篇 | 开头直接给结论 | 有表格 | 有3+数据点</text>
+
+  <!-- ===== FOOTER ===== -->
+  <rect x="30" y="1430" width="940" height="60" rx="8" fill="#185FA5"/>
+  <text x="500" y="1456" text-anchor="middle" font-size="14" font-weight="600" fill="#fff">从理解到交付：完整的学习路径</text>
+  <text x="500" y="1478" text-anchor="middle" font-size="11" fill="#CCDEF2">算法（道）→ 诊断 → 平台定制 → 内容生产 → 避坑 → 交付（术）</text>
+
+  <rect x="200" y="1505" width="600" height="32" rx="6" fill="#E6F1FB"/>
+  <text x="500" y="1526" text-anchor="middle" font-size="12" font-weight="600" fill="#185FA5">总学习时间：10-15小时 ｜ 完整阅读+实操约30天 ｜ 从0到独立交付</text>
+
+  <text x="500" y="1560" text-anchor="middle" font-size="11" fill="#ADB5BD">关于作者：海风老师 · AI技术咨询 / GEO优化 / AI电商落地 · 微信：frankhzheng</text>
+  <text x="500" y="1578" text-anchor="middle" font-size="11" fill="#ADB5BD">内容资产库：https://github.com/frankhzh-source/hf-ai-articles</text>
+</svg>

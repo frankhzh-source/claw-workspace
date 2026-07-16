@@ -1,0 +1,260 @@
+<svg viewBox="0 0 680 620" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Elite 6-Layer Memory Architecture — One-Pager</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.4" stroke-linecap="round"/></marker></defs>
+<rect width="680" height="620" fill="#FAFAFA"/>
+<text x="340" y="22" text-anchor="middle" font-size="13.5" font-weight="500" fill="#26215C">Elite Longterm Memory — 6 Layer Architecture Upgrade Guide</text>
+<line x1="16" y1="33" x2="664" y2="33" stroke="#AFA9EC" stroke-width="0.4"/>
+
+<!-- ROW 1: 6 Layer Cards (horizontal) -->
+<!-- L1: x=14, w=104 -->
+<g transform="translate(14,43)">
+<rect width="104" height="172" rx="6" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.45"/>
+<rect x="5" y="6" width="94" height="40" rx="4" fill="#fff" stroke="#534AB7" stroke-width="0.5"/>
+<text x="52" y="22" text-anchor="middle" font-size="11.5" font-weight="500" fill="#3C3489">L1 Hot RAM</text>
+<text x="52" y="36" text-anchor="middle" font-size="9.5" fill="#993556">&lt;1ms / session</text>
+<rect x="5" y="50" width="94" height="54" rx="3" fill="#CECBF6"/>
+<text x="11" y="66" font-size="9.5" font-weight="500" fill="#3C3489">SESSION-STATE</text>
+<text x="11" y="80" font-size="9" fill="#534AB7">Task context</text>
+<text x="11" y="94" font-size="9" fill="#534AB7">TTL on session end</text>
+<rect x="5" y="108" width="94" height="56" rx="3" fill="#FBEAF0" stroke="#D4537E" stroke-width="0.25"/>
+<text x="52" y="124" text-anchor="middle" font-size="9.5" font-weight="500" fill="#993556">WAL Protocol</text>
+<text x="52" y="138" text-anchor="middle" font-size="8.5" fill="#72243E">memory first, reply later</text>
+<text x="52" y="154" text-anchor="middle" font-size="8.5" fill="#72243E">prevent context loss</text>
+</g>
+
+<path d="M122,129 L130,129" stroke="#534AB7" stroke-width="1.3" marker-end="url(#a)" fill="none"/>
+
+<!-- L2: x=134, w=104 -->
+<g transform="translate(134,43)">
+<rect width="104" height="172" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.45"/>
+<rect x="5" y="6" width="94" height="46" rx="4" fill="#fff" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="52" y="22" text-anchor="middle" font-size="11.5" font-weight="500" fill="#04342C">L2 Warm Store</text>
+<text x="52" y="36" text-anchor="middle" font-size="9.5" fill="#0F6E56">LanceDB vector</text>
+<text x="52" y="47" text-anchor="middle" font-size="9" fill="#993556">~10ms / monthly</text>
+<rect x="5" y="56" width="94" height="54" rx="3" fill="#9FE1CB"/>
+<text x="11" y="72" font-size="9.5" font-weight="500" fill="#04342C">Semantic Search</text>
+<text x="11" y="86" font-size="9" fill="#085041">embed-3 1536d</text>
+<text x="11" y="100" font-size="9" fill="#085041">LRU heat tracking</text>
+<rect x="5" y="114" width="94" height="50" rx="3" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.22"/>
+<text x="52" y="130" text-anchor="middle" font-size="9.5" fill="#854F0B">core upgrade point</text>
+<text x="52" y="144" text-anchor="middle" font-size="8.5" fill="#633806">fuzzy not keyword</text>
+<text x="52" y="158" text-anchor="middle" font-size="8.5" fill="#633806">zero infra needed</text>
+</g>
+
+<path d="M242,129 L250,129" stroke="#0F6E56" stroke-width="1.3" marker-end="url(#a)" fill="none"/>
+
+<!-- L3: x=254, w=104 -->
+<g transform="translate(254,43)">
+<rect width="104" height="172" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.45"/>
+<rect x="5" y="6" width="94" height="46" rx="4" fill="#fff" stroke="#185FA5" stroke-width="0.5"/>
+<text x="52" y="22" text-anchor="middle" font-size="11.5" font-weight="500" fill="#042C53">L3 Cold Store</text>
+<text x="52" y="36" text-anchor="middle" font-size="9.5" fill="#185FA5">Git Notes archive</text>
+<text x="52" y="47" text-anchor="middle" font-size="9" fill="#993556">~100ms / forever</text>
+<rect x="5" y="56" width="94" height="54" rx="3" fill="#B5D4F4"/>
+<text x="11" y="72" font-size="9.5" font-weight="500" fill="#0C447C">Versioned Archive</text>
+<text x="11" y="86" font-size="9" fill="#185FA5">git notes add</text>
+<text x="11" y="100" font-size="9" fill="#185FA5">diff + rollback OK</text>
+<rect x="5" y="114" width="94" height="50" rx="3" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.22"/>
+<text x="52" y="130" text-anchor="middle" font-size="9.5" fill="#791F1F">weekly batch move</text>
+<text x="52" y="144" text-anchor="middle" font-size="8.5" fill="#A32D2D">low-heat to cold</text>
+<text x="52" y="158" text-anchor="middle" font-size="8.5" fill="#A32D2D">write once read rarely</text>
+</g>
+
+<path d="M362,129 L370,129" stroke="#185FA5" stroke-width="1.3" marker-end="url(#a)" fill="none"/>
+
+<!-- L4: x=374, w=104 -->
+<g transform="translate(374,43)">
+<rect width="104" height="172" rx="6" fill="#FAECE7" stroke="#D85A30" stroke-width="0.45"/>
+<rect x="5" y="6" width="94" height="46" rx="4" fill="#fff" stroke="#993C1D" stroke-width="0.5"/>
+<text x="52" y="22" text-anchor="middle" font-size="11.5" font-weight="500" fill="#4A1B0C">L4 Archive</text>
+<text x="52" y="36" text-anchor="middle" font-size="9.5" fill="#993C1D">MEMORY.md curated</text>
+<text x="52" y="47" text-anchor="middle" font-size="9" fill="#993556">&lt;50ms / forever</text>
+<rect x="5" y="56" width="94" height="58" rx="3" fill="#F5C4B3"/>
+<text x="11" y="72" font-size="9.5" font-weight="500" fill="#712B13">Curated Knowledge</text>
+<text x="11" y="87" font-size="9" fill="#993C1D">User Preferences</text>
+<text x="11" y="101" font-size="9" fill="#993C1D">Key Decisions</text>
+<text x="11" y="115" font-size="9" fill="#993C1D">Error Patterns</text>
+<rect x="5" y="118" width="94" height="48" rx="3" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.22"/>
+<text x="52" y="134" text-anchor="middle" font-size="9.5" fill="#27500A">FTS + manual q.</text>
+<text x="52" y="150" text-anchor="middle" font-size="8.5" fill="#27500A">single .md file</text>
+</g>
+
+<path d="M482,129 L490,129" stroke="#993C1D" stroke-width="1.3" marker-end="url(#a)" fill="none"/>
+
+<!-- L5: x=494, w=90 -->
+<g transform="translate(494,43)">
+<rect width="90" height="172" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.35" stroke-dasharray="4,3"/>
+<rect x="4" y="6" width="82" height="46" rx="4" fill="#fff" stroke="#888780" stroke-width="0.5"/>
+<text x="45" y="21" text-anchor="middle" font-size="11" font-weight="500" fill="#444441">L5 Cloud</text>
+<text x="45" y="35" text-anchor="middle" font-size="9" fill="#5F5E5A">SuperMemory</text>
+<text x="45" y="47" text-anchor="middle" font-size="9" fill="#D85A30">1-3s / cloud</text>
+<rect x="4" y="56" width="82" height="54" rx="3" fill="#D3D1C7"/>
+<text x="9" y="71" font-size="9" font-weight="500" fill="#444441">Cross-device sync</text>
+<text x="9" y="85" font-size="8.5" fill="#5F5E5A">API based</text>
+<text x="9" y="99" font-size="8.5" fill="#5F5E5A">on-demand enable</text>
+<rect x="4" y="114" width="82" height="50" rx="3" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.22"/>
+<text x="45" y="131" text-anchor="middle" font-size="9" fill="#3C3489">optional</text>
+<text x="45" y="145" text-anchor="middle" font-size="8.5" fill="#534AB7">as-needed priority</text>
+</g>
+
+<path d="M588,129 L596,129" stroke="#888780" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#a)" fill="none"/>
+
+<!-- L6: x=600, w=68 -->
+<g transform="translate(600,43)">
+<rect width="68" height="172" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.35" stroke-dasharray="4,3"/>
+<rect x="4" y="6" width="60" height="46" rx="4" fill="#fff" stroke="#888780" stroke-width="0.5"/>
+<text x="34" y="21" text-anchor="middle" font-size="11" font-weight="500" fill="#444441">L6 Auto</text>
+<text x="34" y="35" text-anchor="middle" font-size="9" fill="#5F5E5A">Mem0</text>
+<text x="34" y="47" text-anchor="middle" font-size="9" fill="#D85A30">async / auto</text>
+<rect x="4" y="56" width="60" height="54" rx="3" fill="#D3D1C7"/>
+<text x="9" y="71" font-size="9" font-weight="500" fill="#444441">Auto extract</text>
+<text x="9" y="85" font-size="8.5" fill="#5F5E5A">AI framework</text>
+<text x="9" y="99" font-size="8.5" fill="#5F5E5A">token cost applies</text>
+<rect x="4" y="114" width="60" height="50" rx="3" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.22"/>
+<text x="34" y="131" text-anchor="middle" font-size="9" fill="#3C3489">optional</text>
+<text x="34" y="145" text-anchor="middle" font-size="8.5" fill="#534AB7">high-freq only</text>
+</g>
+
+<!-- Separator -->
+<line x1="14" y1="228" x2="666" y2="228" stroke="#AFA9EC" stroke-width="0.35"/>
+
+<!-- ROW 2: Execution Timeline + Status Diagnosis (side by side) -->
+
+<!-- Left panel: Current Status -->
+<text x="175" y="246" text-anchor="middle" font-size="11" font-weight="500" fill="#2C2C2A">Current Status</text>
+<g transform="translate(14,255)">
+<rect width="322" height="92" rx="5" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.25"/>
+<text x="14" y="18" font-size="9.5" font-weight="500" fill="#791F1F">agent-memory DB:</text><text x="140" y="18" font-size="9" fill="#A32D2D">NOT FOUND -- never initialized</text>
+<text x="14" y="35" font-size="9.5" font-weight="500" fill="#27500A">File memory system:</text><text x="140" y="35" font-size="9" fill="#3B6D11">RUNNING -- .workbuddy/memory/ OK</text>
+<text x="14" y="52" font-size="9.5" font-weight="500" fill="#791F1F">FTS5 full-text search:</text><text x="140" y="52" font-size="9" fill="#A32D2D">NOT ACTIVE -- agent-memory missing</text>
+<text x="14" y="69" font-size="9.5" font-weight="500" fill="#791F1F">Vector semantic search:</text><text x="140" y="69" font-size="9" fill="#A32D2D">NOT CONFIGURED -- no LanceDB/Mem0</text>
+<text x="161" y="84" text-anchor="middle" font-size="9" font-weight="500" fill="#4A1B0C">Verdict: Layer 4 only. Huge upgrade potential.</text>
+</g>
+
+<!-- Right panel: Execution Plan -->
+<text x="498" y="246" text-anchor="middle" font-size="11" font-weight="500" fill="#2C2C2A">Execution Plan</text>
+<g transform="translate(344,255)">
+<rect width="322" height="92" rx="5" fill="#FAFAFA" stroke="#B4B2A9" stroke-width="0.3"/>
+<g transform="translate(8,8)"><rect width="72" height="34" rx="3" fill="#EEEDFE"/><text x="36" y="15" text-anchor="middle" font-size="8.5" font-weight="500" fill="#993556">TODAY</text><text x="36" y="28" text-anchor="middle" font-size="8" fill="#534AB7">Step2+5 / 15min</text></g>
+<g transform="translate(86,8)"><rect width="76" height="34" rx="3" fill="#E1F5EE"/><text x="38" y="15" text-anchor="middle" font-size="8.5" font-weight="500" fill="#04342C">THIS WEEK</text><text x="38" y="28" text-anchor="middle" font-size="8" fill="#085041">Step1+3 / 30min</text></g>
+<g transform="translate(168,8)"><rect width="74" height="34" rx="3" fill="#FAECE7"/><text x="37" y="15" text-anchor="middle" font-size="8.5" font-weight="500" fill="#712B13">NEXT</text><text x="37" y="28" text-anchor="middle" font-size="8" fill="#993C1D">Step4+7 / 20min</text></g>
+<g transform="translate(248,8)"><rect width="66" height="34" rx="3" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.3" stroke-dasharray="3,2"/><text x="33" y="15" text-anchor="middle" font-size="8.5" font-weight="500" fill="#444441">AS NEEDED</text><text x="33" y="28" text-anchor="middle" font-size="8" fill="#5F5E5A">Step6 optional</text></g>
+<text x="161" y="57" text-anchor="middle" font-size="8.5" fill="#5F5E5A">Steps 1-5 cover 90% of use cases. Start optional after.</text>
+<line x1="8" y1="65" x2="306" y2="65" stroke="#D3D1C7" stroke-width="0.25"/>
+<text x="14" y="79" font-size="8.5" fill="#5F5E5A">Step1:Install Deps | Step2:L1 Session | Step3:L2 LanceDB | Step4:L3 GitNotes | Step5:L4 Template | Step6:L5+6 Optional | Step7:WAL Protocol</text>
+</g>
+
+<!-- Separator -->
+<line x1="14" y1="358" x2="666" y2="358" stroke="#AFA9EC" stroke-width="0.35"/>
+
+<!-- ROW 3: Data Flow Summary (4 columns) -->
+<text x="340" y="376" text-anchor="middle" font-size="11" font-weight="500" fill="#2C2C2A">Data Flow &amp; Comparison</text>
+
+<g transform="translate(14,386)">
+<rect width="652" height="220" rx="6" fill="#FAFAFA" stroke="#B4B2A9" stroke-width="0.3"/>
+
+<!-- Write Path -->
+<g transform="translate(10,12)">
+<rect width="154" height="96" rx="4" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.25"/>
+<text x="77" y="17" text-anchor="middle" font-size="10" font-weight="500" fill="#3C3489">Write Path</text>
+<text x="10" y="34" font-size="8.5" fill="#534AB7">User msg arrives</text>
+<text x="10" y="48" font-size="8.5" fill="#534AB7">Update L1 state</text>
+<text x="10" y="62" font-size="8.5" fill="#534AB7">Upsert L2 vector idx</text>
+<text x="10" y="76" font-size="8.5" fill="#534AB7">Append L4 if notable</text>
+<text x="10" y="90" font-size="8.5" fill="#534AB7">WAL: memory first</text>
+</g>
+
+<!-- Read Path -->
+<g transform="translate(172,12)">
+<rect width="154" height="96" rx="4" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.25"/>
+<text x="77" y="17" text-anchor="middle" font-size="10" font-weight="500" fill="#04342C">Read Path</text>
+<text x="10" y="34" font-size="8.5" fill="#085041">Query arrives</text>
+<text x="10" y="48" font-size="8.5" fill="#085041">Check L1 for match</text>
+<text x="10" y="62" font-size="8.5" fill="#085041">Else L2 vec search</text>
+<text x="10" y="76" font-size="8.5" fill="#085041">Else L4 FTS fallback</text>
+<text x="10" y="90" font-size="8.5" fill="#085041">L3/L5/L6 as needed</text>
+</g>
+
+<!-- Eviction Policy -->
+<g transform="translate(334,12)">
+<rect width="154" height="96" rx="4" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.25"/>
+<text x="77" y="17" text-anchor="middle" font-size="10" font-weight="500" fill="#042C53">Eviction Policy</text>
+<text x="10" y="34" font-size="8.5" fill="#185FA5">L1: TTL at session end</text>
+<text x="10" y="48" font-size="8.5" fill="#185FA5">L2: LRU decay weekly</text>
+<text x="10" y="62" font-size="8.5" fill="#185FA5">Low-heat to L3 batch</text>
+<text x="10" y="76" font-size="8.5" fill="#185FA5">L4: manual curation only</text>
+<text x="10" y="90" font-size="8.5" fill="#185FA5">L5/L6: API quota mgmt</text>
+</g>
+
+<!-- Storage Cost -->
+<g transform="translate(496,12)">
+<rect width="146" height="96" rx="4" fill="#FAECE7" stroke="#D85A30" stroke-width="0.25"/>
+<text x="73" y="17" text-anchor="middle" font-size="10" font-weight="500" fill="#4A1B0C">Storage Cost</text>
+<text x="10" y="34" font-size="8.5" fill="#993C1D">L1: RAM only ~KB (free)</text>
+<text x="10" y="48" font-size="8.5" fill="#993C1D">L2: Local disk ~MB (free)</text>
+<text x="10" y="62" font-size="8.5" fill="#993C1D">L3: Git repo size (free)</text>
+<text x="10" y="76" font-size="8.5" fill="#993C1D">L4: Single .md file (free)</text>
+<text x="10" y="90" font-size="8.5" fill="#993C1D">L5+6: API pay per use</text>
+</g>
+
+<!-- Comparison Table -->
+<line x1="10" y1="118" x2="632" y2="118" stroke="#D3D1C7" stroke-width="0.3"/>
+<text x="326" y="133" text-anchor="middle" font-size="9.5" font-weight="500" fill="#2C2C2A">Layer Comparison Matrix</text>
+
+<!-- Table header -->
+<text x="20" y="150" font-size="8.5" font-weight="500" fill="#5F5E5A">Dimension</text>
+<text x="95" y="150" font-size="8.5" font-weight="500" fill="#3C3489">L1 Hot</text>
+<text x="155" y="150" font-size="8.5" font-weight="500" fill="#04342C">L2 Warm</text>
+<text x="218" y="150" font-size="8.5" font-weight="500" fill="#042C53">L3 Cold</text>
+<text x="280" y="150" font-size="8.5" font-weight="500" fill="#712B13">L4 Archive</text>
+<text x="350" y="150" font-size="8.5" font-weight="500" fill="#444441">L5 Cloud</text>
+<text x="420" y="150" font-size="8.5" font-weight="500" fill="#444441">L6 Auto</text>
+<line x1="10" y1="156" x2="480" y2="156" stroke="#D3D1C7" stroke-width="0.2"/>
+
+<!-- Row: Storage -->
+<text x="20" y="170" font-size="8.5" fill="#5F5E5A">Storage</text>
+<text x="95" y="170" font-size="8.5" fill="#3C3489">File</text>
+<text x="155" y="170" font-size="8.5" fill="#04342C">LanceDB</text>
+<text x="218" y="170" font-size="8.5" fill="#042C53">Git Notes</text>
+<text x="280" y="170" font-size="8.5" fill="#712B13">Markdown</text>
+<text x="350" y="170" font-size="8.5" fill="#444441">API</text>
+<text x="420" y="170" font-size="8.5" fill="#444441">API</text>
+
+<!-- Row: Speed -->
+<text x="20" y="186" font-size="8.5" fill="#5F5E5A">Speed</text>
+<text x="95" y="186" font-size="8.5" fill="#3C3489">&lt;1ms</text>
+<text x="155" y="186" font-size="8.5" fill="#04342C">~10ms</text>
+<text x="218" y="186" font-size="8.5" fill="#042C53">~100ms</text>
+<text x="280" y="186" font-size="8.5" fill="#712B13">&lt;50ms</text>
+<text x="350" y="186" font-size="8.5" fill="#444441">1-3s</text>
+<text x="420" y="186" font-size="8.5" fill="#444441">async</text>
+
+<!-- Row: Capacity -->
+<text x="20" y="202" font-size="8.5" fill="#5F5E5A">Capacity</text>
+<text x="95" y="202" font-size="8.5" fill="#3C3489">KB</text>
+<text x="155" y="202" font-size="8.5" fill="#04342C">MB</text>
+<text x="218" y="202" font-size="8.5" fill="#042C53">GB</text>
+<text x="280" y="202" font-size="8.5" fill="#712B13">MB</text>
+<text x="350" y="202" font-size="8.5" fill="#444441">unlimited</text>
+<text x="420" y="202" font-size="8.5" fill="#444441">unlimited</text>
+
+<!-- Row: Lifecycle -->
+<text x="520" y="170" font-size="8.5" fill="#5F5E5A">Lifecycle</text>
+<text x="575" y="170" font-size="8.5" fill="#3C3489">session</text>
+<text x="610" y="170" font-size="8.5" fill="#04342C">monthly</text>
+
+<text x="520" y="186" font-size="8.5" fill="#5F5E5A">Search</text>
+<text x="575" y="186" font-size="8.5" fill="#3C3489">none</text>
+<text x="610" y="186" font-size="8.5" fill="#04342C">vector</text>
+
+<text x="520" y="202" font-size="8.5" fill="#5F5E5A">Cost</text>
+<text x="575" y="202" font-size="8.5" fill="#27500A">free</text>
+<text x="610" y="202" font-size="8.5" fill="#27500A">free</text>
+
+<!-- Cost row continued for L3-L6 -->
+<text x="520" y="216" font-size="8.5" fill="#5F5E5A"></text>
+<text x="575" y="216" font-size="8.5" fill="#27500A">free</text>
+<text x="610" y="216" font-size="8.5" fill="#993C1D">$$</text>
+
+</g>
+</svg>

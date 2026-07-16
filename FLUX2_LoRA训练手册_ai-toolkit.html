@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLUX.2 LoRA 训练指南 — ai-toolkit (RTX 5090D v2 24GB)</title>
+<style>
+  :root {
+    --bg: #0d1117; --surface: #161b22; --border: #30363d;
+    --text: #e6edf3; --text2: #8b949e; --accent: #58a6ff;
+    --accent2: #7ee787; --warn: #f0883e; --danger: #f85149;
+    --card: #1c2128; --code-bg: #0d1117; --tag: #1f6feb33;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, 'Segoe UI', 'Noto Sans SC', sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:24px; max-width:1200px; margin:0 auto; }
+  h1 { font-size:1.8em; color:var(--accent); border-bottom:1px solid var(--border); padding-bottom:12px; margin:40px 0 16px; }
+  h2 { font-size:1.35em; color:var(--accent2); margin:28px 0 10px; }
+  h3 { font-size:1.1em; color:var(--text); margin:20px 0 8px; }
+  p { margin:10px 0; color:var(--text2); }
+  strong { color:var(--text); }
+  code { background:var(--code-bg); padding:2px 6px; border-radius:4px; font-size:0.9em; color:var(--accent2); border:1px solid var(--border); }
+  pre { background:var(--code-bg); border:1px solid var(--border); border-radius:8px; padding:16px; overflow-x:auto; margin:12px 0; }
+  pre code { background:none; border:none; padding:0; font-size:0.85em; line-height:1.55; display:block; }
+  .yaml-comment { color: #8b949e; font-style: italic; }
+  table { width:100%; border-collapse:collapse; margin:12px 0; }
+  th { background:var(--surface); color:var(--accent); padding:10px 12px; text-align:left; font-weight:600; border-bottom:2px solid var(--border); }
+  td { padding:10px 12px; border-bottom:1px solid var(--border); color:var(--text2); }
+  tr:hover td { background:var(--card); }
+  .card-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:16px; margin:16px 0; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:20px; }
+  .card h4 { color:var(--accent); margin-bottom:10px; }
+  .card table { margin:0; }
+  .card table th,.card table td { padding:6px 8px; font-size:0.9em; }
+  .badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:0.8em; font-weight:600; }
+  .badge-ok { background:#23863622; color:var(--accent2); }
+  .badge-warn { background:#f0883e22; color:var(--warn); }
+  .badge-no { background:#f8514922; color:var(--danger); }
+  .callout { border-left:4px solid var(--accent); background:var(--surface); padding:14px 18px; border-radius:0 8px 8px 0; margin:16px 0; }
+  .callout-warn { border-left-color:var(--warn); }
+  .callout-danger { border-left-color:var(--danger); }
+  .callout-good { border-left-color:var(--accent2); }
+  .callout-info { border-left-color: #a371f7; }
+  .callout p { margin:4px 0; }
+  .tip { background:var(--card); border:1px dashed var(--border); padding:12px 16px; border-radius:8px; margin:12px 0; }
+  hr { border:none; border-top:1px solid var(--border); margin:32px 0; }
+  ul, ol { margin:8px 0 8px 24px; color:var(--text2); }
+  li { margin:4px 0; }
+  .highlight { background:#7ee78711; border-left:3px solid var(--accent2); }
+  .comparison-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0; }
+  .comparison-box { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:20px; }
+  .comparison-box.error { border-color:var(--danger); background:#f8514908; }
+  .decision-tree { counter-reset:step; }
+  .decision-tree ol { list-style:none; margin-left:0; }
+  .decision-tree li { counter-increment:step; padding:8px 0 8px 36px; position:relative; border-left:2px solid var(--border); margin-left:12px; }
+  .decision-tree li::before { content:counter(step); position:absolute; left:-14px; top:8px; width:26px; height:26px; background:var(--accent); color:#000; border-radius:50%; text-align:center; line-height:26px; font-size:0.8em; font-weight:700; }
+  .inline-good { color:var(--accent2); }
+  .inline-warn { color:var(--warn); }
+  .inline-danger { color:var(--danger); }
+</style>
+</head>
+<body>
+
+<h1>FLUX.2 LoRA 训练指南 — ai-toolkit + RTX 5090D v2 (24GB)</h1>
+
+<div class="callout callout-info">
+  <p><strong>目标环境：RTX 5090D v2 — 24GB GDDR7 / Blackwell 架构。</strong> 5090D v2 是 5090 的二次降级版（初代 32GB → v2 砍至 24GB），显存与 RTX 4090 同为 24GB，Blackwell 架构带来约 1.6x 训练吞吐。本指南以 <strong>FLUX.2-klein-4B + 24GB + ai-toolkit</strong> 为基线，覆盖模型选型、环境搭建、YAML 配置、场景参数、诊断排错，并附横向工具对比、纵向范式演变与逆向失败分析。</p>
+</div>
+
+<hr>
+
+<!-- ===== 第一章：横向对比 ===== -->
+<h1>一、横向对比：训练工具选型</h1>
+
+<h2>1.1 四个工具能力矩阵</h2>
+
+<table>
+  <tr><th>工具</th><th>定位</th><th>FLUX.2 支持</th><th>24GB 可用性</th><th>适用场景</th></tr>
+  <tr><td><strong>ai-toolkit</strong></td><td>FLUX 专项训练</td><td class="inline-good">原生支持</td><td class="inline-good">良好</td><td>YAML 配置、精细控制、脚本化训练</td></tr>
+  <tr><td>Kohya SS</td><td>SD 生态通用训练器</td><td class="inline-danger">不支持 FLUX.2</td><td>—</td><td>仅 FLUX.1 / SDXL / SD3 用户</td></tr>
+  <tr><td>SimpleTuner</td><td>全模型微调</td><td class="inline-good">原生支持</td><td class="inline-danger">勉强</td><td>full fine-tune、大显存（≥48GB）</td></tr>
+  <tr><td>FluxGym</td><td>ai-toolkit 的 WebUI</td><td class="inline-good">支持</td><td class="inline-good">良好</td><td>不习惯 CLI 的用户</td></tr>
+</table>
+
+<h2>1.2 选择决策</h2>
+
+<table>
+  <tr><th>你的情况</th><th>推荐工具</th><th>原因</th></tr>
+  <tr><td>训练 FLUX.2 LoRA，习惯 CLI</td><td><strong>ai-toolkit</strong></td><td>FLUX.2 原生支持最完整，社区活跃，配置灵活</td></tr>
+  <tr><td>训练 FLUX.2 LoRA，需要 GUI</td><td><strong>FluxGym</strong></td><td>底层 = ai-toolkit，增加 WebUI 操作层</td></tr>
+  <tr><td>训练 FLUX.1 / SDXL LoRA</td><td><strong>Kohya SS</strong></td><td>SD 生态标准工具，教程和预设最丰富</td></tr>
+  <tr><td>需要 full fine-tune（非 LoRA）</td><td><strong>SimpleTuner</strong></td><td>支持全参数微调，显存需求高</td></tr>
+  <tr><td>仅 24GB 显存，想跑 Klein 9B</td><td><strong>ai-toolkit</strong></td><td>FP8 量化 + low_vram 是目前唯一能在 24GB 上跑 9B 的方案</td></tr>
+</table>
+
+<div class="callout callout-good">
+  <p><strong>总结：</strong> FLUX.2 LoRA 训练，ai-toolkit 是当前唯一成熟的 CLI 方案。FluxGym 封装了 ai-toolkit，底层一致，可按习惯选择。Kohya SS 未适配 FLUX.2 系列（含 Klein 4B/9B）。</p>
+</div>
+
+<hr>
+
+<!-- ===== 第二章：纵向对比 ===== -->
+<h1>二、纵向对比：SDXL → FLUX.2 训练范式演变</h1>
+
+<h2>2.1 四代模型参数对照</h2>
+
+<table>
+  <tr><th>维度</th><th>SDXL</th><th>SD3</th><th>FLUX.1</th><th>FLUX.2</th></tr>
+  <tr><td><strong>架构</strong></td><td>UNet</td><td>MMDiT</td><td>DiT + Flow Matching</td><td>DiT + Flow Matching + Mistral-3 Encoder</td></tr>
+  <tr><td><strong>LoRA 学习率</strong></td><td>1e-4</td><td>2e-4</td><td>1e-4 ~ 4e-4</td><td class="inline-danger"><strong>8e-4 ~ 1.8e-3</strong></td></tr>
+  <tr><td><strong>LoRA Rank</strong></td><td>32</td><td>32</td><td>16-32</td><td class="inline-danger"><strong>≥32</strong></td></tr>
+  <tr><td><strong>训练步数</strong></td><td>500-1000</td><td>800-1200</td><td>500-800</td><td>1000-2000</td></tr>
+  <tr><td><strong>噪声调度</strong></td><td>DDPM</td><td>Rectified Flow</td><td>Flow Matching</td><td>Flow Matching</td></tr>
+</table>
+
+<h2>2.2 参数变化的底层原因</h2>
+
+<table>
+  <tr><th>变化</th><th>原因</th><th>对训练的影响</th></tr>
+  <tr>
+    <td><strong>学习率 ↑10x</strong></td>
+    <td>DiT 架构中 Transformer 块的梯度尺度远小于 UNet。UNet 的下采样路径天然放大梯度，DiT 没有这个机制，需更高 LR 补偿。</td>
+    <td>用 FLUX.1 的 LR（2e-4）训练 FLUX.2 → 权重几乎无变化，触发词不生效。</td>
+  </tr>
+  <tr>
+    <td><strong>Rank 下限 ↑32</strong></td>
+    <td>ai-toolkit 的 LoRA 实现在低 Rank 时有数值稳定性问题。FLUX.2 的 32B 参数矩阵需要更高的秩来捕获特征方向。</td>
+    <td>Rank=16 时 LoRA 权重接近随机噪声，生图无意义。</td>
+  </tr>
+  <tr>
+    <td><strong>步数 ↑</strong></td>
+    <td>Flow Matching 的损失曲面比 DDPM 更平坦，每步梯度信号更弱，需要更多步数累积。</td>
+    <td>500 步 ≈ 还没开始学；1200 步 ≈ 刚进入有用区间。</td>
+  </tr>
+  <tr>
+    <td><strong>标注从标签→句子</strong></td>
+    <td>Mistral-3 是语言模型而非纯 CLIP 编码器，对自然语言的理解远超孤立标签。标签列表对它来说是句法碎片。</td>
+    <td>标签式标注 → 模型无法建立触发词与视觉特征的关联。</td>
+  </tr>
+</table>
+
+<div class="callout callout-warn">
+  <p><strong>核心结论：</strong> FLUX.2 的调参变化不是"略高略低"的量变，而是 DiT 架构替代 UNet 带来的结构性差异。试图用 SDXL/FLUX.1 的经验直觉去调 FLUX.2 的参数，是训练失败最常见的原因。</p>
+</div>
+
+<hr>
+
+<!-- ===== 第三章：5090D v2 专篇 ===== -->
+<h1>三、RTX 5090D v2 专篇</h1>
+
+<h2>3.1 5090D 的两次降级</h2>
+<ul>
+  <li><strong>初代 5090D（2025 年 1 月发布）</strong>：32GB GDDR7，Tensor 算力按合规要求裁剪</li>
+  <li><strong>5090D v2（2025 年 8 月后）</strong>：美国二次出口管制后二次降级——显存从 32GB 砍至 <strong>24GB GDDR7</strong>，Tensor 算力再削减</li>
+</ul>
+<p>你的 5090D v2 = <strong>显存与 RTX 4090 同为 24GB</strong>，Blackwell 架构带来约 <strong>1.6x</strong> 训练吞吐。</p>
+
+<h2>3.2 5090D v2 vs RTX 4090</h2>
+
+<table>
+  <tr><th>维度</th><th>RTX 4090</th><th>5090D v2</th></tr>
+  <tr><td><strong>架构</strong></td><td>Ada Lovelace</td><td class="inline-good">Blackwell</td></tr>
+  <tr><td><strong>显存</strong></td><td>24 GB GDDR6X</td><td class="inline-good">24 GB GDDR7</td></tr>
+  <tr><td>Klein 4B 迭代速度</td><td>~3 秒/步</td><td class="inline-good">~1.8 秒/步</td></tr>
+  <tr><td>1200 步耗时（4B）</td><td>~60 min</td><td class="inline-good">~35 min</td></tr>
+  <tr><td>VRAM 瓶颈</td><td>相同</td><td>相同（均为 24GB）</td></tr>
+  <tr><td>Tensor 算力</td><td>完整</td><td class="inline-danger">削减版</td></tr>
+  <tr><td>对 LoRA 训练影响</td><td>—</td><td>Tensor 削减主要影响大 batch 推理，LoRA 训练影响有限</td></tr>
+</table>
+
+<p>5090D v2 的定位：<strong>显存约束等同于 4090，计算速度快约 1.6x</strong>。24GB 显存限制不变，所有针对 4090 的 VRAM 优化策略（quantize、low_vram、gradient_checkpointing、cache_latents）在 5090D v2 上同样必需。</p>
+
+<h2>3.3 各模型在 5090D v2 上的可用性</h2>
+
+<table>
+  <tr><th>模型</th><th>参数量</th><th>可用性</th><th>配置要求</th></tr>
+  <tr class="highlight"><td><strong>Klein 4B</strong> ⚡</td><td>40 亿</td><td class="inline-good">舒适</td><td>quantize + low_vram + gradient_checkpointing 全开，batch_size=1，gradient_accumulation=4</td></tr>
+  <tr><td>Klein 9B</td><td>90 亿</td><td class="inline-danger">勉强</td><td>同上全开，batch_size=1，gradient_accumulation=8，VRAM 接近 23.5GB</td></tr>
+  <tr><td>FLUX.2-dev</td><td>320 亿</td><td class="inline-danger">不可行</td><td>24GB 下量化后仍超出 VRAM 上限，频繁 OOM</td></tr>
+</table>
+
+<hr>
+
+<!-- ===== 第四章：硬件需求 ===== -->
+<h1>四、硬件需求总览</h1>
+
+<table>
+  <tr><th>GPU</th><th>VRAM</th><th>Klein 4B</th><th>Klein 9B</th></tr>
+  <tr class="highlight"><td><strong>5090D v2</strong> ⚡</td><td>24 GB</td><td class="inline-good">舒适</td><td class="inline-danger">勉强</td></tr>
+  <tr><td>RTX 4090</td><td>24 GB</td><td class="inline-good">可用</td><td class="inline-danger">勉强</td></tr>
+  <tr><td>RTX 4080</td><td>16 GB</td><td class="inline-danger">勉强</td><td class="inline-danger">不行</td></tr>
+  <tr><td>A100</td><td>80 GB</td><td class="inline-good">舒适</td><td class="inline-good">推荐</td></tr>
+  <tr><td>≤12 GB</td><td>≤12 GB</td><td class="inline-danger">不行</td><td class="inline-danger">不行</td></tr>
+</table>
+
+<hr>
+
+<!-- ===== 第五章：模型选型 ===== -->
+<h1>五、模型选型</h1>
+
+<h2>5.1 FLUX.2 全系列</h2>
+
+<table>
+  <tr><th>模型</th><th>参数量</th><th>训练 VRAM</th><th>HuggingFace 路径</th></tr>
+  <tr class="highlight"><td><strong>Klein 4B</strong> ⚡</td><td>40 亿</td><td class="inline-good">24 GB</td><td><code>black-forest-labs/FLUX.2-klein-base-4B</code></td></tr>
+  <tr><td>Klein 9B</td><td>90 亿</td><td>32 GB</td><td><code>black-forest-labs/FLUX.2-klein-base-9B</code></td></tr>
+  <tr><td>FLUX.2-dev</td><td>320 亿</td><td class="inline-danger">80 GB+</td><td><code>black-forest-labs/FLUX.2-dev</code></td></tr>
+  <tr><td>FLUX.1-dev</td><td>120 亿</td><td>12 GB+</td><td><code>black-forest-labs/FLUX.1-dev</code></td></tr>
+  <tr><td>Flex.2-preview</td><td>可变</td><td>24 GB+</td><td><code>ostris/Flex.2-preview</code></td></tr>
+</table>
+
+<h2>5.2 FLUX.2 vs FLUX.1 关键差异</h2>
+
+<table>
+  <tr><th>特性</th><th>FLUX.1</th><th>FLUX.2</th></tr>
+  <tr><td>文本编码器</td><td>T5-XXL (4.7B)</td><td>Mistral-3 (7B) — 文本理解更强</td></tr>
+  <tr><td>学习率</td><td>1e-4 ~ 4e-4</td><td class="inline-danger"><strong>8e-4 ~ 1.8e-3</strong></td></tr>
+  <tr><td>训练步数</td><td>500-800</td><td>1000-2000</td></tr>
+  <tr><td>ai-toolkit Rank 下限</td><td>16</td><td class="inline-danger"><strong>32（低于 32 效果极差）</strong></td></tr>
+  <tr><td>标注要求</td><td>标签列表可用</td><td class="inline-danger"><strong>必须自然语言句子</strong></td></tr>
+</table>
+
+<hr>
+
+<!-- ===== 第六章：数据集准备 ===== -->
+<h1>六、数据集准备</h1>
+
+<h2>6.1 数据量建议</h2>
+
+<table>
+  <tr><th>训练目标</th><th>建议图片数</th><th>说明</th></tr>
+  <tr><td>角色/面部</td><td>20-30 张</td><td>覆盖多角度、多表情、多光线、多服装组合</td></tr>
+  <tr><td>艺术风格</td><td>30-40 张</td><td>风格一致、主题多样</td></tr>
+  <tr><td>产品/物品</td><td>20-30 张</td><td>多角度、多背景、多光照条件</td></tr>
+</table>
+
+<h2>6.2 标注规范</h2>
+
+<div class="callout callout-danger">
+  <p><strong>必须使用自然语言句子，不能使用标签列表。</strong> Mistral-3 是语言模型，对自然语言的理解远超孤立标签。标签 <code>red dress, garden, smiling</code> 对它来说是句法碎片，无法建立触发词与视觉特征的关联。</p>
+</div>
+
+<p><strong>角色标注示例（40-100 词）：</strong></p>
+<pre><code>[trigger_word] is a Chinese woman in her 30s with shoulder-length black hair and warm brown eyes. She is wearing a white blouse and standing near a window with soft natural light. Expression is calm and approachable. Shot from chest-up with shallow depth of field.</code></pre>
+
+<p><strong>风格标注示例（30-60 词）：</strong></p>
+<pre><code>A digital illustration in watercolor style with soft brush strokes and pastel color palette. The scene depicts a quiet street at twilight, with warm yellow light spilling from cafe windows. Deliberate paint bleeds at edges.</code></pre>
+
+<h2>6.3 文件结构</h2>
+<pre><code>training_data/
+├── img_001.jpg
+├── img_001.txt      ← 同名标注文件
+├── img_002.jpg
+├── img_002.txt
+└── ...</code></pre>
+
+<div class="tip"><code>caption_dropout_rate: 0.05</code> 设置 5% 概率丢弃标注，让模型在无触发词时也能生成类似内容，提升泛化。</div>
+
+<hr>
+
+<!-- ===== 第七章：环境搭建 ===== -->
+<h1>七、环境搭建</h1>
+
+<pre><code>git clone https://github.com/ostris/ai-toolkit.git
+cd ai-toolkit
+python -m venv venv
+source venv/bin/activate        # Linux/Mac
+# 或 venv\Scripts\activate     # Windows
+pip install -r requirements.txt
+pip install accelerate transformers diffusers peft bitsandbytes</code></pre>
+
+<pre><code># 下载 Klein 4B
+huggingface-cli download black-forest-labs/FLUX.2-klein-base-4B \
+  --local-dir ./models/FLUX.2-klein-4B
+
+# 验证
+python run.py --help</code></pre>
+
+<hr>
+
+<!-- ===== 第八章：完整 YAML ===== -->
+<h1>八、完整 YAML — Klein 4B + 5090D v2 (24GB)</h1>
+
+<div class="callout callout-good">
+  <p><strong>以下配置针对 5090D v2（24GB GDDR7）。</strong> 修改 <code>trigger_word</code> 和 <code>folder_path</code> 即可使用。5090D v2 比 4090 快约 1.6x，显存约束相同。</p>
+</div>
+
+<pre><code><span class="yaml-comment"># my_flux2_klein4b_lora.yaml</span>
+---
+job: extension
+config:
+  name: "my_flux2_klein4b_lora_v1"
+  process:
+    - type: 'sd_trainer'
+      training_folder: "output"
+      device: cuda:0
+
+      trigger_word: "ohwx person"
+
+      network:
+        type: "lora"
+        linear: 32              <span class="yaml-comment"># 4B 模型 Rank 32 够用</span>
+        linear_alpha: 16        <span class="yaml-comment"># = Rank / 2</span>
+
+      save:
+        dtype: float16
+        save_every: 250
+        max_step_saves_to_keep: 4
+
+      datasets:
+        - folder_path: "data/my_dataset"
+          caption_ext: "txt"
+          caption_dropout_rate: 0.05
+          cache_latents_to_disk: true   <span class="yaml-comment"># 预处理 latent 存磁盘，省 VRAM + 加速</span>
+          resolution: [512, 768, 1024]  <span class="yaml-comment"># 多分辨率分桶</span>
+
+      train:
+        batch_size: 1                     <span class="yaml-comment"># 24GB 限制</span>
+        gradient_accumulation_steps: 4    <span class="yaml-comment"># 等效 batch=4</span>
+        steps: 1200                       <span class="yaml-comment"># 4B 建议 1000-2000</span>
+        train_unet: true
+        train_text_encoder: false
+        gradient_checkpointing: true      <span class="yaml-comment"># 必须开启</span>
+        noise_scheduler: "flowmatch"
+        optimizer: "adamw8bit"
+        lr: 1.5e-3                        <span class="yaml-comment"># Klein 4B 推荐值</span>
+        ema_config:
+          use_ema: true
+          ema_decay: 0.99
+        dtype: bf16
+
+      model:
+        name_or_path: "black-forest-labs/FLUX.2-klein-base-4B"
+        is_flux: true
+        quantize: true           <span class="yaml-comment"># FP8 权重量化，省约 40% VRAM</span>
+        low_vram: true           <span class="yaml-comment"># 24GB 必须开启</span>
+
+      sample:
+        sampler: "flowmatch"
+        sample_every: 250
+        width: 1024
+        height: 1024
+        prompts:
+          - "[trigger] in a red dress, garden, golden hour"
+          - "[trigger] professional headshot, studio lighting"
+          - "a woman holding a coffee, beanie, sitting at a cafe"
+        guidance_scale: 4
+        sample_steps: 20
+
+meta:
+  name: "my_flux2_klein4b_lora_v1"
+  version: '1.0'</code></pre>
+
+<h2>8.1 关键参数</h2>
+
+<table>
+  <tr><th>参数</th><th>作用与推荐值</th></tr>
+  <tr><td><strong>linear (Rank)</strong></td><td>LoRA 矩阵秩，4B 模型 32 够用，面部上 48</td></tr>
+  <tr><td><strong>lr</strong></td><td class="inline-danger">Klein 4B: 1.2e-3 ~ 1.8e-3</td></tr>
+  <tr><td><strong>steps</strong></td><td>1000-2000（4B 收敛略慢）</td></tr>
+  <tr><td><strong>quantize</strong></td><td>FP8 权重量化，省约 40% VRAM</td></tr>
+  <tr><td><strong>low_vram</strong></td><td>24GB 必须开</td></tr>
+  <tr><td><strong>gradient_checkpointing</strong></td><td>用时间换显存，必须开</td></tr>
+  <tr><td><strong>cache_latents_to_disk</strong></td><td>预处理 latent 存磁盘，省 VRAM + 加速</td></tr>
+</table>
+
+<h2>8.2 切换模型时只改这些</h2>
+
+<table>
+  <tr><th>参数</th><th>Klein 4B</th><th>Klein 9B（极限）</th></tr>
+  <tr><td><strong>name_or_path</strong></td><td><code>FLUX.2-klein-base-4B</code></td><td><code>FLUX.2-klein-base-9B</code></td></tr>
+  <tr><td><strong>lr</strong></td><td>1.5e-3</td><td>1.2e-3</td></tr>
+  <tr><td><strong>steps</strong></td><td>1200-2000</td><td>1000-1500</td></tr>
+  <tr><td><strong>5090D v2 可行性</strong></td><td class="inline-good">舒适</td><td class="inline-danger">勉强</td></tr>
+</table>
+
+<hr>
+
+<!-- ===== 第九章：场景参数 ===== -->
+<h1>九、场景参数速查 — Klein 4B 专属</h1>
+
+<div class="card-grid">
+  <div class="card">
+    <h4>🧑 角色/面部</h4>
+    <table>
+      <tr><td>Rank</td><td><strong>48</strong></td></tr>
+      <tr><td>Alpha</td><td>24</td></tr>
+      <tr><td>学习率</td><td class="inline-good">1.5e-3</td></tr>
+      <tr><td>步数</td><td>1200-1800</td></tr>
+      <tr><td>Batch</td><td>1 (gradient_accumulation_steps=8)</td></tr>
+      <tr><td>数据集</td><td>20-30 张</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>🎨 艺术风格</h4>
+    <table>
+      <tr><td>Rank</td><td><strong>32</strong></td></tr>
+      <tr><td>Alpha</td><td>16</td></tr>
+      <tr><td>学习率</td><td class="inline-good">1.2e-3</td></tr>
+      <tr><td>步数</td><td>1500-2000</td></tr>
+      <tr><td>Batch</td><td>1 (gradient_accumulation_steps=6)</td></tr>
+      <tr><td>数据集</td><td>30-40 张</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>📦 产品/物品</h4>
+    <table>
+      <tr><td>Rank</td><td><strong>40</strong></td></tr>
+      <tr><td>Alpha</td><td>20</td></tr>
+      <tr><td>学习率</td><td class="inline-good">1.5e-3</td></tr>
+      <tr><td>步数</td><td>1200-1600</td></tr>
+      <tr><td>Batch</td><td>1 (gradient_accumulation_steps=6)</td></tr>
+      <tr><td>数据集</td><td>20-30 张</td></tr>
+    </table>
+  </div>
+</div>
+
+<hr>
+
+<!-- ===== 第十章：训练与监控 ===== -->
+<h1>十、启动训练与监控</h1>
+
+<pre><code>python run.py config/my_flux2_klein4b_lora.yaml</code></pre>
+
+<table>
+  <tr><th>监控指标</th><th>健康范围</th></tr>
+  <tr><td>Loss 趋势</td><td>稳定下降，不震荡、不暴涨</td></tr>
+  <tr><td>VRAM 使用</td><td>22-23.5 GB / 24 GB</td></tr>
+  <tr><td>GPU 利用率</td><td class="inline-good">≥ 90%</td></tr>
+  <tr><td>5090D v2 速度（Klein 4B）</td><td class="inline-good">~1.8 秒/步</td></tr>
+</table>
+
+<ul>
+  <li>250 步：应有模糊形状和颜色倾向</li>
+  <li>500 步：主体轮廓成形</li>
+  <li>750 步：细节丰富，触发词生效</li>
+  <li>1000 步：基本可用</li>
+  <li>1200+ 步：稳定可停</li>
+</ul>
+
+<pre><code># 中断后恢复
+python run.py config/my_flux2_klein4b_lora.yaml \
+  --resume output/my_flux2_klein4b_lora_v1/checkpoint-1000</code></pre>
+
+<hr>
+
+<!-- ===== 第十一章：评估部署 ===== -->
+<h1>十一、评估与部署</h1>
+
+<ul>
+  <li><strong>触发词测试：</strong> 用触发词生成，检查是否准确触发</li>
+  <li><strong>泛化测试：</strong> 不同 prompt 下 LoRA 不应污染无关概念</li>
+  <li><strong>强度测试：</strong> 调整权重（0.3-1.0）找最佳平衡</li>
+  <li><strong>过拟合检查：</strong> 生成图不应与训练图完全一致</li>
+  <li><strong>checkpoint 对比：</strong> 逐一对比各中间 checkpoint，取最佳而非最后一步</li>
+</ul>
+
+<p><strong>ComfyUI 部署：</strong></p>
+<ol>
+  <li>找到输出目录中的 <code>.safetensors</code> 文件</li>
+  <li>复制到 <code>ComfyUI/models/loras/</code></li>
+  <li>Load LoRA 节点加载，起始权重 <strong>0.6-0.8</strong></li>
+</ol>
+
+<hr>
+
+<!-- ===== 第十二章：逆向对比 ===== -->
+<h1>十二、逆向对比：错误诊断与思维误区</h1>
+
+<h2>12.1 显性失败（训练崩溃或效果明显差）</h2>
+
+<table>
+  <tr><th>现象</th><th>严重度</th><th>根因</th><th>解决</th></tr>
+  <tr><td>CUDA OOM</td><td class="inline-danger">致命</td><td>未开 quantize/low_vram</td><td>双开 quantize + low_vram + gradient_checkpointing</td></tr>
+  <tr><td>触发词无效</td><td class="inline-danger">严重</td><td>学习率太低（&lt; 5e-4）</td><td>提到 1.5e-3，检查 Rank ≥ 32</td></tr>
+  <tr><td>生成图模糊</td><td class="inline-danger">严重</td><td>LR 太高或步数不够</td><td>降 LR 到 1.2e-3，加步数</td></tr>
+  <tr><td>过拟合（复制原图）</td><td>中等</td><td>步数太多/数据太少</td><td>减步数，增数据多样性</td></tr>
+  <tr><td>训练缓慢（>10s/步）</td><td>中等</td><td>未启用 cache_latents</td><td>开 cache_latents_to_disk: true</td></tr>
+  <tr><td>Loss 不降反升</td><td class="inline-danger">严重</td><td>LR 过高或标注错误</td><td>LR 减半到 7e-4，查标注</td></tr>
+</table>
+
+<h2>12.2 隐性失败（训完能跑但有问题）</h2>
+
+<table>
+  <tr><th>现象</th><th>根因与诊断</th></tr>
+  <tr><td><strong>过拟合泄漏</strong></td><td>高权重（>0.8）时不像训练对象但保留风格痕迹。诊断：同 seed 不同 LoRA 权重（0.3/0.5/0.7/1.0）连续生成对比。</td></tr>
+  <tr><td><strong>权重污染</strong></td><td>触发词在无关 prompt 也产生偏移。诊断：完全去掉触发词生成看异常。</td></tr>
+  <tr><td><strong>高低权重不对称</strong></td><td>0.5 效果好于 1.0 → 过强，降低 Alpha 或增加 caption_dropout。</td></tr>
+  <tr><td><strong>概念漂移</strong></td><td>目标从"人物 A"漂移到"穿红衣服的女性"→ 标注中红色出现频率过高。统计所有标注高频词分布排查。</td></tr>
+  <tr><td><strong>checkpoint 倒挂</strong></td><td>后面 checkpoint 反不如前面的 → 步数过多过拟合，取最佳而非最后。</td></tr>
+  <tr><td><strong>标注数据投毒</strong></td><td>某张图片标注包含错误描述（写错触发词/张冠李戴），导致特定 seed 异常输出。诊断：逐张排除法——删一半数据训练，二分法定位问题图片。</td></tr>
+</table>
+
+<h2>12.3 思维误区</h2>
+
+<div class="comparison-grid">
+  <div class="comparison-box error">
+    <p><strong>❌ 数据越多越好？</strong></p>
+    <p>30 张高质量标注图效果好于 100 张粗糙标注。FLUX.2 对标注质量极度敏感。</p>
+  </div>
+  <div class="comparison-box error">
+    <p><strong>❌ Rank 越高越好？</strong></p>
+    <p>Rank 128 在 4B 上浪费 VRAM 且易过拟合。4B 参数少，32-48 接近上限。</p>
+  </div>
+  <div class="comparison-box error">
+    <p><strong>❌ Loss 越低越好？</strong></p>
+    <p>Loss 到 0.03 很可能已过拟合。4B 健康 Loss 范围 0.05-0.08。</p>
+  </div>
+  <div class="comparison-box error">
+    <p><strong>❌ 最后一步最好？</strong></p>
+    <p>常有 checkpoint-750 优于 -1200。训练后逐一对比中间结果。</p>
+  </div>
+</div>
+
+<h2>12.4 快速诊断决策树</h2>
+
+<div class="decision-tree">
+  <ol>
+    <li>查 VRAM：<code>nvidia-smi</code> 确认未超 24GB 上限</li>
+    <li>查第一个 preview（250 步）：应有模糊轮廓；纯噪声 → 下一步</li>
+    <li>500 步纯噪声 → LR 太低，翻倍至 3e-3 试跑 200 步验证</li>
+    <li>500 步严重过曝/颜色异常 → LR 太高，减半至 7.5e-4</li>
+    <li>Loss 剧烈震荡（邻步差 > 0.02）→ LR 过高，减半</li>
+    <li>750/1000/1200 步分别对比 sample，选最佳 checkpoint</li>
+    <li>触发词无效但图质量正常 → 检查标注文件中触发词一致性</li>
+  </ol>
+</div>
+
+<h2>12.5 诊断命令速查</h2>
+
+<pre><code># 实时显存监控
+watch -n 1 nvidia-smi
+
+# 检查标注文件中触发词出现次数
+grep -r "ohwx person" data/my_dataset/*.txt | wc -l
+
+# 对比两个 checkpoint 的 sample（人工目测）
+# sample 图在 output/xxx/samples/ 下
+
+# 查看训练日志中的 loss 曲线
+grep "loss" output/my_flux2_klein4b_lora_v1/logs/*.log | tail -50
+
+# 统计标注文件中的高频词（排查概念漂移风险）
+cat data/my_dataset/*.txt | tr ' ' '\n' | sort | uniq -c | sort -rn | head -20</code></pre>
+
+<hr>
+
+<div class="callout callout-good">
+  <p><strong>关键参数速记：</strong> 5090D v2 显存同 4090（24GB），Blackwell 架构快约 1.6x。Klein 4B：学习率 1.5e-3、Rank 32、quantize + low_vram 双开、batch_size=1 + gradient_accumulation_steps=4。标注用自然语言句子，不用标签列表。</p>
+</div>
+
+</body>
+</html>

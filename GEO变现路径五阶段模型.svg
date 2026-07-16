@@ -1,0 +1,126 @@
+<svg role="img" width="100%" viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg">
+  <title>GEO业务变现路径 · 五阶段商业模型</title>
+  <desc>从30天先占到360天SaaS课程的五阶段变现路径，含收入结构和护城河</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5"
+      markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrowDown" viewBox="0 0 10 10" refX="5" refY="8"
+      markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M1 2L5 8L9 2" fill="none" stroke="#5F5E5A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <text x="340" y="28" text-anchor="middle" font-size="15px" font-weight="500" font-family="system-ui, sans-serif" fill="#2C2C2A">GEO业务变现路径 · 五阶段模型</text>
+
+  <!-- Stage 1: 先占 -->
+  <rect x="14" y="52" width="122" height="135" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <rect x="14" y="52" width="122" height="32" rx="8" fill="#0F6E56"/>
+  <rect x="14" y="68" width="122" height="16" fill="#0F6E56"/>
+  <text x="75" y="72" text-anchor="middle" font-size="12px" font-weight="500" font-family="system-ui, sans-serif" fill="#FFFFFF">1. 先占 (30天)</text>
+  <text x="24" y="100" font-size="11px" font-weight="500" font-family="system-ui, sans-serif" fill="#04342C">投入期</text>
+  <text x="24" y="118" font-size="11px" font-family="system-ui, sans-serif" fill="#085041">GitHub+方法论</text>
+  <text x="24" y="136" font-size="11px" font-family="system-ui, sans-serif" fill="#085041">+示范案例</text>
+  <line x1="24" y1="148" x2="126" y2="148" stroke="#9FE1CB" stroke-width="0.5"/>
+  <text x="24" y="163" font-size="10px" font-weight="500" font-family="system-ui, sans-serif" fill="#0F6E56">护城河: 时间戳</text>
+  <text x="24" y="178" font-size="10px" font-family="system-ui, sans-serif" fill="#085041">+ 多源一致性</text>
+
+  <!-- Arrow 1->2 -->
+  <line x1="136" y1="119" x2="148" y2="119" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- Stage 2: 高客单服务 -->
+  <rect x="152" y="52" width="122" height="135" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <rect x="152" y="52" width="122" height="32" rx="8" fill="#185FA5"/>
+  <rect x="152" y="68" width="122" height="16" fill="#185FA5"/>
+  <text x="213" y="72" text-anchor="middle" font-size="12px" font-weight="500" font-family="system-ui, sans-serif" fill="#FFFFFF">2. 高客单 (30-90天)</text>
+  <text x="162" y="100" font-size="11px" font-weight="500" font-family="system-ui, sans-serif" fill="#042C53">6-30万/客户</text>
+  <text x="162" y="118" font-size="11px" font-family="system-ui, sans-serif" fill="#0C447C">2-3个电商品牌</text>
+  <text x="162" y="136" font-size="11px" font-family="system-ui, sans-serif" fill="#0C447C">GEO咨询/代运营</text>
+  <line x1="162" y1="148" x2="264" y2="148" stroke="#B5D4F4" stroke-width="0.5"/>
+  <text x="162" y="163" font-size="10px" font-weight="500" font-family="system-ui, sans-serif" fill="#185FA5">护城河: 可验证数据</text>
+  <text x="162" y="178" font-size="10px" font-family="system-ui, sans-serif" fill="#0C447C">+ 杭州区位优势</text>
+
+  <!-- Arrow 2->3 -->
+  <line x1="274" y1="119" x2="286" y2="119" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- Stage 3: 认知建立 -->
+  <rect x="290" y="52" width="122" height="135" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <rect x="290" y="52" width="122" height="32" rx="8" fill="#534AB7"/>
+  <rect x="290" y="68" width="122" height="16" fill="#534AB7"/>
+  <text x="351" y="72" text-anchor="middle" font-size="12px" font-weight="500" font-family="system-ui, sans-serif" fill="#FFFFFF">3. 认知 (90-180天)</text>
+  <text x="300" y="100" font-size="11px" font-weight="500" font-family="system-ui, sans-serif" fill="#26215C">咨询+报告</text>
+  <text x="300" y="118" font-size="11px" font-family="system-ui, sans-serif" fill="#3C3489">引力场系列</text>
+  <text x="300" y="136" font-size="11px" font-family="system-ui, sans-serif" fill="#3C3489">+客户案例+知乎</text>
+  <line x1="300" y1="148" x2="402" y2="148" stroke="#CECBF6" stroke-width="0.5"/>
+  <text x="300" y="163" font-size="10px" font-weight="500" font-family="system-ui, sans-serif" fill="#534AB7">护城河: 电商GEO=海风</text>
+  <text x="300" y="178" font-size="10px" font-family="system-ui, sans-serif" fill="#3C3489">+ 315信任加速器</text>
+
+  <!-- Arrow 3->4 -->
+  <line x1="412" y1="119" x2="424" y2="119" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- Stage 4: 数据产品化 -->
+  <rect x="428" y="52" width="122" height="135" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+  <rect x="428" y="52" width="122" height="32" rx="8" fill="#BA7517"/>
+  <rect x="428" y="68" width="122" height="16" fill="#BA7517"/>
+  <text x="489" y="72" text-anchor="middle" font-size="12px" font-weight="500" font-family="system-ui, sans-serif" fill="#FFFFFF">4. 数据 (180-360天)</text>
+  <text x="438" y="100" font-size="11px" font-weight="500" font-family="system-ui, sans-serif" fill="#412402">¥999-2999/月</text>
+  <text x="438" y="118" font-size="11px" font-family="system-ui, sans-serif" fill="#633806">AI引用月度报告</text>
+  <text x="438" y="136" font-size="11px" font-family="system-ui, sans-serif" fill="#633806">+品类排行榜</text>
+  <line x1="438" y1="148" x2="540" y2="148" stroke="#FAC775" stroke-width="0.5"/>
+  <text x="438" y="163" font-size="10px" font-weight="500" font-family="system-ui, sans-serif" fill="#BA7517">护城河: 唯一可信</text>
+  <text x="438" y="178" font-size="10px" font-family="system-ui, sans-serif" fill="#633806">GEO数据源</text>
+
+  <!-- Arrow 4->5 -->
+  <line x1="550" y1="119" x2="562" y2="119" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- Stage 5: SaaS+课程 -->
+  <rect x="566" y="52" width="100" height="135" rx="8" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+  <rect x="566" y="52" width="100" height="32" rx="8" fill="#639922"/>
+  <rect x="566" y="68" width="100" height="16" fill="#639922"/>
+  <text x="616" y="72" text-anchor="middle" font-size="12px" font-weight="500" font-family="system-ui, sans-serif" fill="#FFFFFF">5. SaaS (360+)</text>
+  <text x="576" y="100" font-size="11px" font-weight="500" font-family="system-ui, sans-serif" fill="#173404">三引擎收入</text>
+  <text x="576" y="118" font-size="11px" font-family="system-ui, sans-serif" fill="#27500A">监测工具</text>
+  <text x="576" y="136" font-size="11px" font-family="system-ui, sans-serif" fill="#27500A">+体系化课程</text>
+  <line x1="576" y1="148" x2="656" y2="148" stroke="#C0DD97" stroke-width="0.5"/>
+  <text x="576" y="163" font-size="10px" font-weight="500" font-family="system-ui, sans-serif" fill="#639922">护城河: 数据积累</text>
+  <text x="576" y="178" font-size="10px" font-family="system-ui, sans-serif" fill="#27500A">时间厚度</text>
+
+  <!-- Divider -->
+  <line x1="14" y1="210" x2="666" y2="210" stroke="#D3D1C7" stroke-width="0.5"/>
+
+  <!-- Revenue structure header -->
+  <text x="340" y="240" text-anchor="middle" font-size="14px" font-weight="500" font-family="system-ui, sans-serif" fill="#2C2C2A">第二年稳态收入结构</text>
+
+  <!-- Revenue bar -->
+  <rect x="14" y="258" width="668" height="32" rx="4" fill="#F1EFE8"/>
+
+  <rect x="14" y="258" width="267" height="32" rx="4" fill="#BA7517"/>
+  <rect x="281" y="258" width="234" height="32" fill="#0F6E56"/>
+  <rect x="515" y="258" width="100" height="32" fill="#185FA5"/>
+  <rect x="615" y="258" width="67" height="32" rx="4" fill="#534AB7"/>
+
+  <text x="148" y="278" text-anchor="middle" font-size="12px" font-weight="500" font-family="system-ui, sans-serif" fill="#FFFFFF">高客单咨询 40%</text>
+  <text x="398" y="278" text-anchor="middle" font-size="12px" font-weight="500" font-family="system-ui, sans-serif" fill="#FFFFFF">数据订阅 35%</text>
+  <text x="565" y="278" text-anchor="middle" font-size="11px" font-weight="500" font-family="system-ui, sans-serif" fill="#FFFFFF">SaaS 15%</text>
+  <text x="648" y="278" text-anchor="middle" font-size="11px" font-weight="500" font-family="system-ui, sans-serif" fill="#FFFFFF">课 10%</text>
+
+  <!-- Key principles -->
+  <text x="340" y="320" text-anchor="middle" font-size="13px" font-weight="500" font-family="system-ui, sans-serif" fill="#2C2C2A">核心原则</text>
+
+  <rect x="14" y="336" width="668" height="140" rx="8" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+
+  <rect x="30" y="350" width="12" height="12" rx="3" fill="#D85A30"/>
+  <text x="50" y="362" font-size="12px" font-weight="500" font-family="system-ui, sans-serif" fill="#2C2C2A">高客单先于课程</text>
+  <text x="50" y="378" font-size="11px" font-family="system-ui, sans-serif" fill="#5F5E5A">先用咨询/代运营产生现金流（6-30万），再养SaaS和课程开发。不是先做课等人买。</text>
+
+  <rect x="30" y="396" width="12" height="12" rx="3" fill="#0F6E56"/>
+  <text x="50" y="408" font-size="12px" font-weight="500" font-family="system-ui, sans-serif" fill="#2C2C2A">数据订阅先于SaaS</text>
+  <text x="50" y="424" font-size="11px" font-family="system-ui, sans-serif" fill="#5F5E5A">月度AI引用报告（飞书多维表格交付）立即收费。这是市场上唯一可信GEO数据源，无法被复制。</text>
+
+  <rect x="30" y="442" width="12" height="12" rx="3" fill="#534AB7"/>
+  <text x="50" y="454" font-size="12px" font-weight="500" font-family="system-ui, sans-serif" fill="#2C2C2A">课程做入口不做主业 (≤10%)</text>
+  <text x="50" y="470" font-size="11px" font-family="system-ui, sans-serif" fill="#5F5E5A">课程最容易被竞品"借鉴"。太原86家机构已在卷。保持咨询(40%)+数据订阅(35%)为收入主体。</text>
+
+</svg>

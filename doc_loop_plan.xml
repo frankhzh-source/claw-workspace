@@ -1,0 +1,101 @@
+<title>公众号文章LOOP方案（完整版）</title>
+<blockquote><p>基于Loop Engineering六大组件，构建公众号内容生产的自动化闭环系统。目标：从\"人指挥AI写每篇文章\"升级到\"人定目标，AI自主循环生产\"。</p></blockquote>
+<h2>一、整体架构</h2>
+<p>公众号文章LOOP是一个七步闭环，覆盖从触发到反馈的完整链路：</p>
+<pre>触发  →  素材  →  决策  →  生产  →  审核  →  发布  →  追踪
+  ↑                                                         │
+  └─────────────────── 循环反馈 ──────────────────────────────┘</pre>
+<p>六大核心组件映射到流程步骤：</p>
+<table><colgroup><col width="150"/><col width="170"/><col width="280"/></colgroup>
+<thead><tr><th background-color="light-purple" vertical-align="middle"><b>组件</b></th><th background-color="light-purple" vertical-align="middle"><b>对应步骤</b></th><th background-color="light-purple" vertical-align="middle"><b>现有资产</b></th></tr></thead>
+<tbody>
+<tr><td vertical-align="middle"><b>触发心跳</b></td><td vertical-align="middle">触发</td><td vertical-align="middle">WorkBuddy automation</td></tr>
+<tr><td vertical-align="middle"><b>连接器</b></td><td vertical-align="middle">素材</td><td vertical-align="middle">WebSearch + 飞书MCP + Elite</td></tr>
+<tr><td vertical-align="middle"><b>技能知识库</b></td><td vertical-align="middle">生产 / 审核</td><td vertical-align="middle">写作铁律 + 运营规范</td></tr>
+<tr><td vertical-align="middle"><b>子代理分工</b></td><td vertical-align="middle">生产</td><td vertical-align="middle">写作/审核/视觉分离</td></tr>
+<tr><td vertical-align="middle"><b>隔离工作树</b></td><td vertical-align="middle">发布</td><td vertical-align="middle">每篇文章独立目录</td></tr>
+<tr><td vertical-align="middle"><b>持久化记忆</b></td><td vertical-align="middle">追踪 / 反馈</td><td vertical-align="middle">Elite L1-L6+WAL系统</td></tr>
+</tbody></table>
+<h2>二、七步闭环详解</h2>
+<h3>第一步：触发心跳</h3>
+<table><colgroup><col width="100"/><col width="200"/><col width="260"/></colgroup>
+<thead><tr><th background-color="light-blue" vertical-align="middle"><b>触发类型</b></th><th background-color="light-blue" vertical-align="middle"><b>场景</b></th><th background-color="light-blue" vertical-align="middle"><b>实现方式</b></th></tr></thead>
+<tbody>
+<tr><td vertical-align="middle">定时触发</td><td vertical-align="middle">固定频率发KIWI日记</td><td vertical-align="middle">WorkBuddy automation定时任务</td></tr>
+<tr><td vertical-align="middle">事件触发</td><td vertical-align="middle">刷到好素材/讨论出好话题</td><td vertical-align="middle">用户发素材给Kiwi触发</td></tr>
+<tr><td vertical-align="middle">手动触发</td><td vertical-align="middle">临时有方向想写</td><td vertical-align="middle">用户直接说写一篇关于X的</td></tr>
+</tbody></table>
+<p><b>组件映射</b>：触发心跳</p>
+<h3>第二步：素材收集</h3>
+<table><colgroup><col width="120"/><col width="160"/><col width="280"/></colgroup>
+<thead><tr><th background-color="light-green" vertical-align="middle"><b>通道</b></th><th background-color="light-green" vertical-align="middle"><b>工具</b></th><th background-color="light-green" vertical-align="middle"><b>提取什么</b></th></tr></thead>
+<tbody>
+<tr><td vertical-align="middle">WebSearch</td><td vertical-align="middle">实时搜索</td><td vertical-align="middle">当日AI热点、概念验证、最新数据</td></tr>
+<tr><td vertical-align="middle">Elite记忆库</td><td vertical-align="middle">L2向量搜索</td><td vertical-align="middle">历史讨论上下文、关联推演</td></tr>
+<tr><td vertical-align="middle">对话记录</td><td vertical-align="middle">对话分析</td><td vertical-align="middle">用户金句、洞察、未成文的观点</td></tr>
+</tbody></table>
+<p><b>组件映射</b>：连接器（对接Web/飞书/Elite）</p>
+<h3>第三步：选题决策</h3>
+<p>三条判断规则：</p>
+<ol><li><b>热点相关性</b>：这个选题和读者有关吗？</li>
+<li><b>素材充足度</b>：手上素材够支撑吗？</li>
+<li><b>差异化角度</b>：市面上有人写吗？你的视角独特在哪？</li></ol>
+<p>风格选择矩阵：</p>
+<table><colgroup><col width="100"/><col width="180"/><col width="280"/></colgroup>
+<thead><tr><th background-color="light-amber" vertical-align="middle"><b>风格</b></th><th background-color="light-amber" vertical-align="middle"><b>适用场景</b></th><th background-color="light-amber" vertical-align="middle"><b>特点</b></th></tr></thead>
+<tbody>
+<tr><td vertical-align="middle"><b>KIWI日记</b></td><td vertical-align="middle">每日观察</td><td vertical-align="middle">软科幻+未来视角+AI头条</td></tr>
+<tr><td vertical-align="middle"><b>技术分析</b></td><td vertical-align="middle">概念拆解</td><td vertical-align="middle">定义+演进+结构+验证</td></tr>
+<tr><td vertical-align="middle"><b>趋势预判</b></td><td vertical-align="middle">长期判断</td><td vertical-align="middle">基于推演的判断+行动建议</td></tr>
+</tbody></table>
+<p><b>组件映射</b>：技能知识库（选题规范）</p>
+<h3>第四步：内容生产</h3>
+<p>子代理分工架构：写作Agent生成初稿 → 视觉Agent生成SVG/图表 → 格式Agent插入互动引导/往期精选/作者信息。</p>
+<p>规范知识库：</p>
+<table><colgroup><col width="120"/><col width="120"/><col width="320"/></colgroup>
+<thead><tr><th background-color="light-purple" vertical-align="middle"><b>规范</b></th><th background-color="light-purple" vertical-align="middle"><b>适用范围</b></th><th background-color="light-purple" vertical-align="middle"><b>内容</b></th></tr></thead>
+<tbody>
+<tr><td vertical-align="middle">公众号运营铁律</td><td vertical-align="middle">全部文章</td><td vertical-align="middle">标题公式/互动引导/往期精选/作者信息</td></tr>
+<tr><td vertical-align="middle">KIWI日记铁律</td><td vertical-align="middle">仅KIWI日记</td><td vertical-align="middle">角色定位/称谓一致/中英文切换/情感调性</td></tr>
+<tr><td vertical-align="middle">飞书文档规则</td><td vertical-align="middle">仅飞书文档</td><td vertical-align="middle">无Kiwi区块/按指令创建</td></tr>
+<tr><td vertical-align="middle">通用写作规则</td><td vertical-align="middle">全部</td><td vertical-align="middle">纯文字超300字插表格/可视化</td></tr>
+</tbody></table>
+<p><b>组件映射</b>：子代理分工 + 技能知识库</p>
+<h3>第五步：审核校验</h3>
+<p>AI自检清单：</p>
+<checkbox done="false">标题使用核心数据/事件 + 你字关联 + 系列标识？</checkbox>
+<checkbox done="false">正文无板块标签（无【今日钩子】/元描述/模板痕迹）？</checkbox>
+<checkbox done="false">纯文字超过300字时穿插了表格或可视化？</checkbox>
+<checkbox done="false">文末有互动引导（转发+评论+在看）？</checkbox>
+<checkbox done="false">文末有3篇往期精选？</checkbox>
+<checkbox done="false">文末有作者信息（海风老师身份+微信）？</checkbox>
+<checkbox done="false">KIWI日记：过了8条角色检查？加了Kiwi区块？</checkbox>
+<checkbox done="false">非KIWI日记：确认没加Kiwi区块？</checkbox>
+<checkbox done="false">未引用已更新/已删除的旧规则？</checkbox>
+<p><b>安全阀</b>：校验规则<b>不允许AI自己修改</b>。发现问题暂停、请求人工介入。</p>
+<h3>第六步：发布交付</h3>
+<table><colgroup><col width="180"/><col width="380"/></colgroup>
+<thead><tr><th background-color="light-green" vertical-align="middle"><b>指令</b></th><th background-color="light-green" vertical-align="middle"><b>输出</b></th></tr></thead>
+<tbody>
+<tr><td vertical-align="middle">写一篇公众号文章</td><td vertical-align="middle">文案（互动+精选+作者信息）</td></tr>
+<tr><td vertical-align="middle">生成飞书文档</td><td vertical-align="middle">创建飞书文档</td></tr>
+<tr><td vertical-align="middle">保存</td><td vertical-align="middle">本地文件（MD/SVG/HTML）</td></tr>
+</tbody></table>
+<p><b>组件映射</b>：隔离工作树 + 连接器（飞书）</p>
+<h3>第七步：效果追踪</h3>
+<p>持久化记忆写入Elite系统：文章主题与风格、读者反馈、使用的素材来源、审核问题、下次优化点。</p>
+<p><b>组件映射</b>：持久化记忆（Elite L1-L6+WAL系统）</p>
+<h2>三、最小可行性方案</h2>
+<ol><li>下次写公众号文章时，按7步流程走一遍</li>
+<li>素材收集+内容生产合并，让AI一步完成</li>
+<li>写完让AI过一遍审核清单（上面9条）</li>
+<li>发布后告诉AI，把经验写回Elite记忆</li></ol>
+<h2>四、后续升级路径</h2>
+<ul>
+<li><b>自动触发</b>：配置automation，每天固定时间触发KIWI日记生成</li>
+<li><b>多Agent审核</b>：写作和审核用不同模型</li>
+<li><b>读者反馈闭环</b>：公众号评论数据回写Elite</li>
+<li><b>模板化</b>：按风格建立内容模板</li>
+</ul>
+<hr/>
+<p><b>作者信息</b><br/>海风老师 | AI技术咨询 / LoRA模型训练 / 电商AI落地<br/>微信：frankhzheng</p>

@@ -1,0 +1,511 @@
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif; background: #f5f5f7; color: #1d1d1f; line-height: 1.6; }
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 20px; }
+  
+  /* Anchor card */
+  .anchor { background: #1a1a2e; border-radius: 16px; padding: 24px; margin-bottom: 24px; color: #fff; }
+  .anchor h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+  .anchor .sub { color: #a0a0b8; font-size: 14px; margin-bottom: 20px; }
+  .anchor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .anchor-item { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 16px; }
+  .anchor-item .label { font-size: 11px; color: #8888aa; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .anchor-item .value { font-size: 15px; font-weight: 500; color: #fff; }
+  .anchor-item .value .tag { display: inline-block; background: rgba(255,255,255,0.12); padding: 0 6px; border-radius: 4px; font-size: 12px; margin-left: 4px; color: #a0d8ff; }
+
+  /* Section card */
+  .card { background: #fff; border-radius: 12px; border: 0.5px solid #e8e8ed; padding: 20px 24px; margin-bottom: 16px; }
+  .card h2 { font-size: 17px; font-weight: 600; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .card h2 .badge { font-size: 11px; background: #e8e8ed; color: #666; padding: 2px 8px; border-radius: 4px; font-weight: 400; }
+  .card h3 { font-size: 14px; font-weight: 500; margin: 12px 0 8px; color: #444; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 8px 0; }
+  th { text-align: left; padding: 8px 10px; background: #f5f5f7; border-bottom: 1px solid #e0e0e5; font-weight: 500; color: #555; font-size: 12px; }
+  td { padding: 8px 10px; border-bottom: 1px solid #f0f0f3; }
+  tr:last-child td { border-bottom: none; }
+
+  /* Chain blocks */
+  .chain { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 8px 0; }
+  .chain-item { background: #f0f4ff; border: 0.5px solid #c8d8f0; border-radius: 8px; padding: 8px 14px; font-size: 13px; }
+  .chain-arrow { color: #888; font-size: 16px; }
+  .chain-result { background: #e8f5e9; border-color: #a5d6a7; }
+
+  /* Comparison cards */
+  .comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin: 8px 0; }
+  .comp-card { border: 0.5px solid #e0e0e5; border-radius: 10px; padding: 12px 14px; }
+  .comp-card .name { font-weight: 500; font-size: 13px; margin-bottom: 2px; }
+  .comp-card .detail { font-size: 12px; color: #666; }
+  .comp-card .status { font-size: 11px; margin-top: 6px; padding: 2px 8px; border-radius: 4px; display: inline-block; }
+  .status-ok { background: #e8f5e9; color: #2e7d32; }
+  .status-no { background: #fce4ec; color: #c62828; }
+  .status-maybe { background: #fff3e0; color: #e65100; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
+  .tab-btn { padding: 6px 14px; border-radius: 6px; border: 0.5px solid #d0d0d5; background: #fff; font-size: 12px; cursor: pointer; color: #555; }
+  .tab-btn.active { background: #1a1a2e; color: #fff; border-color: #1a1a2e; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Info boxes */
+  .info-box { background: #f0f4ff; border-left: 3px solid #4285f4; border-radius: 0 8px 8px 0; padding: 10px 14px; margin: 8px 0; font-size: 13px; }
+  .info-box.warn { background: #fff8e1; border-color: #ffa000; }
+  .info-box.danger { background: #fce4ec; border-color: #e53935; }
+  .info-box.success { background: #e8f5e9; border-color: #43a047; }
+  .info-box .label { font-weight: 500; margin-bottom: 2px; }
+
+  /* Scenario */
+  .scenario { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 8px 0; }
+  .scenario-item { border: 0.5px solid #e0e0e5; border-radius: 8px; padding: 10px 12px; }
+  .scenario-item .action { font-weight: 500; font-size: 12px; color: #1a1a2e; }
+  .scenario-item .effect { font-size: 12px; color: #555; margin-top: 4px; }
+  .scenario-item .result { font-size: 12px; color: #2e7d32; margin-top: 2px; font-weight: 500; }
+
+  .divider { height: 1px; background: #e8e8ed; margin: 16px 0; }
+
+  @media (max-width: 640px) {
+    .anchor-grid { grid-template-columns: 1fr 1fr; }
+    .chain { flex-direction: column; align-items: stretch; }
+    .chain-arrow { transform: rotate(90deg); text-align: center; }
+  }
+</style>
+
+<div class="container">
+
+<!-- Anchor -->
+<div class="anchor">
+  <h1>FLUX.2-Klein-4B 训练逻辑推演</h1>
+  <div class="sub">以你实际使用的模型组合为锚点，做多维度推理分析。排除GEO和词源污染。</div>
+  <div class="anchor-grid">
+    <div class="anchor-item">
+      <div class="label">Base Model</div>
+      <div class="value">FLUX.2-klein-4B <span class="tag">4B params</span></div>
+    </div>
+    <div class="anchor-item">
+      <div class="label">Training Tool</div>
+      <div class="value">ai-toolkit <span class="tag">YAML LoRA</span></div>
+    </div>
+    <div class="anchor-item">
+      <div class="label">GPU</div>
+      <div class="value">RTX 5090D v2 <span class="tag">24GB GDDR7</span></div>
+    </div>
+    <div class="anchor-item">
+      <div class="label">Trigger Word</div>
+      <div class="value">ohwx person <span class="tag">服装LoRA</span></div>
+    </div>
+    <div class="anchor-item">
+      <div class="label">Architecture</div>
+      <div class="value">DiT + Flow Matching <span class="tag">Mistral-3 7B</span></div>
+    </div>
+    <div class="anchor-item">
+      <div class="label">Train Data</div>
+      <div class="value">20-30 images <span class="tag">3拍摄源/17品</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Tab Navigation -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('attr')">属性推理</button>
+  <button class="tab-btn" onclick="switchTab('chain')">链式推理</button>
+  <button class="tab-btn" onclick="switchTab('horizon')">横向对比</button>
+  <button class="tab-btn" onclick="switchTab('vertical')">纵向对比</button>
+  <button class="tab-btn" onclick="switchTab('reverse')">逆向反推</button>
+  <button class="tab-btn" onclick="switchTab('forward')">演义推演</button>
+  <button class="tab-btn" onclick="switchTab('clean')">污染排除</button>
+</div>
+
+<!-- 属性推理 -->
+<div id="tab-attr" class="tab-content active">
+  <div class="card">
+    <h2>属性推理 <span class="badge">attribute reasoning</span></h2>
+    <p style="font-size:13px;color:#666;margin-bottom:12px;">每个组件的关键属性拆解，以及该属性对训练策略的直接约束。</p>
+    <table>
+      <tr><th>组件</th><th>关键属性</th><th>对训练的约束</th><th>影响等级</th></tr>
+      <tr><td rowspan="3"><b>Klein 4B</b></td><td>DiT 架构（非 UNet）</td><td>梯度尺度小 → LR 需 ×10↑（1.5e-3 vs SDXL 1e-4）</td><td>🔴 致命</td></tr>
+      <tr><td>Mistral-3 编码器（7B）</td><td>必须自然语言句子标注，标签列表无效</td><td>🔴 致命</td></tr>
+      <tr><td>Flow Matching 噪声调度</td><td>损失曲面平坦 → 需更多步数（1000-2000）</td><td>🟡 重要</td></tr>
+      <tr><td rowspan="2"><b>ai-toolkit</b></td><td>LoRA 实现依赖 Rank</td><td>Rank &lt; 32 时数值不稳定，生图无意义</td><td>🔴 致命</td></tr>
+      <tr><td>YAML 配置驱动</td><td>quantize / low_vram 必须显式开启</td><td>🟡 重要</td></tr>
+      <tr><td rowspan="2"><b>5090D v2</b></td><td>24GB VRAM（同 4090）</td><td>batch_size=1，必须量化+low_vram+gradient_checkpoint</td><td>🔴 致命</td></tr>
+      <tr><td>Blackwell 架构</td><td>1.6× 4090 吞吐，但 Tensor 算力削减</td><td>🟢 正向</td></tr>
+      <tr><td rowspan="2"><b>你的数据</b></td><td>服装 LoRA，17 品 3 源</td><td>每个品至少 3 张不同角度；摆拍/模特混用</td><td>🟡 重要</td></tr>
+      <tr><td>触发词 "ohwx person"</td><td>拼写一致性、概念独立性必须验证</td><td>🔴 致命</td></tr>
+    </table>
+    <div class="info-box danger">
+      <div class="label">属性推理结论</div>
+      3 个致命约束（DiT梯度尺度 / Mistral-3标注 / 24GB显存）同时作用于你的配置。任何一个忽略 → 训练必然失败。
+    </div>
+  </div>
+</div>
+
+<!-- 链式推理 -->
+<div id="tab-chain" class="tab-content">
+  <div class="card">
+    <h2>链式推理 <span class="badge">chain reasoning</span></h2>
+    <p style="font-size:13px;color:#666;margin-bottom:12px;">因果链追踪：从架构设计一路传导到你的训练参数选择。</p>
+
+    <h3>链 1：编码器链条（标注决定了 LoRA 的成败）</h3>
+    <div class="chain">
+      <span class="chain-item">Mistral-3 (7B LLM)</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item">理解自然语言 &gt; 标签</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item">标注必须 40-100词句子</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item">触发词出现 2-3次</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item chain-result">触发词有效 + 泛化好 ✅</span>
+    </div>
+    <div class="info-box warn">
+      如果标注是标签列表（如"ohwx person, pink pajama, bedroom"），Mistral-3 无法建立触发词与视觉特征的语义关联 → 触发词完全无效。
+    </div>
+
+    <h3>链 2：架构链条（DiT 的梯度特性决定了 LR）</h3>
+    <div class="chain">
+      <span class="chain-item">DiT (Transformer) 无下采样</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item">梯度尺度小于 UNet</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item">需更高 LR 补偿</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item">LR 范围 1.2e-3~1.8e-3</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item chain-result">与 SDXL 相差 10-15倍 🚨</span>
+    </div>
+    <div class="info-box danger">
+      用 SDXL 直觉（1e-4）调 FLUX.2 → 训练跑了 1200 步但权重几乎无变化 → 以为是步数不够 → 加到 2000 步还是无效 → 浪费数小时。
+    </div>
+
+    <h3>链 3：硬件的上限链条（24GB 决定了配置链）</h3>
+    <div class="chain">
+      <span class="chain-item">5090D v2 24GB</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item">必须 quantize FP8</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item">low_vram offload CPU</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item">gradient_checkpointing</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item">batch_size=1</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item chain-result">VRAM 22-23.5GB 稳定 ✅</span>
+    </div>
+    <div class="info-box danger">
+      少开任何一个优化开关 → 训练到 300 步附近 OOM → 白跑数十分钟。
+    </div>
+
+    <h3>链 4：服装品类链条（数据多样性 → 泛化能力）</h3>
+    <div class="chain">
+      <span class="chain-item">17个产品代码</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item">每个品覆盖3种角度</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item">摆拍/模特不同光源混合</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item">Mistral-3 学到泛化特征</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-item chain-result">多角度可生成 ✅</span>
+    </div>
+    <div class="info-box warn">
+      如果 17 个产品全是正面摆拍白底图 → LoRA 学到的不是"这个产品"而是"正面摆拍白底的画风"。
+    </div>
+  </div>
+</div>
+
+<!-- 横向对比 -->
+<div id="tab-horizon" class="tab-content">
+  <div class="card">
+    <h2>横向对比 <span class="badge">horizontal: 其他工具适配 Klein 4B</span></h2>
+    <p style="font-size:13px;color:#666;margin-bottom:12px;">以 Klein 4B 为锚点，评估其他训练工具的适配性。</p>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="name">ai-toolkit</div>
+        <div class="detail">你正在用的工具</div>
+        <div class="status status-ok">原生支持 Klein 4B</div>
+        <div style="font-size:11px;color:#888;margin-top:4px;">FLUX.2全系原生支持。YAML配置量化/低显存/LoRA参数，适配 24GB。社区最活跃。</div>
+        <div style="font-size:11px;color:#888;margin-top:4px;">但：lark-cli 版本 1.0.47，有 1.0.48 可用，建议更新。</div>
+      </div>
+      <div class="comp-card">
+        <div class="name">FluxGym</div>
+        <div class="detail">ai-toolkit WebUI 封装</div>
+        <div class="status status-ok">底层=ai-toolkit</div>
+        <div style="font-size:11px;color:#888;margin-top:4px;">底层调用 ai-toolkit，所以对 Klein 4B 的支持与 ai-toolkit 一致。如果你更喜欢 GUI 操作，这是唯一的选择。</div>
+        <div style="font-size:11px;color:#888;margin-top:4px;">但：LoRA 的 YAML 参数控制不如 CLI 灵活。</div>
+      </div>
+      <div class="comp-card">
+        <div class="name">Kohya SS</div>
+        <div class="detail">SD 生态标准</div>
+        <div class="status status-no">不支持 FLUX.2</div>
+        <div style="font-size:11px;color:#888;margin-top:4px;">截至发布时 Kohya 尚未适配 FLUX.2 任何变体（含 Klein 4B/9B）。仅支持 FLUX.1-dev、SDXL、SD3。</div>
+        <div style="font-size:11px;color:#888;margin-top:4px;">对你的配置完全不可用。</div>
+      </div>
+      <div class="comp-card">
+        <div class="name">SimpleTuner</div>
+        <div class="detail">全模型微调</div>
+        <div class="status status-maybe">支持但需 ≥48GB</div>
+        <div style="font-size:11px;color:#888;margin-top:4px;">支持 FLUX.2 全系列，但专为全参微调设计，最低推荐 48GB 显存。24GB 上即使跑 LoRA 也很极限。</div>
+        <div style="font-size:11px;color:#888;margin-top:4px;">非 LoRA 场景（如 full fine-tune）可选，但你的配置不适合。</div>
+      </div>
+    </div>
+    <div class="info-box success">
+      <div class="label">横向对比结论</div>
+      你的配置选择（ai-toolkit + Klein 4B + 5090D v2）是当前唯一成熟的组合。Kohya 不能用，SimpleTuner 显存不够，FluxGym 底层与 ai-toolkit 一致。没有更好的替代方案——所以关键是把这个组合用到极致，而不是换工具。
+    </div>
+  </div>
+</div>
+
+<!-- 纵向对比 -->
+<div id="tab-vertical" class="tab-content">
+  <div class="card">
+    <h2>纵向对比 <span class="badge">vertical: SDXL → FLUX.2 训练范式演变</span></h2>
+    <p style="font-size:13px;color:#666;margin-bottom:12px;">从 SDXL 到你的 Klein 4B，每一个关键参数的结构性变化及原因。</p>
+    <table>
+      <tr><th>维度</th><th>SDXL</th><th>SD3</th><th>FLUX.1</th><th style="background:#e8eaf6;">Klein 4B</th></tr>
+      <tr>
+        <td><b>架构</b></td>
+        <td>UNet</td><td>MMDiT</td><td>DiT + Flow Matching</td>
+        <td style="background:#e8eaf6;">DiT + Flow Matching<br/>+ Mistral-3</td>
+      </tr>
+      <tr>
+        <td><b>编码器</b></td>
+        <td>CLIP</td><td>CLIP + T5</td><td>T5-XXL (4.7B)</td>
+        <td style="background:#e8eaf6;">Mistral-3 (7B) ⭐</td>
+      </tr>
+      <tr>
+        <td><b>LoRA LR</b></td>
+        <td>1e-4</td><td>2e-4</td><td>1e-4~4e-4</td>
+        <td style="background:#e8eaf6;font-weight:500;">1.5e-3 ↑15×</td>
+      </tr>
+      <tr>
+        <td><b>Rank 下限</b></td>
+        <td>16</td><td>16</td><td>16</td>
+        <td style="background:#e8eaf6;font-weight:500;">32 ↑2×</td>
+      </tr>
+      <tr>
+        <td><b>训练步数</b></td>
+        <td>500-800</td><td>800-1200</td><td>500-800</td>
+        <td style="background:#e8eaf6;font-weight:500;">1200-2000 ↑2×</td>
+      </tr>
+      <tr>
+        <td><b>标注格式</b></td>
+        <td>标签可用</td><td>句子建议</td><td>句子建议</td>
+        <td style="background:#e8eaf6;font-weight:500;">必须自然语言 ❗</td>
+      </tr>
+      <tr>
+        <td><b>24GB 可用性</b></td>
+        <td>舒适</td><td>可用</td><td>可用</td>
+        <td style="background:#e8eaf6;font-weight:500;">需全部优化开关</td>
+      </tr>
+    </table>
+    <div class="info-box danger">
+      <div class="label">范式断层警告</div>
+      SDXL 到 Klein 4B 不是"略高略低"的量变，而是三次跨代断层：<br/>
+      <b>1.</b> UNet → DiT → LR 变 15× 高<br/>
+      <b>2.</b> CLIP → Mistral-3 → 标注从标签变成自然语言<br/>
+      <b>3.</b> 12GB 可用 → 24GB 挤压 → 优化开关缺一不可
+    </div>
+  </div>
+</div>
+
+<!-- 逆向反推 -->
+<div id="tab-reverse" class="tab-content">
+  <div class="card">
+    <h2>逆向反推 <span class="badge">reverse: 从失败现象到根因</span></h2>
+    <p style="font-size:13px;color:#666;margin-bottom:12px;">以你的具体配置（Klein 4B + 5090D v2 24GB + 服装LoRA）为上下文，从失败现象逆推根因。</p>
+    <table>
+      <tr><th>#</th><th>现象</th><th>逆推路径</th><th>根因定位</th><th>修复</th></tr>
+      <tr>
+        <td>1</td>
+        <td>OOM，训练到 300 步崩溃</td>
+        <td>OOM → VRAM 超 24GB → quantize/low_vram 未同时开启</td>
+        <td>优化链不完整</td>
+        <td>quantize+low_vram+gradient_checkpointing+cache_latents 全开</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>1200 步跑完，触发词完全无效</td>
+        <td>触发词无效 → LoRA 权重近乎随机 → 梯度信号不足 → LR 太低（可能用了 < 5e-4）</td>
+        <td>LR 低了 10 倍</td>
+        <td>LR 从 1.5e-3 起步，不要低于 1e-3</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>触发词有效，但生成图背景永远是白底</td>
+        <td>背景一致 → 训练图全是白底 → 标注未描述背景 → Mistral-3 把"白底"当成触发词特征</td>
+        <td>标注缺少背景描述</td>
+        <td>每条标注加场景/光线描述</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>不加触发词时，所有输出都带粉色</td>
+        <td>风格偏移 → 权重污染 → 标注中"pink"出现率 > 40%</td>
+        <td>高频词污染</td>
+        <td>训练前跑词频检查，平衡颜色描述分布</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>checkpoint-1000 不如 750</td>
+        <td>后面不如前面 → 过拟合 → 步数过多，LR 未衰减</td>
+        <td>checkpoint 倒挂</td>
+        <td>保留所有中间输出，选最佳而非最后；LR 衰减策略</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Loss 不降反升（震荡）</td>
+        <td>Loss 不降 → 梯度更新方向不稳定 → LR 过高或数据有噪声</td>
+        <td>LR 过高/标注错</td>
+        <td>LR 减半到 7.5e-4，检查标注是否矛盾</td>
+      </tr>
+    </table>
+    <div class="info-box success">
+      <div class="label">逆向反推核心原则</div>
+      逆推时始终以你的配置为约束：看到"触发词无效"不要先怀疑模型，先查 LR 和 Rank（Klein 4B 的固有约束）。
+    </div>
+  </div>
+</div>
+
+<!-- 演义正向推演 -->
+<div id="tab-forward" class="tab-content">
+  <div class="card">
+    <h2>演义正向推演 <span class="badge">scenario deduction</span></h2>
+    <p style="font-size:13px;color:#666;margin-bottom:12px;">如果改变某个关键参数，会如何连锁影响到训练结果。以你的配置为基准场景。</p>
+
+    <table>
+      <tr><th>场景</th><th>变更</th><th>预计影响</th><th>连锁反应链</th><th>建议</th></tr>
+      <tr>
+        <td><b>LR 翻倍</b></td>
+        <td>1.5e-3 → 3e-3</td>
+        <td>Loss 震荡 ↑</td>
+        <td>LR↑ → 梯度步长过大 → 权重在最优值两侧摆动 → Loss 邻步差 > 0.02 → sample 颜色异常/过曝</td>
+        <td>仅在触发词完全无效时试，跑 200 步观察即停</td>
+      </tr>
+      <tr>
+        <td><b>LR 减半</b></td>
+        <td>1.5e-3 → 7.5e-4</td>
+        <td>收敛变慢，触发词弱</td>
+        <td>LR↓ → 梯度更新不足 → 1200 步触发词弱 → 以为步数不够 → 加到 2000 步 → 浪费 40% 训练时间</td>
+        <td>只在出现过曝/模糊时使用，同时增加步数到 1800+</td>
+      </tr>
+      <tr>
+        <td><b>Rank 降为 16</b></td>
+        <td>32 → 16</td>
+        <td>LoRA 权重接近随机</td>
+        <td>Rank↓ → ai-toolkit LoRA 数值不稳定 → 权重接近噪声 → GradNorm 异常 → sample 无意义</td>
+        <td>Klein 4B 上 Rank < 32 不可用，严格禁止</td>
+      </tr>
+      <tr>
+        <td><b>关闭 quantize</b></td>
+        <td>FP8 → FP16</td>
+        <td>VRAM +40% → OOM</td>
+        <td>quantize off → VRAM 需求从 ~22GB → ~30GB → 超 24GB 上限 → 300 步 OOM</td>
+        <td>全参训练不可能，必须量化</td>
+      </tr>
+      <tr>
+        <td><b>再多新增 20 张图</b></td>
+        <td>30 → 50</td>
+        <td>步数需求增加</td>
+        <td>数据量↑ → 每张图需步数不变 → 总步数需从 1200 提到 2000+ → 训练时间 +60%</td>
+        <td>保持 20-30 张，提升标注质量比加数量更有效</td>
+      </tr>
+      <tr>
+        <td><b>从 Klein 4B 切到 9B</b></td>
+        <td>4B → 9B</td>
+        <td>VRAM 接近极限</td>
+        <td>参数量 ↑2.25× → VRAM 需求接近 23.5GB 极限 → 需 gradient_accumulation_steps=8 → 训练时间 +50%，LR 降到 1.2e-3</td>
+        <td>4B 够用，9B 仅在 4B 无法收敛时才考虑</td>
+      </tr>
+    </table>
+
+    <div class="info-box danger">
+      <div class="label">演义推演核心发现</div>
+      6 个最常见变更中，4 个会导致训练失败或质量下降。最危险的两个误操作：<b>Rank 降到 16</b> 和 <b>关闭 quantize</b>——都触发致命失败且无法在训练中恢复。
+    </div>
+  </div>
+</div>
+
+<!-- 污染排除 -->
+<div id="tab-clean" class="tab-content">
+  <div class="card">
+    <h2>GEO 污染与词源污染排除 <span class="badge">contamination exclusion</span></h2>
+    <p style="font-size:13px;color:#666;margin-bottom:12px;">排除两种污染源，确保训练建议只反映你真实配置的约束。</p>
+
+    <h3>GEO 污染排除</h3>
+    <table>
+      <tr><th>污染来源</th><th>表现</th><th>对你的影响</th><th>排除措施</th></tr>
+      <tr>
+        <td>GEO 通用优化思维<br/>（追求"泛用最优解"）</td>
+        <td>给"通用"建议而非"你的配置专属"建议</td>
+        <td>GEO 会推荐 SDXL 常用 LR 1e-4，这在 Klein 4B 上完全无效</td>
+        <td>✅ 所有参数建议已锚定 Klein 4B + 5090D v2 的具体值</td>
+      </tr>
+      <tr>
+        <td>GEO "越多越好"思维</td>
+        <td>推荐增加数据量、增大 Rank、增加步数</td>
+        <td>你的 24GB 上限禁止 Rank>48 或数据量>50</td>
+        <td>✅ 明确区分"数据量"和"数据多样性"是两回事</td>
+      </tr>
+      <tr>
+        <td>GEO "泛化是唯一目标"</td>
+        <td>过度追求泛化导致 LoRA 特征弱</td>
+        <td>服装 LoRA 需要平衡"触发准确"和"灵活生成"</td>
+        <td>✅ 标注中 trigger word 出现 2-3 次确保触发强度</td>
+      </tr>
+      <tr>
+        <td>GEO "最新模型最好"</td>
+        <td>建议用 FLUX.2-dev 而非 Klein 4B</td>
+        <td>dev 版 32B 参数，24GB 完全不可行</td>
+        <td>✅ 只推荐你当前可用的模型，不推荐不可行的方案</td>
+      </tr>
+    </table>
+
+    <div class="divider"></div>
+
+    <h3>词源污染排除</h3>
+    <table>
+      <tr><th>污染类型</th><th>表现</th><th>对你的影响</th><th>检测方法</th></tr>
+      <tr>
+        <td><b>触发词被稀释</b></td>
+        <td>"ohwx person" 被"Chinese woman" "pink pajama"等高频描述稀释注意力权重</td>
+        <td>触发词出现率不足，Mistral-3 无法建立稳定关联</td>
+        <td>grep 统计触发词出现率，确保每条 2-3 次</td>
+      </tr>
+      <tr>
+        <td><b>高频属性污染</b></td>
+        <td>"pink" 在 17 品中出现 12 次（71%），Mistral-3 把"ohwx person" = "穿粉色的人"</td>
+        <td>你实际有黑底粉花等非粉色款，这些款生成的图会被强制偏粉</td>
+        <td>词频检查：cat *.txt | tr ' ' '\n' | sort | uniq -c | sort -rn | head -20</td>
+      </tr>
+      <tr>
+        <td><b>场景污染</b></td>
+        <td>所有标注都以"bedroom"开头，导致 LoRA 无法泛化到户外/棚拍</td>
+        <td>你的摆拍图是棚拍，模特图是卧室，必须混合描述</td>
+        <td>检查场景关键词分布，确保覆盖 bedroom/studio/indoor/outdoor</td>
+      </tr>
+      <tr>
+        <td><b>触发词拼写不一致</b></td>
+        <td>部分标注写"ohwx person"，部分写"ohwxPerson"</td>
+        <td>Mistral-3 把它们当成两个不同概念，触发词效果减半</td>
+        <td>grep -r "ohwx" *.txt | sort | uniq -c，检查所有变体</td>
+      </tr>
+    </table>
+
+    <div class="info-box success">
+      <div class="label">排除结论</div>
+      排除两种污染后，你的训练策略应聚焦在 3 个核心约束上：<br/>
+      <b>①</b> Klein 4B 的 LR 必须 ≥ 1e-3，<b>②</b> 24GB 要求 6 个优化开关全开，<b>③</b> Mistral-3 要求标注必须是 40-100 词的自然语言句子且词频均衡。
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector(`.tab-btn[onclick="switchTab('${name}')"]`).classList.add('active');
+}
+</script>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenClaw 问题解法框架 · 一页纸</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 13px; color: #1a1a1a; background: #f5f4f0; padding: 24px; }
+.wrap { max-width: 980px; margin: 0 auto; background: #fff; border-radius: 12px; padding: 24px 28px; border: 1px solid #e0dfd8; }
+.main-title { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+.main-sub { font-size: 12px; color: #888; margin-bottom: 20px; }
+.section-label { font-size: 11px; font-weight: 500; color: #888; letter-spacing: 0.05em; margin-bottom: 8px; margin-top: 18px; }
+.row { display: flex; gap: 10px; }
+.col { flex: 1; min-width: 0; }
+.card { background: #fff; border: 1px solid #e8e7e0; border-radius: 10px; padding: 13px 15px; height: 100%; }
+.layer-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.layer-badge { font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 4px; white-space: nowrap; }
+.badge-green { background: #EAF3DE; color: #3B6D11; }
+.badge-blue { background: #E6F1FB; color: #185FA5; }
+.badge-amber { background: #FAEEDA; color: #854F0B; }
+.badge-purple { background: #EEEDFE; color: #534AB7; }
+.layer-title { font-size: 13px; font-weight: 500; }
+.item-list { list-style: none; }
+.item-list li { font-size: 12px; color: #555; line-height: 1.7; padding-left: 14px; position: relative; }
+.item-list li::before { content: "·"; position: absolute; left: 3px; color: #bbb; }
+.item-list li b { color: #1a1a1a; font-weight: 500; }
+.divider { height: 1px; background: #f0efe8; margin: 14px 0; }
+.sub-section { font-size: 11px; font-weight: 500; color: #aaa; margin: 8px 0 4px; }
+.bottom-row { display: flex; gap: 10px; margin-top: 10px; }
+.action-card { flex: 1; background: #f5f4f0; border-radius: 8px; padding: 11px 13px; }
+.action-num { font-size: 18px; font-weight: 500; color: #e0dfd8; margin-bottom: 4px; }
+.action-title { font-size: 12px; font-weight: 500; margin-bottom: 3px; }
+.action-body { font-size: 11px; color: #888; line-height: 1.6; }
+.root-cause { display: flex; gap: 10px; margin-bottom: 10px; }
+.cause-card { flex: 1; background: #FCEBEB; border-radius: 8px; padding: 10px 12px; }
+.cause-title { font-size: 12px; font-weight: 500; color: #A32D2D; margin-bottom: 4px; }
+.cause-body { font-size: 11px; color: #7a3333; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="main-title">OpenClaw 执行问题 · 四层解法框架</div>
+  <div class="main-sub">核心根源：AI 模型在"离线推理"，缺乏执行时的实时感知与反馈</div>
+
+  <div class="root-cause">
+    <div class="cause-card">
+      <div class="cause-title">问题一：长周期任务执行遗漏</div>
+      <div class="cause-body">Agent 是无状态单次推理，没有持续运行进程、没有真正记忆、没有时钟驱动。定时任务 = 触发一次对话，不是真正的工作流引擎。</div>
+    </div>
+    <div class="cause-card">
+      <div class="cause-title">问题二：可视化图反复调整</div>
+      <div class="cause-body">SVG 生成是纯文本推理，模型不知道文字实际渲染多宽多高，无视觉反馈闭环，只能盲目猜测坐标，靠用户反馈校正。</div>
+    </div>
+  </div>
+
+  <div class="section-label">解法四层框架</div>
+  <div class="row" style="margin-bottom:10px">
+    <div class="col card">
+      <div class="layer-header">
+        <span class="layer-badge badge-green">第一层</span>
+        <span class="layer-title">工程补偿 · 现在就能做</span>
+      </div>
+      <ul class="item-list">
+        <li><b>长任务分段 + 检查点</b>：每段结束写入文件，下次从文件读取状态继续</li>
+        <li><b>任务结果验证步骤</b>：自动化任务结束后主动检查是否真正完成</li>
+        <li><b>可视化改用 HTML 输出</b>：CSS Flexbox/Grid 让浏览器处理布局，比 SVG 坐标稳定</li>
+      </ul>
+    </div>
+    <div class="col card">
+      <div class="layer-header">
+        <span class="layer-badge badge-blue">第二层</span>
+        <span class="layer-title">模型升级 · 有帮助但非根本</span>
+      </div>
+      <ul class="item-list">
+        <li>更强模型在 SVG 空间计算上更好，但"不知道渲染结果"的物理限制不消失</li>
+        <li>上下文窗口越大，长任务遗漏概率降低，但不等于零</li>
+        <li><b>多模态模型</b>（截图回传自我修正）是真正有帮助的方向，OpenClaw 尚未接入</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col card">
+      <div class="layer-header">
+        <span class="layer-badge badge-amber">第三层</span>
+        <span class="layer-title">架构根本解 · 需平台支持</span>
+      </div>
+      <div class="sub-section">针对长任务遗漏</div>
+      <ul class="item-list">
+        <li><b>持久化任务状态</b>：进度存数据库，Agent 每次启动先读状态</li>
+        <li><b>任务编排引擎</b>：类 Airflow/Temporal，有 DAG、重试、失败回滚</li>
+      </ul>
+      <div class="sub-section">针对可视化布局</div>
+      <ul class="item-list">
+        <li><b>浏览器渲染反馈闭环</b>：生成 HTML → headless browser 截图 → 传回模型修正 → 循环</li>
+        <li>OpenClaw 有 Agent Browser Skill，理论可行，需串入生成流程</li>
+      </ul>
+    </div>
+    <div class="col card">
+      <div class="layer-header">
+        <span class="layer-badge badge-purple">第四层</span>
+        <span class="layer-title">行业趋势 · 2–3 年方向</span>
+      </div>
+      <ul class="item-list">
+        <li><b>Computer Use</b>：模型直接操作屏幕，"看着屏幕操作"，布局问题从根本消失（Anthropic 在做）</li>
+        <li><b>持久 Agent</b>：真正 24 小时在线、有独立进程，不是现在的"请求-响应"模式</li>
+        <li>这两项能力成熟后，第一、二层的补偿方案将自然退出</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-label">现在最实用的三个行动建议</div>
+  <div class="bottom-row">
+    <div class="action-card">
+      <div class="action-num">01</div>
+      <div class="action-title">可视化任务改用 HTML 输出</div>
+      <div class="action-body">浏览器自动处理换行和溢出，布局效果稳定可靠，不再需要反复调整 SVG 坐标</div>
+    </div>
+    <div class="action-card">
+      <div class="action-num">02</div>
+      <div class="action-title">长周期任务加检查点文件</div>
+      <div class="action-body">每个任务执行前先读上次状态，结束后写入进度，从根本上解决执行遗漏问题</div>
+    </div>
+    <div class="action-card">
+      <div class="action-num">03</div>
+      <div class="action-title">关注截图回传能力接入</div>
+      <div class="action-body">一旦 OpenClaw 接入视觉验证闭环，可视化质量将大幅提升，无需人工干预</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

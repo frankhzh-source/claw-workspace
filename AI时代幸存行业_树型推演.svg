@@ -1,0 +1,109 @@
+<svg viewBox="0 0 680 520" width="100%" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Ai era surviving industries tree analysis</title>
+  <desc>树型推演：AI时代哪些行业会受益，分为人类溢价、AI基建、策展溢价、监管护城河四类</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <text x="340" y="26" text-anchor="middle" font-size="15" font-weight="500" fill="#2C2C2A">AI时代幸存行业树型推演</text>
+  <text x="340" y="44" text-anchor="middle" font-size="12" fill="#5F5E5A">底层逻辑：AI擅长生成和优化，不擅长判断和承担责任</text>
+
+  <!-- Root -->
+  <rect x="290" y="62" width="100" height="40" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+  <text x="340" y="86" text-anchor="middle" font-size="13" font-weight="500" fill="#2C2C2A" dominant-baseline="central">什么幸存？</text>
+
+  <!-- Level 1 connectors -->
+  <line x1="340" y1="102" x2="340" y2="116" stroke="#888780" stroke-width="0.5"/>
+  <line x1="85" y1="116" x2="595" y2="116" stroke="#888780" stroke-width="0.5"/>
+  <line x1="85" y1="116" x2="85" y2="126" stroke="#888780" stroke-width="0.5" marker-end="url(#arrow)"/>
+  <line x1="255" y1="116" x2="255" y2="126" stroke="#888780" stroke-width="0.5" marker-end="url(#arrow)"/>
+  <line x1="425" y1="116" x2="425" y2="126" stroke="#888780" stroke-width="0.5" marker-end="url(#arrow)"/>
+  <line x1="595" y1="116" x2="595" y2="126" stroke="#888780" stroke-width="0.5" marker-end="url(#arrow)"/>
+
+  <!-- Level 1: Four categories -->
+  <rect x="30" y="126" width="115" height="40" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text x="87" y="150" text-anchor="middle" font-size="12" font-weight="500" fill="#085041" dominant-baseline="central">人类溢价</text>
+  <text x="330" y="120" text-anchor="middle" font-size="10" fill="#5F5E5A">四类无法被AI替代的核心价值</text>
+
+  <rect x="200" y="126" width="115" height="40" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text x="257" y="150" text-anchor="middle" font-size="12" font-weight="500" fill="#185FA5" dominant-baseline="central">AI基建</text>
+
+  <rect x="370" y="126" width="115" height="40" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
+  <text x="427" y="150" text-anchor="middle" font-size="12" font-weight="500" fill="#854F0B" dominant-baseline="central">策展溢价</text>
+
+  <rect x="540" y="126" width="115" height="40" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="1"/>
+  <text x="597" y="150" text-anchor="middle" font-size="12" font-weight="500" fill="#3C3489" dominant-baseline="central">监管护城河</text>
+
+  <!-- Level 2 connectors -->
+  <!-- Human premium -->
+  <line x1="87" y1="166" x2="87" y2="180" stroke="#888780" stroke-width="0.5"/>
+  <line x1="87" y1="180" x2="87" y2="190" stroke="#888780" stroke-width="0.5"/>
+  <line x1="37" y1="180" x2="137" y2="180" stroke="#888780" stroke-width="0.5"/>
+  <line x1="37" y1="180" x2="37" y2="190" stroke="#888780" stroke-width="0.5" marker-end="url(#arrow)"/>
+  <line x1="87" y1="180" x2="87" y2="190" stroke="#888780" stroke-width="0.5" marker-end="url(#arrow)"/>
+  <line x1="137" y1="180" x2="137" y2="190" stroke="#888780" stroke-width="0.5" marker-end="url(#arrow)"/>
+
+  <rect x="15" y="190" width="48" height="52" rx="6" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="0.5"/>
+  <text x="39" y="208" text-anchor="middle" font-size="10" font-weight="500" fill="#085041" dominant-baseline="central">信任</text>
+  <text x="39" y="226" text-anchor="middle" font-size="9" fill="#04342C" dominant-baseline="central">咨询/教育</text>
+
+  <rect x="65" y="190" width="48" height="52" rx="6" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="0.5"/>
+  <text x="89" y="208" text-anchor="middle" font-size="10" font-weight="500" fill="#085041" dominant-baseline="central">服务</text>
+  <text x="89" y="226" text-anchor="middle" font-size="9" fill="#04342C" dominant-baseline="central">照护/医疗</text>
+
+  <rect x="115" y="190" width="48" height="52" rx="6" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="0.5"/>
+  <text x="139" y="208" text-anchor="middle" font-size="10" font-weight="500" fill="#085041" dominant-baseline="central">手艺</text>
+  <text x="139" y="226" text-anchor="middle" font-size="9" fill="#04342C" dominant-baseline="central">技术蓝领</text>
+
+  <!-- AI infra -->
+  <rect x="215" y="190" width="48" height="52" rx="6" fill="#E6F1FB" stroke="#B5D4F4" stroke-width="0.5"/>
+  <text x="239" y="208" text-anchor="middle" font-size="10" font-weight="500" fill="#185FA5" dominant-baseline="central">部署</text>
+  <text x="239" y="226" text-anchor="middle" font-size="9" fill="#042C53" dominant-baseline="central">AI落地</text>
+
+  <rect x="265" y="190" width="48" height="52" rx="6" fill="#E6F1FB" stroke="#B5D4F4" stroke-width="0.5"/>
+  <text x="289" y="208" text-anchor="middle" font-size="10" font-weight="500" fill="#185FA5" dominant-baseline="central">算力</text>
+  <text x="289" y="226" text-anchor="middle" font-size="9" fill="#042C53" dominant-baseline="central">GPU/能源</text>
+
+  <rect x="315" y="190" width="48" height="52" rx="6" fill="#E6F1FB" stroke="#B5D4F4" stroke-width="0.5"/>
+  <text x="339" y="208" text-anchor="middle" font-size="10" font-weight="500" fill="#185FA5" dominant-baseline="central">自动化</text>
+  <text x="339" y="226" text-anchor="middle" font-size="9" fill="#042C53" dominant-baseline="central">机器人运维</text>
+
+  <!-- Curation premium -->
+  <rect x="375" y="190" width="48" height="52" rx="6" fill="#FAEEDA" stroke="#FAC775" stroke-width="0.5"/>
+  <text x="399" y="208" text-anchor="middle" font-size="10" font-weight="500" fill="#854F0B" dominant-baseline="central">品味</text>
+  <text x="399" y="226" text-anchor="middle" font-size="9" fill="#412402" dominant-baseline="central">策展/品牌</text>
+
+  <rect x="425" y="190" width="48" height="52" rx="6" fill="#FAEEDA" stroke="#FAC775" stroke-width="0.5"/>
+  <text x="449" y="208" text-anchor="middle" font-size="10" font-weight="500" fill="#854F0B" dominant-baseline="central">趋势</text>
+  <text x="449" y="226" text-anchor="middle" font-size="9" fill="#412402" dominant-baseline="central">预判/战略</text>
+
+  <rect x="475" y="190" width="48" height="52" rx="6" fill="#FAEEDA" stroke="#FAC775" stroke-width="0.5"/>
+  <text x="499" y="208" text-anchor="middle" font-size="10" font-weight="500" fill="#854F0B" dominant-baseline="central">审核</text>
+  <text x="499" y="226" text-anchor="middle" font-size="9" fill="#412402" dominant-baseline="central">内容评估</text>
+
+  <!-- Regulation moat -->
+  <rect x="555" y="190" width="48" height="52" rx="6" fill="#EEEDFE" stroke="#CECBF6" stroke-width="0.5"/>
+  <text x="579" y="208" text-anchor="middle" font-size="10" font-weight="500" fill="#3C3489" dominant-baseline="central">许可</text>
+  <text x="579" y="226" text-anchor="middle" font-size="9" fill="#26215C" dominant-baseline="central">医/法/CPA</text>
+
+  <rect x="605" y="190" width="48" height="52" rx="6" fill="#EEEDFE" stroke="#CECBF6" stroke-width="0.5"/>
+  <text x="629" y="208" text-anchor="middle" font-size="10" font-weight="500" fill="#3C3489" dominant-baseline="central">合规</text>
+  <text x="629" y="226" text-anchor="middle" font-size="9" fill="#26215C" dominant-baseline="central">审计/风控</text>
+
+  <!-- AIGC Paradox box -->
+  <rect x="40" y="270" width="600" height="100" rx="12" fill="#FCEBEB" stroke="#F7C1C1" stroke-width="1"/>
+  <text x="340" y="294" text-anchor="middle" font-size="14" font-weight="500" fill="#A32D2D">AIGC悖论：创造越容易，价值越集中在策展端</text>
+  <text x="56" y="318" font-size="12" fill="#791F1F">AI能生成 100 张高质量图片/分钟 → "生产"不再是瓶颈</text>
+  <text x="56" y="338" font-size="12" fill="#791F1F">→ 供需反转：供给无限，需求有限 → 稀缺品从"能生成"变成"知道什么值得看"</text>
+  <text x="56" y="358" font-size="12" fill="#501313">→ AIGC生成者内卷（价格战），AIGC策展者溢价（品�高位）</text>
+
+  <!-- Reverse verification box -->
+  <rect x="40" y="390" width="600" height="112" rx="12" fill="#FAEEDA" stroke="#FAC775" stroke-width="1"/>
+  <text x="340" y="414" text-anchor="middle" font-size="14" font-weight="500" fill="#854F0B">逆向验证：如果这个推演是错的</text>
+  <text x="56" y="438" font-size="12" fill="#633806">推演结论：策展>生产，信任>能力，基建>应用</text>
+  <text x="56" y="458" font-size="12" fill="#633806">反推1：如果AIGC生产者暴利 → 意味着内容供给稀缺 → 打脸"供给无限"前提 → 但数据已证明图像/音乐/文字生成全部过剩</text>
+  <text x="56" y="478" font-size="12" fill="#633806">反推2：如果AI能建立真实信任关系 → 人类溢价消失 → 打脸"信任不可替代"前提 → 但AI的"信任"是概率性的，出了事不能负责</text>
+  <text x="56" y="498" font-size="12" fill="#633806">反推3：如果全自动机器人取代所有蓝领 → 手艺/服务溢价消失 → 但物理世界非结构化环境的自动化成本仍远高于人工</text>
+</svg>

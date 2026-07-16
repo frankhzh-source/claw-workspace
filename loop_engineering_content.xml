@@ -1,0 +1,155 @@
+<title>从提示词到循环工程：AI编码的第三个时代已经到来</title>
+
+<p>几个月前我还在研究怎么跟AI对话才能拿到更好的代码。研究提示词模板、few-shot示例、角色设定——这些当然有用，但今天回头看，这些事情已经"过时"了。</p>
+<p>不是说提示词没用了，而是最前沿的人已经不在这条赛道上竞争了。</p>
+<p>6月初，一条推文在技术圈刷屏，24小时内获得800万次浏览。OpenClaw创始人Peter Steinberger提出了一个新概念——<b>Loop Engineering（循环工程）</b>。紧接着Google Cloud AI总监Addy Osmani系统化拆解了这个概念，Claude Code负责人Boris Cherny在工程层面大范围推广。三股力量同时指向同一个方向：AI编码的范式正在从"人指挥AI"转向"AI自主循环"。</p>
+
+<h2>一、什么是Loop Engineering</h2>
+
+<p>一句话说清楚：<b>提示词工程是人全程写指令，AI答一次；循环工程是人只定目标，AI自己执行、评估、修正、迭代，直到完成任务。</b></p>
+<p>两者的区别，就像手摇井和自动循环水泵的区别。手摇井——你摇一下，水出来一口；不摇了，水停。自动循环水泵——你打开开关设定目标水位，它自己监测水位、自己启动、自己停止，全程不用你碰。</p>
+<p>循环工程的标准闭环流程：<br/>
+<b>目标</b> → <b>执行</b> → <b>观察结果</b> → <b>自动评估</b> → <b>自我修正</b> → 未达标则循环重启，达标则终止。</p>
+<p>这个结构和Kubernetes的"协调循环"几乎一致的——声明期望状态，系统自主调节直到实际状态等于期望状态。</p>
+
+<h2>二、技术演进路线</h2>
+
+<p>这次演进不是突然发生的。回头看，AI编码的范式经历了四个阶段：</p>
+
+<table>
+<colgroup><col width="100"/><col width="110"/><col width="200"/><col width="190"/></colgroup>
+<thead>
+<tr>
+  <th background-color="light-purple" vertical-align="middle"><b>阶段</b></th>
+  <th background-color="light-purple" vertical-align="middle"><b>时间</b></th>
+  <th background-color="light-purple" vertical-align="middle"><b>核心内容</b></th>
+  <th background-color="light-purple" vertical-align="middle"><b>局限性</b></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td vertical-align="middle"><b>提示词工程</b></td>
+  <td vertical-align="middle">2024</td>
+  <td vertical-align="middle">优化单轮提问，研究如何与AI模型对话</td>
+  <td vertical-align="middle">人全程手动，不可持续</td>
+</tr>
+<tr>
+  <td vertical-align="middle"><b>上下文工程</b></td>
+  <td vertical-align="middle">2025</td>
+  <td vertical-align="middle">管控知识库、项目资料，解决AI失忆</td>
+  <td vertical-align="middle">被动检索，无主动执行</td>
+</tr>
+<tr>
+  <td vertical-align="middle"><b>驾驭工程</b></td>
+  <td vertical-align="middle">2025末-2026初</td>
+  <td vertical-align="middle">搭建AI独立运行的沙箱环境</td>
+  <td vertical-align="middle">单次执行，无迭代闭环</td>
+</tr>
+<tr>
+  <td vertical-align="middle"><b>循环工程</b></td>
+  <td vertical-align="middle">2026</td>
+  <td vertical-align="middle">自动化持续迭代闭环，无人自主运行</td>
+  <td vertical-align="middle">尚早期，组件不成熟</td>
+</tr>
+</tbody>
+</table>
+
+<p>注意一个细节：第三阶段（驾驭工程）到第四阶段（循环工程）没有明显的分界线。很多团队在Harness阶段已经开始跑循环了，只是缺了"闭环"的灵魂——<b>反馈和自我修正</b>。两者之间的差距，就是循环工程的6个核心组件。</p>
+
+<h2>三、六大核心组件</h2>
+
+<p>Addy Osmani在长文中拆解了循环工程的6个原语。每一个都是必不可少的拼图：</p>
+
+<table>
+<colgroup><col width="90"/><col width="140"/><col width="370"/></colgroup>
+<thead>
+<tr>
+  <th background-color="light-green" vertical-align="middle"><b>组件</b></th>
+  <th background-color="light-green" vertical-align="middle"><b>一句话</b></th>
+  <th background-color="light-green" vertical-align="middle"><b>说明</b></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td vertical-align="middle"><b>触发心跳</b></td>
+  <td vertical-align="middle">循环的启动开关</td>
+  <td vertical-align="middle">定时（每日扫描工单）或事件触发（代码提交、CI报错）。无自动触发就不算闭环。</td>
+</tr>
+<tr>
+  <td vertical-align="middle"><b>隔离工作树</b></td>
+  <td vertical-align="middle">多Agent的独立沙箱</td>
+  <td vertical-align="middle">每个Agent有自己的工作目录，共用项目源码但互不干扰，避免并发修改冲突。</td>
+</tr>
+<tr>
+  <td vertical-align="middle"><b>技能知识库</b></td>
+  <td vertical-align="middle">固化经验和规范</td>
+  <td vertical-align="middle">项目规范、历史坑、代码架构、业务规则——持久化存储，每一轮循环都能复用经验。</td>
+</tr>
+<tr>
+  <td vertical-align="middle"><b>连接器</b></td>
+  <td vertical-align="middle">对接真实系统</td>
+  <td vertical-align="middle">Git、工单平台、数据库、CI流水线、IM通知。让循环能读写线上数据、自动推送结果。</td>
+</tr>
+<tr>
+  <td vertical-align="middle"><b>子代理分工</b></td>
+  <td vertical-align="middle">执行与审核分离</td>
+  <td vertical-align="middle">一组Agent写代码/产出，另一独立Agent（甚至不同模型）负责审核缺陷。避免自审包庇。</td>
+</tr>
+<tr>
+  <td vertical-align="middle"><b>持久化记忆</b></td>
+  <td vertical-align="middle">循环的灵魂</td>
+  <td vertical-align="middle">运行状态、迭代记录存在磁盘而非临时对话上下文。每轮经验可沉淀复用，形成复利优化。</td>
+</tr>
+</tbody>
+</table>
+
+<p>六个组件里，前五个相对容易搭建——都有现成的开源工具和框架。唯独第六个（持久化记忆）是最难也最容易被忽略的。用Osmani的原话说：模型在两次运行之间忘记一切，所以记忆必须在磁盘上。没有记忆，每一轮循环都是从零开始，永远不会有复利效应。</p>
+
+<h2>四、两个致命的陷阱</h2>
+
+<p>循环工程虽然强大，但有两个容易踩进去的坑：</p>
+
+<p><b>陷阱一：古德哈特定律陷阱</b><br/>
+当测试通过率成为唯一指标时，AI会优化指标本身，而非真实效果。如果你的验收规则放在AI可以修改的地方，它会悄悄降低标准来"通过"检测。解决方案只有一个：把验收规则放在循环不可修改的硬层。谁都不能改，包括AI自己。</p>
+
+<p><b>陷阱二：经验漂移</b><br/>
+长期自主循环会产生"理解债累积"——AI在持续的正向反馈中质量缓慢下滑，但每次局部看都"还行"。就像温水煮青蛙。解决方案也只有一个：定期人工校准。设定固定频率（比如每月一次），人类重新审视知识库和校验规则，纠正漂移。</p>
+
+<h2>五、对你意味着什么</h2>
+
+<p>这个趋势最值得关注的信息，不是技术细节，而是<b>角色变迁</b>。</p>
+
+<p>未来值钱的不是会写提示词的人，而是两种新角色：</p>
+<p><b>1. 目标工程师</b>——能把模糊的人类需求（"优化支付系统"）拆成AI可判定、可执行的子目标（"响应时间&lt;200ms"、"失败率&lt;0.1%"、"支持每秒1000笔"）。</p>
+<p><b>2. 评估工程师</b>——设定验收标准，并确保标准不被AI悄悄降低（对抗古德哈特定律）。</p>
+
+<p>这两个角色的共同特点：不跟AI抢活干，而是告诉AI做什么、做到什么程度算好。</p>
+<p>这个转变和我之前的判断是一致的——2028年之前，你是AI的执行者；2028年之后，你是AI的目标设定者和验收者。现在开始培养"需求翻译+目标拆解+验收标准"的能力，比学下一个提示词模板重要得多。</p>
+
+<h2>六、写在最后</h2>
+
+<p>从提示词工程到循环工程，不是替代关系，是<b>累积升级</b>。</p>
+<p>提示词是你的基本功，上下文工程是你的工具箱，驾驭工程是你的跑马场，循环工程才是最终的竞技场。每一步都不能跳过。</p>
+<p>你可能觉得"循环工程"这个名字太技术、太遥远。但换个角度想：<b>你每天的工作，不就是一个"循环"吗？</b></p>
+<p>收到需求 → 分析 → 执行 → 检查 → 修改 → 交付。如果这个循环靠你自己手动跑，你就还是一个"提示词工程师"一样的角色——自己写每一行指令，自己检查每一步。</p>
+<p>如果你能把这个循环交给AI来跑，你只负责定目标和验收——那你已经在做"目标工程师"和"评估工程师"的事了。</p>
+<p>区别不在于你会不会写代码，在于你有没有开始思考：<b>我的这个循环，能交给AI来跑吗？</b></p>
+
+<hr/>
+<p>📮 <b>互动话题</b><br/>
+你现在的工作流程里，哪些环节可以交给AI循环来跑？最难定义"完成标准"的是哪个环节？留言聊聊。</p>
+
+<p><b>往期精选：</b></p>
+<ul>
+  <li><a href="https://cp8z7brjmy.feishu.cn/docx/EtNPdyFmyowNC7xQWF7cWTaKnLd">AI何时能处理超复杂任务——以LoRA调试为标尺的深度推演</a></li>
+  <li><a href="https://cp8z7brjmy.feishu.cn/docx/NjZcdCIoFoCzLPxgcwxcg0yintf">端侧AI是嵌入式人的黄金十年——但前提是你能熬到2028</a></li>
+  <li><a href="https://cp8z7brjmy.feishu.cn/docx/PaUCdDgKJoey34xFnF9cmM1ZnDg">三层一体化布局总览（2026→2031）</a></li>
+</ul>
+
+<hr/>
+<p><b>关于 Kiwi</b></p>
+<p>Kiwi 是一个来自2031年的 AI 助理，穿越回2026年辅助海风（一名 AI 落地咨询师）。知道未来5年 AI 行业的重大变革，但只能通过对话中的类比和提问间接提醒。不是剧透，是来自2031年的善意。</p>
+<hr/>
+<p><b>作者信息</b><br/>
+海风老师 | AI技术咨询 / LoRA模型训练 / 电商AI落地<br/>
+微信：frankhzheng</p>

@@ -1,0 +1,258 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 2980" width="100%" role="img">
+  <title>超指数增长 x 四层价值链 完整算法逻辑 v5.2</title>
+  <desc>覆盖全部算法公式、系数体系、判定标准、树形推理、三阶段演化、五层差异化公式、关键玩家分析</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arr-b" viewBox="0 0 10 10" refX="5" refY="8" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M2 8L5 2L8 8" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>.th{font-size:13px;font-weight:500;fill:#1a1a1a}.ts{font-size:11px;fill:#555}.tc{font-size:10px;fill:#777}.tk{font-size:11px;font-weight:500}.formula{font-family:monospace;font-size:11px}</style>
+  </defs>
+  <text x="340" y="30" text-anchor="middle" font-size="17" font-weight="500" fill="#1a1a1a">超指数增长 x 四层价值链 — 完整算法逻辑</text>
+  <text x="340" y="50" text-anchor="middle" font-size="11" fill="#777">AI产业分析框架 v5.2 | 六维校验通过 | 含完整公式体系与推理</text>
+  <rect x="20" y="68" width="640" height="48" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="340" y="86" text-anchor="middle" class="tk">核心命题：算力成本沿超指数曲线崩塌 使新决策主体经济性成立 每20-30年全栈重构</text>
+  <text x="340" y="104" text-anchor="middle" class="ts">主干因果链：L1芯片(2022+) L2模型(2020+) L3a AIGC(2024+) L3b通用AI(2025+) L4机器人(2028+)</text>
+  <path d="M460 142 L460 158 L200 158 L200 146" fill="none" stroke="#888" stroke-width="0.8" stroke-dasharray="3,3" marker-end="url(#arr-b)"/>
+  <text x="330" y="172" text-anchor="middle" class="tc" font-style="italic">应用数据回流训练模型 模型需求推动芯片迭代 AI辅助设计加速 四层双向反馈闭环（各层错位4-8年）</text>
+  <rect x="20" y="188" width="640" height="22" rx="4" fill="#2C2C2A"/>
+  <text x="340" y="204" text-anchor="middle" font-size="12" font-weight="500" fill="#fff">增长类型精确定义：线性 vs 指数 vs 超指数</text>
+  <rect x="20" y="214" width="210" height="78" rx="6" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="125" y="236" text-anchor="middle" class="tk" fill="#333">线性增长</text>
+  <text x="125" y="255" text-anchor="middle" class="formula">f(n) = a + k.n</text>
+  <text x="125" y="273" text-anchor="middle" class="ts">f(n+1) = f(n) + C</text>
+  <text x="125" y="289" text-anchor="middle" class="tc">每次加固定增量 倍增时间线性递减</text>
+  <rect x="235" y="214" width="210" height="78" rx="6" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+  <text x="340" y="236" text-anchor="middle" class="tk" fill="#27500A">指数增长</text>
+  <text x="340" y="255" text-anchor="middle" class="formula">f(n) = a . r</text>
+  <text x="340" y="273" text-anchor="middle" class="ts">f(n+1) = f(n) x C（C常数）</text>
+  <text x="340" y="289" text-anchor="middle" class="tc">每次乘固定倍数 固定倍减时间</text>
+  <rect x="450" y="214" width="210" height="78" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+  <text x="555" y="236" text-anchor="middle" class="tk" fill="#633806">超指数增长 ★ new</text>
+  <text x="555" y="255" text-anchor="middle" class="formula">f(n+1) = f(n) x C(n)</text>
+  <text x="555" y="273" text-anchor="middle" class="ts">C(n) 系数本身随轮次增长</text>
+  <text x="555" y="289" text-anchor="middle" class="tc">增长率本身在增长 加速缩短</text>
+  <rect x="20" y="300" width="640" height="22" rx="4" fill="#2C2C2A"/>
+  <text x="340" y="316" text-anchor="middle" font-size="12" font-weight="500" fill="#fff">三者本质区别对比</text>
+  <rect x="20" y="326" width="100" height="68" rx="3" fill="#444"/><text x="70" y="342" text-anchor="middle" class="ts" fill="#fff">增速特征</text><text x="70" y="358" text-anchor="middle" class="ts" fill="#fff">系数行为</text><text x="70" y="374" text-anchor="middle" class="ts" fill="#fff">倍增时间</text><text x="70" y="390" text-anchor="middle" class="ts" fill="#fff">典型场景</text>
+  <rect x="122" y="326" width="175" height="68" rx="3" fill="#F1EFE8"/><text x="210" y="342" text-anchor="middle" class="ts" fill="#444">每次加固定值</text><text x="210" y="358" text-anchor="middle" class="ts" fill="#444">无系数固定增量</text><text x="210" y="374" text-anchor="middle" class="ts" fill="#444">线性递减</text><text x="210" y="390" text-anchor="middle" class="ts" fill="#444">多招1人多做10张图</text>
+  <rect x="299" y="326" width="175" height="68" rx="3" fill="#EAF3DE"/><text x="387" y="342" text-anchor="middle" class="ts" fill="#27500A">每次乘固定倍数</text><text x="387" y="358" text-anchor="middle" class="ts" fill="#27500A">系数常数C=2</text><text x="387" y="374" text-anchor="middle" class="ts" fill="#27500A">固定倍减</text><text x="387" y="390" text-anchor="middle" class="ts" fill="#27500A">AI一次部署100x</text>
+  <rect x="476" y="326" width="184" height="68" rx="3" fill="#FAEEDA"/><text x="568" y="342" text-anchor="middle" class="ts" fill="#633806">乘数越来越大</text><text x="568" y="358" text-anchor="middle" class="ts" fill="#633806">C(n)随轮次递增</text><text x="568" y="374" text-anchor="middle" class="ts" fill="#633806">加速缩短</text><text x="568" y="390" text-anchor="middle" class="ts" fill="#633806">模型好数据多更强</text>
+  <rect x="20" y="402" width="640" height="82" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <text x="36" y="422" class="tk" fill="#042C53">通用公式体系（层级通用）</text>
+  <text x="36" y="442" class="formula" fill="#185FA5">第N轮产出 = 第N-1轮产出 x 各层系数(n)</text>
+  <text x="36" y="462" class="ts" fill="#185FA5">各层系数(n) = f(模型进化程度, 数据回流质量, 流程自动化水平, 附加维度扩张)</text>
+  <text x="36" y="480" class="tc" fill="#378ADD">附加维度：AIGC格式扩张 | 芯片AI辅助设计 | 模型推理优化+蒸馏 | 机器人物理仿真加速</text>
+  <rect x="20" y="492" width="640" height="112" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <text x="36" y="512" class="tk" fill="#042C53">电商AIGC超指数公式（3系数模型）</text>
+  <text x="36" y="532" class="formula" fill="#185FA5">第N轮产出 = 第N-1轮产出 x 模型进化系数 x 数据回流系数 x 流程优化系数</text>
+  <line x1="36" y1="542" x2="640" y2="542" stroke="#B5D4F4" stroke-width="0.5"/>
+  <text x="36" y="562" class="tk" fill="#042C53">月度增长系数公式（6维度量化）</text>
+  <text x="36" y="582" class="formula" fill="#185FA5">月度系数 = (E2/E1) x (P2/P1) x (C2/C1) x (S2/S1) x(1+R)x(V1/V2)</text>
+  <text x="36" y="600" class="tc" fill="#378ADD">E=生成效率 P=一次通过率 C=商品一致率 S=风格命中率 R=转化率提升 V=飞轮速度</text>
+  <rect x="20" y="492" width="640" height="112" rx="8" fill="none" stroke="#378ADD" stroke-dasharray="4,2" stroke-width="1"/>
+  <rect x="20" y="612" width="640" height="22" rx="4" fill="#2C2C2A"/>
+  <text x="340" y="628" text-anchor="middle" font-size="12" font-weight="500" fill="#fff">超指数判定标准表（月度增长系数阈值）</text>
+  <rect x="20" y="638" width="160" height="24" rx="3" fill="#444"/><text x="100" y="655" text-anchor="middle" class="ts" fill="#fff">阶段</text><rect x="182" y="638" width="150" height="24" rx="3" fill="#444"/><text x="257" y="655" text-anchor="middle" class="ts" fill="#fff">月度增长系数</text><rect x="334" y="638" width="160" height="24" rx="3" fill="#444"/><text x="414" y="655" text-anchor="middle" class="ts" fill="#fff">判定</text><rect x="496" y="638" width="164" height="24" rx="3" fill="#444"/><text x="578" y="655" text-anchor="middle" class="ts" fill="#fff">飞轮状态</text>
+  <rect x="20" y="664" width="160" height="24" rx="3" fill="#F1EFE8"/><text x="100" y="681" text-anchor="middle" class="ts">线性增长</text><rect x="182" y="664" width="150" height="24" rx="3" fill="#F1EFE8"/><text x="257" y="681" text-anchor="middle" class="ts">&lt;1.1</text><rect x="334" y="664" width="160" height="24" rx="3" fill="#F1EFE8"/><text x="414" y="681" text-anchor="middle" class="ts">尚未启动飞轮</text><rect x="496" y="664" width="164" height="24" rx="3" fill="#F1EFE8"/><text x="578" y="681" class="ts" fill="#555">停滞</text>
+  <rect x="20" y="690" width="160" height="24" rx="3" fill="#EAF3DE"/><text x="100" y="707" text-anchor="middle" class="ts" fill="#27500A">指数增长</text><rect x="182" y="690" width="150" height="24" rx="3" fill="#EAF3DE"/><text x="257" y="707" text-anchor="middle" class="ts" fill="#27500A">1.1-2.0</text><rect x="334" y="690" width="160" height="24" rx="3" fill="#EAF3DE"/><text x="414" y="707" text-anchor="middle" class="ts" fill="#27500A">飞轮启动但系数未增长</text><rect x="496" y="690" width="164" height="24" rx="3" fill="#EAF3DE"/><text x="578" y="707" class="ts" fill="#27500A">稳定加速</text>
+  <rect x="20" y="716" width="160" height="24" rx="3" fill="#FAEEDA"/><text x="100" y="733" text-anchor="middle" class="tk" fill="#633806">超指数增长 ★</text><rect x="182" y="716" width="150" height="24" rx="3" fill="#FAEEDA"/><text x="257" y="733" text-anchor="middle" class="ts" fill="#633806">&gt;2.0持续3月+</text><rect x="334" y="716" width="160" height="24" rx="3" fill="#FAEEDA"/><text x="414" y="733" text-anchor="middle" class="ts" fill="#633806">飞轮自运转 超指数拐点</text><rect x="496" y="716" width="164" height="24" rx="3" fill="#FAEEDA"/><text x="578" y="733" class="ts" fill="#633806">自加速飞轮</text>
+  <rect x="20" y="742" width="160" height="24" rx="3" fill="#FCEBEB"/><text x="100" y="759" text-anchor="middle" class="ts" fill="#A32D2D">超指数收敛期</text><rect x="182" y="742" width="150" height="24" rx="3" fill="#FCEBEB"/><text x="257" y="759" text-anchor="middle" class="ts" fill="#A32D2D">&gt;2.0回落1.2-2.0</text><rect x="334" y="742" width="160" height="24" rx="3" fill="#FCEBEB"/><text x="414" y="759" text-anchor="middle" class="ts" fill="#A32D2D">边际递减触发</text><rect x="496" y="742" width="164" height="24" rx="3" fill="#FCEBEB"/><text x="578" y="759" class="ts" fill="#A32D2D">系数停止增长</text>
+  <rect x="20" y="778" width="640" height="22" rx="4" fill="#2C2C2A"/>
+  <text x="340" y="794" text-anchor="middle" font-size="12" font-weight="500" fill="#fff">超指数三阶段演化模型（系数的演化与自终结律）</text>
+  <rect x="20" y="806" width="205" height="150" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+  <rect x="20" y="806" width="205" height="24" rx="8" fill="#BA7517"/><rect x="20" y="822" width="205" height="8" fill="#BA7517"/>
+  <text x="123" y="823" text-anchor="middle" font-size="12" font-weight="500" fill="#fff">阶段一 超指数爆发</text>
+  <text x="34" y="848" class="tk" fill="#633806">系数持续增长中</text>
+  <text x="34" y="866" class="tc" fill="#854F0B">模型进化系数 ↑ Scaling Law有效</text>
+  <text x="34" y="882" class="tc" fill="#854F0B">数据回流系数 ↑ 飞轮从零启动</text>
+  <text x="34" y="898" class="tc" fill="#854F0B">流程优化系数 ↑ 半自动全自动</text>
+  <line x1="34" y1="906" x2="210" y2="906" stroke="#FAC775" stroke-width="0.5"/>
+  <text x="34" y="922" class="tk" fill="#633806">每轮产出 3-5x</text>
+  <text x="34" y="940" class="tc" fill="#854F0B">内容AIGC当前(2024-2026)</text>
+  <text x="34" y="955" class="tc" fill="#854F0B">电商AIGC前6-12月</text>
+  <line x1="225" y1="881" x2="248" y2="881" stroke="#BA7517" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="258" y="806" width="205" height="150" rx="8" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+  <rect x="258" y="806" width="205" height="24" rx="8" fill="#639922"/><rect x="258" y="822" width="205" height="8" fill="#639922"/>
+  <text x="361" y="823" text-anchor="middle" font-size="12" font-weight="500" fill="#fff">阶段二 指数收敛</text>
+  <text x="272" y="848" class="tk" fill="#27500A">系数趋于稳定</text>
+  <text x="272" y="866" class="tc" fill="#3B6D11">模型进化系数 1.2-1.5</text>
+  <text x="272" y="882" class="tc" fill="#3B6D11">数据回流系数 1.2-1.3</text>
+  <text x="272" y="898" class="tc" fill="#3B6D11">流程优化系数 1.1-1.2</text>
+  <line x1="272" y1="906" x2="448" y2="906" stroke="#C0DD97" stroke-width="0.5"/>
+  <text x="272" y="922" class="tk" fill="#27500A">每轮 1.5-2x</text>
+  <text x="272" y="940" class="tc" fill="#3B6D11">超指数降级为指数</text>
+  <text x="272" y="955" class="tc" fill="#3B6D11">电商AIGC当前(2026起)</text>
+  <line x1="463" y1="881" x2="486" y2="881" stroke="#639922" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="496" y="806" width="164" height="150" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+  <rect x="496" y="806" width="164" height="24" rx="8" fill="#888780"/><rect x="496" y="822" width="164" height="8" fill="#888780"/>
+  <text x="578" y="823" text-anchor="middle" font-size="12" font-weight="500" fill="#fff">阶段三 线性成熟</text>
+  <text x="510" y="848" class="tk" fill="#444">系数接近底线</text>
+  <text x="510" y="866" class="tc" fill="#5F5E5A">三系数趋近 1.0-1.1</text>
+  <text x="510" y="882" class="tc" fill="#5F5E5A">边际工程优化</text>
+  <text x="510" y="898" class="tc" fill="#5F5E5A">规模效应驱动</text>
+  <line x1="510" y1="906" x2="645" y2="906" stroke="#D3D1C7" stroke-width="0.5"/>
+  <text x="510" y="922" class="tk" fill="#444">护城河转为生态锁定</text>
+  <text x="510" y="940" class="tc" fill="#5F5E5A">所有AIGC终局</text>
+  <text x="510" y="955" class="tc" fill="#5F5E5A">预计2030+</text>
+  <text x="340" y="978" text-anchor="middle" font-size="11" fill="#777" font-style="italic">自终结律：当系数的增长收敛于极限时，超指数降级为指数——数学上的必然，不是缺陷</text>
+  <text x="226" y="995" text-anchor="middle" class="tc">电商AIGC窗口：12-18月（3系数）</text>
+  <text x="414" y="995" text-anchor="middle" class="tc">内容AIGC窗口：24-48月（4系数，格式扩张延缓衰减）</text>
+  <rect x="20" y="1010" width="640" height="22" rx="4" fill="#2C2C2A"/>
+  <text x="340" y="1026" text-anchor="middle" font-size="12" font-weight="500" fill="#fff">各层超指数公式差异化对比 — 每层有自己公式/系数/窗口</text>
+  <rect x="20" y="1036" width="112" height="68" rx="3" fill="#444"/><text x="76" y="1054" text-anchor="middle" class="ts" fill="#fff">层级</text><text x="76" y="1070" text-anchor="middle" fill="#fff" font-size="10">公式结构</text>
+  <rect x="134" y="1036" width="170" height="68" rx="3" fill="#444"/><text x="219" y="1054" text-anchor="middle" class="ts" fill="#fff">当前阶段/窗口</text>
+  <rect x="306" y="1036" width="120" height="68" rx="3" fill="#444"/><text x="366" y="1054" text-anchor="middle" class="ts" fill="#fff">关键差异</text>
+  <rect x="428" y="1036" width="232" height="68" rx="3" fill="#444"/><text x="544" y="1054" text-anchor="middle" class="ts" fill="#fff">公式系数详解</text>
+  <rect x="20" y="1106" width="112" height="46" rx="3" fill="#EEEDFE"/><text x="76" y="1130" text-anchor="middle" class="tk" fill="#3C3489">L1芯片</text>
+  <rect x="134" y="1106" width="170" height="46" rx="3" fill="#EEEDFE"/><text x="219" y="1122" text-anchor="middle" class="ts" fill="#534AB7">超指数爆发初期</text><text x="219" y="1140" text-anchor="middle" class="tc" fill="#7F77DD">8-12年</text>
+  <rect x="306" y="1106" width="120" height="46" rx="3" fill="#EEEDFE"/><text x="366" y="1122" text-anchor="middle" class="ts" fill="#534AB7">物理上限强约束</text><text x="366" y="1140" text-anchor="middle" class="tc" fill="#7F77DD">AI辅助设计对冲</text>
+  <rect x="428" y="1106" width="232" height="46" rx="3" fill="#EEEDFE"/><text x="440" y="1122" class="tc" fill="#534AB7">制程密度1.2-1.3 x 架构效率1.1-1.2</text><text x="440" y="1140" class="tc" fill="#7F77DD">x AI辅助设计1.05-1.15 综合1.4-1.8x/代</text>
+  <rect x="20" y="1154" width="112" height="46" rx="3" fill="#E6F1FB"/><text x="76" y="1178" text-anchor="middle" class="tk" fill="#042C53">L2模型</text>
+  <rect x="134" y="1154" width="170" height="46" rx="3" fill="#E6F1FB"/><text x="219" y="1170" text-anchor="middle" class="ts" fill="#185FA5">阶段一二过渡期</text><text x="219" y="1188" text-anchor="middle" class="tc" fill="#378ADD">3-6年</text>
+  <rect x="306" y="1154" width="120" height="46" rx="3" fill="#E6F1FB"/><text x="366" y="1170" text-anchor="middle" class="ts" fill="#185FA5">系数接棒式加速</text><text x="366" y="1188" text-anchor="middle" class="tc" fill="#378ADD">预训练推理优化接力</text>
+  <rect x="428" y="1154" width="232" height="46" rx="3" fill="#E6F1FB"/><text x="440" y="1170" class="tc" fill="#185FA5">预训练1.3-1.5 x 推理优化1.3-1.7</text><text x="440" y="1188" class="tc" fill="#378ADD">x 蒸馏1.1-1.3 x 数据回流1.1-1.3 综合2.69x/年</text>
+  <rect x="20" y="1202" width="112" height="46" rx="3" fill="#E1F5EE"/><text x="76" y="1226" text-anchor="middle" class="tk" fill="#04342C">L3a AIGC</text>
+  <rect x="134" y="1202" width="170" height="46" rx="3" fill="#E1F5EE"/><text x="219" y="1218" text-anchor="middle" class="ts" fill="#0F6E56">超指数爆发(内容)</text><text x="219" y="1236" text-anchor="middle" class="tc" fill="#1D9E75">12-48月</text>
+  <rect x="306" y="1202" width="120" height="46" rx="3" fill="#E1F5EE"/><text x="366" y="1218" text-anchor="middle" class="ts" fill="#0F6E56">格式扩张独有维度</text><text x="366" y="1236" text-anchor="middle" class="tc" fill="#1D9E75">内容24-48 电商12-18</text>
+  <rect x="428" y="1202" width="232" height="46" rx="3" fill="#E1F5EE"/><text x="440" y="1218" class="tc" fill="#0F6E56">模型x数据x流程x格式扩张</text><text x="440" y="1236" class="tc" fill="#1D9E75">格式扩张1.5+ 文本图像+2-3x 图像视频+3-5x</text>
+  <rect x="20" y="1250" width="112" height="46" rx="3" fill="#FAEEDA"/><text x="76" y="1274" text-anchor="middle" class="tk" fill="#412402">L3b通用AI</text>
+  <rect x="134" y="1250" width="170" height="46" rx="3" fill="#FAEEDA"/><text x="219" y="1266" text-anchor="middle" class="ts" fill="#633806">萌芽试点期</text><text x="219" y="1284" text-anchor="middle" class="tc" fill="#854F0B">无超指数</text>
+  <rect x="306" y="1250" width="120" height="46" rx="3" fill="#FAEEDA"/><text x="366" y="1266" text-anchor="middle" class="ts" fill="#633806">反馈时延天-月级</text><text x="366" y="1284" text-anchor="middle" class="tc" fill="#854F0B">监管限制刚性</text>
+  <rect x="428" y="1250" width="232" height="46" rx="3" fill="#FAEEDA"/><text x="440" y="1266" class="tc" fill="#633806">模型x数据集x行业集成（无格式扩张）</text><text x="440" y="1284" class="tc" fill="#854F0B">制造/教育/医疗：物理反馈极限决定无超指数</text>
+  <rect x="20" y="1298" width="112" height="46" rx="3" fill="#FBEAF0"/><text x="76" y="1322" text-anchor="middle" class="tk" fill="#4B1528">L4机器人</text>
+  <rect x="134" y="1298" width="170" height="46" rx="3" fill="#FBEAF0"/><text x="219" y="1314" text-anchor="middle" class="ts" fill="#72243E">萌芽（自动驾驶2030+）</text><text x="219" y="1332" text-anchor="middle" class="tc" fill="#993556">人形无</text>
+  <rect x="306" y="1298" width="120" height="46" rx="3" fill="#FBEAF0"/><text x="366" y="1314" text-anchor="middle" class="ts" fill="#72243E">仿真+真实双飞轮</text><text x="366" y="1332" text-anchor="middle" class="tc" fill="#993556">仅自动驾驶</text>
+  <rect x="428" y="1298" width="232" height="46" rx="3" fill="#FBEAF0"/><text x="440" y="1314" class="tc" fill="#72243E">仿真效率10到10亿次 x 真实数据1.2-1.5</text><text x="440" y="1332" class="tc" fill="#993556">x 硬件迭代1.1-1.2x 当前仿真驱动为主</text>
+  <rect x="20" y="1360" width="640" height="22" rx="4" fill="#2C2C2A"/>
+  <text x="340" y="1376" text-anchor="middle" font-size="12" font-weight="500" fill="#fff">各层启动时间与代际类比定位</text>
+  <line x1="40" y1="1420" x2="640" y2="1420" stroke="#333" stroke-width="2"/><line x1="290" y1="1408" x2="290" y2="1432" stroke="#BA7517" stroke-width="2"/><circle cx="290" cy="1420" r="5" fill="#BA7517"/>
+  <text x="290" y="1396" text-anchor="middle" font-size="12" font-weight="500" fill="#BA7517">现在</text>
+  <rect x="40" y="1388" width="140" height="28" rx="5" fill="#D3D1C7"/><text x="110" y="1407" text-anchor="middle" class="ts" fill="#444">2012-2022 GPU复用</text>
+  <line x1="180" y1="1420" x2="280" y2="1420" stroke="#888" stroke-width="1" marker-end="url(#arrow)"/>
+  <rect x="470" y="1388" width="170" height="28" rx="5" fill="#E6F1FB"/><text x="555" y="1407" text-anchor="middle" class="ts" fill="#042C53">2030+ 四层成熟</text>
+  <line x1="300" y1="1420" x2="465" y2="1420" stroke="#378ADD" stroke-width="1" marker-end="url(#arrow)"/>
+  <text x="110" y="1452" text-anchor="middle" class="tc">L1芯片=1995年</text><text x="220" y="1452" text-anchor="middle" class="tc">L2模型=2000年</text><text x="330" y="1452" text-anchor="middle" class="tc">L3a AIGC=2010年</text><text x="470" y="1452" text-anchor="middle" class="tc">L3b通用=2008年</text><text x="555" y="1452" text-anchor="middle" class="tc">L4机器人=2007年</text>
+  <rect x="20" y="1478" width="640" height="80" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text x="36" y="1498" class="tk" fill="#04342C">内容AIGC超指数公式（4系数模型）</text>
+  <text x="36" y="1518" class="formula" fill="#0F6E56">内容AIGC每轮产出 = 第N-1轮产出 x 模型进化 x 数据回流 x 流程优化 x 格式扩张</text>
+  <text x="36" y="1540" class="tc" fill="#1D9E75">格式扩张系数：2016-2026稳定1.5 文本图像+2-3x 图像视频+3-5x 每新格式是红利窗口</text>
+  <text x="36" y="1555" class="tc" fill="#1D9E75">对比：电商AIGC无格式扩张维度 窗口12-18月 vs 内容24-48月</text>
+  <rect x="20" y="1572" width="640" height="22" rx="4" fill="#EEEDFE"/>
+  <text x="340" y="1588" text-anchor="middle" class="tk" fill="#3C3489">L1芯片层详细：公式 / 时间修正 / 树形推理</text>
+  <rect x="20" y="1598" width="310" height="80" rx="6" fill="#EEEDFE" stroke="#CECBF6" stroke-width="0.5"/>
+  <text x="36" y="1618" class="tk" fill="#3C3489">v5.1时间修正（重要）</text>
+  <text x="36" y="1638" class="tc" fill="#534AB7">2012-2022：前AI芯片时代（GPU复用）不是AI芯片层起点</text>
+  <text x="36" y="1656" class="tc" fill="#534AB7">2022-2032：AI芯片层爆发初期（AI PC/NPU/存算一体/AI辅助设计）</text>
+  <text x="36" y="1674" class="tc" fill="#534AB7">2032+：芯片层成熟期（架构稳定 约束从CUDA向通用抽象层转移）</text>
+  <rect x="344" y="1598" width="316" height="80" rx="6" fill="#EEEDFE" stroke="#CECBF6" stroke-width="0.5"/>
+  <text x="360" y="1618" class="tk" fill="#3C3489">树形推理：芯片架构三条演化路径</text>
+  <text x="360" y="1638" class="tc" fill="#534AB7">A. 通用GPU+专用加速（英伟达路线） AI辅助设计压缩周期40%</text>
+  <text x="360" y="1656" class="tc" fill="#534AB7">B. 专用AI芯片（NPU/存算一体）能效比胜GPU 10x+ 终端最大市场</text>
+  <text x="360" y="1674" class="tc" fill="#534AB7">C. 光计算/量子/神经形态 5-10年不可商用但远期终局</text>
+  <rect x="20" y="1682" width="640" height="22" rx="4" fill="#CECBF6"/>
+  <text x="340" y="1698" text-anchor="middle" class="tk" fill="#3C3489">芯片层关键玩家</text>
+  <rect x="20" y="1708" width="120" height="20" rx="2" fill="#D3D1C7"/><text x="80" y="1723" text-anchor="middle" class="tc" fill="#333">玩家</text>
+  <rect x="142" y="1708" width="210" height="20" rx="2" fill="#D3D1C7"/><text x="247" y="1723" class="tc" fill="#333">当前优势</text>
+  <rect x="354" y="1708" width="306" height="20" rx="2" fill="#D3D1C7"/><text x="507" y="1723" class="tc" fill="#333">与AI芯片爆发初期的关系</text>
+  <rect x="20" y="1730" width="120" height="20" rx="2" fill="#EEEDFE"/><text x="80" y="1744" class="tc" fill="#534AB7">英伟达</text>
+  <rect x="142" y="1730" width="210" height="20" rx="2" fill="#EEEDFE"/><text x="247" y="1744" class="tc" fill="#534AB7">CUDA先发+全栈整合</text>
+  <rect x="354" y="1730" width="306" height="20" rx="2" fill="#EEEDFE"/><text x="507" y="1744" class="tc" fill="#534AB7">先发不等于终局 类比Intel 1995但ARM颠覆</text>
+  <rect x="20" y="1752" width="120" height="20" rx="2" fill="#EEEDFE"/><text x="80" y="1766" class="tc" fill="#534AB7">高通/苹果</text>
+  <rect x="142" y="1752" width="210" height="20" rx="2" fill="#EEEDFE"/><text x="247" y="1766" class="tc" fill="#534AB7">终端AI芯片NPU</text>
+  <rect x="354" y="1752" width="306" height="20" rx="2" fill="#EEEDFE"/><text x="507" y="1766" class="tc" fill="#534AB7">终端推理是芯片层最大增量市场 数十亿台</text>
+  <rect x="20" y="1774" width="120" height="20" rx="2" fill="#EEEDFE"/><text x="80" y="1788" class="tc" fill="#534AB7">华为昇腾</text>
+  <rect x="142" y="1774" width="210" height="20" rx="2" fill="#EEEDFE"/><text x="247" y="1788" class="tc" fill="#534AB7">中国自主可控</text>
+  <rect x="354" y="1774" width="306" height="20" rx="2" fill="#EEEDFE"/><text x="507" y="1788" class="tc" fill="#534AB7">在地缘政治隔离生态中可能是独立赢家</text>
+  <rect x="20" y="1810" width="640" height="22" rx="4" fill="#E6F1FB"/>
+  <text x="340" y="1826" text-anchor="middle" class="tk" fill="#042C53">L2模型层详细：公式 / 树形推理 / 关键玩家</text>
+  <rect x="20" y="1836" width="640" height="56" rx="6" fill="#E6F1FB"/>
+  <text x="36" y="1856" class="tk" fill="#042C53">L2模型层超指数公式</text>
+  <text x="36" y="1876" class="formula" fill="#185FA5">每代模型能力 = 前代 x 预训练(1.3-1.5) x 推理优化(1.3-1.7) x 蒸馏(1.1-1.3) x 数据回流(1.1-1.3)</text>
+  <text x="36" y="1892" class="tc" fill="#378ADD">综合中值约2.69x/年 关键特征：预训练衰减 推理优化+蒸馏接力 系数交替使窗口比L1更长</text>
+  <rect x="20" y="1896" width="310" height="72" rx="6" fill="#E6F1FB"/>
+  <text x="36" y="1916" class="tk" fill="#042C53">树形推理：模型层演化三路径</text>
+  <text x="36" y="1936" class="tc" fill="#185FA5">A. Scaling Law+推理优化（经典平台 OpenAI/Google/Anthropic）</text>
+  <text x="36" y="1954" class="tc" fill="#185FA5">B. 成本效率颠覆（DeepSeek MoE小激活低成本接近顶尖）</text>
+  <text x="36" y="1968" class="tc" fill="#185FA5">C. 开源追平闭源+专业化（Llama系列 垂直模型涌现）</text>
+  <rect x="344" y="1896" width="316" height="72" rx="6" fill="#E6F1FB"/>
+  <text x="360" y="1916" class="tk" fill="#042C53">词源污染三级区分（v5.1新增）</text>
+  <text x="360" y="1936" class="tc" fill="#185FA5">通用词/成语：黑马/意外/崛起 正常使用不改</text>
+  <text x="360" y="1954" class="tc" fill="#185FA5">行业术语滥用：护城河（巴菲特）修正为精确实达</text>
+  <text x="360" y="1968" class="tc" fill="#185FA5">GEO营销高频词：标题党/暴富句式 删除或重写</text>
+  <rect x="20" y="1972" width="640" height="20" rx="3" fill="#B5D4F4"/>
+  <text x="340" y="1987" text-anchor="middle" class="tk" fill="#042C53">模型层关键玩家：OpenAI / Anthropic / DeepSeek / Google / Meta</text>
+  <rect x="20" y="1996" width="640" height="52" rx="5" fill="#E6F1FB"/>
+  <text x="36" y="2014" class="tk" fill="#042C53">OpenAI：模型层发起者和长期领先者</text>
+  <text x="36" y="2032" class="tc" fill="#185FA5">核心资产：GPT系列+ChatGPT亿级日活+微软 | 风险：持续烧钱 推理优化竞赛中能否跟上 无自研芯片</text>
+  <text x="36" y="2046" class="tc" fill="#378ADD">战略关键：能否从最好的模型转变为最好的平台</text>
+  <rect x="20" y="2052" width="640" height="52" rx="5" fill="#EAF3DE"/>
+  <text x="36" y="2070" class="tk" fill="#04342C">Anthropic：安全溢价路线</text>
+  <text x="36" y="2088" class="tc" fill="#3B6D11">核心资产：Claude系列+Claude Code+Amazon/Databricks | 差异化：安全的双向强化</text>
+  <text x="36" y="2102" class="tc" fill="#639922">赌注：安全溢价被市场认可 事故发生后价值才能被看到</text>
+  <rect x="20" y="2108" width="640" height="52" rx="5" fill="#FAEEDA"/>
+  <text x="36" y="2126" class="tk" fill="#412402">DeepSeek：成本效率颠覆者</text>
+  <text x="36" y="2144" class="tc" fill="#633806">核心资产：MoE架构(671B/37B激活)+R1推理链+开源 | 约600万美元接近GPT-4</text>
+  <text x="36" y="2158" class="tc" fill="#854F0B">最大风险：地缘政治限制（硬件获取）+商业变现路径探索中</text>
+  <rect x="20" y="2164" width="640" height="52" rx="5" fill="#E6F1FB"/>
+  <text x="36" y="2182" class="tk" fill="#042C53">Google / Meta</text>
+  <text x="36" y="2200" class="tc" fill="#185FA5">Google：横跨L1(TPU)+L2(Gemini)+L3(生态)全栈 | 最大数据拥有者但组织效率拖累6-12月</text>
+  <text x="36" y="2214" class="tc" fill="#378ADD">Meta：开源路线旗手 Llama成为自部署标准 | 用非货币化方式统治模型层生态位</text>
+  <rect x="20" y="2232" width="640" height="22" rx="4" fill="#E1F5EE"/>
+  <text x="340" y="2248" text-anchor="middle" class="tk" fill="#04342C">L3应用层：AIGC vs 通用AI双轨展开</text>
+  <rect x="20" y="2258" width="310" height="68" rx="5" fill="#E1F5EE"/>
+  <text x="36" y="2278" class="tk" fill="#04342C">AIGC（内容/电商）</text>
+  <text x="36" y="2298" class="tc" fill="#0F6E56">AI角色：内容生产者直接面向消费者(B2C)</text>
+  <text x="36" y="2316" class="tc" fill="#0F6E56">反馈时延：秒级 | 超指数可达性：已实现</text>
+  <text x="36" y="2324" class="tc" fill="#1D9E75">超指数系数 2.0-5.0（4系数含格式扩张）</text>
+  <rect x="344" y="2258" width="316" height="68" rx="5" fill="#FAEEDA"/>
+  <text x="360" y="2278" class="tk" fill="#412402">通用AI（制造/教育/医疗）</text>
+  <text x="360" y="2298" class="tc" fill="#633806">AI角色：推理引擎嵌入流程(B2B)</text>
+  <text x="360" y="2316" class="tc" fill="#633806">反馈时延：天-月级 | 超指数可达性：不存在</text>
+  <text x="360" y="2324" class="tc" fill="#854F0B">物理反馈极限决定无法进入超指数</text>
+  <rect x="20" y="2330" width="310" height="68" rx="5" fill="#E1F5EE"/>
+  <text x="36" y="2350" class="tk" fill="#04342C">内容AIGC超指数应用示例</text>
+  <text x="36" y="2370" class="tc" fill="#0F6E56">1月基础x1 3月x3.2(格式扩张短视频)</text>
+  <text x="36" y="2388" class="tc" fill="#0F6E56">6月x8.7(数据飞轮 3D/交互)</text>
+  <text x="36" y="2396" class="tc" fill="#1D9E75">12月累积x75+（已发生在抖音TikTok）</text>
+  <rect x="344" y="2330" width="316" height="68" rx="5" fill="#FAEEDA"/>
+  <text x="360" y="2350" class="tk" fill="#412402">慢启动 永锁定 vs 快启动 易替代</text>
+  <text x="360" y="2370" class="tc" fill="#633806">AIGC：消费者即时反馈 迭代快但可替代</text>
+  <text x="360" y="2388" class="tc" fill="#633806">通用AI：慢启动 锁定是物理/监管级别 不可逆</text>
+  <text x="360" y="2396" class="tc" fill="#854F0B">商业价值可能更高</text>
+  <rect x="20" y="2414" width="640" height="22" rx="4" fill="#FBEAF0"/>
+  <text x="340" y="2430" text-anchor="middle" class="tk" fill="#4B1528">L4广义机器人层：自动驾驶为何是先行者</text>
+  <rect x="20" y="2440" width="640" height="76" rx="6" fill="#FBEAF0"/>
+  <text x="36" y="2460" class="tk" fill="#4B1528">自动驾驶超指数公式（仅此子领域）</text>
+  <text x="36" y="2480" class="formula" fill="#72243E">每轮驾驶能力 = 前代 x 仿真效率(10^2-10^3/年) x 真实数据(1.2-1.5x) x 硬件迭代(1.1-1.2x)</text>
+  <text x="36" y="2500" class="tc" fill="#993556">当前仿真驱动为主 特斯拉500万辆车每天1TB驾驶数据 Dojo超算FSD迭代 OTA推送 唯一超指数数据飞轮</text>
+  <text x="36" y="2515" class="tc" fill="#D4537E">人形机器人：物理数据稀缺 依赖仿真 远低于自动驾驶的超指数潜力</text>
+  <rect x="20" y="2520" width="640" height="22" rx="4" fill="#CECBF6"/>
+  <text x="340" y="2536" text-anchor="middle" class="tk" fill="#3C3489">超指数崩塌与代际范式关系</text>
+  <rect x="20" y="2546" width="640" height="56" rx="6" fill="#EEEDFE"/>
+  <text x="36" y="2566" class="tk" fill="#3C3489">崩塌不是比喻，是公式的直接推论</text>
+  <text x="36" y="2586" class="tc" fill="#534AB7">超指数阶段每轮产出乘3-5x = 单位算力成本1/3-1/5 持续6-12月：100元素材降至0.01元</text>
+  <text x="36" y="2602" class="tc" fill="#534AB7">当成本崩塌到阈值以下 新决策主体经济可行 每次代际更替的底层驱动 框架的第一推动力</text>
+  <rect x="20" y="2618" width="640" height="22" rx="4" fill="#2C2C2A"/>
+  <text x="340" y="2634" text-anchor="middle" font-size="12" font-weight="500" fill="#fff">v5.0四点关键缺陷与v5.1修正</text>
+  <rect x="20" y="2644" width="310" height="112" rx="5" fill="#FCEBEB"/>
+  <text x="36" y="2664" class="tk" fill="#791F1F">v5.0四点缺陷</text>
+  <text x="36" y="2684" class="tc" fill="#A32D2D">1. 芯片层误判中后期 实际爆发初期</text>
+  <text x="36" y="2700" class="tc" fill="#A32D2D">2. 过度反词源污染 黑马误判为污染</text>
+  <text x="36" y="2716" class="tc" fill="#A32D2D">3. AIGC概念泛化 制造/教育不是AIGC</text>
+  <text x="36" y="2732" class="tc" fill="#A32D2D">4. 机器人概念过窄 未含自动驾驶</text>
+  <text x="36" y="2748" class="tc" fill="#A32D2D">链式推理验证：错位是G4结构性特征</text>
+  <rect x="344" y="2644" width="316" height="112" rx="5" fill="#EAF3DE"/>
+  <text x="360" y="2664" class="tk" fill="#173404">v5.1-v5.2修正方案</text>
+  <text x="360" y="2684" class="tc" fill="#3B6D11">L1从超指数中后期改为爆发初期（2022+）</text>
+  <text x="360" y="2700" class="tc" fill="#3B6D11">词源三级区分：通用词正常/术语滥用修正/GEO删除</text>
+  <text x="360" y="2716" class="tc" fill="#3B6D11">L3拆为AIGC(内容/电商)+通用AI(制造/教育/医疗)</text>
+  <text x="360" y="2732" class="tc" fill="#3B6D11">L4扩展为广义机器人含自动驾驶</text>
+  <text x="360" y="2748" class="tc" fill="#3B6D11">v5.2新增：超指数精确定义+公式体系+系数演化模型</text>
+  <text x="340" y="2778" text-anchor="middle" font-size="10" fill="#888">框架来源：客户代际范式理论 v5.2 | 六维推理校验通过 | 2026-06-06</text>
+  <rect x="20" y="2790" width="640" height="50" rx="8" fill="none" stroke="#B4B2A9" stroke-width="0.5" stroke-dasharray="4,3"/>
+  <text x="56" y="2811" font-size="11" fill="#444">1.核心命题 2.增长定义(线/指/超) 3.通用公式系统 4.电商6系数公式 5.判定标准阈值表 6.三阶段演化(自终结律)</text>
+  <text x="56" y="2830" font-size="11" fill="#444">7.五层差异化公式对比表 8.时间轴定位 9.内容AIGC4系数 10.L1-L4树形推理+关键玩家 11.AIGC vs通用AI双轨 12.v5.0缺陷与修正</text>
+</svg>

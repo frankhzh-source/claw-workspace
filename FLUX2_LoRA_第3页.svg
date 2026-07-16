@@ -1,0 +1,140 @@
+<svg viewBox="0 0 800 1130" width="100%" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .t { font-family: -apple-system, "Microsoft YaHei", sans-serif; }
+      .tb { font-family: -apple-system, "Microsoft YaHei", sans-serif; font-weight: bold; }
+    </style>
+  </defs>
+  <rect width="800" height="1130" fill="#fff"/>
+
+  <!-- Stage 3 -->
+  <rect x="40" y="30" width="720" height="34" rx="6" fill="#0F6E56"/>
+  <text class="tb" x="55" y="53" font-size="14" fill="#fff">Stage 3  第三阶段：进阶 - 工程化</text>
+  <text class="t" x="55" y="80" font-size="12" fill="#444">5步工程流程 + 批量标注生成器 (15模板/CSV驱动)</text>
+
+  <rect x="55" y="94" width="3" height="14" rx="1.5" fill="#1D9E75"/>
+  <text class="tb" x="63" y="106" font-size="12" fill="#0F6E56">第五章：5步工程流程</text>
+
+  <!-- 5步流程 -->
+  <rect x="55" y="120" width="130" height="26" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text class="tb" x="120" y="138" text-anchor="middle" font-size="10" fill="#0F6E56">数据审计</text>
+  <text class="tb" x="193" y="138" font-size="13" fill="#888">→</text>
+  <rect x="202" y="120" width="130" height="26" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text class="tb" x="267" y="138" text-anchor="middle" font-size="10" fill="#0F6E56">策略制定</text>
+  <text class="tb" x="340" y="138" font-size="13" fill="#888">→</text>
+  <rect x="349" y="120" width="130" height="26" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text class="tb" x="414" y="138" text-anchor="middle" font-size="10" fill="#0F6E56">批量标注</text>
+  <text class="tb" x="487" y="138" font-size="13" fill="#888">→</text>
+  <rect x="496" y="120" width="100" height="26" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text class="tb" x="546" y="138" text-anchor="middle" font-size="10" fill="#0F6E56">质量验收</text>
+  <text class="tb" x="604" y="138" font-size="13" fill="#888">→</text>
+  <rect x="613" y="120" width="90" height="26" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text class="tb" x="658" y="138" text-anchor="middle" font-size="10" fill="#0F6E56">训练检查</text>
+
+  <text class="t" x="55" y="160" font-size="10" fill="#555">产出：审计报告 | 标注规范 | captions/ | 验收报告 | 确认清单</text>
+
+  <rect x="55" y="176" width="3" height="14" rx="1.5" fill="#1D9E75"/>
+  <text class="tb" x="63" y="188" font-size="12" fill="#0F6E56">第六章：批量标注生成器</text>
+  <text class="t" x="55" y="206" font-size="10" fill="#555">> 输入：products.csv + metadata.csv | 15模板(5类x3变体)</text>
+  <text class="t" x="55" y="221" font-size="10" fill="#555">> 随机选模板->填充->保存.txt | 人工审阅20%->10%->5%</text>
+  <text class="t" x="55" y="238" font-size="10" fill="#555">validation_script.py：检查长度/触发词/污染，通过率>=90%</text>
+  <text class="t" x="55" y="253" font-size="10" fill="#555">caption_generator.py：15模板+CSV驱动</text>
+
+  <!-- Stage 4 -->
+  <rect x="40" y="280" width="720" height="34" rx="6" fill="#854F0B"/>
+  <text class="tb" x="55" y="303" font-size="14" fill="#fff">Stage 4  第四阶段：专家 - 深度优化</text>
+
+  <rect x="55" y="326" width="3" height="14" rx="1.5" fill="#BA7517"/>
+  <text class="tb" x="63" y="338" font-size="12" fill="#854F0B">第七章：词频污染可视化</text>
+  <text class="t" x="55" y="356" font-size="10" fill="#555">高频词与触发词共现 -> 模型强绑定 -> 生成图特征偏移</text>
+  <text class="t" x="55" y="371" font-size="10" fill="#555">例：forest在15/17条中出现(88%) -> "ohwx person<->forest" -> 颜色偏绿</text>
+
+  <!-- 阈值表 -->
+  <rect x="55" y="383" width="60" height="16" rx="2" fill="#3C3C3C"/>
+  <text class="tb" x="65" y="395" font-size="9" fill="#fff">频率</text>
+  <rect x="115" y="383" width="60" height="16" rx="2" fill="#3C3C3C"/>
+  <text class="tb" x="125" y="395" font-size="9" fill="#fff">等级</text>
+  <rect x="175" y="383" width="80" height="16" rx="2" fill="#3C3C3C"/>
+  <text class="tb" x="185" y="395" font-size="9" fill="#fff">操作</text>
+
+  <rect x="55" y="399" width="60" height="14" rx="0" fill="#E1F5EE"/>
+  <text class="t" x="65" y="410" font-size="9" fill="#0F6E56"><20%</text>
+  <rect x="115" y="399" width="60" height="14" rx="0" fill="#E1F5EE"/>
+  <text class="t" x="125" y="410" font-size="9" fill="#0F6E56">安全</text>
+  <rect x="175" y="399" width="80" height="14" rx="0" fill="#E1F5EE"/>
+  <text class="t" x="185" y="410" font-size="9" fill="#0F6E56">无需操作</text>
+
+  <rect x="55" y="413" width="60" height="14" rx="0" fill="#FAEEDA"/>
+  <text class="t" x="65" y="424" font-size="9" fill="#854F0B">20-30%</text>
+  <rect x="115" y="413" width="60" height="14" rx="0" fill="#FAEEDA"/>
+  <text class="t" x="125" y="424" font-size="9" fill="#854F0B">注意</text>
+  <rect x="175" y="413" width="80" height="14" rx="0" fill="#FAEEDA"/>
+  <text class="t" x="185" y="424" font-size="9" fill="#854F0B">观察结果</text>
+
+  <rect x="55" y="427" width="60" height="14" rx="0" fill="#FAECE7"/>
+  <text class="t" x="65" y="438" font-size="9" fill="#993C1D">30-40%</text>
+  <rect x="115" y="427" width="60" height="14" rx="0" fill="#FAECE7"/>
+  <text class="t" x="125" y="438" font-size="9" fill="#993C1D">警告</text>
+  <rect x="175" y="427" width="80" height="14" rx="0" fill="#FAECE7"/>
+  <text class="t" x="185" y="438" font-size="9" fill="#993C1D">建议替换同义词</text>
+
+  <rect x="55" y="441" width="60" height="14" rx="0" fill="#FCEBEB"/>
+  <text class="t" x="65" y="452" font-size="9" fill="#A32D2D">>40%</text>
+  <rect x="115" y="441" width="60" height="14" rx="0" fill="#FCEBEB"/>
+  <text class="t" x="125" y="452" font-size="9" fill="#A32D2D">严重</text>
+  <rect x="175" y="441" width="80" height="14" rx="0" fill="#FCEBEB"/>
+  <text class="t" x="185" y="452" font-size="9" fill="#A32D2D">必须替换同义词</text>
+
+  <text class="t" x="55" y="472" font-size="10" fill="#555">修复：forest->woodland/grove/woods | word_frequency_visualizer.py</text>
+
+  <rect x="55" y="490" width="3" height="14" rx="1.5" fill="#BA7517"/>
+  <text class="tb" x="63" y="502" font-size="12" fill="#854F0B">第八章：训练失败 -> 根因映射表</text>
+
+  <!-- 映射表 -->
+  <rect x="55" y="514" width="100" height="16" rx="2" fill="#3C3C3C"/>
+  <text class="tb" x="65" y="526" font-size="9" fill="#fff">失败现象</text>
+  <rect x="155" y="514" width="130" height="16" rx="2" fill="#3C3C3C"/>
+  <text class="tb" x="165" y="526" font-size="9" fill="#fff">根因</text>
+  <rect x="285" y="514" width="150" height="16" rx="2" fill="#3C3C3C"/>
+  <text class="tb" x="295" y="526" font-size="9" fill="#fff">解决方案</text>
+
+  <rect x="55" y="530" width="100" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="tb" x="65" y="541" font-size="9" fill="#333">触发词完全无效</text>
+  <rect x="155" y="530" width="130" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="165" y="541" font-size="9" fill="#444">LR<5e-4或标签列表</text>
+  <rect x="285" y="530" width="150" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="295" y="541" font-size="9" fill="#444">提高LR或重新标注</text>
+
+  <rect x="55" y="544" width="100" height="14" rx="0"/>
+  <text class="tb" x="65" y="555" font-size="9" fill="#333">时灵时不灵</text>
+  <rect x="155" y="544" width="130" height="14" rx="0"/>
+  <text class="t" x="165" y="555" font-size="9" fill="#444">密度不均</text>
+  <rect x="285" y="544" width="150" height="14" rx="0"/>
+  <text class="t" x="295" y="555" font-size="9" fill="#444">确保2-5%</text>
+
+  <rect x="55" y="558" width="100" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="tb" x="65" y="569" font-size="9" fill="#333">不加触发词出人物</text>
+  <rect x="155" y="558" width="130" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="165" y="569" font-size="9" fill="#444">绑定通用属性</text>
+  <rect x="285" y="558" width="150" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="295" y="569" font-size="9" fill="#444">重新标注</text>
+
+  <rect x="55" y="572" width="100" height="14" rx="0"/>
+  <text class="tb" x="65" y="583" font-size="9" fill="#333">颜色偏移</text>
+  <rect x="155" y="572" width="130" height="14" rx="0"/>
+  <text class="t" x="165" y="583" font-size="9" fill="#444">词频污染>40%</text>
+  <rect x="285" y="572" width="150" height="14" rx="0"/>
+  <text class="t" x="295" y="583" font-size="9" fill="#444">替换同义词</text>
+
+  <rect x="55" y="586" width="100" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="tb" x="65" y="597" font-size="9" fill="#333">CP-1000不如750</text>
+  <rect x="155" y="586" width="130" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="165" y="597" font-size="9" fill="#444">过拟合</text>
+  <rect x="285" y="586" width="150" height="14" rx="0" fill="#f5f5f5"/>
+  <text class="t" x="295" y="597" font-size="9" fill="#444">使用CP-750</text>
+
+  <text class="t" x="55" y="620" font-size="10" fill="#555">决策树：无效->LR?->标签?->密度?->污染/连字符?->词频>40%? | 工具：troubleshooting.py</text>
+
+  <!-- 页脚 -->
+  <text class="t" x="400" y="1100" text-anchor="middle" font-size="11" fill="#ccc">第 3 页 / 共 4 页</text>
+</svg>

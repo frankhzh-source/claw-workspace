@@ -1,0 +1,115 @@
+<svg viewBox="0 0 680 640" width="100%" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>LibTV视频创作平台学习图谱：无限画布、五大节点、完整创作流程与模型矩阵</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <text x="340" y="32" text-anchor="middle" font-size="15" font-weight="500" fill="#2C2C2A">LibTV 视频创作平台 — 完整学习图谱</text>
+  <text x="340" y="50" text-anchor="middle" font-size="12" fill="#5F5E5A">LiblibAI 推出 / 2026.03 / 同时服务人类创作者与 AI Agent</text>
+
+  <rect x="30" y="68" width="620" height="44" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <text x="50" y="90" font-size="13" font-weight="500" fill="#0C447C" dominant-baseline="central">核心定位</text>
+  <text x="140" y="90" font-size="12" fill="#185FA5" dominant-baseline="central">目前唯一同时为人类创作者和 AI Agent 设计的专业视频创作系统</text>
+
+  <text x="340" y="140" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A">五大基础节点（无限画布）</text>
+
+  <rect x="30" y="156" width="115" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="87" y="174" text-anchor="middle" font-size="13" font-weight="500" fill="#3C3489" dominant-baseline="central">文本节点</text>
+  <text x="87" y="196" text-anchor="middle" font-size="11" fill="#534AB7" dominant-baseline="central">剧本/提示词/旁白</text>
+
+  <rect x="158" y="156" width="115" height="56" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text x="215" y="174" text-anchor="middle" font-size="13" font-weight="500" fill="#085041" dominant-baseline="central">图片节点</text>
+  <text x="215" y="196" text-anchor="middle" font-size="11" fill="#1D9E75" dominant-baseline="central">分镜/角色/参考图</text>
+
+  <rect x="286" y="156" width="115" height="56" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+  <text x="343" y="174" text-anchor="middle" font-size="13" font-weight="500" fill="#633806" dominant-baseline="central">视频节点</text>
+  <text x="343" y="196" text-anchor="middle" font-size="11" fill="#854F0B" dominant-baseline="central">生成的视频片段</text>
+
+  <rect x="414" y="156" width="115" height="56" rx="8" fill="#FBEAF0" stroke="#D4537E" stroke-width="0.5"/>
+  <text x="471" y="174" text-anchor="middle" font-size="13" font-weight="500" fill="#72243E" dominant-baseline="central">音频节点</text>
+  <text x="471" y="196" text-anchor="middle" font-size="11" fill="#D4537E" dominant-baseline="central">BGM/配音</text>
+
+  <rect x="542" y="156" width="108" height="56" rx="8" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+  <text x="596" y="174" text-anchor="middle" font-size="13" font-weight="500" fill="#3B6D11" dominant-baseline="central">脚本节点</text>
+  <text x="596" y="196" text-anchor="middle" font-size="11" fill="#639922" dominant-baseline="central">批量生成分镜</text>
+
+  <line x1="145" y1="184" x2="156" y2="184" stroke="#5F5E5A" stroke-width="0.5" marker-end="url(#arrow)"/>
+  <line x1="273" y1="184" x2="284" y2="184" stroke="#5F5E5A" stroke-width="0.5" marker-end="url(#arrow)"/>
+  <line x1="401" y1="184" x2="412" y2="184" stroke="#5F5E5A" stroke-width="0.5" marker-end="url(#arrow)"/>
+  <line x1="529" y1="184" x2="540" y2="184" stroke="#5F5E5A" stroke-width="0.5" marker-end="url(#arrow)"/>
+
+  <text x="340" y="248" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A">完整创作流程（一次走完）</text>
+
+  <rect x="30" y="264" width="95" height="44" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <text x="77" y="286" text-anchor="middle" font-size="12" fill="#0C447C" font-weight="500" dominant-baseline="central">写剧本</text>
+
+  <line x1="125" y1="286" x2="139" y2="286" stroke="#5F5E5A" stroke-width="1" marker-end="url(#arrow)"/>
+
+  <rect x="140" y="264" width="95" height="44" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="187" y="286" text-anchor="middle" font-size="12" fill="#3C3489" font-weight="500" dominant-baseline="central">生成分镜</text>
+
+  <line x1="235" y1="286" x2="249" y2="286" stroke="#5F5E5A" stroke-width="1" marker-end="url(#arrow)"/>
+
+  <rect x="250" y="264" width="95" height="44" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text x="297" y="286" text-anchor="middle" font-size="12" fill="#085041" font-weight="500" dominant-baseline="central">分镜转视频</text>
+
+  <line x1="345" y1="286" x2="359" y2="286" stroke="#5F5E5A" stroke-width="1" marker-end="url(#arrow)"/>
+
+  <rect x="360" y="264" width="95" height="44" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+  <text x="407" y="286" text-anchor="middle" font-size="12" fill="#633806" font-weight="500" dominant-baseline="central">合成剪辑</text>
+
+  <line x1="455" y1="286" x2="469" y2="286" stroke="#5F5E5A" stroke-width="1" marker-end="url(#arrow)"/>
+
+  <rect x="470" y="264" width="95" height="44" rx="6" fill="#FBEAF0" stroke="#D4537E" stroke-width="0.5"/>
+  <text x="517" y="286" text-anchor="middle" font-size="12" fill="#72243E" font-weight="500" dominant-baseline="central">配音/BGM</text>
+
+  <line x1="565" y1="286" x2="579" y2="286" stroke="#5F5E5A" stroke-width="1" marker-end="url(#arrow)"/>
+
+  <rect x="580" y="264" width="70" height="44" rx="6" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+  <text x="615" y="286" text-anchor="middle" font-size="12" fill="#3B6D11" font-weight="500" dominant-baseline="central">导出</text>
+
+  <line x1="30" y1="328" x2="650" y2="328" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4,4"/>
+
+  <text x="340" y="360" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A">视频模型选择指南</text>
+
+  <rect x="30" y="376" width="145" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="102" y="394" text-anchor="middle" font-size="12" fill="#3C3489" font-weight="500" dominant-baseline="central">Seedance 2.0</text>
+  <text x="102" y="416" text-anchor="middle" font-size="11" fill="#534AB7" dominant-baseline="central">全能首选 · 1080P</text>
+
+  <rect x="188" y="376" width="145" height="56" rx="8" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+  <text x="260" y="394" text-anchor="middle" font-size="12" fill="#3B6D11" font-weight="500" dominant-baseline="central">Kling O3</text>
+  <text x="260" y="416" text-anchor="middle" font-size="11" fill="#639922" dominant-baseline="central">视频编辑 · 增删改换</text>
+
+  <rect x="346" y="376" width="145" height="56" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+  <text x="418" y="394" text-anchor="middle" font-size="12" fill="#633806" font-weight="500" dominant-baseline="central">Kling 3.0</text>
+  <text x="418" y="416" text-anchor="middle" font-size="11" fill="#854F0B" dominant-baseline="central">原生音画同步</text>
+
+  <rect x="504" y="376" width="145" height="56" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text x="576" y="394" text-anchor="middle" font-size="12" fill="#085041" font-weight="500" dominant-baseline="central">Wan 2.6</text>
+  <text x="576" y="416" text-anchor="middle" font-size="11" fill="#1D9E75" dominant-baseline="central">多角色对话</text>
+
+  <line x1="30" y1="452" x2="650" y2="452" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4,4"/>
+
+  <text x="340" y="480" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A">关键工具集</text>
+
+  <rect x="30" y="496" width="148" height="70" rx="6" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="104" y="515" text-anchor="middle" font-size="12" fill="#2C2C2A" font-weight="500" dominant-baseline="central">视频主体库</text>
+  <text x="104" y="538" text-anchor="middle" font-size="11" fill="#5F5E5A" dominant-baseline="central">多图/视频创建主体</text>
+
+  <rect x="188" y="496" width="148" height="70" rx="6" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="262" y="515" text-anchor="middle" font-size="12" fill="#2C2C2A" font-weight="500" dominant-baseline="central">运镜控制</text>
+  <text x="262" y="538" text-anchor="middle" font-size="11" fill="#5F5E5A" dominant-baseline="central">20+ 预设运镜</text>
+
+  <rect x="346" y="496" width="148" height="70" rx="6" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="420" y="515" text-anchor="middle" font-size="12" fill="#2C2C2A" font-weight="500" dominant-baseline="central">视频高清</text>
+  <text x="420" y="538" text-anchor="middle" font-size="11" fill="#5F5E5A" dominant-baseline="central">2/4/6倍+帧率提升</text>
+
+  <rect x="504" y="496" width="148" height="70" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <text x="578" y="515" text-anchor="middle" font-size="12" fill="#0C447C" font-weight="500" dominant-baseline="central">Agent Skill</text>
+  <text x="578" y="538" text-anchor="middle" font-size="11" fill="#185FA5" dominant-baseline="central">OpenClaw 接口</text>
+
+  <line x1="30" y1="586" x2="650" y2="586" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4,4"/>
+
+  <text x="340" y="612" text-anchor="middle" font-size="12" fill="#5F5E5A">学习路径：先熟悉画布 → 跟完整实例做一遍 → 用脚本节点批量分镜 → 学高级工具 → 建工作流模板</text>
+</svg>

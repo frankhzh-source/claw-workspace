@@ -1,0 +1,500 @@
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:960px;margin:0 auto;padding:20px 16px 40px;position:relative;overflow:hidden;color:#222;">
+
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+      --color-background-primary: #ffffff;
+      --color-background-secondary: #f5f5f4;
+      --color-background-info: #e6f1fb;
+      --color-background-warning: #faedda;
+      --color-background-success: #eaf3de;
+      --color-background-danger: #fcebeb;
+      --color-text-primary: #222222;
+      --color-text-secondary: #5f5e5a;
+      --color-text-tertiary: #888780;
+      --color-text-info: #185fa5;
+      --color-text-warning: #854f0b;
+      --color-text-success: #3b6d11;
+      --color-text-danger: #a32d2d;
+      --color-border-tertiary: #d3d1c7;
+      --color-border-secondary: #b4b2a9;
+      --color-border-primary: #888780;
+      --color-border-info: #85b7eb;
+      --color-border-warning: #fac775;
+      --color-border-success: #97c459;
+      --border-radius-md: 8px;
+      --border-radius-lg: 12px;
+    }
+    body { margin: 0; background: #fafaf8; }
+  </style>
+
+  <!-- 背景装饰层 - 更克制的设计 -->
+  <div style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;overflow:hidden;">
+    <!-- 顶部渐变光晕 -->
+    <div style="position:absolute;top:-150px;left:50%;transform:translateX(-50%);width:500px;height:300px;background:radial-gradient(ellipse,#e6f1fb 0%,transparent 70%);opacity:0.5;"></div>
+    <!-- 中部渐变光晕 -->
+    <div style="position:absolute;top:900px;left:50%;transform:translateX(-50%);width:400px;height:250px;background:radial-gradient(ellipse,#f5f5f4 0%,transparent 70%);opacity:0.6;"></div>
+    <!-- 底部渐变光晕 -->
+    <div style="position:absolute;top:2000px;left:50%;transform:translateX(-50%);width:500px;height:300px;background:radial-gradient(ellipse,#eaf3de 0%,transparent 70%);opacity:0.3;"></div>
+
+    <!-- 装饰分隔线（避开文字区域） -->
+    <div style="position:absolute;top:600px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 5%,#d3d1c7 20%,#d3d1c7 80%,transparent 95%);opacity:0.3;"></div>
+    <div style="position:absolute;top:1300px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 5%,#d3d1c7 20%,#d3d1c7 80%,transparent 95%);opacity:0.3;"></div>
+    <div style="position:absolute;top:2000px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 5%,#d3d1c7 20%,#d3d1c7 80%,transparent 95%);opacity:0.3;"></div>
+
+    <!-- 装饰斜角标记（固定在边角不遮挡） -->
+    <div style="position:absolute;top:120px;right:40px;font-size:72px;font-weight:500;color:#888780;opacity:0.06;font-family:monospace;user-select:none;letter-spacing:6px;">G4</div>
+
+    <!-- 极淡斜线纹理 -->
+    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,#d3d1c7 40px,#d3d1c7 41px);opacity:0.03;"></div>
+  </div>
+
+  <div style="position:relative;z-index:1;">
+  <h2 class="sr-only" style="position:absolute;left:-10000px;overflow:hidden;">客户代际范式理论 v5.2 完整可视化：超指数增长定义与四层价值链体系</h2>
+
+  <!-- ============ 标题区 ============ -->
+  <div style="text-align:center;margin-bottom:16px;">
+    <div style="font-size:20px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px;">客户代际范式理论 v5.2</div>
+    <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:10px;">超指数增长定义与公式体系 · 四层价值链重构 · 六维推理校验通过</div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;font-size:11px;color:var(--color-text-secondary);">
+      <span>链式推理</span>
+      <span style="color:var(--color-border-tertiary);">|</span>
+      <span>树形推理</span>
+      <span style="color:var(--color-border-tertiary);">|</span>
+      <span>横向比较</span>
+      <span style="color:var(--color-border-tertiary);">|</span>
+      <span>纵向比较</span>
+      <span style="color:var(--color-border-tertiary);">|</span>
+      <span>逆向反推</span>
+      <span style="color:var(--color-border-tertiary);">|</span>
+      <span>正向推演</span>
+      <span style="color:var(--color-border-tertiary);">|</span>
+      <span>词源与 GEO 污染已排除</span>
+    </div>
+  </div>
+
+  <!-- ============ 核心命题 ============ -->
+  <div style="background:var(--color-background-info);border-radius:var(--border-radius-lg);padding:16px 20px;margin-bottom:20px;border:0.5px solid var(--color-border-info);">
+    <div style="font-size:12px;font-weight:500;color:var(--color-text-info);margin-bottom:8px;">核心命题</div>
+    <div style="font-size:13px;line-height:1.7;color:var(--color-text-primary);">
+      计算产业的价值分配由决策主体的代际更替驱动。每 20-30 年，算力成本沿<strong>超指数曲线</strong>崩塌至新临界点，使一类新决策主体经济性成立，触发全栈重构与价值重分配。这一过程沿着四层产业价值链逐级传导并相互反馈：
+    </div>
+    <div style="display:flex;gap:6px;margin-top:10px;justify-content:center;flex-wrap:wrap;font-size:14px;font-weight:500;">
+      <span style="background:var(--color-background-info);color:var(--color-text-info);padding:4px 14px;border-radius:20px;">L1 芯片层</span>
+      <span style="font-size:18px;color:var(--color-text-tertiary);">→</span>
+      <span style="background:var(--color-background-warning);color:var(--color-text-warning);padding:4px 14px;border-radius:20px;">L2 模型层</span>
+      <span style="font-size:18px;color:var(--color-text-tertiary);">→</span>
+      <span style="background:var(--color-background-success);color:var(--color-text-success);padding:4px 14px;border-radius:20px;">L3 应用层</span>
+      <span style="font-size:18px;color:var(--color-text-tertiary);">→</span>
+      <span style="background:var(--color-background-secondary);color:var(--color-text-secondary);padding:4px 14px;border-radius:20px;">L4 机器人层</span>
+    </div>
+    <div style="font-size:11px;color:var(--color-text-info);margin-top:8px;text-align:center;">当前 AI 芯片层仅处于爆发初期（类比 PC 的 1995 年），四层结构中尚有大量空间未展开</div>
+  </div>
+
+  <!-- ============ 第一章节：超指数定义 ============ -->
+  <div style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px;padding-bottom:6px;border-bottom:0.5px solid var(--color-border-tertiary);">一、超指数增长的精确定义（v5.2 新增）</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;">
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);padding:14px 16px;text-align:center;">
+      <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px;">线性增长</div>
+      <div style="font-family:var(--font-mono);font-size:14px;font-weight:500;padding:8px;background:var(--color-background-secondary);border-radius:6px;margin-bottom:6px;">f(n+1) = f(n) + C</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);">每次都加固定值 · 人力扩产模式</div>
+    </div>
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);padding:14px 16px;text-align:center;">
+      <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px;">指数增长</div>
+      <div style="font-family:var(--font-mono);font-size:14px;font-weight:500;padding:8px;background:var(--color-background-secondary);border-radius:6px;margin-bottom:6px;">f(n+1) = f(n) × C</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);">乘固定倍数 · 摩尔定律模式</div>
+    </div>
+    <div style="background:var(--color-background-info);border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-info);padding:14px 16px;text-align:center;">
+      <div style="font-size:12px;font-weight:500;color:var(--color-text-info);margin-bottom:6px;">超指数增长</div>
+      <div style="font-family:var(--font-mono);font-size:14px;font-weight:500;padding:8px;background:var(--color-background-info);border-radius:6px;margin-bottom:6px;border:0.5px solid var(--color-border-info);">f(n+1) = f(n) × C(n)</div>
+      <div style="font-size:11px;color:var(--color-text-info);"><strong>系数 C 本身随 n 增长</strong> · 增速在增长</div>
+    </div>
+  </div>
+
+  <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:12px 16px;margin-bottom:16px;">
+    <div style="font-size:12px;font-weight:500;margin-bottom:6px;">一句话定义</div>
+    <div style="font-size:13px;line-height:1.5;">超指数增长 = 每一轮产出都在提升下一轮的增长率。<strong>增长率本身在增长。</strong></div>
+    <div style="font-size:12px;color:var(--color-text-secondary);margin-top:6px;">超指数 vs 指数的分水岭</td></tr>
+  </div>
+    <div style="font-size:11px;line-height:1.5;color:var(--color-text-secondary);">是系数本身是否在增长。指数系数是常数（稳定 2x/年），超指数系数本身在增长（Year1: 1.5x → Year2: 1.8x → Year3: 2.2x）。系数增长收敛后，超指数降级为指数——这就是"自终结律"的数学根源。</div>
+  </div>
+
+  <!-- ============ 第二章节：公式体系 ============ -->
+  <div style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px;padding-bottom:6px;border-bottom:0.5px solid var(--color-border-tertiary);">二、核心公式体系</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);padding:14px 16px;">
+      <div style="font-size:12px;font-weight:500;margin-bottom:8px;">通用多轮公式</div>
+      <div style="background:var(--color-background-secondary);border-radius:6px;padding:10px;font-family:var(--font-mono);font-size:12px;line-height:1.6;margin-bottom:8px;">
+        第 N 轮产出 = 第 N-1 轮产出 × 模型进化系数 × 数据回流系数 × 流程优化系数
+      </div>
+      <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.5;">
+        <strong>模型进化系数 > 1：</strong>模型能力持续提升（参数优化/蒸馏/架构改进）<br/>
+        <strong>数据回流系数 > 1：</strong>效果数据反哺 Prompt/参数优化<br/>
+        <strong>流程优化系数 > 1：</strong>管线自动化程度持续提升
+      </div>
+    </div>
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);padding:14px 16px;">
+      <div style="font-size:12px;font-weight:500;margin-bottom:8px;">月度增长系数（电商 AIGC 量化）</div>
+      <div style="background:var(--color-background-secondary);border-radius:6px;padding:10px;font-family:var(--font-mono);font-size:11px;line-height:1.6;margin-bottom:8px;">
+        月度增长系数 = (E₂/E₁) × (P₂/P₁) × (C₂/C₁) × (S₂/S₁) × (1+R) × (V₁/V₂)
+      </div>
+      <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.5;">
+        <strong>E</strong> = 生成效率 · <strong>P</strong> = 一次通过率 · <strong>C</strong> = 商品一致率<br/>
+        <strong>S</strong> = 风格命中率 · <strong>R</strong> = 转化率提升 · <strong>V</strong> = 飞轮速度（越小越好）
+      </div>
+    </div>
+  </div>
+
+  <!-- 示例计算区 -->
+  <div style="background:var(--color-background-success);border-radius:var(--border-radius-lg);padding:14px 16px;margin-bottom:16px;border:0.5px solid var(--color-border-success);">
+    <div style="font-size:12px;font-weight:500;color:var(--color-text-success);margin-bottom:8px;">示例计算：首月增长系数 = 5.2×（第 1 月 → 第 2 月）</div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;font-size:11px;text-align:center;">
+      <div style="background:var(--color-background-primary);border-radius:6px;padding:6px;">
+        <div style="font-weight:500;">E</div>
+        <div>10→20</div>
+        <div style="color:var(--color-text-success);">×2.0</div>
+      </div>
+      <div style="background:var(--color-background-primary);border-radius:6px;padding:6px;">
+        <div style="font-weight:500;">P</div>
+        <div>30%→40%</div>
+        <div style="color:var(--color-text-success);">×1.33</div>
+      </div>
+      <div style="background:var(--color-background-primary);border-radius:6px;padding:6px;">
+        <div style="font-weight:500;">C</div>
+        <div>70%→78%</div>
+        <div style="color:var(--color-text-success);">×1.11</div>
+      </div>
+      <div style="background:var(--color-background-primary);border-radius:6px;padding:6px;">
+        <div style="font-weight:500;">S</div>
+        <div>50%→60%</div>
+        <div style="color:var(--color-text-success);">×1.20</div>
+      </div>
+      <div style="background:var(--color-background-primary);border-radius:6px;padding:6px;">
+        <div style="font-weight:500;">R</div>
+        <div>0%→5%</div>
+        <div style="color:var(--color-text-success);">×1.05</div>
+      </div>
+      <div style="background:var(--color-background-primary);border-radius:6px;padding:6px;">
+        <div style="font-weight:500;">V</div>
+        <div>7d→5d</div>
+        <div style="color:var(--color-text-success);">×1.40</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 判定标准 -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px;">
+    <div style="text-align:center;padding:10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);">
+      <div style="font-size:11px;color:var(--color-text-secondary);">线性增长</div>
+      <div style="font-size:13px;font-weight:500;margin:4px 0;">&lt; 1.1</div>
+      <div style="font-size:10px;color:var(--color-text-tertiary);">飞轮未启动</div>
+    </div>
+    <div style="text-align:center;padding:10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);">
+      <div style="font-size:11px;color:var(--color-text-secondary);">指数增长</div>
+      <div style="font-size:13px;font-weight:500;margin:4px 0;">1.1 — 2.0</div>
+      <div style="font-size:10px;color:var(--color-text-tertiary);">飞轮启动但系数恒定</div>
+    </div>
+    <div style="text-align:center;padding:10px;background:var(--color-background-success);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-success);">
+      <div style="font-size:11px;color:var(--color-text-success);font-weight:500;">超指数拐点</div>
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-success);margin:4px 0;">&gt; 2.0</div>
+      <div style="font-size:10px;color:var(--color-text-success);">持续 3 个月以上</div>
+    </div>
+    <div style="text-align:center;padding:10px;background:var(--color-background-warning);border-radius:var(--border-radius-md);">
+      <div style="font-size:11px;color:var(--color-text-warning);">指数收敛期</div>
+      <div style="font-size:13px;font-weight:500;margin:4px 0;">回落 1.2-2.0</div>
+      <div style="font-size:10px;color:var(--color-text-tertiary);">边际递减触发</div>
+    </div>
+  </div>
+
+  <!-- ============ 第三章节：四层公式映射 ============ -->
+  <div style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px;padding-bottom:6px;border-bottom:0.5px solid var(--color-border-tertiary);">三、各层超指数公式差异化映射（v5.2 新增核心）</div>
+
+  <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:14px 16px;margin-bottom:12px;">
+    <div style="font-size:12px;margin-bottom:10px;">真正的价值在于——超指数公式不是"大一统"的，而是<strong>每层有自己的公式、自己的系数、自己的窗口</strong>：</div>
+
+    <!-- L1 -->
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-lg);padding:12px 14px;margin-bottom:8px;border:0.5px solid var(--color-border-tertiary);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <span style="background:var(--color-background-info);color:var(--color-text-info);padding:2px 10px;border-radius:12px;font-size:11px;font-weight:500;">L1 芯片层</span>
+        <span style="font-size:12px;font-weight:500;">1.4-1.8×/代</span>
+        <span style="font-size:11px;color:var(--color-text-secondary);">窗口 8-12 年 · 爆发初期</span>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--color-text-secondary);margin-bottom:4px;">每代芯片性能 = 前代性能 × 制程密度系数 × 架构效率系数 × AI 辅助设计系数</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);">
+        AI 辅助设计 = 新增乘性系数，对冲摩尔定律放缓 · 物理上限强约束，不可能爆发式增长
+      </div>
+    </div>
+
+    <!-- L2 -->
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-lg);padding:12px 14px;margin-bottom:8px;border:0.5px solid var(--color-border-tertiary);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <span style="background:var(--color-background-warning);color:var(--color-text-warning);padding:2px 10px;border-radius:12px;font-size:11px;font-weight:500;">L2 模型层</span>
+        <span style="font-size:12px;font-weight:500;">~2.69×/年</span>
+        <span style="font-size:11px;color:var(--color-text-secondary);">窗口 3-6 年 · 爆发中期</span>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--color-text-secondary);margin-bottom:4px;">每代模型能力 = 前代能力 × 预训练系数 × 推理优化系数 × 蒸馏系数 × 数据回流系数</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);">
+        推理优化 + 蒸馏在预训练放缓后接力——<strong>"接力效应"使 L2 超指数窗口持续</strong>
+      </div>
+    </div>
+
+    <!-- L3a -->
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-lg);padding:12px 14px;margin-bottom:8px;border-left:3px solid var(--color-border-success);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <span style="background:var(--color-background-success);color:var(--color-text-success);padding:2px 10px;border-radius:12px;font-size:11px;font-weight:500;">L3a AIGC 应用</span>
+        <span style="font-size:12px;font-weight:500;">内容 2-5×/月 · 电商 1.5-3×/月</span>
+        <span style="font-size:11px;color:var(--color-text-success);">窗口 12-48 月 · 爆发早期</span>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--color-text-secondary);margin-bottom:4px;">内容 AIGC = 第 N-1 轮 × 模型 × 数据 × 流程 × <strong style="color:var(--color-text-success);">格式扩张</strong></div>
+      <div style="font-size:11px;color:var(--color-text-secondary);">
+        内容多一个乘性维度——格式扩张系数（过去 10 年稳定 &gt; 1.5）。每有新格式（text→image→video→3D→interactive）触发一次暴涨。<br/>
+        <strong>内容窗口 24-48 月 vs 电商窗口 12-18 月——格式扩张系数的差异</strong>
+      </div>
+    </div>
+
+    <!-- L3b -->
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-lg);padding:12px 14px;margin-bottom:8px;border:0.5px solid var(--color-border-tertiary);opacity:0.75;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <span style="background:var(--color-background-secondary);color:var(--color-text-secondary);padding:2px 10px;border-radius:12px;font-size:11px;font-weight:500;">L3b 通用 AI</span>
+        <span style="font-size:12px;font-weight:500;color:var(--color-text-secondary);">1.2-1.5×/年</span>
+        <span style="font-size:11px;color:var(--color-text-secondary);">无超指数潜力 · 试点期</span>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--color-text-secondary);margin-bottom:4px;">无超指数公式——反馈时延天-月级，不可能驱动系数增长</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);">
+        超指数先决条件：反馈数据必须足够快、足够多来驱动系数提升。AIGC一年10¹²反馈样本，制造业一年12-52样本——物理极限决定了它做不到。但锁定强度最高（物理/监管级别），一旦锁定不可逆。
+      </div>
+    </div>
+
+    <!-- L4 -->
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-lg);padding:12px 14px;border:0.5px solid var(--color-border-tertiary);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <span style="background:var(--color-background-secondary);color:var(--color-text-secondary);padding:2px 10px;border-radius:12px;font-size:11px;font-weight:500;">L4 广义机器人</span>
+        <span style="font-size:12px;font-weight:500;color:var(--color-text-secondary);">萌芽期</span>
+        <span style="font-size:11px;color:var(--color-text-secondary);">仅自动驾驶有超指数潜力（2030+）</span>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--color-text-secondary);margin-bottom:4px;">自动驾驶：每轮驾驶能力 = 上轮 × 仿真效率 × 真实数据 × 硬件迭代</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);">
+        特斯拉 500 万+ 辆车每天产生 PB 级真实驾驶数据，端到端神经网络（无规则代码）——物理世界目前唯一的超指数数据飞轮
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 第四章节：三阶段演化 ============ -->
+  <div style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px;padding-bottom:6px;border-bottom:0.5px solid var(--color-border-tertiary);">四、超指数生命周期 · 三阶段演化模型</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;">
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-success);padding:14px;text-align:center;">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-success);margin-bottom:8px;">阶段一 · 超指数爆发</div>
+      <div style="font-size:20px;font-weight:500;color:var(--color-text-success);margin-bottom:6px;">3-5×/轮</div>
+      <div style="font-size:11px;line-height:1.6;text-align:left;">
+        <strong>系数行为：</strong>系数快速增长<br/>
+        <strong>驱动：</strong>Scaling Law + 数据飞轮从零启动<br/>
+        <strong>内容 AIGC 当前阶段</strong>（2024-2026）<br/>
+        <strong>电商 AIGC 前 6-12 个月</strong><br/>
+        <span style="color:var(--color-text-secondary);">系数特征：模型进化 ↑ / 数据回流 ↑ / 流程优化 ↑</span>
+      </div>
+    </div>
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-warning);padding:14px;text-align:center;">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-warning);margin-bottom:8px;">阶段二 · 指数收敛</div>
+      <div style="font-size:20px;font-weight:500;color:var(--color-text-warning);margin-bottom:6px;">1.5-2×/轮</div>
+      <div style="font-size:11px;line-height:1.6;text-align:left;">
+        <strong>系数行为：</strong>系数趋于稳定<br/>
+        <strong>驱动：</strong>推理优化接棒 + 边际工程<br/>
+        <strong>电商 AIGC 当前阶段</strong>（2026 起）<br/>
+        <strong>L2 模型层当前</strong><br/>
+        <span style="color:var(--color-text-secondary);">系数特征：模型进化 → 1.2-1.5 / 数据回流 → 1.2-1.3 / 流程优化 → 1.1-1.2</span>
+      </div>
+    </div>
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);padding:14px;text-align:center;">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;">阶段三 · 线性成熟</div>
+      <div style="font-size:20px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px;">1.0-1.1×/轮</div>
+      <div style="font-size:11px;line-height:1.6;text-align:left;">
+        <strong>系数行为：</strong>系数趋近 1.0<br/>
+        <strong>驱动：</strong>生态锁定 + 规模效应<br/>
+        <strong>所有 AIGC 领域终局</strong>（预计 2030+）<br/>
+        <strong>所有通用 AI 领域终局</strong><br/>
+        <span style="color:var(--color-text-secondary);">护城河从"技术能力"转为"生态锁定"</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 窗口比较图 -->
+  <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:14px 16px;margin-bottom:20px;">
+    <div style="font-size:12px;font-weight:500;margin-bottom:10px;">超指数窗口量化比较</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px;">
+          <span>电商 AIGC（3 系数，无格式扩张）</span>
+          <span style="font-weight:500;">12-18 个月</span>
+        </div>
+        <div style="height:12px;background:var(--color-background-primary);border-radius:6px;overflow:hidden;">
+          <div style="height:100%;width:37%;background:var(--color-border-warning);border-radius:6px;"></div>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px;">
+          <span>内容 AIGC（4 系数，格式扩张延缓衰减）</span>
+          <span style="font-weight:500;">24-48 个月</span>
+        </div>
+        <div style="height:12px;background:var(--color-background-primary);border-radius:6px;overflow:hidden;">
+          <div style="height:100%;width:100%;background:var(--color-border-success);border-radius:6px;"></div>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px;">
+          <span>L2 模型层（接力效应延续超指数）</span>
+          <span style="font-weight:500;">3-6 年</span>
+        </div>
+        <div style="height:12px;background:var(--color-background-primary);border-radius:6px;overflow:hidden;">
+          <div style="height:100%;width:75%;background:var(--color-border-warning);border-radius:6px;"></div>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px;">
+          <span>L1 芯片层（物理上限强约束）</span>
+          <span style="font-weight:500;">8-12 年</span>
+        </div>
+        <div style="height:12px;background:var(--color-background-primary);border-radius:6px;overflow:hidden;">
+          <div style="height:100%;width:50%;background:var(--color-border-info);border-radius:6px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 第五章节：核心规律 ============ -->
+  <div style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px;padding-bottom:6px;border-bottom:0.5px solid var(--color-border-tertiary);">五、15 条核心规律体系</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);padding:10px 12px;">
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-info);margin-bottom:4px;">四条基础律（G1→G4 通用）</div>
+      <div style="font-size:11px;line-height:1.7;">
+        1. <strong>客户更替间隔律</strong> — 每 20-30 年决策主体发生代际更替<br/>
+        2. <strong>决策频率跃迁律</strong> — 每代将决策频率推升一个数量级<br/>
+        3. <strong>系统重构律</strong> — 客户更替触发全栈重构，旧王者降维为基础层<br/>
+        4. <strong>约束界面上移律</strong> — 每代约束界面更接近最终用户
+      </div>
+    </div>
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);padding:10px 12px;">
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-warning);margin-bottom:4px;">四层专属律</div>
+      <div style="font-size:11px;line-height:1.7;">
+        5. <strong>时间壁垒律</strong> (L1) — CUDA 400 万开发者 × 10 年，不可用资本追赶<br/>
+        6. <strong>多界面共存律</strong> (L2) — 3-5 家在各自生态位内"垄断"<br/>
+        7. <strong>双轨错位律</strong> (L3) — AIGC 与通用 AI 成熟时间差 3-8 年<br/>
+        8. <strong>物理先行律</strong> (L4) — 自动驾驶是唯一的引爆点
+      </div>
+    </div>
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-info);padding:10px 12px;border-left:3px solid var(--color-border-info);">
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-info);margin-bottom:4px;">超指数专属律（v5.2 新增——从定义本身推导出）</div>
+      <div style="font-size:11px;line-height:1.7;">
+        9. <strong>自终结律</strong> — 超指数增长自己终结自己：系数增长到极限后收敛，降级为指数<br/>
+        10. <strong>系数接力律</strong> — 一个系数衰减时新系数出现可延续超指数（模型层推理优化接力预训练）<br/>
+        11. <strong>反馈时延律</strong> — 超指数可达性上限由反馈时延决定：秒级才能驱动系数增长，天-月级只能指数<br/>
+        12. <strong>格式扩张律</strong> — 内容 AIGC 的格式扩张系数使其窗口是电商 2-3 倍（24-48 月 vs 12-18 月）
+      </div>
+    </div>
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);padding:10px 12px;">
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:4px;">跨层规律</div>
+      <div style="font-size:11px;line-height:1.7;">
+        13. <strong>层级错位启动律</strong> — 各层启动时间错位 4-8 年<br/>
+        14. <strong>芯片层多极化律</strong> — G4 可能永远不出现单一"x86 时刻"<br/>
+        15. <strong>跨层反馈律</strong> — L4 物理世界数据反向重塑 L3b 和 L2
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 第六章节：战略行动地图 ============ -->
+  <div style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px;padding-bottom:6px;border-bottom:0.5px solid var(--color-border-tertiary);">六、战略时间轴 · 各层行动地图</div>
+
+  <div style="background:var(--color-background-primary);border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);padding:12px;overflow-x:auto;margin-bottom:16px;">
+    <table style="width:100%;border-collapse:collapse;font-size:11px;">
+      <tr style="border-bottom:0.5px solid var(--color-border-tertiary);">
+        <th style="text-align:left;padding:6px 8px;font-weight:500;width:60px;">层</th>
+        <th style="text-align:left;padding:6px 8px;font-weight:500;">2024-2026</th>
+        <th style="text-align:left;padding:6px 8px;font-weight:500;">2026-2030</th>
+        <th style="text-align:left;padding:6px 8px;font-weight:500;">2030-2035</th>
+        <th style="text-align:left;padding:6px 8px;font-weight:500;">2035+</th>
+      </tr>
+      <tr style="border-bottom:0.5px solid var(--color-border-tertiary);">
+        <td style="padding:6px 8px;font-weight:500;color:var(--color-text-info);">L1</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">英伟达 Blackwell/Rubin 量产，AI 专用架构起步</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">终端推理芯片爆发（AI PC/手机），多架构并存</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">"x86 时刻"可能出现也可能不出现</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">多极化格局定型</td>
+      </tr>
+      <tr style="border-bottom:0.5px solid var(--color-border-tertiary);">
+        <td style="padding:6px 8px;font-weight:500;color:var(--color-text-warning);">L2</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">推理优化爆发（接力预训练衰减），3-5 家定型</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">开源追平闭源，竞争从能力转向生态</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">模型商品化，价值向上层转移</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">模型层利润压缩</td>
+      </tr>
+      <tr style="border-bottom:0.5px solid var(--color-border-tertiary);">
+        <td style="padding:6px 8px;font-weight:500;color:var(--color-text-success);">L3a</td>
+        <td style="padding:6px 8px;color:var(--color-text-success);">内容 AIGC 超指数爆发（月系数 &gt; 2.0）</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">格式扩张红利吃尽，向 L3b 输出</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">AIGC 飞轮饱和，平台锁定完成</td>
+        <td style="padding:6px 8px;"></td>
+      </tr>
+      <tr style="border-bottom:0.5px solid var(--color-border-tertiary);">
+        <td style="padding:6px 8px;font-weight:500;color:var(--color-text-secondary);">L3b</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">制造/教育/医疗 AI 试点（无超指数）</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">监管审批突破，数据飞轮缓慢启动</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">通用 AI 进入指数收敛期</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">锁定完成</td>
+      </tr>
+      <tr>
+        <td style="padding:6px 8px;font-weight:500;color:var(--color-text-secondary);">L4</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">自动驾驶规模化运营起步，人形实验室阶段</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">自动驾驶脱离安全员（2030+ 引爆点）</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">物理数据回流重塑 L3b，人形机器人量产</td>
+        <td style="padding:6px 8px;color:var(--color-text-secondary);">物理世界飞轮闭合</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ============ 第七章节：关键玩家定位 ============ -->
+  <div style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px;padding-bottom:6px;border-bottom:0.5px solid var(--color-border-tertiary);">七、关键玩家定位地图</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);padding:10px 12px;">
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-info);">英伟达</div>
+      <div style="font-size:10px;color:var(--color-text-secondary);">L1 芯片 → L2→L3 全栈整合</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);">芯片层先发者，但 AI 芯片层才刚开始（20 年周期第 4 年，L1 系数 1.4-1.8× 远低于 L2/L3）</div>
+    </div>
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);padding:10px 12px;">
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-warning);">OpenAI</div>
+      <div style="font-size:10px;color:var(--color-text-secondary);">L2 模型 → L1 造芯 / L3 应用</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);">G4 模型层发起者，但推理优化竞赛中优势正在被缩小</div>
+    </div>
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);padding:10px 12px;">
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-warning);">Anthropic</div>
+      <div style="font-size:10px;color:var(--color-text-secondary);">深耕 L2 安全差异化</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);">赌 AI 安全事故会来——若不来，安全溢价无法变现</div>
+    </div>
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);padding:10px 12px;">
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-warning);">DeepSeek</div>
+      <div style="font-size:10px;color:var(--color-text-secondary);">L2 模型 → L3 开源接入</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);">黑马 · 成本效率颠覆者，给"模型层寡头垄断"假设投了反对票</div>
+    </div>
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);padding:10px 12px;">
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-success);">字节跳动</div>
+      <div style="font-size:10px;color:var(--color-text-secondary);">L3a AIGC → L2 自研模型</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);">内容 AIGC 最可能率先引爆 —— 约束界面已就位，格式扩张红利尚未吃完</div>
+    </div>
+    <div style="background:var(--color-background-primary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);padding:10px 12px;">
+      <div style="font-size:11px;font-weight:500;">Tesla</div>
+      <div style="font-size:10px;color:var(--color-text-secondary);">L4 机器人 → L2→L1 全栈</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);">L4 中唯一拥有超指数数据飞轮的玩家（500 万+ 辆车 daily PB 级数据）</div>
+    </div>
+  </div>
+
+  <!-- ============ 底部 ============ -->
+  <div style="margin-top:24px;padding-top:14px;border-top:0.5px solid var(--color-border-tertiary);text-align:center;font-size:11px;color:var(--color-text-tertiary);line-height:1.6;">
+    <div><strong>客户代际范式理论 v5.2</strong> · 超指数增长定义与公式体系增补版</div>
+    <div>六维推理校验通过 · 词源与 GEO 污染已排除</div>
+    <div style="margin-top:4px;font-size:10px;">按产业价值链分四层（L1 芯片 → L2 模型 → L3 应用 → L4 机器人）| 各层超指数公式差异化映射 | 三阶段演化模型 | 15 条核心规律</div>
+  </div>
+</div>

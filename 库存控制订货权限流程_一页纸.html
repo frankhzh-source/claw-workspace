@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>库存控制与订货权限流程 · 一页纸</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 13px; color: #1a1a1a; background: #f5f4f0; padding: 24px; }
+.wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 12px; padding: 24px 28px; border: 1px solid #e0dfd8; }
+.main-title { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+.main-sub { font-size: 12px; color: #888; margin-bottom: 20px; }
+.section-label { font-size: 11px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; margin-top: 18px; }
+.row { display: flex; gap: 10px; }
+.col { flex: 1; min-width: 0; }
+.card { background: #fff; border: 1px solid #e8e7e0; border-radius: 10px; padding: 12px 14px; height: 100%; }
+.tag { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 4px; margin-bottom: 7px; }
+.tag-red { background: #FCEBEB; color: #A32D2D; }
+.tag-amber { background: #FAEEDA; color: #854F0B; }
+.tag-blue { background: #E6F1FB; color: #185FA5; }
+.tag-teal { background: #E1F5EE; color: #0F6E56; }
+.card-title { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+.card-body { font-size: 12px; color: #666; line-height: 1.65; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { background: #f5f4f0; font-weight: 500; padding: 7px 10px; border: 1px solid #e0dfd8; text-align: left; color: #333; }
+td { padding: 7px 10px; border: 1px solid #e0dfd8; color: #555; }
+.td-red { color: #A32D2D; font-weight: 500; }
+.td-amber { color: #854F0B; font-weight: 500; }
+.td-green { color: #3B6D11; font-weight: 500; }
+.flow-row { display: flex; align-items: stretch; gap: 6px; flex-wrap: wrap; }
+.flow-box { background: #f5f4f0; border: 1px solid #e0dfd8; border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 500; white-space: nowrap; }
+.flow-sub { font-weight: 400; font-size: 11px; color: #888; margin-top: 3px; }
+.flow-arrow { color: #bbb; font-size: 18px; display: flex; align-items: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="main-title">库存控制 / 订货权限流程</div>
+  <div class="main-sub">制度试行：2025年9月 &nbsp;·&nbsp; 更新：2026.2.9 &nbsp;·&nbsp; 年度库存周转率目标 ≥ 10</div>
+
+  <div class="section-label">一、库存分类定义</div>
+  <div class="row" style="margin-bottom:14px">
+    <div class="col card">
+      <span class="tag tag-red">A类 · 死库存</span>
+      <div class="card-title">超过1年无动销</div>
+      <div class="card-body">或公司决定不再售卖的款</div>
+    </div>
+    <div class="col card">
+      <span class="tag tag-amber">B类 · 年度滞销</span>
+      <div class="card-title">年动销 &lt; 100件</div>
+      <div class="card-body">或年度动销率 &lt; 70%</div>
+    </div>
+    <div class="col card">
+      <span class="tag tag-blue">C类 · 季度滞销</span>
+      <div class="card-title">出货后3月动销 &lt; 100件</div>
+      <div class="card-body">或3个月动销率 &lt; 50%</div>
+    </div>
+    <div class="col card">
+      <span class="tag tag-teal">责任原则</span>
+      <div class="card-title">谁订货，谁负责</div>
+      <div class="card-body">亏损分摊：公司 65% / 责任人 30% / 经理 5%</div>
+    </div>
+  </div>
+
+  <div class="section-label">二、处罚标准矩阵</div>
+  <div class="row" style="gap:10px;margin-bottom:14px">
+    <div class="col card">
+      <div style="font-size:12px;font-weight:500;margin-bottom:8px;color:#333">场景一：运营公司订货</div>
+      <table>
+        <tr><th>库存等级</th><th>供应链罚运营</th><th>运营罚责任人</th><th>罚总经理</th></tr>
+        <tr><td>C类（季度滞销）</td><td class="td-green">货值 × 2%</td><td class="td-green">货值 × 2%</td><td class="td-green">货值 × 0.4%</td></tr>
+        <tr><td>B类（年度滞销）</td><td class="td-amber">货值 × 5%</td><td class="td-amber">货值 × 5%</td><td class="td-amber">货值 × 1%</td></tr>
+        <tr><td>A类（死库存）</td><td class="td-red">货值 × 10%</td><td class="td-red">货值 × 10%</td><td class="td-red">货值 × 2%</td></tr>
+        <tr><td>最终亏损处理</td><td>—</td><td class="td-red">亏损 × 30%</td><td class="td-amber">亏损 × 5%</td></tr>
+      </table>
+    </div>
+    <div class="col card">
+      <div style="font-size:12px;font-weight:500;margin-bottom:8px;color:#333">场景二：工厂/供应链自备货 &amp; 外部订单</div>
+      <table>
+        <tr><th>库存等级</th><th>公司罚营销人员</th><th>公司罚营销经理</th></tr>
+        <tr><td>C类（季度滞销）</td><td class="td-green">货值 × 2%</td><td class="td-green">货值 × 0.4%</td></tr>
+        <tr><td>B类（年度滞销）</td><td class="td-amber">货值 × 5%</td><td class="td-amber">货值 × 1%</td></tr>
+        <tr><td>A类（死库存）</td><td class="td-red">货值 × 10%</td><td class="td-red">货值 × 2%</td></tr>
+        <tr><td>最终亏损/报废</td><td class="td-red">亏损 × 30%</td><td class="td-amber">亏损 × 5%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-label">三、核心执行流程</div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="flow-row">
+      <div class="flow-box">订货审批<div class="flow-sub">总经理签批 + 附销售计划</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">交货转移<div class="flow-sub">财务按合同期转移库存</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">动态监控<div class="flow-sub">ERP 实时追踪 A/B/C 变化</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">5日内出罚单<div class="flow-sub">库存状态变化后5个工作日</div></div>
+    </div>
+  </div>
+
+  <div class="section-label">四、处理规则 &amp; 激励机制</div>
+  <div class="row">
+    <div class="col card">
+      <div class="card-title" style="margin-bottom:7px">库存处理要求</div>
+      <div class="card-body">
+        <span style="color:#A32D2D;font-weight:500">A类</span>：不惜成本，3个月内处理完毕<br>
+        <span style="color:#854F0B;font-weight:500">B类</span>：销售经理逐款制定个案方案<br>
+        <span style="color:#185FA5;font-weight:500">C类</span>：预警运营，协助优化销售方案<br>
+        <span style="color:#aaa">3个月内不亏本处理完，罚款可退回</span>
+      </div>
+    </div>
+    <div class="col card">
+      <div class="card-title" style="margin-bottom:7px">激励机制</div>
+      <div class="card-body">
+        <b>高周转奖励</b>：年销 ≥ 500万 且 周转率 ≥ 8<br>
+        利润 × 5% / 4% / 3%（排名第1/2/3）<br><br>
+        <b>处理奖励</b>：帮助处理非本人责任库存<br>
+        销售额 × 1% 额外团队奖励
+      </div>
+    </div>
+    <div class="col card">
+      <div class="card-title" style="margin-bottom:7px">附加规定</div>
+      <div class="card-body">
+        供应链须提前1个月预警风险产品<br>
+        运营按款销售率 ≥ 95% 免于处罚<br>
+        外部订单坏账（逾期6月+）同等处罚<br>
+        未按规定预警者，同等力度处罚
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

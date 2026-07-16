@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elite 6层记忆架构升级手册 — 一页纸</title>
+<style>
+  :root {
+    --bg: #0f172a; --surface: #1e293b; --surface2: #334155;
+    --text: #e2e8f0; --text-dim: #94a3b8; --accent: #38bdf8;
+    --accent2: #a78bfa; --green: #4ade80; --red: #f87171;
+    --yellow: #fbbf24; --orange: #fb923c; --border: #475569;
+    --radius: 10px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--text); line-height:1.55;
+    padding: 32px 28px; max-width: 1020px; margin: auto;
+  }
+
+  /* Header */
+  .header { text-align:center; margin-bottom:28px; padding-bottom:18px; border-bottom:1px solid var(--border); }
+  .header h1 { font-size:26px; font-weight:800; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; line-height:1.3; }
+  .header .sub { color:var(--text-dim); font-size:13px; margin-top:6px; }
+
+  /* Section */
+  .sec { margin-bottom:24px; }
+  .sec-title { display:flex; align-items:center; gap:8px; font-size:16px; font-weight:700; margin-bottom:10px; color:var(--accent); }
+  .sec-num { background:var(--accent); color:#000; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0; }
+
+  /* Table */
+  table { width:100%; border-collapse:collapse; font-size:12.5px; background:var(--surface); border-radius:var(--radius); overflow:hidden; }
+  thead { background:var(--surface2); }
+  th, td { padding:8px 12px; text-align:left; border-bottom:1px solid var(--border); }
+  th { font-weight:700; color:var(--accent); font-size:11px; text-transform:uppercase; letter-spacing:.4px; }
+  tr:last-child td { border-bottom:none; }
+  tr:hover td { background:rgba(56,189,248,.04); }
+
+  /* Badge */
+  .b { display:inline-block; padding:1px 8px; border-radius:10px; font-size:10.5px; font-weight:700; }
+  .b-g { background:rgba(74,222,128,.15); color:var(--green); }
+  .b-r { background:rgba(248,113,113,.15); color:var(--red); }
+  .b-y { background:rgba(251,191,36,.15); color:var(--yellow); }
+  .b-o { background:rgba(251,146,60,.15); color:var(--orange); }
+
+  /* Flow */
+  .flow { background:var(--surface); border-radius:var(--radius); padding:14px 18px; margin:10px 0; font-family:"Cascadia Code","Fira Code",monospace; font-size:12px; color:var(--accent); border-left:3px solid var(--accent); overflow-x:auto; white-space:nowrap; }
+
+  /* Cards */
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin:10px 0; }
+  .card { background:var(--surface); border-radius:var(--radius); padding:14px; border:1px solid var(--border); }
+  .card:hover { border-color:var(--accent); }
+  .card-title { font-weight:700; font-size:13px; margin-bottom:6px; }
+  .card-body { font-size:12px; color:var(--text-dim); line-height:1.5; }
+  .card-speed { font-family:monospace; color:var(--accent); font-size:12px; margin-top:4px; }
+
+  /* Priority Grid */
+  .prio-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:10px 0; }
+  @media(max-width:720px){ .prio-grid{grid-template-columns:1fr 1fr;} }
+  .prio-card { border-radius:var(--radius); padding:14px; border:1px solid var(--border); }
+  .prio-card:hover { transform:translateY(-1px); }
+  .prio-red { background:rgba(248,113,113,.06); border-color:rgba(248,113,113,.2); }
+  .prio-orange { background:rgba(251,146,60,.06); border-color:rgba(251,146,60,.2); }
+  .prio-yellow { background:rgba(251,191,36,.06); border-color:rgba(251,191,36,.2); }
+  .prio-gray { background:rgba(148,163,184,.06); border-color:rgba(148,163,184,.2); }
+  .prio-header { font-weight:700; font-size:13px; margin-bottom:6px; display:flex; align-items:center; gap:5px; }
+  .prio-body { font-size:12px; color:var(--text-dim); line-height:1.5; }
+
+  /* Callout */
+  .callout { background:rgba(56,189,248,.07); border:1px solid rgba(56,189,248,.2); border-radius:var(--radius); padding:12px 16px; margin:10px 0; font-size:12.5px; }
+  .callout-warn { background:rgba(251,191,36,.07); border-color:rgba(251,191,36,.2); }
+
+  /* Code */
+  pre { background:var(--surface); border-radius:var(--radius); padding:14px 16px; margin:10px 0; font-family:"Cascadia Code","Fira Code",monospace; font-size:11.5px; line-height:1.6; color:var(--accent); overflow-x:auto; border:1px solid var(--border); }
+  code { font-family:inherit; }
+  .cm { color:var(--text-dim); }
+
+  /* Diagnosis Bar */
+  .diag-bar { display:flex; gap:10px; margin:10px 0; flex-wrap:wrap; }
+  .diag-item { background:var(--surface); border-radius:8px; padding:10px 14px; flex:1; min-width:160px; border:1px solid var(--border); }
+  .diag-label { font-size:11px; color:var(--text-dim); margin-bottom:4px; }
+  .diag-val { font-size:13px; font-weight:700; }
+
+  /* Footer */
+  .footer { text-align:center; margin-top:32px; padding-top:16px; border-top:1px solid var(--border); color:var(--text-dim); font-size:11px; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>Elite 6层记忆架构升级手册</h1>
+  <div class="sub">Hot RAM → Warm Store → Cold Store → Curated Archive → Cloud Backup → Auto-Extraction</div>
+</div>
+
+<!-- Section 1: 当前诊断 -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">1</span> 当前状态诊断</div>
+  <div class="diag-bar">
+    <div class="diag-item"><div class="diag-label">agent-memory 数据库</div><div class="diag-val" style="color:var(--red)">❌ 不存在</div></div>
+    <div class="diag-item"><div class="diag-label">文件记忆系统</div><div class="diag-val" style="color:var(--green)">✅ 已运行</div></div>
+    <div class="diag-item"><div class="diag-label">FTS5 全文搜索</div><div class="diag-val" style="color:var(--red)">❌ 未激活</div></div>
+    <div class="diag-item"><div class="diag-label">向量语义搜索</div><div class="diag-val" style="color:var(--red)">❌ 未配置</div></div>
+  </div>
+  <div class="callout callout-warn">当前仅 Layer 4（文件记忆）运行中，L1/L2/L3/L5/L6 均未初始化。升级空间大。</div>
+</div>
+
+<!-- Section 2: 6层架构总览 -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">2</span> 6层架构总览</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">L1 Hot RAM</div>
+      <div class="card-body">会话状态<br>SESSION-STATE.md</div>
+      <div class="card-speed">&lt;1ms</div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--accent)">L2 Warm Store ⭐</div>
+      <div class="card-body">LanceDB 向量搜索<br>语义索引</div>
+      <div class="card-speed">~10ms</div>
+    </div>
+    <div class="card">
+      <div class="card-title">L3 Cold Store</div>
+      <div class="card-body">Git Notes<br>版本化归档</div>
+      <div class="card-speed">~100ms</div>
+    </div>
+    <div class="card">
+      <div class="card-title">L4 Curated Archive</div>
+      <div class="card-body">MEMORY.md<br>精选知识</div>
+      <div class="card-speed">&lt;50ms</div>
+    </div>
+    <div class="card">
+      <div class="card-title">L5 Cloud Backup</div>
+      <div class="card-body">SuperMemory<br>云同步（可选）</div>
+      <div class="card-speed">1-3s</div>
+    </div>
+    <div class="card">
+      <div class="card-title">L6 Auto-Extraction</div>
+      <div class="card-body">Mem0<br>自动记忆提取（可选）</div>
+      <div class="card-speed">异步</div>
+    </div>
+  </div>
+  <div class="flow">用户输入 → L1写入 → L2语义索引 → L4精选沉淀 → L3冷归档 → L5/L6增强</div>
+</div>
+
+<!-- Section 3: 各层对比 -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">3</span> 各层对比速查</div>
+  <table>
+    <thead><tr><th>维度</th><th>L1 Hot</th><th>L2 Warm</th><th>L3 Cold</th><th>L4 Archive</th><th>L5 Cloud</th><th>L6 Auto</th></tr></thead>
+    <tbody>
+      <tr><td><strong>存储</strong></td><td>文件</td><td>LanceDB</td><td>Git Notes</td><td>Markdown</td><td>API</td><td>API</td></tr>
+      <tr><td><strong>速度</strong></td><td>&lt;1ms</td><td>~10ms</td><td>~100ms</td><td>&lt;50ms</td><td>1-3s</td><td>异步</td></tr>
+      <tr><td><strong>容量</strong></td><td>KB级</td><td>MB级</td><td>GB级</td><td>MB级</td><td>无限</td><td>无限</td></tr>
+      <tr><td><strong>搜索</strong></td><td>无</td><td>语义向量</td><td>git log</td><td>FTS/grep</td><td>API</td><td>API</td></tr>
+      <tr><td><strong>生命周期</strong></td><td>会话级</td><td>月级</td><td>永久</td><td>永久</td><td>云端</td><td>自动</td></tr>
+      <tr><td><strong>成本</strong></td><td><span class="b b-g">免费</span></td><td><span class="b b-g">免费</span></td><td><span class="b b-g">免费</span></td><td><span class="b b-g">免费</span></td><td><span class="b b-y">付费</span></td><td><span class="b b-y">付费</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Section 4: 升级步骤 -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">4</span> 升级步骤</div>
+
+  <div style="font-weight:700;font-size:14px;margin:12px 0 8px;color:var(--text)">Step 1 — 安装依赖</div>
+  <pre><code>pip install lancedb mem0ai openai tiktoken</code></pre>
+  <table>
+    <thead><tr><th>组件</th><th>用途</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td><strong>LanceDB</strong></td><td>嵌入式向量数据库</td><td>无需服务器，文件即数据库</td></tr>
+      <tr><td><strong>Mem0</strong></td><td>自动记忆提取</td><td>从对话中提取结构化记忆</td></tr>
+      <tr><td><strong>OpenAI</strong></td><td>Embedding 模型</td><td>text-embedding-3-small，可换本地模型</td></tr>
+    </tbody>
+  </table>
+
+  <div style="font-weight:700;font-size:14px;margin:16px 0 8px;color:var(--text)">Step 2 — L1 Hot RAM（会话状态）</div>
+  <div class="callout">在 <code>.workbuddy/memory/</code> 下为每个活跃会话创建 <code>SESSION-STATE.md</code>，记录 active_task / context_summary / pending_decisions / temp_facts。TTL = 会话生命周期。</div>
+
+  <div style="font-weight:700;font-size:14px;margin:16px 0 8px;color:var(--text)">Step 3 — L2 Warm Store（LanceDB 向量搜索）⭐ 最大升级点</div>
+  <div class="callout" style="background:rgba(74,222,128,.07);border-color:rgba(74,222,128,.2);">从「关键词搜索」升级到「语义搜索」：输入"飞书文档区别"能匹配到"feishu ≠ tencent-docs"</div>
+  <pre><code><span class="cm"># WarmStore 核心骨架</span>
+import lancedb, os, time, json
+from openai import OpenAI
+
+class WarmStore:
+    def __init__(self, db_path="~/.agent-memory/lancedb"):
+        self.db = lancedb.connect(os.path.expanduser(db_path))
+        self.embedder = OpenAI()
+        try:
+            self.table = self.db.create_table("memory", schema=[
+                ("id","varchar"), ("text","text"), ("vector","vector,1536"),
+                ("metadata","json"), ("created_at","float"), ("access_count","int"),
+            ])
+        except: self.table = self.db.open_table("memory")
+
+    def add(self, text, metadata=None):
+        vec = self._embed(text)
+        self.table.add([{"id":f"m_{int(time.time())}","text":text,
+            "vector":vec,"metadata":metadata or {},
+            "created_at":time.time(),"access_count":0}])
+
+    def search(self, query, limit=5):
+        vec = self._embed(query)
+        results = self.table.search(vec).limit(limit).to_list()
+        for r in results: r["access_count"] += 1  <span class="cm"># LRU</span>
+        return results
+
+    def _embed(self, text):
+        resp = self.embedder.embeddings.create(
+            model="text-embedding-3-small", input=text[:8000])
+        return resp.data[0].embedding</code></pre>
+
+  <div style="font-weight:700;font-size:14px;margin:16px 0 8px;color:var(--text)">Step 4 — L3 Cold Store（Git Notes 归档）</div>
+  <pre><code>git config notes.displayRef refs/notes/memory
+git notes add -m "[日期] user-preference: 飞书文档用feishu-bitable工具" HEAD
+git log --show-notes=memory --oneline</code></pre>
+  <div class="callout">版本化 + 可 diff，零额外基础设施，天然适合「写一次、读偶尔」的冷数据。</div>
+
+  <div style="font-weight:700;font-size:14px;margin:16px 0 8px;color:var(--text)">Step 5 — L4 Curated Archive（MEMORY.md 规范化）</div>
+  <pre><code># Long-term Memory Archive
+
+## User Preferences
+- **飞书文档 ≠ 腾讯文档**: feishu=feishu.cn, tencent=docs.qq.com
+- **公众号格式**: 无板块标签、无元描述、读者视角干净正文
+
+## Project Conventions
+- 记忆路径: .workbuddy/memory/
+- 日志按日期: YYYY-MM-DD.md
+
+## Key Decisions
+- [2026-05-22] 选择6层Elite架构作为记忆系统目标
+
+## Error Patterns (Anti-Memory)
+- ~~tencent-docs当飞书用~~ → 用feishu-bitable工具</code></pre>
+
+  <div style="font-weight:700;font-size:14px;margin:16px 0 8px;color:var(--text)">Step 6 — L5+L6 可选增强</div>
+  <table>
+    <thead><tr><th>层</th><th>技术</th><th>成本</th><th>推荐时机</th></tr></thead>
+    <tbody>
+      <tr><td>L5 Cloud</td><td>SuperMemory.ai</td><td>免费额度后有费用</td><td>需多设备同步时</td></tr>
+      <tr><td>L6 Auto-Extract</td><td>Mem0</td><td>OpenAI API token费</td><td>日均10+轮对话后</td></tr>
+    </tbody>
+  </table>
+  <div class="callout callout-warn">建议先不做 Step 6。Step 1-5 已覆盖 90% 使用场景。</div>
+
+  <div style="font-weight:700;font-size:14px;margin:16px 0 8px;color:var(--text)">Step 7 — WAL 协议（防丢上下文）</div>
+  <div class="flow">收到消息 → 提取记忆信息 → 写L1落盘 → 处理业务 → 回复前确认持久化 → 长期信息同步写L2/L4</div>
+</div>
+
+<!-- Section 5: 执行优先级 -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">5</span> 推荐执行顺序</div>
+  <div class="prio-grid">
+    <div class="prio-card prio-red">
+      <div class="prio-header"><span style="color:var(--red)">🔴</span> 今天就做</div>
+      <div class="prio-body"><strong>Step 2 + Step 5</strong><br>15 min<br>立即规范化已有记忆</div>
+    </div>
+    <div class="prio-card prio-orange">
+      <div class="prio-header"><span style="color:var(--orange)">🟠</span> 本周内</div>
+      <div class="prio-body"><strong>Step 1 + Step 3</strong><br>30 min<br>获得语义搜索能力</div>
+    </div>
+    <div class="prio-card prio-yellow">
+      <div class="prio-header"><span style="color:var(--yellow)">🟡</span> 下一步</div>
+      <div class="prio-body"><strong>Step 4 + Step 7</strong><br>20 min<br>版本化归档 + 防丢保障</div>
+    </div>
+    <div class="prio-card prio-gray">
+      <div class="prio-header"><span style="color:var(--text-dim)">⚪</span> 按需</div>
+      <div class="prio-body"><strong>Step 6</strong><br>可选<br>云同步 + 自动提取</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">Elite Longterm Memory 6-Layer Architecture — 基于飞书文档整理 · 2026-05</div>
+
+</body>
+</html>

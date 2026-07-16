@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深度学习落地知识体系 — AI大模型部署实战</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card-bg: #161b22;
+    --border: #30363d;
+    --text: #c9d1d9;
+    --text-dim: #8b949e;
+    --accent-l1: #ff6b6b;
+    --accent-l2: #f0a500;
+    --accent-l3: #58a6ff;
+    --accent-green: #3fb950;
+    --accent-purple: #bc8cff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.65;
+    padding: 40px 24px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #fff;
+  }
+  .subtitle {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+  .positioning {
+    background: linear-gradient(135deg, #1a1f2e 0%, #161b22 100%);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 28px;
+    font-size: 13.5px;
+    color: var(--text-dim);
+  }
+  .positioning strong { color: var(--accent-green); }
+
+  /* Section title */
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 36px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-title.l1 { color: var(--accent-l1); border-color: var(--accent-l1); }
+  .section-title.l2 { color: var(--accent-l2); border-color: var(--accent-l2); }
+  .section-title.l3 { color: var(--accent-l3); border-color: var(--accent-l3); }
+  .section-title.x { color: var(--accent-purple); border-color: var(--accent-purple); }
+
+  /* Level label */
+  .level-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .level-badge.must  { background: rgba(255,107,107,0.15); color: var(--accent-l1); }
+  .level-badge.diff  { background: rgba(240,165,0,0.15); color: var(--accent-l2); }
+  .level-badge.bonus { background: rgba(88,166,255,0.15); color: var(--accent-l3); }
+  .level-badge.cross { background: rgba(188,140,255,0.15); color: var(--accent-purple); }
+
+  /* Card grid */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: #58a6ff44; }
+  .card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #e6edf3;
+  }
+  .card .why {
+    font-size: 12.5px;
+    color: var(--accent-green);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .card .checklist {
+    list-style: none;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .card .checklist li { padding: 2px 0; }
+  .card .checklist li::before { content: "▸ "; color: var(--text-dim); }
+  .card .checklist li.done::before { content: "✓ "; color: var(--accent-green); }
+
+  /* Cross-cutting table */
+  .cross-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 28px;
+  }
+  .cross-table th {
+    background: var(--card-bg);
+    color: var(--text-dim);
+    font-weight: 500;
+    text-align: left;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+  }
+  .cross-table td {
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .cross-table tr:hover td { background: rgba(88,166,255,0.04); }
+
+  /* Progress bar */
+  .progress-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 6px 0;
+  }
+  .progress-label { width: 100px; font-size: 12px; color: var(--text-dim); text-align: right; }
+  .progress-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 3px;
+  }
+  .fill-l1 { background: var(--accent-l1); }
+  .fill-l2 { background: var(--accent-l2); }
+  .fill-l3 { background: var(--accent-l3); }
+
+  .footnote {
+    margin-top: 36px;
+    padding: 16px 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 12.5px;
+    color: var(--text-dim);
+  }
+  .footnote strong { color: var(--text); }
+</style>
+</head>
+<body>
+
+<h1>深度学习落地知识体系</h1>
+<p class="subtitle">目标岗位: AI大模型部署/落地方向 &nbsp;|&nbsp; 定位: 够用的深度学习, 不是学术级</p>
+
+<!-- 定位声明 -->
+<div class="positioning">
+  <strong>你的现状:</strong> 已能用FLUX、会调denoise、搭过Prompt模板库、理解Agent架构 — 缺的不是"会用", 是"知其所以然"<br>
+  <strong>目标:</strong> 能跟算法工程师平等对话、能独立做模型选型与调优决策、能从底层理解模型的边界与成本<br>
+  <strong>原则:</strong> 每个知识点必须能回答一个落地问题 — "不回答落地问题的知识, 在这个阶段不值得学"
+</div>
+
+<!-- ============ TIER 1: 必须啃透 ============ -->
+<div class="section-title l1"><span class="level-badge must">Tier 1</span> 必须啃透 — 没有这层, 落地寸步难行</div>
+
+<div class="card-grid">
+  <!-- 1.1 Transformer -->
+  <div class="card">
+    <h3>1. Transformer 核心架构</h3>
+    <div class="why">落地问题: "为什么这个模型快/慢? 为什么长文本掉精度? 为什么KV Cache是瓶颈?"</div>
+    <ul class="checklist">
+      <li>Self-Attention 公式: Q·Kᵀ/√dₖ → Softmax → ×V</li>
+      <li>Multi-Head Attention 的物理含义 (每个头看不同子空间)</li>
+      <li>Positional Encoding: 绝对位置 vs RoPE (旋转位置编码)</li>
+      <li>残差连接 + LayerNorm (Pre-Norm vs Post-Norm)</li>
+      <li>FFN (前馈网络): 为什么占参数量 2/3</li>
+      <li>⚠ 避坑: 不需要手写反向传播, 但必须能手绘数据流</li>
+    </ul>
+  </div>
+
+  <!-- 1.2 显存经济学 -->
+  <div class="card">
+    <h3>2. 显存经济学 (GPU Memory Budget)</h3>
+    <div class="why">落地问题: "为什么70B模型跑不动? 量化到4bit省多少显存? 换A100还是H20?"</div>
+    <ul class="checklist">
+      <li>显存构成 = 模型参数 + 优化器状态 + 中间激活 + KV Cache</li>
+      <li>模型参数: FP32 = 4B×参数量, FP16 = 2B×, INT4 = 0.5B×</li>
+      <li>优化器状态: Adam = 参数量×12B (moments+variance+param)</li>
+      <li>KV Cache 计算公式: 2×层数×头数×头维度×序列长度×batch×dtype</li>
+      <li>推理 vs 训练显存对比 (训练需要反向传播, 约推理的3-4倍)</li>
+      <li>⚠ 务必实测: nvidia-smi + PyTorch memory_allocated()</li>
+    </ul>
+  </div>
+
+  <!-- 1.3 推理 vs 训练 -->
+  <div class="card">
+    <h3>3. 推理 (Inference) vs 训练 (Training)</h3>
+    <div class="why">落地问题: "客户要的是推理服务, 为什么还要懂训练? 预填充和自回归有什么区别?"</div>
+    <ul class="checklist">
+      <li>推理两阶段: Prefill (预填充, compute-bound) + Decode (自回归, memory-bound)</li>
+      <li>训练: 前向+反向+梯度更新, 需要完整计算图</li>
+      <li>为什么推理瓶颈是显存带宽, 不是算力</li>
+      <li>TTFT (首Token时间) vs TPOT (每Token时间) 的影响因素</li>
+      <li>Continuous Batching (连续批处理): vLLM的实现原理</li>
+      <li>推测解码 (Speculative Decoding): 用小模型猜, 大模型验证</li>
+    </ul>
+  </div>
+
+  <!-- 1.4 Token 经济学 -->
+  <div class="card">
+    <h3>4. Token 经济学</h3>
+    <div class="why">落地问题: "为什么Token这么贵? 怎么降? Context Window越大成本怎么增长?"</div>
+    <ul class="checklist">
+      <li>Token ≠ 字: 中文约1.5-2字/Token, 英文约0.75词/Token</li>
+      <li>Attention复杂度: O(n²) — 序列翻倍, 计算量翻4倍</li>
+      <li>输入Token (prompt) vs 输出Token (completion) 的成本差异</li>
+      <li>KV Cache 随序列长度线性增长 → 长对话终极瓶颈</li>
+      <li>Token压缩策略: Prompt压缩、上下文摘要、滑动窗口</li>
+      <li>成本估算公式: (输入Token×单价入 + 输出Token×单价出) × 并发</li>
+      <li>⚠ 实战: 用 tiktoken/Tokenizer 实测各模型Token计数</li>
+    </ul>
+  </div>
+
+  <!-- 1.5 PyTorch 基础 -->
+  <div class="card">
+    <h3>5. PyTorch 工程基础</h3>
+    <div class="why">落地问题: "为什么模型加载就OOM? 怎么把模型放多张卡? 怎么debug一个推理bug?"</div>
+    <ul class="checklist">
+      <li>Tensor 基础: 创建、reshape、device移动、dtype转换</li>
+      <li>CUDA 显存管理: .to("cuda") / .cpu() / torch.cuda.empty_cache()</li>
+      <li>模型加载: state_dict vs 完整模型, HuggingFace AutoModel</li>
+      <li>推理模式: model.eval() + torch.no_grad() (必须, 否则显存翻倍)</li>
+      <li>数据管道: DataLoader, collate_fn, pin_memory</li>
+      <li>⚠ 够用即可: 不需要写自定义Layer/自定义Loss</li>
+    </ul>
+  </div>
+
+  <!-- 1.6 推理框架 -->
+  <div class="card">
+    <h3>6. 推理引擎生态</h3>
+    <div class="why">落地问题: "vLLM和TGI怎么选? Ollama能用吗? 什么时候上TensorRT-LLM?"</div>
+    <ul class="checklist">
+      <li>vLLM: PagedAttention + Continuous Batching, 吞吐量王者</li>
+      <li>TGI (Text Generation Inference): HuggingFace官方, 生态好</li>
+      <li>Ollama: 本地部署首选, 但生产环境谨慎</li>
+      <li>llama.cpp: CPU推理 + GGUF量化, 边缘设备首选</li>
+      <li>TensorRT-LLM: NVIDIA官方, 极致优化但工程复杂度高</li>
+      <li>选型矩阵: 吞吐量 vs 延迟 vs 工程成本 vs 硬件兼容</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 当前掌握度 -->
+<div style="margin: 24px 0;">
+  <div style="font-size:13px; color:var(--text-dim); margin-bottom:8px;">Tier 1 当前掌握度估算 (基于对话记录)</div>
+  <div class="progress-row"><span class="progress-label">Transformer</span><div class="progress-bar"><div class="progress-fill fill-l1" style="width:50%"></div></div><span style="font-size:12px;color:var(--text-dim)">50%</span></div>
+  <div class="progress-row"><span class="progress-label">显存经济学</span><div class="progress-bar"><div class="progress-fill fill-l1" style="width:35%"></div></div><span style="font-size:12px;color:var(--text-dim)">35%</span></div>
+  <div class="progress-row"><span class="progress-label">推理 vs 训练</span><div class="progress-bar"><div class="progress-fill fill-l1" style="width:40%"></div></div><span style="font-size:12px;color:var(--text-dim)">40%</span></div>
+  <div class="progress-row"><span class="progress-label">Token 经济</span><div class="progress-bar"><div class="progress-fill fill-l1" style="width:60%"></div></div><span style="font-size:12px;color:var(--text-dim)">60%</span></div>
+  <div class="progress-row"><span class="progress-label">PyTorch</span><div class="progress-bar"><div class="progress-fill fill-l1" style="width:30%"></div></div><span style="font-size:12px;color:var(--text-dim)">30%</span></div>
+  <div class="progress-row"><span class="progress-label">推理引擎</span><div class="progress-bar"><div class="progress-fill fill-l1" style="width:45%"></div></div><span style="font-size:12px;color:var(--text-dim)">45%</span></div>
+</div>
+
+<!-- ============ TIER 2: 分水岭 ============ -->
+<div class="section-title l2"><span class="level-badge diff">Tier 2</span> 分水岭 — 从"会用"到"能决策"</div>
+
+<div class="card-grid">
+  <!-- 2.1 量化 -->
+  <div class="card">
+    <h3>7. 模型量化 (Quantization)</h3>
+    <div class="why">落地问题: "GPTQ和AWQ选哪个? INT8还是INT4? 量化后效果掉多少?"</div>
+    <ul class="checklist">
+      <li>原理: 把FP16权重映射到低精度 (INT8/INT4/NF4)</li>
+      <li>对称量化 vs 非对称量化</li>
+      <li>GPTQ: 逐层量化+权重重排, 适合GPU, 需要校准数据</li>
+      <li>AWQ: 激活感知, 保护关键权重通道, 精度损失更小</li>
+      <li>GGUF/GGML: llama.cpp的量化格式, Q4_K_M 是甜点</li>
+      <li>Bitsandbytes: NF4 + 双量化, QLoRA训练标配</li>
+      <li>⚠ 核心认知: 量化的本质是用精度换显存, 但不同层的敏感度不同</li>
+    </ul>
+  </div>
+
+  <!-- 2.2 Fine-tuning -->
+  <div class="card">
+    <h3>8. Fine-tuning 方法论</h3>
+    <div class="why">落地问题: "全量微调还是LoRA? 什么时候用QLoRA? 数据要多少条?"</div>
+    <ul class="checklist">
+      <li>全量微调(Full FT): 更新所有参数, 效果好但贵 (70B需~560GB显存)</li>
+      <li>LoRA: 在旁路加低秩矩阵, 只训练~1%参数, 效果接近全量</li>
+      <li>QLoRA: LoRA + 4bit量化基础模型, 单卡24GB可训70B</li>
+      <li>数据量经验法则: 1K条起步, 5K-10K收敛, 超过50K看收益递减</li>
+      <li>指令微调(Instruction FT) vs 偏好对齐(DPO/RLHF)</li>
+      <li>灾难性遗忘: 混合通用数据防退化</li>
+      <li>⚠ 实战优先级: QLoRA先跑通 → 效果好就够 → 不够再上全量</li>
+    </ul>
+  </div>
+
+  <!-- 2.3 Embedding -->
+  <div class="card">
+    <h3>9. Embedding 体系</h3>
+    <div class="why">落地问题: "RAG为什么检索不准? 怎么选Embedding模型? 多语言怎么处理?"</div>
+    <ul class="checklist">
+      <li>Embedding = 把文本映射到高维向量 (768/1024/4096维)</li>
+      <li>相似度: Cosine Similarity (最常用) / 欧氏距离 / 点积</li>
+      <li>MTEB榜单: 模型选型依据 (关注Retrieval/Clustering/Classification)</li>
+      <li>BGE系列 (中文强) / text-embedding-3 (OpenAI) / nomic (本地)</li>
+      <li>Chunk策略对检索的影响 >> Embedding模型本身</li>
+      <li>Late Chunking: 先整篇Embedding再切分, 提升长文档检索</li>
+      <li>多语言: 多语言模型 vs 翻译后检索 vs 双塔模型</li>
+    </ul>
+  </div>
+
+  <!-- 2.4 Attention进阶 -->
+  <div class="card">
+    <h3>10. Attention 机制进阶</h3>
+    <div class="why">落地问题: "为什么长文本慢? FlashAttention省了多少? GQA和MHA有什么区别?"</div>
+    <ul class="checklist">
+      <li>标准Attention复杂度 O(n²d) — 序列长度的平方</li>
+      <li>FlashAttention: 利用GPU SRAM分块计算, 2-4x加速, 显存O(n)</li>
+      <li>MHA (Multi-Head): 每个头独立QKV, 效果最好, 显存最大</li>
+      <li>MQA (Multi-Query): 所有头共享KV, 省显存, 精度略降</li>
+      <li>GQA (Grouped-Query): 分组共享KV, MHA和MQA的折中 (Llama2/3用)</li>
+      <li>GQA公式: 头数/组数 = 每个KV组服务的Query头数</li>
+      <li>⚠ 选型: 推理优先→GQA, 训练优先→MHA, 边缘设备→MQA</li>
+    </ul>
+  </div>
+
+  <!-- 2.5 推理优化 -->
+  <div class="card">
+    <h3>11. 推理优化技术栈</h3>
+    <div class="why">落地问题: "为什么同样的模型, 别人的API比我便宜一半? 延迟怎么压到200ms?"</div>
+    <ul class="checklist">
+      <li>算子融合 (Kernel Fusion): 把多个CUDA kernel合并, 减少显存IO</li>
+      <li>PagedAttention: vLLM的核心, 把KV Cache按页管理, 减少碎片</li>
+      <li>Prefix Caching: 共享前缀只算一次 (System Prompt场景收益巨大)</li>
+      <li>Dynamic Batching: 不等batch满就发车, 降低排队延迟</li>
+      <li>FP8推理: H100/H200原生支持, 比FP16快2x</li>
+      <li>模型并行: 张量并行(TP) + 流水线并行(PP) + 数据并行(DP)</li>
+      <li>⚠ 够用即可: 知道什么场景用什么技术, 不需要手写CUDA kernel</li>
+    </ul>
+  </div>
+
+  <!-- 2.6 评估体系 -->
+  <div class="card">
+    <h3>12. 模型评估与选型</h3>
+    <div class="why">落地问题: "这个模型到底好不好? 怎么跟客户证明? 换了量化版效果变了吗?"</div>
+    <ul class="checklist">
+      <li>基准测试: MMLU(知识) / HumanEval(代码) / MT-Bench(对话)</li>
+      <li>但落地不看榜单: 用客户真实数据做A/B测试</li>
+      <li>评估维度: 准确率 + 延迟 + 成本 + 稳定性</li>
+      <li>Prompt Sensitivity: 同一个模型, 不同Prompt结果差距 > 模型间差距</li>
+      <li>长尾评估: 需要人工抽检, 指标看不出"偶尔胡说"</li>
+      <li>量化评估: 同模型INT4 vs FP16 在具体任务上的退化曲线</li>
+      <li>⚠ 铁律: 用真实业务数据跑, 不只看榜单</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============ TIER 3: 加分项 ============ -->
+<div class="section-title l3"><span class="level-badge bonus">Tier 3</span> 加分项 — 从"能落地"到"能设计"</div>
+
+<div class="card-grid">
+  <!-- 3.1 蒸馏 -->
+  <div class="card">
+    <h3>13. 知识蒸馏 (Knowledge Distillation)</h3>
+    <div class="why">落地问题: "怎么用大模型教小模型? 客户想省钱但又想要70B的效果怎么办?"</div>
+    <ul class="checklist">
+      <li>Teacher-Student: 大模型(Teacher)输出logits教小模型(Student)</li>
+      <li>黑盒蒸馏: 只用Teacher的输出文本训练Student (最常用)</li>
+      <li>白盒蒸馏: 用Teacher的中间层/logits分布 (效果更好, 需要模型权重)</li>
+      <li>蒸馏vs微调: 蒸馏学的是推理能力, 微调学的是格式服从</li>
+      <li>合成数据: 用大模型生成训练数据 → 训练小模型 → 循环迭代</li>
+      <li>典型案例: GPT-4 → LLaMA3 蒸馏流水线</li>
+    </ul>
+  </div>
+
+  <!-- 3.2 MoE -->
+  <div class="card">
+    <h3>14. MoE (混合专家模型)</h3>
+    <div class="why">落地问题: "Mixtral 8x7B为什么快? DeepSeek-V3为什么便宜? 要全量部署吗?"</div>
+    <ul class="checklist">
+      <li>核心思想: 把FFN拆成多个"专家", 每次只激活2-3个</li>
+      <li>Router (门控网络): 决定每个Token走哪个专家</li>
+      <li>稀疏激活: Mixtral 8x7B 总参数46.7B, 每次只激活12.9B</li>
+      <li>显存: 仍需加载所有专家 → 显存按总参数量算, 计算按激活量算</li>
+      <li>负载均衡: 专家不能"忙的忙死闲的闲死" (auxiliary loss)</li>
+      <li>落地取舍: MoE省算力不省显存, 适合云端推理, 不适合边缘</li>
+    </ul>
+  </div>
+
+  <!-- 3.3 RLHF -->
+  <div class="card">
+    <h3>15. RLHF / DPO 对齐训练</h3>
+    <div class="why">落地问题: "模型为什么会有'价值观'? 怎么让模型更符合企业调性? DPO是什么?"</div>
+    <ul class="checklist">
+      <li>RLHF三阶段: SFT → Reward Model训练 → PPO强化学习</li>
+      <li>Reward Model: 用人类偏好数据训练一个打分模型</li>
+      <li>PPO: 用Reward Model的信号, 通过强化学习调整模型</li>
+      <li>DPO (Direct Preference Optimization): 跳过Reward Model, 直接从偏好对学习</li>
+      <li>DPO优势: 更简单、更稳定、不需要单独训练Reward Model</li>
+      <li>落地: 企业调性对齐 → 收集偏好数据 → DPO训练 → 效果验证</li>
+      <li>⚠ 够用即可: 理解原理和差异, 实际训练交给算法团队</li>
+    </ul>
+  </div>
+
+  <!-- 3.4 多模态 -->
+  <div class="card">
+    <h3>16. 多模态基础</h3>
+    <div class="why">落地问题: "FLUX的UNet在干什么? CLIP为什么是Vision和Language的桥梁?"</div>
+    <ul class="checklist">
+      <li>CLIP: 用对比学习把图文映射到同一向量空间</li>
+      <li>ViT (Vision Transformer): 把图片切成Patch, 当Token喂给Transformer</li>
+      <li>Diffusion模型: 前向加噪 → 反向去噪 (UNet预测噪声)</li>
+      <li>Stable Diffusion: VAE压缩 → UNet在潜空间去噪 → VAE解码</li>
+      <li>FLUX: 你已经在用了, 补一下UNet/VAE/CLIP三个组件的职责</li>
+      <li>多模态LLM: 视觉编码器 + 投影层 + LLM (如LLaVA架构)</li>
+      <li>⚠ 你已踩过的坑就是最好的教材: denoise强度、CFG scale、sampler选择</li>
+    </ul>
+  </div>
+
+  <!-- 3.5 Agent专用 -->
+  <div class="card">
+    <h3>17. Agent 相关的模型能力</h3>
+    <div class="why">落地问题: "为什么有些模型不适合做Agent? Tool Calling为什么经常失败?"</div>
+    <ul class="checklist">
+      <li>Function Calling: 模型输出结构化JSON的能力 — 不是所有模型都有</li>
+      <li>ReAct / CoT: 推理链 — 模型需要被训练/提示才会"一步步想"</li>
+      <li>上下文窗口利用: Agent场景Token消耗极大, 模型能否有效利用长上下文</li>
+      <li>幻觉率: Agent场景幻觉代价高 (错误Tool调用 → 连锁错误)</li>
+      <li>指令遵循: 越强的模型不一定越听话 (需要对齐训练)</li>
+      <li>选型基准: 在Agent Benchmark上测试, 不是MMLU</li>
+    </ul>
+  </div>
+
+  <!-- 3.6 安全 -->
+  <div class="card">
+    <h3>18. 模型安全与护栏</h3>
+    <div class="why">落地问题: "怎么防Prompt注入? 企业客户的第一诉求永远是安全合规。"</div>
+    <ul class="checklist">
+      <li>Prompt注入: 用户通过输入操纵系统提示 → 输入清洗 + 角色分离</li>
+      <li>越狱(Jailbreak): 绕过安全限制 → 输入层+输出层双层护栏</li>
+      <li>数据泄露: 模型可能"记住"训练数据 → 数据脱敏 + 输出过滤</li>
+      <li>Guardrails: NeMo Guardrails / Guardrails AI / 自定义规则引擎</li>
+      <li>落地: 输入过滤 → 模型推理 → 输出审核 三层防护</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============ 横切关注点 ============ -->
+<div class="section-title x"><span class="level-badge cross">横切</span> 贯穿三层的学习方法与资源</div>
+
+<table class="cross-table">
+  <thead>
+    <tr>
+      <th style="width:18%">学习阶段</th>
+      <th style="width:30%">推荐资源</th>
+      <th style="width:30%">学习方法</th>
+      <th style="width:22%">验收标准</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>入门铺垫</strong><br><small style="color:var(--text-dim)">如果PyTorch零基础</small></td>
+      <td>Andrew Ng "AI for Everyone"<br>PyTorch官方Tutorial (60min blitz)<br>李沐《动手学深度学习》前5章</td>
+      <td>看一章敲一章, 不要只看不敲<br>在Colab/Kaggle上跑, 免配环境</td>
+      <td>能用PyTorch加载模型、做一次推理<br>能看懂nvidia-smi输出</td>
+    </tr>
+    <tr>
+      <td><strong>Tier 1 攻克</strong><br><small style="color:var(--text-dim)">2-3个月</small></td>
+      <td>The Illustrated Transformer (Jay Alammar)<br>Andrej Karpathy "Let's build GPT from scratch"<br>vLLM官方文档 + 源码阅读</td>
+      <td>手写Attention前向计算<br>用vLLM部署一个模型, 压测<br>写显存预算表 (Excel即可)</td>
+      <td>能解释为什么70B需要多少显存<br>能独立部署vLLM推理服务<br>能估算任意模型的推理成本</td>
+    </tr>
+    <tr>
+      <td><strong>Tier 2 攻克</strong><br><small style="color:var(--text-dim)">2-3个月</small></td>
+      <td>HuggingFace QLoRA 教程<br>MTEB Leaderboard<br>FlashAttention论文 + 图解</td>
+      <td>用QLoRA微调一个7B模型<br>搭一个RAG管道, 对比3种Embedding模型<br>对比vLLM vs TGI vs Ollama吞吐量</td>
+      <td>能独立完成QLoRA微调全流程<br>能解释Embedding选型依据<br>能做推理框架技术选型</td>
+    </tr>
+    <tr>
+      <td><strong>Tier 3 涉猎</strong><br><small style="color:var(--text-dim)">按需学习</small></td>
+      <td>DPO论文 + 图解<br>Mixtral技术报告<br>LLaVA/CLIP论文</td>
+      <td>遇到实际问题再深挖<br>先看技术报告 (比论文友好)<br>动手跑通一个demo即可</td>
+      <td>能跟算法团队讨论技术方案<br>能判断一个方案是"吹牛"还是"可行"</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 学习路径图 -->
+<div style="margin: 24px 0; padding: 20px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px;">
+  <div style="font-size:15px; font-weight:600; color:#e6edf3; margin-bottom:16px;">推荐学习路径 (按优先级排序)</div>
+  <div style="font-size:13px; color: var(--text); line-height: 2;">
+    <span style="color:var(--accent-green)">1.</span> PyTorch基础 (1-2周, 够用就行) →
+    <span style="color:var(--accent-green)">2.</span> Transformer架构 (2-3周, 手写前向传播) →
+    <span style="color:var(--accent-green)">3.</span> 显存经济学 (1周, 把常见模型的显存算清楚) →
+    <span style="color:var(--accent-green)">4.</span> 推理vs训练 + vLLM实战 (2周, 部署一个服务并压测) →
+    <span style="color:var(--accent-green)">5.</span> Token经济学 (1周, 建成本模型) →
+    <br>
+    <span style="color:var(--accent-l2)">6.</span> 量化技术 + QLoRA (2-3周, 亲手微调一个模型) →
+    <span style="color:var(--accent-l2)">7.</span> Embedding体系 + RAG实战 (2周) →
+    <span style="color:var(--accent-l2)">8.</span> Attention进阶 + 推理优化 (2周) →
+    <span style="color:var(--accent-l2)">9.</span> 模型评估体系 (1周, 建评估Pipeline) →
+    <br>
+    <span style="color:var(--accent-l3)">10.</span> 按需深入Tier 3各模块 (每模块1-2周)
+  </div>
+</div>
+
+<div class="footnote">
+  <strong>核心原则重申:</strong><br>
+  1. 每个知识点必须能回答一个落地问题。学Transformer不是为了发论文, 是为了跟算法说"这个位置编码换成RoPE能不能提升长文本?"<br>
+  2. 动手 > 看书。看完一篇文章, 立刻找/写一段代码验证。看完Transformer就手写Attention, 看完量化就跑一个INT4模型。<br>
+  3. 你的优势不是深度学习深度, 是业务场景理解 + 全栈工程能力 + 客户沟通。深度学习是最后一块拼图, 够用即可。<br>
+  4. Tier 1全部攻克 = 合格的大模型落地工程师。Tier 2攻克 = 能独立做技术决策。Tier 3 = 能跟顶尖算法团队平等对话。
+</div>
+
+</body>
+</html>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LMM + FFmpeg 视频分析工作台</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f4f6f9; color: #2d3748; min-height: 100vh; padding: 32px;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+
+  /* Header */
+  .header { margin-bottom: 32px; }
+  .header h1 { font-size: 22px; color: #1a202c; font-weight: 700; }
+  .header .sub { font-size: 13px; color: #718096; margin-top: 4px; }
+
+  /* Pipeline Flow */
+  .pipeline {
+    display: flex; align-items: center; gap: 0;
+    background: #fff; border-radius: 12px; padding: 20px 24px;
+    border: 1px solid #e2e8f0; margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .pipeline-step {
+    flex: 1; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .pipeline-step .icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .pipeline-step.upload .icon { background: #ebf8ff; color: #3182ce; }
+  .pipeline-step.lmm .icon { background: #faf5ff; color: #805ad5; }
+  .pipeline-step.ffmpeg .icon { background: #fff5f5; color: #e53e3e; }
+  .pipeline-step.output .icon { background: #f0fff4; color: #38a169; }
+  .pipeline-step .label { font-size: 13px; font-weight: 600; color: #4a5568; }
+  .pipeline-step .desc { font-size: 11px; color: #a0aec0; }
+  .pipeline-arrow { color: #cbd5e0; font-size: 20px; flex-shrink: 0; }
+
+  /* Grid */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  /* Card */
+  .card {
+    background: #fff; border-radius: 12px; border: 1px solid #e2e8f0;
+    padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card.full { grid-column: 1 / -1; }
+  .card-title {
+    font-size: 13px; font-weight: 600; color: #4a5568;
+    margin-bottom: 14px; display: flex; align-items: center; gap: 6px;
+  }
+  .card-title .badge {
+    font-size: 10px; background: #edf2f7; color: #718096;
+    padding: 2px 8px; border-radius: 10px; font-weight: 400;
+  }
+
+  /* Upload zone */
+  .upload-zone {
+    border: 2px dashed #e2e8f0; border-radius: 10px;
+    padding: 36px; text-align: center; cursor: pointer;
+    transition: all 0.2s;
+    background: #fafbfc;
+  }
+  .upload-zone:hover { border-color: #3182ce; background: #ebf8ff; }
+  .upload-zone .icon { font-size: 32px; margin-bottom: 8px; }
+  .upload-zone .main { font-size: 14px; color: #4a5568; font-weight: 500; }
+  .upload-zone .sub { font-size: 12px; color: #a0aec0; margin-top: 4px; }
+
+  /* Video info bar */
+  .video-info {
+    display: flex; gap: 16px; padding: 12px 0; flex-wrap: wrap;
+    border-top: 1px solid #e2e8f0; margin-top: 14px;
+    display: none;
+  }
+  .video-info.show { display: flex; }
+  .video-info div { font-size: 12px; color: #718096; }
+  .video-info span { color: #2d3748; font-weight: 500; }
+
+  /* Analysis Results */
+  .analysis-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+  .analysis-item {
+    background: #f7fafc; border-radius: 8px; padding: 12px 14px;
+    border: 1px solid #edf2f7;
+  }
+  .analysis-item .lbl { font-size: 11px; color: #a0aec0; margin-bottom: 2px; }
+  .analysis-item .val { font-size: 14px; font-weight: 600; color: #2d3748; }
+  .analysis-item .val .tag {
+    font-size: 10px; font-weight: 400; margin-left: 6px;
+    padding: 1px 8px; border-radius: 4px;
+  }
+  .tag-blue { background: #ebf8ff; color: #3182ce; }
+  .tag-purple { background: #faf5ff; color: #805ad5; }
+  .tag-green { background: #f0fff4; color: #38a169; }
+  .tag-orange { background: #fffaf0; color: #dd6b20; }
+
+  /* Scene Timeline (compact) */
+  .scene-strip {
+    display: flex; height: 40px; border-radius: 6px; overflow: hidden;
+    gap: 2px; margin: 10px 0;
+  }
+  .scene-seg {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; color: rgba(255,255,255,0.8); font-weight: 500;
+    cursor: pointer; transition: all 0.15s; border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .scene-seg:hover { transform: scaleY(1.15); }
+  .scene-seg.active { outline: 2px solid #3182ce; outline-offset: 1px; z-index: 1; }
+
+  /* Scene detail */
+  .scene-detail { display: flex; gap: 16px; }
+  .scene-detail .frame {
+    width: 140px; height: 210px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px; flex-shrink: 0;
+    position: relative; overflow: hidden;
+  }
+  .scene-detail .frame .id {
+    position: absolute; top: 6px; left: 6px;
+    background: rgba(0,0,0,0.5); color: #fff;
+    padding: 1px 8px; border-radius: 4px; font-size: 10px;
+  }
+  .scene-detail .props { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .scene-detail .props .row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 10px; background: #f7fafc; border-radius: 6px;
+    font-size: 12px;
+  }
+  .scene-detail .props .row .k { color: #718096; }
+  .scene-detail .props .row .v { color: #2d3748; font-weight: 500; }
+
+  /* JSON output */
+  .json-block {
+    background: #1a202c; border-radius: 8px; padding: 14px 16px;
+    font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+    font-size: 12px; line-height: 1.6; color: #a0aec0;
+    max-height: 180px; overflow-y: auto; white-space: pre-wrap;
+  }
+  .json-block .key { color: #63b3ed; }
+  .json-block .str { color: #68d391; }
+  .json-block .num { color: #f6ad55; }
+  .json-block .bool { color: #fc8181; }
+
+  /* Command Output */
+  .cmd-block {
+    background: #1a202c; border-radius: 8px;
+    padding: 14px 16px; margin-bottom: 10px;
+    font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+    font-size: 12px; line-height: 1.6; color: #a0aec0;
+    overflow-x: auto; white-space: pre-wrap;
+    position: relative;
+  }
+  .cmd-block .comment { color: #4a5568; }
+  .cmd-block .cmd { color: #63b3ed; }
+  .cmd-block .flag { color: #f6ad55; }
+  .cmd-block .str { color: #68d391; }
+  .cmd-copy {
+    position: absolute; top: 8px; right: 8px;
+    background: rgba(255,255,255,0.1); border: none;
+    color: #718096; font-size: 11px; padding: 3px 10px;
+    border-radius: 4px; cursor: pointer;
+  }
+  .cmd-copy:hover { background: rgba(255,255,255,0.2); color: #a0aec0; }
+
+  /* Command tabs */
+  .cmd-tabs {
+    display: flex; gap: 2px; margin-bottom: 12px;
+    background: #edf2f7; border-radius: 6px; padding: 3px;
+  }
+  .cmd-tabs button {
+    flex: 1; padding: 6px 12px; border: none; background: transparent;
+    font-size: 12px; color: #718096; border-radius: 4px; cursor: pointer;
+    font-weight: 500; transition: all 0.15s;
+  }
+  .cmd-tabs button:hover { color: #4a5568; }
+  .cmd-tabs button.active { background: #fff; color: #2d3748; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+
+  /* Copy feedback */
+  .copy-feedback {
+    position: fixed; top: 20px; right: 20px;
+    background: #38a169; color: #fff; padding: 8px 16px;
+    border-radius: 8px; font-size: 13px; font-weight: 500;
+    opacity: 0; transition: opacity 0.3s; pointer-events: none;
+  }
+  .copy-feedback.show { opacity: 1; }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    body { padding: 16px; }
+    .grid { grid-template-columns: 1fr; }
+    .pipeline { flex-wrap: wrap; gap: 8px; }
+    .pipeline-arrow { display: none; }
+    .scene-detail { flex-direction: column; }
+    .scene-detail .frame { width: 100%; height: 160px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+  <h1>🎬 LMM + FFmpeg 视频分析工作台</h1>
+  <div class="sub">上传短视频 → 智能分析结构 → 生成拆解命令</div>
+</div>
+
+<!-- Pipeline -->
+<div class="pipeline">
+  <div class="pipeline-step upload">
+    <div class="icon">📤</div>
+    <div class="label">上传视频</div>
+    <div class="desc">MP4 / MOV</div>
+  </div>
+  <div class="pipeline-arrow">→</div>
+  <div class="pipeline-step lmm">
+    <div class="icon">🧠</div>
+    <div class="label">LMM 分析</div>
+    <div class="desc">场景/构图/运镜</div>
+  </div>
+  <div class="pipeline-arrow">→</div>
+  <div class="pipeline-step ffmpeg">
+    <div class="icon">⚡</div>
+    <div class="label">FFmpeg 拆解</div>
+    <div class="desc">场景检测/帧提取</div>
+  </div>
+  <div class="pipeline-arrow">→</div>
+  <div class="pipeline-step output">
+    <div class="icon">📋</div>
+    <div class="label">结构化数据</div>
+    <div class="desc">composition.json</div>
+  </div>
+</div>
+
+<div class="grid">
+
+  <!-- Left: Upload + Analysis -->
+  <div class="card">
+    <div class="card-title">📂 源视频 <span class="badge">演示数据：爆款短视频</span></div>
+    <div class="upload-zone" onclick="simulateUpload()" id="uploadZone">
+      <div class="icon">🎬</div>
+      <div class="main">点击上传或拖拽视频</div>
+      <div class="sub">支持 MP4 / MOV，建议时长 15-60 秒</div>
+    </div>
+    <div class="video-info" id="videoInfo">
+      <div>时长 <span id="vDuration">15.2s</span></div>
+      <div>分辨率 <span>1080×1920</span></div>
+      <div>帧率 <span>30fps</span></div>
+      <div>总帧数 <span>456</span></div>
+    </div>
+
+    <div class="card-title" style="margin-top:18px;">📊 LMM 分析结果</div>
+    <div class="analysis-grid" id="analysisGrid">
+      <div class="analysis-item"><div class="lbl">总场景数</div><div class="val">12 <span class="tag tag-blue">镜头</span></div></div>
+      <div class="analysis-item"><div class="lbl">场景类型</div><div class="val">5 <span class="tag tag-purple">类</span></div></div>
+      <div class="analysis-item"><div class="lbl">运镜模式</div><div class="val">6 <span class="tag tag-green">种</span></div></div>
+      <div class="analysis-item"><div class="lbl">平均镜头</div><div class="val">1.3s <span class="tag tag-orange">短节奏</span></div></div>
+    </div>
+  </div>
+
+  <!-- Middle: Timeline + Scene Detail -->
+  <div class="card">
+    <div class="card-title">🎞 场景时间线 <span class="badge" id="sceneCount">12 个镜头</span></div>
+    <div class="scene-strip" id="sceneStrip"></div>
+
+    <div style="margin-top:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <span style="font-size:13px; font-weight:600; color:#4a5568;" id="detailTitle">Scene 001 · 开场</span>
+        <span style="font-size:11px; color:#a0aec0;" id="detailCount">1 / 12</span>
+      </div>
+      <div class="scene-detail">
+        <div class="frame" id="sceneFrame" style="background:linear-gradient(135deg, #1a2540, #2B5EA7);">
+          <span class="id">S01</span>
+          🎬
+        </div>
+        <div class="props" id="sceneProps">
+          <div class="row"><span class="k">构图</span><span class="v">居中 · 产品特写</span></div>
+          <div class="row"><span class="k">运镜</span><span class="v">推近</span></div>
+          <div class="row"><span class="k">时长</span><span class="v">2.3s</span></div>
+          <div class="row"><span class="k">主色调</span><span class="v"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#2B5EA7;vertical-align:middle;margin-right:4px;"></span>#2B5EA7</span></div>
+          <div class="row"><span class="k">转场</span><span class="v">硬切 →</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full width: LMM Output + FFmpeg Commands -->
+  <div class="card full">
+    <div class="card-title">🧠 LMM → FFmpeg 命令映射</div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+      <!-- LMM JSON -->
+      <div>
+        <div style="font-size:12px; font-weight:600; color:#4a5568; margin-bottom:8px;">LMM 输出结构 (composition.json)</div>
+        <div class="json-block" id="jsonOutput">{
+  <span class="key">"duration"</span>: <span class="num">15.2</span>,
+  <span class="key">"scenes"</span>: [
+    { <span class="key">"id"</span>: <span class="num">1</span>, <span class="key">"range"</span>: <span class="str">"0.0-2.3s"</span>,
+      <span class="key">"type"</span>: <span class="str">"opening"</span>,
+      <span class="key">"motion"</span>: <span class="str">"push_in"</span>,
+      <span class="key">"transition"</span>: <span class="str">"cut"</span> },
+    { <span class="key">"id"</span>: <span class="num">2</span>, <span class="key">"range"</span>: <span class="str">"2.3-5.8s"</span>,
+      <span class="key">"type"</span>: <span class="str">"detail"</span>,
+      <span class="key">"motion"</span>: <span class="str">"orbit"</span>,
+      <span class="key">"transition"</span>: <span class="str">"cut"</span> }
+  ],
+  <span class="key">"fps"</span>: <span class="num">30</span>,
+  <span class="key">"resolution"</span>: <span class="str">"1080x1920"</span>
+}</div>
+      </div>
+
+      <!-- FFmpeg Commands -->
+      <div>
+        <div style="font-size:12px; font-weight:600; color:#4a5568; margin-bottom:8px;">FFmpeg 执行命令</div>
+        <div class="cmd-tabs">
+          <button class="active" onclick="switchCmd('scene', this)">场景检测</button>
+          <button onclick="switchCmd('frames', this)">逐帧导出</button>
+          <button onclick="switchCmd('audio', this)">音频分离</button>
+        </div>
+        <div id="cmdContent">
+          <div class="cmd-block" id="cmdBlock">
+            <button class="cmd-copy" onclick="copyCmd(this)">复制</button>
+            <span class="comment"># 场景检测（按画面变化自动切镜头）</span>
+<span class="cmd">ffmpeg</span> -i <span class="str">source.mp4</span> \
+  -filter:v <span class="str">"select='gt(scene,0.3)',showinfo"</span> \
+  -vsync v2 -f null <span class="str">/dev/null</span>
+
+<span class="comment"># 输出：12 个场景变化点</span>
+<span class="comment"># pts:0 t:0.0 | pts:69 t:2.3 | pts:174 t:5.8 ...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- Copy feedback -->
+<div class="copy-feedback" id="copyFeedback">✓ 已复制</div>
+
+<script>
+// ======== Demo Data ========
+const SCENES = [
+  { id:1, name:'开场·标题', start:0.0, end:2.3, type:'opening', emoji:'📺', 
+    comp:'居中·产品特写', motion:'推近', color:'#2B5EA7', trans:'硬切 →', bg:'linear-gradient(135deg,#1a2540,#2B5EA7)' },
+  { id:2, name:'产品展示A', start:2.3, end:5.8, type:'detail', emoji:'📱',
+    comp:'左三分·产品45°', motion:'环绕·慢速', color:'#1A365D', trans:'硬切 →', bg:'linear-gradient(135deg,#0f1a30,#1A365D)' },
+  { id:3, name:'使用场景', start:5.8, end:8.0, type:'lifestyle', emoji:'🙋',
+    comp:'居中·手持演示', motion:'跟随·平移', color:'#F5A623', trans:'淡入 →', bg:'linear-gradient(135deg,#1a1a2e,#F5A623)' },
+  { id:4, name:'细节特写', start:8.0, end:10.1, type:'macro', emoji:'🔍',
+    comp:'居中·材质特写', motion:'固定·微距', color:'#60A5FA', trans:'硬切 →', bg:'linear-gradient(135deg,#0a1628,#60A5FA)' },
+  { id:5, name:'对比展示', start:10.1, end:12.0, type:'comparison', emoji:'⚔️',
+    comp:'左右分割·对比', motion:'推拉切换', color:'#9333EA', trans:'滑动 →', bg:'linear-gradient(135deg,#1a0a2e,#9333EA)' },
+  { id:6, name:'收尾·CTA', start:12.0, end:15.2, type:'closing', emoji:'🎯',
+    comp:'下方·CTA按钮', motion:'拉远·定格', color:'#10B981', trans:'—', bg:'linear-gradient(135deg,#0a1a14,#10B981)' }
+];
+// Fill to 12
+for(let i=7;i<=12;i++){
+  const idx=i-1; const prev=SCENES[idx-1];
+  const items=['📸','🎬','✨','🌟','💡','🎪']; const comps=['居中·展示','左三分·讲解','特写·局部','俯拍·操作'];
+  const motions=['推近','拉远','平移·左','平移·右','环绕','固定']; const colors=['#6366F1','#EC4899','#F59E0B','#14B8A6','#8B5CF6','#F43F5E'];
+  SCENES.push({id:i,name:`场景·${String(i).padStart(3,'0')}`,start:prev.end,end:prev.end+(1.8+Math.random()*2),
+    type:['detail','lifestyle','macro'][idx%3],emoji:items[idx%6],
+    comp:comps[idx%4],motion:motions[idx%6],color:colors[idx%6],trans:'硬切 →',
+    bg:`linear-gradient(135deg,#0f1a2e,${colors[idx%6]})`});
+}
+
+let selectedIdx = 0;
+
+// ======== Render ========
+function renderTimeline() {
+  const strip = document.getElementById('sceneStrip');
+  const total = SCENES[SCENES.length-1].end;
+  strip.innerHTML = '';
+  SCENES.forEach((s,i) => {
+    const seg = document.createElement('div');
+    seg.className = 'scene-seg';
+    const w = Math.max(((s.end - s.start) / total) * 300, 28);
+    seg.style.cssText = `width:${w}px;background:${s.bg};`;
+    seg.textContent = `S${String(s.id).padStart(2,'0')}`;
+    seg.onclick = () => selectScene(i);
+    if(i === selectedIdx) seg.classList.add('active');
+    strip.appendChild(seg);
+  });
+}
+
+function selectScene(idx) {
+  selectedIdx = idx;
+  const s = SCENES[idx];
+  renderTimeline();
+  
+  document.getElementById('detailTitle').textContent = `Scene ${String(s.id).padStart(3,'0')} · ${s.name}`;
+  document.getElementById('detailCount').textContent = `${idx+1} / ${SCENES.length}`;
+  
+  const frame = document.getElementById('sceneFrame');
+  frame.style.background = s.bg;
+  frame.innerHTML = `<span class="id">S${String(s.id).padStart(2,'0')}</span>${s.emoji}`;
+  
+  document.getElementById('sceneProps').innerHTML = `
+    <div class="row"><span class="k">构图</span><span class="v">${s.comp}</span></div>
+    <div class="row"><span class="k">运镜</span><span class="v">${s.motion}</span></div>
+    <div class="row"><span class="k">时长</span><span class="v">${(s.end-s.start).toFixed(1)}s</span></div>
+    <div class="row"><span class="k">主色调</span><span class="v"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:${s.color};vertical-align:middle;margin-right:4px;"></span>${s.color}</span></div>
+    <div class="row"><span class="k">转场</span><span class="v">${s.trans}</span></div>`;
+}
+
+function simulateUpload() {
+  const zone = document.getElementById('uploadZone');
+  zone.innerHTML = `<div class="icon" style="font-size:28px;">✅</div>
+    <div class="main" style="color:#38a169;">已加载: demo_product_video.mp4</div>
+    <div class="sub" style="color:#a0aec0;">15.2s · 1080×1920 · 30fps · 12 scenes</div>`;
+  document.getElementById('videoInfo').classList.add('show');
+  
+  // Animate: update JSON to show real data
+  let json = document.getElementById('jsonOutput');
+  json.style.transition = 'opacity 0.3s';
+  json.style.opacity = '0.5';
+  setTimeout(() => {
+    json.innerHTML = `{
+  <span class="key">"duration"</span>: <span class="num">15.2</span>,
+  <span class="key">"total_scenes"</span>: <span class="num">12</span>,
+  <span class="key">"fps"</span>: <span class="num">30</span>,
+  <span class="key">"resolution"</span>: <span class="str">"1080x1920"</span>,
+  <span class="key">"color_palette"</span>: {
+    <span class="key">"primary"</span>: <span class="str">"#2B5EA7"</span>,
+    <span class="key">"accent"</span>: <span class="str">"#F5A623"</span>
+  },
+  <span class="key">"scenes"</span>: [
+    { <span class="key">"id"</span>: <span class="num">1</span>, <span class="key">"range"</span>: <span class="str">"0.0-2.3s"</span>,
+      <span class="key">"type"</span>: <span class="str">"opening"</span>, <span class="key">"motion"</span>: <span class="str">"push_in"</span> },
+    { <span class="key">"id"</span>: <span class="num">2</span>, <span class="key">"range"</span>: <span class="str">"2.3-5.8s"</span>,
+      <span class="key">"type"</span>: <span class="str">"detail"</span>, <span class="key">"motion"</span>: <span class="str">"orbit"</span> },
+    ...
+  ]
+}`;
+    json.style.opacity = '1';
+  }, 400);
+}
+
+function switchCmd(tab, btn) {
+  document.querySelectorAll('.cmd-tabs button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  
+  const cmds = {
+    scene: `<div class="cmd-block" id="cmdBlock">
+      <button class="cmd-copy" onclick="copyCmd(this)">复制</button>
+      <span class="comment"># 场景检测（按画面变化自动切镜头）</span>
+<span class="cmd">ffmpeg</span> -i <span class="str">source.mp4</span> \\
+  -filter:v <span class="str">"select='gt(scene,0.3)',showinfo"</span> \\
+  -vsync v2 -f null <span class="str">/dev/null</span>
+
+<span class="comment"># 输出：12 个场景变化点</span>
+<span class="comment"># pts:0 t:0.0 | pts:69 t:2.3 | pts:174 t:5.8 ...</span>
+    </div>`,
+    frames: `<div class="cmd-block" id="cmdBlock">
+      <button class="cmd-copy" onclick="copyCmd(this)">复制</button>
+      <span class="comment"># 逐帧导出 PNG（按场景提取关键帧）</span>
+<span class="cmd">ffmpeg</span> -i <span class="str">source.mp4</span> -q:v 2 \\
+  <span class="str">1_source/source_frames/%05d.png</span>
+
+<span class="comment"># 按 LMM 场景切分表分组</span>
+<span class="cmd">mkdir -p</span> <span class="str">2_scenes/scene_{001..012}</span>
+<span class="cmd">for</span> i in <span class="str">\$(seq 0 11)</span>; <span class="cmd">do</span> \\
+  <span class="comment"># 每场景选中间帧作为关键帧</span> \\
+<span class="cmd">done</span>
+    </div>`,
+    audio: `<div class="cmd-block" id="cmdBlock">
+      <button class="cmd-copy" onclick="copyCmd(this)">复制</button>
+      <span class="comment"># 提取完整音频</span>
+<span class="cmd">ffmpeg</span> -i <span class="str">source.mp4</span> -vn -acodec copy \\
+  <span class="str">1_source/audio/audio_full.aac</span>
+
+<span class="comment"># 提取各场景音频段</span>
+<span class="cmd">ffmpeg</span> -i <span class="str">source.mp4</span> -ss <span class="num">0.0</span> -t <span class="num">2.3</span> \\
+  <span class="str">2_scenes/scene_001/audio.aac</span>
+<span class="cmd">ffmpeg</span> -i <span class="str">source.mp4</span> -ss <span class="num">2.3</span> -t <span class="num">3.5</span> \\
+  <span class="str">2_scenes/scene_002/audio.aac</span>
+    </div>`
+  };
+  document.getElementById('cmdContent').innerHTML = cmds[tab] || cmds.scene;
+}
+
+function copyCmd(btn) {
+  const block = btn.closest('.cmd-block');
+  const text = block.textContent.replace('复制', '').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    const fb = document.getElementById('copyFeedback');
+    fb.classList.add('show');
+    setTimeout(() => fb.classList.remove('show'), 1500);
+  });
+}
+
+// Init
+renderTimeline();
+selectScene(0);
+</script>
+</body>
+</html>

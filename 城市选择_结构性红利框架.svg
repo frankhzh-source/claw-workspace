@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 1300" width="100%" role="img">
+  <title>城市选择结构性红利完整框架</title>
+  <desc>FDE定义、三大结构性红利、杭州行动策略（五类活动+五类群体+两个生态位）、通用四步法、收益公式、行业匹配表、关键提醒</desc>
+
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- === TOP: Title + FDE === -->
+  <text x="340" y="36" text-anchor="middle" font-size="18" font-weight="500" fill="#1A1A1A">城市选择的三个结构性红利</text>
+  <text x="340" y="56" text-anchor="middle" font-size="12" fill="#5F5E5A">海风 · AI电商 FDE（Forward Deployed Engineer）</text>
+
+  <rect x="40" y="72" width="600" height="46" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="56" y="90" font-size="12" font-weight="500" fill="#3C3489">FDE = 兼具技术开发 + 产品思考 + 客户业务落地能力</text>
+  <text x="56" y="108" font-size="11" fill="#3C3489">把AI模型/Demo转化为落地的业务工作流，解决AI落地最后一公里</text>
+
+  <line x1="80" y1="134" x2="600" y2="134" stroke="#D3D1C7" stroke-width="0.5"/>
+
+  <!-- === SECTION: 三大红利 === -->
+  <text x="340" y="164" text-anchor="middle" font-size="15" font-weight="500" fill="#1A1A1A">三大结构性红利</text>
+
+  <!-- 红利1 -->
+  <rect x="40" y="180" width="600" height="92" rx="10" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <rect x="40" y="180" width="6" height="92" rx="3" fill="#1D9E75"/>
+  <text x="62" y="202" font-size="14" font-weight="500" fill="#085041">红利1：信息梯度差</text>
+  <text x="62" y="222" font-size="12" fill="#0F6E56">离行业前沿越近，获取信息的时间成本和难度越低</text>
+  <text x="62" y="240" font-size="11" fill="#0F6E56">杭州有阿里/字节/快手总部 → 新政策/工具1周内知道 vs 其他城市1-3个月</text>
+  <text x="62" y="258" font-size="11" fill="#0F6E56">2026年618，杭州AIGC服务商已内测AI全域投放接口，同行还在问"AI视频怎么做"</text>
+
+  <line x1="340" y1="272" x2="340" y2="286" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- 红利2 -->
+  <rect x="40" y="294" width="600" height="92" rx="10" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <rect x="40" y="294" width="6" height="92" rx="3" fill="#378ADD"/>
+  <text x="62" y="316" font-size="14" font-weight="500" fill="#0C447C">红利2：人才溢出效应</text>
+  <text x="62" y="336" font-size="12" fill="#185FA5">大公司不只消耗人才，也在持续释放人才</text>
+  <text x="62" y="354" font-size="11" fill="#185FA5">阿里系每年大量中高层出来创业，带方法论+行业认知+人脉</text>
+  <text x="62" y="372" font-size="11" fill="#185FA5">你和这群人做合作伙伴的概率比其他城市高10倍</text>
+
+  <line x1="340" y1="386" x2="340" y2="400" stroke="#378ADD" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- 红利3 -->
+  <rect x="40" y="408" width="600" height="92" rx="10" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+  <rect x="40" y="408" width="6" height="92" rx="3" fill="#BA7517"/>
+  <text x="62" y="430" font-size="14" font-weight="500" fill="#633806">红利3：生态密度效应</text>
+  <text x="62" y="450" font-size="12" fill="#854F0B">上下游在不在一个城市，决定事情能不能做成</text>
+  <text x="62" y="468" font-size="11" fill="#854F0B">做AI电商视频：平台对接步行距离｜模型接口人沙龙加上｜后期外包一抓一大把</text>
+  <text x="62" y="486" font-size="11" fill="#854F0B">每个环节省3天，一个项目省出1个月</text>
+
+  <line x1="80" y1="518" x2="600" y2="518" stroke="#D3D1C7" stroke-width="0.5"/>
+
+  <!-- === SECTION: 杭州行动策略 === -->
+  <text x="340" y="548" text-anchor="middle" font-size="15" font-weight="500" fill="#1A1A1A">在杭州：怎么吃透红利</text>
+
+  <!-- 双栏：左=五类活动, 右=五类群体 -->
+  <text x="60" y="574" font-size="13" font-weight="500" fill="#1A1A1A">五类活动（按层级）</text>
+  <text x="380" y="574" font-size="13" font-weight="500" fill="#1A1A1A">五类群体（按生态角色）</text>
+
+  <rect x="40" y="584" width="290" height="142" rx="6" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+  <line x1="40" y1="608" x2="330" y2="608" stroke="#D3D1C7" stroke-width="0.5"/>
+  <line x1="80" y1="584" x2="80" y2="726" stroke="#D3D1C7" stroke-width="0.5"/>
+  <text x="60" y="598" text-anchor="middle" font-size="10" fill="#444441" dominant-baseline="central">#</text>
+  <text x="205" y="598" text-anchor="middle" font-size="10" fill="#444441" dominant-baseline="central">活动类型</text>
+
+  <text x="185" y="622" font-size="11" fill="#444441" dominant-baseline="central">官方发布会</text>
+  <line x1="40" y1="628" x2="330" y2="628" stroke="#D3D1C7" stroke-width="0.5"/>
+  <text x="185" y="642" font-size="11" fill="#444441" dominant-baseline="central">行业沙龙/闭门会</text>
+  <line x1="40" y1="654" x2="330" y2="654" stroke="#D3D1C7" stroke-width="0.5"/>
+  <text x="185" y="668" font-size="11" fill="#444441" dominant-baseline="central">私密饭局/茶话会</text>
+  <line x1="40" y1="680" x2="330" y2="680" stroke="#D3D1C7" stroke-width="0.5"/>
+  <text x="185" y="694" font-size="11" fill="#444441" dominant-baseline="central">平台服务商对接会</text>
+  <line x1="40" y1="706" x2="330" y2="706" stroke="#D3D1C7" stroke-width="0.5"/>
+  <text x="185" y="720" font-size="11" fill="#444441" dominant-baseline="central">创业者社群/共修会</text>
+
+  <!-- 右边表格 -->
+  <rect x="350" y="584" width="290" height="142" rx="6" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+  <line x1="350" y1="608" x2="640" y2="608" stroke="#D3D1C7" stroke-width="0.5"/>
+  <line x1="400" y1="584" x2="400" y2="726" stroke="#D3D1C7" stroke-width="0.5"/>
+  <text x="375" y="598" text-anchor="middle" font-size="10" fill="#444441" dominant-baseline="central">群体</text>
+  <text x="520" y="598" text-anchor="middle" font-size="10" fill="#444441" dominant-baseline="central">核心资源</text>
+
+  <text x="405" y="622" font-size="11" fill="#378ADD" font-weight="500" dominant-baseline="central">平台侧</text>
+  <text x="490" y="622" font-size="11" fill="#444441" dominant-baseline="central">一手政策/接口权限</text>
+  <line x1="350" y1="628" x2="640" y2="628" stroke="#D3D1C7" stroke-width="0.5"/>
+
+  <text x="405" y="642" font-size="11" fill="#1D9E75" font-weight="500" dominant-baseline="central">服务商侧</text>
+  <text x="490" y="642" font-size="11" fill="#444441" dominant-baseline="central">行业水位/资源互换</text>
+  <line x1="350" y1="654" x2="640" y2="654" stroke="#D3D1C7" stroke-width="0.5"/>
+
+  <text x="405" y="668" font-size="11" fill="#BA7517" font-weight="500" dominant-baseline="central">品牌侧</text>
+  <text x="490" y="668" font-size="11" fill="#444441" dominant-baseline="central">潜在客户/需求验证</text>
+  <line x1="350" y1="680" x2="640" y2="680" stroke="#D3D1C7" stroke-width="0.5"/>
+
+  <text x="405" y="694" font-size="11" fill="#534AB7" font-weight="500" dominant-baseline="central">技术侧</text>
+  <text x="490" y="694" font-size="11" fill="#444441" dominant-baseline="central">工具上限/技术合作</text>
+  <line x1="350" y1="706" x2="640" y2="706" stroke="#D3D1C7" stroke-width="0.5"/>
+
+  <text x="405" y="720" font-size="11" fill="#E24B4A" font-weight="500" dominant-baseline="central">资本侧</text>
+  <text x="490" y="720" font-size="11" fill="#444441" dominant-baseline="central">资金流向/价值判断</text>
+
+  <!-- 生态位 -->
+  <rect x="40" y="736" width="600" height="28" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+  <text x="56" y="752" font-size="11" fill="#633806" dominant-baseline="central">生态位A：交叉能力（懂电商+懂AI+能方案+能交付）</text>
+  <text x="370" y="752" font-size="11" fill="#633806" dominant-baseline="central">生态位B：信息传递者（公众号/知乎/飞书/视频号）</text>
+
+  <line x1="80" y1="780" x2="600" y2="780" stroke="#D3D1C7" stroke-width="0.5"/>
+
+  <!-- === SECTION: 通用框架 === -->
+  <text x="340" y="810" text-anchor="middle" font-size="15" font-weight="500" fill="#1A1A1A">通用框架：城市选择四步法 + 收益公式</text>
+
+  <!-- 2×2 四步法 -->
+  <rect x="40" y="826" width="290" height="42" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text x="56" y="847" font-size="12" font-weight="500" fill="#085041" dominant-baseline="central">① 评估红利</text>
+  <text x="120" y="847" font-size="11" fill="#0F6E56" dominant-baseline="central">头部公司？上下游？人才溢出或吸纳？</text>
+
+  <rect x="350" y="826" width="290" height="42" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text x="366" y="847" font-size="12" font-weight="500" fill="#085041" dominant-baseline="central">② 评估阶段</text>
+  <text x="430" y="847" font-size="11" fill="#0F6E56" dominant-baseline="central">积累期要一手信息｜变现期要低成本</text>
+
+  <rect x="40" y="876" width="290" height="42" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text x="56" y="897" font-size="12" font-weight="500" fill="#085041" dominant-baseline="central">③ 匹配城市×阶段</text>
+  <text x="136" y="897" font-size="11" fill="#0F6E56" dominant-baseline="central">积累期→认知高地｜变现期→洼地</text>
+
+  <rect x="350" y="876" width="290" height="42" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text x="366" y="897" font-size="12" font-weight="500" fill="#085041" dominant-baseline="central">④ 城市资源地图</text>
+  <text x="446" y="897" font-size="11" fill="#0F6E56" dominant-baseline="central">5类人+5类活动+确定生态位</text>
+
+  <!-- 公式 -->
+  <rect x="100" y="934" width="480" height="36" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+  <text x="340" y="952" text-anchor="middle" font-size="13" font-weight="500" fill="#2C2C2A" dominant-baseline="central">城市红利收益 = 结构性红利基数 × 主动获取效率</text>
+  <text x="340" y="982" text-anchor="middle" font-size="11" fill="#5F5E5A">基数高×乘数低=一般｜基数中×乘数高=很好</text>
+
+  <line x1="80" y1="998" x2="600" y2="998" stroke="#D3D1C7" stroke-width="0.5"/>
+
+  <!-- === BOTTOM: 行业匹配表 + 关键提醒 === -->
+  <text x="340" y="1026" text-anchor="middle" font-size="15" font-weight="500" fill="#1A1A1A">行业×城市匹配参考</text>
+
+  <!-- Table header -->
+  <rect x="140" y="1038" width="400" height="26" rx="3" fill="#1D9E75"/>
+  <text x="220" y="1051" text-anchor="middle" font-size="10" font-weight="500" fill="#FFF" dominant-baseline="central">行业</text>
+  <text x="340" y="1051" text-anchor="middle" font-size="10" font-weight="500" fill="#FFF" dominant-baseline="central">积累期首选</text>
+  <text x="460" y="1051" text-anchor="middle" font-size="10" font-weight="500" fill="#FFF" dominant-baseline="central">变现期首选</text>
+
+  <line x1="140" y1="1064" x2="540" y2="1064" stroke="#D3D1C7" stroke-width="0.5"/>
+  <rect x="140" y="1064" width="400" height="52" rx="0" fill="#F8F7F4"/>
+  <rect x="140" y="1064" width="400" height="52" rx="3" fill="#F8F7F4" stroke="#D3D1C7" stroke-width="0.5"/>
+  <line x1="220" y1="1038" x2="220" y2="1116" stroke="#FFF" stroke-width="0.5"/>
+  <line x1="340" y1="1038" x2="340" y2="1116" stroke="#D3D1C7" stroke-width="0.5"/>
+  <line x1="460" y1="1038" x2="460" y2="1116" stroke="#D3D1C7" stroke-width="0.5"/>
+
+  <!-- Row 1 -->
+  <line x1="140" y1="1090" x2="540" y2="1090" stroke="#D3D1C7" stroke-width="0.5"/>
+  <text x="180" y="1085" text-anchor="middle" font-size="11" fill="#1A1A1A" dominant-baseline="central">AI+电商</text>
+  <text x="340" y="1085" text-anchor="middle" font-size="11" font-weight="500" fill="#185FA5" dominant-baseline="central">杭州</text>
+  <text x="500" y="1085" text-anchor="middle" font-size="11" fill="#854F0B" dominant-baseline="central">义乌/常熟/徐州</text>
+
+  <!-- Row 2 -->
+  <line x1="140" y1="1090" x2="540" y2="1090" stroke="#D3D1C7" stroke-width="0.5"/>
+  <text x="180" y="1102" text-anchor="middle" font-size="11" fill="#1A1A1A" dominant-baseline="central">金融科技</text>
+  <text x="340" y="1102" text-anchor="middle" font-size="11" font-weight="500" fill="#185FA5" dominant-baseline="central">上海/北京</text>
+  <text x="500" y="1102" text-anchor="middle" font-size="11" fill="#854F0B" dominant-baseline="central">杭州/成都</text>
+
+  <rect x="140" y="1064" width="400" height="1" fill="#D3D1C7"/>
+
+  <!-- Row 3: game -->
+  <line x1="140" y1="1116" x2="540" y2="1116" stroke="#D3D1C7" stroke-width="0.5"/>
+  <text x="180" y="1130" text-anchor="middle" font-size="11" fill="#1A1A1A" dominant-baseline="central">跨境出海</text>
+  <text x="340" y="1130" text-anchor="middle" font-size="11" font-weight="500" fill="#185FA5" dominant-baseline="central">深圳/广州</text>
+  <text x="500" y="1130" text-anchor="middle" font-size="11" fill="#854F0B" dominant-baseline="central">义乌/泉州</text>
+
+  <!-- 关键提醒 -->
+  <rect x="40" y="1146" width="600" height="56" rx="8" fill="#FBEAF0" stroke="#D4537E" stroke-width="0.5"/>
+  <text x="56" y="1164" font-size="12" font-weight="500" fill="#72243E" dominant-baseline="central">AI新变量 + 3年窗口 + 反脆弱配置</text>
+  <text x="56" y="1182" font-size="11" fill="#993556" dominant-baseline="central">阿里云算力+字节生态+密集AI电商用户三合一</text>
+  <text x="56" y="1196" font-size="11" fill="#993556" dominant-baseline="central">红利窗口约3年 ｜ 保持跨城通道+内容输出+能力可迁移</text>
+
+  <!-- === AUTHOR === -->
+  <line x1="80" y1="1222" x2="600" y2="1222" stroke="#D3D1C7" stroke-width="0.5"/>
+  <text x="340" y="1246" text-anchor="middle" font-size="12" font-weight="500" fill="#1A1A1A">海风 · AI电商FDE（Forward Deployed Engineer）</text>
+  <text x="340" y="1266" text-anchor="middle" font-size="11" fill="#5F5E5A">AI视频生成 · 知识库搭建 · 电商ROI体系</text>
+  <text x="340" y="1286" text-anchor="middle" font-size="11" fill="#378ADD">微信：frankhzheng ｜ 备注"AI电商"优先通过</text>
+</svg>

@@ -1,0 +1,252 @@
+<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 0 auto; padding: 0; color: #222;">
+  <!-- Pipeline 6-stage -->
+  <div style="display: flex; gap: 6px; margin-bottom: 24px;">
+    <div style="flex: 1; text-align: center;">
+      <div style="background: #10b981; height: 4px; border-radius: 2px; margin-bottom: 6px;"></div>
+      <div style="font-size: 11px; font-weight: 500; color: #10b981;">图片</div>
+      <div style="font-size: 10px; color: #6b7280;">120张</div>
+    </div>
+    <div style="flex: 1; text-align: center;">
+      <div style="background: #10b981; height: 4px; border-radius: 2px; margin-bottom: 6px;"></div>
+      <div style="font-size: 11px; font-weight: 500; color: #10b981;">caption</div>
+      <div style="font-size: 10px; color: #6b7280;">120/120</div>
+    </div>
+    <div style="flex: 1; text-align: center;">
+      <div style="background: #10b981; height: 4px; border-radius: 2px; margin-bottom: 6px;"></div>
+      <div style="font-size: 11px; font-weight: 500; color: #10b981;">数据包</div>
+      <div style="font-size: 10px; color: #6b7280;">已完成</div>
+    </div>
+    <div style="flex: 1; text-align: center;">
+      <div style="background: #ef4444; height: 4px; border-radius: 2px; margin-bottom: 6px;"></div>
+      <div style="font-size: 11px; font-weight: 500; color: #ef4444;">环境</div>
+      <div style="font-size: 10px; color: #6b7280;">阻塞中</div>
+    </div>
+    <div style="flex: 1; text-align: center;">
+      <div style="background: #d1d5db; height: 4px; border-radius: 2px; margin-bottom: 6px;"></div>
+      <div style="font-size: 11px; font-weight: 500; color: #9ca3af;">precheck</div>
+      <div style="font-size: 10px; color: #6b7280;">等待</div>
+    </div>
+    <div style="flex: 1; text-align: center;">
+      <div style="background: #d1d5db; height: 4px; border-radius: 2px; margin-bottom: 6px;"></div>
+      <div style="font-size: 11px; font-weight: 500; color: #9ca3af;">训练</div>
+      <div style="font-size: 10px; color: #6b7280;">等待</div>
+    </div>
+  </div>
+
+  <!-- Metric cards row -->
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px;">
+    <div style="background: #f9fafb; border-radius: 8px; padding: 12px; text-align: center;">
+      <div style="font-size: 11px; color: #6b7280; margin-bottom: 4px;">数据总量</div>
+      <div style="font-size: 22px; font-weight: 500; color: #111;">240</div>
+      <div style="font-size: 10px; color: #10b981;">+120 待标注</div>
+    </div>
+    <div style="background: #f9fafb; border-radius: 8px; padding: 12px; text-align: center;">
+      <div style="font-size: 11px; color: #6b7280; margin-bottom: 4px;">阶段完成</div>
+      <div style="font-size: 22px; font-weight: 500; color: #111;">3/6</div>
+      <div style="font-size: 10px; color: #6b7280;">50% 完成度</div>
+    </div>
+    <div style="background: #f9fafb; border-radius: 8px; padding: 12px; text-align: center;">
+      <div style="font-size: 11px; color: #6b7280; margin-bottom: 4px;">阻塞数</div>
+      <div style="font-size: 22px; font-weight: 500; color: #ef4444;">1</div>
+      <div style="font-size: 10px; color: #ef4444;">环境</div>
+    </div>
+    <div style="background: #f9fafb; border-radius: 8px; padding: 12px; text-align: center;">
+      <div style="font-size: 11px; color: #6b7280; margin-bottom: 4px;">运行中</div>
+      <div style="font-size: 22px; font-weight: 500; color: #6b7280;">-</div>
+      <div style="font-size: 10px; color: #6b7280;">等待开始</div>
+    </div>
+  </div>
+
+  <!-- Section: 阶段详情 -->
+  <div style="font-size: 13px; font-weight: 500; margin-bottom: 10px; color: #374151;">阶段详情</div>
+
+  <details style="margin-bottom: 6px;">
+    <summary style="cursor: pointer; padding: 10px 12px; background: #f9fafb; border-radius: 8px; font-size: 13px; font-weight: 500; color: #10b981;">01 图片工程 <span style="color: #10b981; font-weight: 400;">已完成</span></summary>
+    <div style="padding: 10px 12px 4px 20px; font-size: 12px; line-height: 1.8; color: #4b5563;">
+      <div><input type="checkbox" checked disabled> 120 张源图已收集</div>
+      <div><input type="checkbox" checked disabled> 三目录分离: train_ready / control_refs / review</div>
+      <div><input type="checkbox" checked disabled> 无重复、无人像、无遮挡</div>
+      <div><input type="checkbox" checked disabled> 尺寸统一 1024x1024</div>
+    </div>
+  </details>
+
+  <details style="margin-bottom: 6px;">
+    <summary style="cursor: pointer; padding: 10px 12px; background: #f9fafb; border-radius: 8px; font-size: 13px; font-weight: 500; color: #10b981;">02 Caption 工程 <span style="color: #10b981; font-weight: 400;">已完成</span></summary>
+    <div style="padding: 10px 12px 4px 20px; font-size: 12px; line-height: 1.8; color: #4b5563;">
+      <div><input type="checkbox" checked disabled> 40-100 词自然语言描述</div>
+      <div><input type="checkbox" checked disabled> 六要素标注: 类型/领型/袖型/廓形/材质/装饰</div>
+      <div><input type="checkbox" checked disabled> 无标签列表、无标题党词</div>
+      <div><input type="checkbox" checked disabled> 下划线触发词仅用于服装术语</div>
+    </div>
+  </details>
+
+  <details style="margin-bottom: 6px;">
+    <summary style="cursor: pointer; padding: 10px 12px; background: #f9fafb; border-radius: 8px; font-size: 13px; font-weight: 500; color: #10b981;">03 数据打包 <span style="color: #10b981; font-weight: 400;">已完成</span></summary>
+    <div style="padding: 10px 12px 4px 20px; font-size: 12px; line-height: 1.8; color: #4b5563;">
+      <div><input type="checkbox" checked disabled> JSONL 格式正确</div>
+      <div><input type="checkbox" checked disabled> 图片-Caption 1:1 严格对应</div>
+      <div><input type="checkbox" checked disabled> 无悬浮空行、无BOM头</div>
+      <div><input type="checkbox" checked disabled> 校验哈希一致</div>
+    </div>
+  </details>
+
+  <details style="margin-bottom: 6px;">
+    <summary style="cursor: pointer; padding: 10px 12px; background: #fef2f2; border-radius: 8px; font-size: 13px; font-weight: 500; color: #ef4444;">04 环境配置 <span style="color: #ef4444; font-weight: 400;">阻塞</span></summary>
+    <div style="padding: 10px 12px 4px 20px; font-size: 12px; line-height: 1.8; color: #4b5563;">
+      <div><input type="checkbox" checked disabled> Codex 环境已安装</div>
+      <div><input type="checkbox" checked disabled> 依赖检查通过</div>
+      <div><input type="checkbox" style="accent-color: #ef4444;" disabled> 模型文件就绪: flux-2-klein-base-4b.safetensors <span style="color: #ef4444;">(格式待确认)</span></div>
+      <div><input type="checkbox" disabled> YAML 配置就绪</div>
+      <div style="margin-top: 6px; padding: 6px 10px; background: #fef2f2; border-radius: 4px; font-size: 11px; color: #dc2626;">
+        阻塞原因: 需要确认模型格式是 .safetensors 还是 .pt 还是 HuggingFace 仓库路径
+      </div>
+    </div>
+  </details>
+
+  <details style="margin-bottom: 6px;">
+    <summary style="cursor: pointer; padding: 10px 12px; background: #f9fafb; border-radius: 8px; font-size: 13px; font-weight: 500; color: #9ca3af;">05 Precheck <span style="color: #9ca3af; font-weight: 400;">等待</span></summary>
+    <div style="padding: 10px 12px 4px 20px; font-size: 12px; line-height: 1.8; color: #9ca3af;">
+      <div><input type="checkbox" disabled> 1-step 训练验证</div>
+      <div><input type="checkbox" disabled> 无报错退出</div>
+      <div><input type="checkbox" disabled> loss 初始值正常</div>
+    </div>
+  </details>
+
+  <details style="margin-bottom: 20px;">
+    <summary style="cursor: pointer; padding: 10px 12px; background: #f9fafb; border-radius: 8px; font-size: 13px; font-weight: 500; color: #9ca3af;">06 正式训练 <span style="color: #9ca3af; font-weight: 400;">等待</span></summary>
+    <div style="padding: 10px 12px 4px 20px; font-size: 12px; line-height: 1.8; color: #9ca3af;">
+      <div><input type="checkbox" disabled> 300 steps smoke test (1个方向)</div>
+      <div><input type="checkbox" disabled> 4个方向正式训练</div>
+      <div><input type="checkbox" disabled> Loss 曲线监控</div>
+      <div><input type="checkbox" disabled> 生成测试集验证</div>
+    </div>
+  </details>
+
+  <!-- Section: 故障诊断决策树 -->
+  <div style="font-size: 13px; font-weight: 500; margin-bottom: 10px; color: #374151;">故障诊断决策树</div>
+
+  <div style="font-size: 12px; line-height: 1.6; color: #4b5563; margin-bottom: 20px;">
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <div style="display: flex; align-items: flex-start; gap: 8px; padding: 6px 10px; background: #f9fafb; border-radius: 6px;">
+        <span style="color: #ef4444; font-weight: 500; white-space: nowrap;">训练失败?</span>
+        <span style="color: #9ca3af;">→</span>
+        <span>loss 不下降 → 检 lr / batch size / 数据量</span>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 8px; padding: 6px 10px; background: #f9fafb; border-radius: 6px; margin-left: 20px;">
+        <span style="color: #ef4444; font-weight: 500; white-space: nowrap;">OOM?</span>
+        <span style="color: #9ca3af;">→</span>
+        <span>检 batch size / gradient checkpointing / 显存</span>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 8px; padding: 6px 10px; background: #f9fafb; border-radius: 6px; margin-left: 20px;">
+        <span style="color: #ef4444; font-weight: 500; white-space: nowrap;">训练中断?</span>
+        <span style="color: #9ca3af;">→</span>
+        <span>检 磁盘空间 / CID授权 / 网络/SSH</span>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 8px; padding: 6px 10px; background: #f9fafb; border-radius: 6px;">
+        <span style="color: #f59e0b; font-weight: 500; white-space: nowrap;">效果不好?</span>
+        <span style="color: #9ca3af;">→</span>
+        <span>过拟合 → 数据太少 / caption太单一</span>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 8px; padding: 6px 10px; background: #f9fafb; border-radius: 6px; margin-left: 20px;">
+        <span style="color: #f59e0b; font-weight: 500; white-space: nowrap;">欠拟合?</span>
+        <span style="color: #9ca3af;">→</span>
+        <span>epoch不足 / lr太低 / rank不够</span>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 8px; padding: 6px 10px; background: #f9fafb; border-radius: 6px; margin-left: 20px;">
+        <span style="color: #f59e0b; font-weight: 500; white-space: nowrap;">分类不准?</span>
+        <span style="color: #9ca3af;">→</span>
+        <span>分类标准 / 图源混入 / 风格词过多</span>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 8px; padding: 6px 10px; background: #f9fafb; border-radius: 6px; margin-left: 20px;">
+        <span style="color: #f59e0b; font-weight: 500; white-space: nowrap;">背景学习?</span>
+        <span style="color: #9ca3af;">→</span>
+        <span>场景单一 / caption强化了背景</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: 隐性失败速查 -->
+  <div style="font-size: 13px; font-weight: 500; margin-bottom: 10px; color: #374151;">隐性失败速查卡</div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px;">
+    <div style="background: #fffbeb; border-left: 3px solid #f59e0b; padding: 10px; border-radius: 6px;">
+      <div style="font-size: 12px; font-weight: 500; color: #92400e; margin-bottom: 4px;">过拟合泄漏</div>
+      <div style="font-size: 11px; color: #a16207;">loss 极低但验证 loss 高, 对比 train/val 曲线</div>
+    </div>
+    <div style="background: #fef2f2; border-left: 3px solid #ef4444; padding: 10px; border-radius: 6px;">
+      <div style="font-size: 12px; font-weight: 500; color: #991b1b; margin-bottom: 4px;">权重污染</div>
+      <div style="font-size: 11px; color: #b91c1c;">背景/道具风格渗入目标服装, 换背景测试</div>
+    </div>
+    <div style="background: #f0fdf4; border-left: 3px solid #10b981; padding: 10px; border-radius: 6px;">
+      <div style="font-size: 12px; font-weight: 500; color: #065f46; margin-bottom: 4px;">高低权重不对称</div>
+      <div style="font-size: 11px; color: #047857;">主导元素压过细节元素, 对比高频/低频词</div>
+    </div>
+    <div style="background: #eff6ff; border-left: 3px solid #3b82f6; padding: 10px; border-radius: 6px;">
+      <div style="font-size: 12px; font-weight: 500; color: #1e40af; margin-bottom: 4px;">词频污染</div>
+      <div style="font-size: 11px; color: #1d4ed8;">>40% 高频词导致颜色偏移, 跑词频分析</div>
+    </div>
+  </div>
+
+  <!-- Section: STATUS 报告 -->
+  <div style="font-size: 13px; font-weight: 500; margin-bottom: 8px; color: #374151;">状态报告</div>
+
+  <div style="background: #1e293b; border-radius: 8px; padding: 14px 16px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11px; line-height: 1.7; color: #e2e8f0; margin-bottom: 20px;">
+    <div style="color: #64748b;">[STATUS 2026-06-07 10:08]</div>
+    <div style="color: #10b981;">img: completed (120张)</div>
+    <div style="color: #10b981;">cap: completed (120/120)</div>
+    <div style="color: #10b981;">pkg: completed</div>
+    <div style="color: #ef4444;">env: blocked (模型格式待确认)</div>
+    <div style="color: #64748b;">pre: waiting</div>
+    <div style="color: #64748b;">train: waiting</div>
+    <div style="color: #f59e0b;">blocker: need model format (safetensors/pt/hf path)</div>
+  </div>
+
+  <!-- Training metrics section -->
+  <div style="font-size: 13px; font-weight: 500; margin-bottom: 10px; color: #374151;">训练指标监控</div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px;">
+    <div style="background: #f9fafb; border-radius: 8px; padding: 12px;">
+      <div style="font-size: 11px; color: #6b7280; margin-bottom: 4px;">Loss 曲线</div>
+      <div style="height: 60px; display: flex; align-items: flex-end; gap: 2px; padding-top: 8px;">
+        <div style="flex: 1; height: 40px; background: #e5e7eb; border-radius: 2px;"></div>
+        <div style="flex: 1; height: 35px; background: #e5e7eb; border-radius: 2px;"></div>
+        <div style="flex: 1; height: 28px; background: #e5e7eb; border-radius: 2px;"></div>
+        <div style="flex: 1; height: 22px; background: #e5e7eb; border-radius: 2px;"></div>
+        <div style="flex: 1; height: 18px; background: #e5e7eb; border-radius: 2px;"></div>
+        <div style="flex: 1; height: 15px; background: #e5e7eb; border-radius: 2px;"></div>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 10px; color: #9ca3af; margin-top: 4px;">
+        <span>step 0</span>
+        <span>占位 - 训练开始后自动填充</span>
+        <span>step N</span>
+      </div>
+    </div>
+    <div style="background: #f9fafb; border-radius: 8px; padding: 12px;">
+      <div style="font-size: 11px; color: #6b7280; margin-bottom: 8px;">关键参数</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 11px;">
+        <div><span style="color: #9ca3af;">lr:</span> <span style="font-weight: 500;">1e-4</span></div>
+        <div><span style="color: #9ca3af;">rank:</span> <span style="font-weight: 500;">64</span></div>
+        <div><span style="color: #9ca3af;">bs:</span> <span style="font-weight: 500;">4</span></div>
+        <div><span style="color: #9ca3af;">epoch:</span> <span style="font-weight: 500;">50</span></div>
+        <div><span style="color: #9ca3af;">res:</span> <span style="font-weight: 500;">1024</span></div>
+        <div><span style="color: #9ca3af;">steps:</span> <span style="font-weight: 500;">1000</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick actions -->
+  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+    <div style="padding: 8px 16px; background: #f9fafb; border: 0.5px solid #d1d5db; border-radius: 8px; font-size: 12px; cursor: pointer; color: #374151;">
+      运行 precheck
+    </div>
+    <div style="padding: 8px 16px; background: #f9fafb; border: 0.5px solid #d1d5db; border-radius: 8px; font-size: 12px; cursor: pointer; color: #374151;">
+      词频分析
+    </div>
+    <div style="padding: 8px 16px; background: #f9fafb; border: 0.5px solid #d1d5db; border-radius: 8px; font-size: 12px; cursor: pointer; color: #374151;">
+      导出 STATUS
+    </div>
+    <div style="padding: 8px 16px; background: #f9fafb; border: 0.5px solid #d1d5db; border-radius: 8px; font-size: 12px; cursor: pointer; color: #374151;">
+      生成报告
+    </div>
+  </div>
+</div>

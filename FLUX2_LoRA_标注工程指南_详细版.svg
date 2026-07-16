@@ -1,0 +1,333 @@
+<svg viewBox="0 0 680 2400" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>FLUX.2 LoRA标注工程完全指南 - 详细版全景图</title>
+  <desc>五阶段学习路径、实验数据、触发词规范、工程流程、批量生成、词频污染、故障排查、案例学习、4个脚本、6张快速参考表</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      .th { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-weight:500; }
+      .ts { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-weight:400; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="680" height="2400" fill="#F8F9FA"/>
+
+  <text class="th" x="340" y="32" text-anchor="middle" font-size="16" fill="#1a1a2e">FLUX.2 LoRA 标注工程完全指南（详细版）</text>
+  <text class="ts" x="340" y="52" text-anchor="middle" font-size="12" fill="#888">2026-06-05 修复版 · 服装 LoRA · 触发词 ohwx person · 5阶段 × 10章 × 4脚本 × 6附录</text>
+
+  <!-- ==================== 阶段1：入门 ==================== -->
+  <rect x="30" y="70" width="620" height="310" rx="10" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+  <text class="th" x="50" y="95" font-size="14" fill="#3C3489">阶段1：入门 · 理解原理</text>
+  <text class="ts" x="50" y="112" font-size="11" fill="#666">Mistral-3 是语言模型，不是标签映射器——标注方式彻底改变</text>
+
+  <!-- 第一章 -->
+  <rect x="50" y="128" width="282" height="118" rx="6" fill="#fff" stroke="#7F77DD" stroke-width="0.5"/>
+  <text class="th" x="65" y="148" font-size="13" fill="#3C3489">第一章：为什么需要自然语言标注</text>
+  <line x1="65" y1="156" x2="317" y2="156" stroke="#EEEDFE" stroke-width="1"/>
+  <text class="ts" x="65" y="172" font-size="11" fill="#444">架构对比：CLIP(标签映射) vs Mistral-3(语义理解)</text>
+  <text class="ts" x="65" y="188" font-size="11" fill="#444">实验：自然语言95%有效 vs 标签列表0%有效</text>
+  <text class="ts" x="65" y="204" font-size="11" fill="#444">自动标注工具(WD14 Tagger)=负资产</text>
+  <text class="ts" x="65" y="220" font-size="11" fill="#444">正确格式：完整句子 + 六要素</text>
+  <text class="ts" x="65" y="238" font-size="10" fill="#666">触发词自然融入句子，不要硬插开头</text>
+
+  <!-- 第二章 -->
+  <rect x="348" y="128" width="282" height="118" rx="6" fill="#fff" stroke="#7F77DD" stroke-width="0.5"/>
+  <text class="th" x="363" y="148" font-size="13" fill="#3C3489">第二章：触发词植入的语义学原理</text>
+  <line x1="363" y1="156" x2="615" y2="156" stroke="#EEEDFE" stroke-width="1"/>
+  <text class="ts" x="363" y="172" font-size="11" fill="#444">语义绑定：触发词→专属特征(95%有效)</text>
+  <text class="ts" x="363" y="188" font-size="11" fill="#444">绑定通用属性→0%有效</text>
+  <text class="ts" x="363" y="204" font-size="11" fill="#444">密度控制：2-5% (40-100词中出现2-3次)</text>
+  <text class="ts" x="363" y="220" font-size="11" fill="#444">位置随机：开头30%/中间40%/结尾30%</text>
+  <text class="ts" x="363" y="238" font-size="10" fill="#666">禁止所有格('s)和连字符(-)污染触发词</text>
+
+  <!-- 阶段1关键数据 -->
+  <rect x="50" y="258" width="580" height="108" rx="6" fill="#fff" stroke="#7F77DD" stroke-width="0.5" stroke-dasharray="3"/>
+  <text class="th" x="65" y="278" font-size="12" fill="#3C3489">关键实验数据</text>
+  <rect x="65" y="292" width="170" height="60" rx="4" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+  <text class="th" x="150" y="312" text-anchor="middle" font-size="16" fill="#3C3489">95%</text>
+  <text class="ts" x="150" y="332" text-anchor="middle" font-size="10" fill="#534AB7">自然语言句型有效</text>
+  <rect x="255" y="292" width="170" height="60" rx="4" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+  <text class="th" x="340" y="312" text-anchor="middle" font-size="16" fill="#A32D2D">0%</text>
+  <text class="ts" x="340" y="332" text-anchor="middle" font-size="10" fill="#A32D2D">标签列表有效</text>
+  <rect x="445" y="292" width="170" height="60" rx="4" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text class="th" x="530" y="312" text-anchor="middle" font-size="16" fill="#0F6E56">60%</text>
+  <text class="ts" x="530" y="332" text-anchor="middle" font-size="10" fill="#0F6E56">混合绑定（时灵时不灵）</text>
+
+  <line x1="340" y1="380" x2="340" y2="396" stroke="#888" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ==================== 阶段2：基础 ==================== -->
+  <rect x="30" y="400" width="620" height="260" rx="10" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <text class="th" x="50" y="425" font-size="14" fill="#185FA5">阶段2：基础 · 快速上手</text>
+  <text class="ts" x="50" y="442" font-size="11" fill="#666">最小成本验证标准 + 六要素标注质量体系</text>
+
+  <!-- 第三章 -->
+  <rect x="50" y="458" width="282" height="100" rx="6" fill="#fff" stroke="#378ADD" stroke-width="0.5"/>
+  <text class="th" x="65" y="478" font-size="13" fill="#185FA5">第三章：10分钟快速开始</text>
+  <line x1="65" y1="486" x2="317" y2="486" stroke="#E6F1FB" stroke-width="1"/>
+  <text class="ts" x="65" y="502" font-size="11" fill="#444">选10张图(2min) → 手动标注(5min)</text>
+  <text class="ts" x="65" y="518" font-size="11" fill="#444">快训300步(2min, RTX5090D) → 测试(1min)</text>
+  <text class="ts" x="65" y="534" font-size="11" fill="#444">有效→继续标注 / 无效→调整标准</text>
+  <text class="ts" x="65" y="550" font-size="10" fill="#666">避免50+张图全部重做</text>
+
+  <!-- 第四章 -->
+  <rect x="348" y="458" width="282" height="100" rx="6" fill="#fff" stroke="#378ADD" stroke-width="0.5"/>
+  <text class="th" x="363" y="478" font-size="13" fill="#185FA5">第四章：标注质量标准</text>
+  <line x1="363" y1="486" x2="615" y2="486" stroke="#E6F1FB" stroke-width="1"/>
+  <text class="ts" x="363" y="502" font-size="11" fill="#444">六要素：人物/服装/场景/光线/角度/情绪</text>
+  <text class="ts" x="363" y="518" font-size="11" fill="#444">长度：40-100词 (推荐60-80词)</text>
+  <text class="ts" x="363" y="534" font-size="11" fill="#444">触发词：2-3次/条 (密度2-5%)</text>
+  <text class="ts" x="363" y="550" font-size="11" fill="#444">位置：开头30%/中间40%/结尾30%</text>
+
+  <!-- 快速验证流程 -->
+  <rect x="50" y="572" width="580" height="76" rx="6" fill="#fff" stroke="#378ADD" stroke-width="0.5" stroke-dasharray="3"/>
+  <text class="th" x="65" y="592" font-size="12" fill="#185FA5">快速验证10分钟流程图</text>
+  <rect x="65" y="606" width="90" height="30" rx="4" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <text class="ts" x="110" y="626" text-anchor="middle" font-size="10" fill="#185FA5">选10张图</text>
+  <text class="ts" x="175" y="622" font-size="12" fill="#888">→</text>
+  <rect x="190" y="606" width="90" height="30" rx="4" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <text class="ts" x="235" y="626" text-anchor="middle" font-size="10" fill="#185FA5">手动标注</text>
+  <text class="ts" x="300" y="622" font-size="12" fill="#888">→</text>
+  <rect x="315" y="606" width="90" height="30" rx="4" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <text class="ts" x="360" y="626" text-anchor="middle" font-size="10" fill="#185FA5">快训300步</text>
+  <text class="ts" x="425" y="622" font-size="12" fill="#888">→</text>
+  <rect x="440" y="606" width="90" height="30" rx="4" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <text class="ts" x="485" y="626" text-anchor="middle" font-size="10" fill="#185FA5">测试触发词</text>
+  <text class="ts" x="550" y="622" font-size="12" fill="#888">→</text>
+  <text class="th" x="575" y="626" font-size="11" fill="#185FA5">继续/调整</text>
+
+  <line x1="340" y1="660" x2="340" y2="676" stroke="#888" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ==================== 阶段3：进阶 ==================== -->
+  <rect x="30" y="680" width="620" height="375" rx="10" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text class="th" x="50" y="705" font-size="14" fill="#0F6E56">阶段3：进阶 · 工程化</text>
+  <text class="ts" x="50" y="722" font-size="11" fill="#666">5步工程流程 + 批量标注生成器(15模板/CSV驱动)</text>
+
+  <!-- 第五章 -->
+  <rect x="50" y="738" width="282" height="120" rx="6" fill="#fff" stroke="#1D9E75" stroke-width="0.5"/>
+  <text class="th" x="65" y="758" font-size="13" fill="#0F6E56">第五章：标注工程流程（5步法）</text>
+  <line x1="65" y1="766" x2="317" y2="766" stroke="#E1F5EE" stroke-width="1"/>
+  <text class="ts" x="65" y="782" font-size="11" fill="#444">① 数据审计(30min)：检查质量/特征覆盖</text>
+  <text class="ts" x="65" y="798" font-size="11" fill="#444">② 策略制定(1h)：六要素+长度+触发词策略</text>
+  <text class="ts" x="65" y="814" font-size="11" fill="#444">③ 批量标注(2-3h)：验证环境/模板生成</text>
+  <text class="ts" x="65" y="830" font-size="11" fill="#444">④ 质量验收(1h)：validation_script.py</text>
+  <text class="ts" x="65" y="846" font-size="11" fill="#444">⑤ 训练前检查(15min)：格式/路径/参数</text>
+  <text class="ts" x="65" y="862" font-size="10" fill="#666">工具: validation_script.py</text>
+
+  <!-- 第六章 -->
+  <rect x="348" y="738" width="282" height="120" rx="6" fill="#fff" stroke="#1D9E75" stroke-width="0.5"/>
+  <text class="th" x="363" y="758" font-size="13" fill="#0F6E56">第六章：批量标注生成器</text>
+  <line x1="363" y1="766" x2="615" y2="766" stroke="#E1F5EE" stroke-width="1"/>
+  <text class="ts" x="363" y="782" font-size="11" fill="#444">数据输入: products.csv + metadata.csv</text>
+  <text class="ts" x="363" y="798" font-size="11" fill="#444">15个模板 (5类×3变体)：基础/细节/场景</text>
+  <text class="ts" x="363" y="814" font-size="11" fill="#444">随机选模板→填充→保存.txt</text>
+  <text class="ts" x="363" y="830" font-size="11" fill="#444">人工审阅(首次20%, 迭代后10-5%)</text>
+  <text class="ts" x="363" y="846" font-size="11" fill="#444">审阅清单：模板重复/位置/描述/长度</text>
+  <text class="ts" x="363" y="862" font-size="10" fill="#666">工具: caption_generator.py</text>
+
+  <!-- 5步工程流程图 -->
+  <rect x="50" y="872" width="580" height="82" rx="6" fill="#fff" stroke="#1D9E75" stroke-width="0.5" stroke-dasharray="3"/>
+  <text class="th" x="65" y="892" font-size="12" fill="#0F6E56">完整工程流程（5步法）</text>
+  <rect x="65" y="906" width="102" height="34" rx="4" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text class="ts" x="116" y="928" text-anchor="middle" font-size="10" fill="#0F6E56">数据审计 30min</text>
+  <text class="ts" x="178" y="924" font-size="11" fill="#888">→</text>
+  <rect x="185" y="906" width="102" height="34" rx="4" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text class="ts" x="236" y="928" text-anchor="middle" font-size="10" fill="#0F6E56">策略制定 1h</text>
+  <text class="ts" x="298" y="924" font-size="11" fill="#888">→</text>
+  <rect x="305" y="906" width="102" height="34" rx="4" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text class="ts" x="356" y="928" text-anchor="middle" font-size="10" fill="#0F6E56">批量标注 2-3h</text>
+  <text class="ts" x="418" y="924" font-size="11" fill="#888">→</text>
+  <rect x="425" y="906" width="102" height="34" rx="4" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text class="ts" x="476" y="928" text-anchor="middle" font-size="10" fill="#0F6E56">质量验收 1h</text>
+  <text class="ts" x="538" y="924" font-size="11" fill="#888">→</text>
+  <rect x="545" y="906" width="70" height="34" rx="4" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text class="ts" x="580" y="928" text-anchor="middle" font-size="10" fill="#0F6E56">训练前检查 15min</text>
+
+  <!-- 验证清单 -->
+  <rect x="50" y="966" width="580" height="76" rx="6" fill="#fff" stroke="#1D9E75" stroke-width="0.5" stroke-dasharray="3"/>
+  <text class="th" x="65" y="986" font-size="12" fill="#0F6E56">质量验收脚本检查项 (validation_script.py)</text>
+  <text class="ts" x="65" y="1004" font-size="10" fill="#444">标注长度40-100词 | 触发词2-3次 | 无所有格污染(ohwx person's) | 无连字符污染(ohwx-person)</text>
+  <text class="ts" x="65" y="1024" font-size="10" fill="#666">验收标准：首次通过率≥90%，低于90%需调整策略后重新生成</text>
+
+  <line x1="340" y1="1055" x2="340" y2="1071" stroke="#888" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ==================== 阶段4：专家 ==================== -->
+  <rect x="30" y="1075" width="620" height="370" rx="10" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+  <text class="th" x="50" y="1100" font-size="14" fill="#854F0B">阶段4：专家 · 深度优化</text>
+  <text class="ts" x="50" y="1117" font-size="11" fill="#666">词频污染检测与修复 + 训练失败系统化排查</text>
+
+  <!-- 第七章 -->
+  <rect x="50" y="1133" width="282" height="140" rx="6" fill="#fff" stroke="#BA7517" stroke-width="0.5"/>
+  <text class="th" x="65" y="1153" font-size="13" fill="#854F0B">第七章：词频污染可视化</text>
+  <line x1="65" y1="1161" x2="317" y2="1161" stroke="#FAEEDA" stroke-width="1"/>
+  <text class="ts" x="65" y="1178" font-size="11" fill="#444">污染机制：高频词与触发词共现→强绑定</text>
+  <text class="th" x="65" y="1196" font-size="12" fill="#854F0B">污染阈值</text>
+  <rect x="65" y="1206" width="128" height="20" rx="3" fill="#E1F5EE"/>
+  <text class="ts" x="129" y="1220" text-anchor="middle" font-size="9" fill="#0F6E56">&lt;20% 安全</text>
+  <rect x="200" y="1206" width="128" height="20" rx="3" fill="#FAEEDA"/>
+  <text class="ts" x="264" y="1220" text-anchor="middle" font-size="9" fill="#854F0B">20-30% 注意</text>
+  <rect x="65" y="1230" width="128" height="20" rx="3" fill="#FAECE7"/>
+  <text class="ts" x="129" y="1244" text-anchor="middle" font-size="9" fill="#993C1D">30-40% 警告</text>
+  <rect x="200" y="1230" width="128" height="20" rx="3" fill="#FCEBEB"/>
+  <text class="ts" x="264" y="1244" text-anchor="middle" font-size="9" fill="#A32D2D">>40% 严重</text>
+  <text class="ts" x="65" y="1264" font-size="10" fill="#666">修复：替换为同义词</text>
+
+  <!-- 第八章 -->
+  <rect x="348" y="1133" width="282" height="140" rx="6" fill="#fff" stroke="#BA7517" stroke-width="0.5"/>
+  <text class="th" x="363" y="1153" font-size="13" fill="#854F0B">第八章：训练失败→根因映射表</text>
+  <line x1="363" y1="1161" x2="615" y2="1161" stroke="#FAEEDA" stroke-width="1"/>
+  <text class="ts" x="363" y="1180" font-size="11" fill="#444">触发词无效 → LR&lt;5e-4 或标签列表</text>
+  <text class="ts" x="363" y="1196" font-size="11" fill="#444">时灵时不灵 → 触发词密度不均</text>
+  <text class="ts" x="363" y="1212" font-size="11" fill="#444">不加触发词也出人物 → 绑定通用属性</text>
+  <text class="ts" x="363" y="1228" font-size="11" fill="#444">颜色偏移 → 高频词污染&gt;40%</text>
+  <text class="ts" x="363" y="1244" font-size="11" fill="#444">CP-1000不如750 → 过拟合</text>
+  <text class="ts" x="363" y="1264" font-size="10" fill="#666">工具: troubleshooting.py</text>
+
+  <!-- 污染机制图 -->
+  <rect x="50" y="1287" width="580" height="74" rx="6" fill="#fff" stroke="#BA7517" stroke-width="0.5" stroke-dasharray="3"/>
+  <text class="th" x="65" y="1307" font-size="12" fill="#854F0B">词频污染机制</text>
+  <rect x="65" y="1320" width="100" height="28" rx="4" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+  <text class="ts" x="115" y="1339" text-anchor="middle" font-size="9" fill="#854F0B">高频词forest</text>
+  <text class="ts" x="180" y="1337" font-size="11" fill="#888">15/17条出现</text>
+  <text class="th" x="260" y="1337" font-size="12" fill="#888">→</text>
+  <text class="ts" x="282" y="1337" font-size="11" fill="#444">共现概率88%</text>
+  <text class="th" x="358" y="1337" font-size="12" fill="#888">→</text>
+  <rect x="380" y="1320" width="100" height="28" rx="4" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+  <text class="ts" x="430" y="1339" text-anchor="middle" font-size="9" fill="#A32D2D">颜色偏移</text>
+  <text class="th" x="495" y="1337" font-size="12" fill="#888">→</text>
+  <text class="ts" x="515" y="1337" font-size="10" fill="#666">替换同义词</text>
+
+  <!-- 决策树简版 -->
+  <rect x="50" y="1373" width="580" height="58" rx="6" fill="#fff" stroke="#BA7517" stroke-width="0.5" stroke-dasharray="3"/>
+  <text class="th" x="65" y="1393" font-size="12" fill="#854F0B">故障排查决策树</text>
+  <text class="ts" x="65" y="1412" font-size="10" fill="#444">触发词完全无效→LR&lt;5e-4?→标签列表?→密度2-5%?→所有格/连字符?→词频污染&gt;40%?</text>
+  <text class="ts" x="65" y="1426" font-size="10" fill="#666">依次排查，找到根因即止；全部排查完仍无效→社区求助</text>
+
+  <line x1="340" y1="1445" x2="340" y2="1461" stroke="#888" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ==================== 阶段5：大师 ==================== -->
+  <rect x="30" y="1465" width="620" height="350" rx="10" fill="#FBEAF0" stroke="#D4537E" stroke-width="0.5"/>
+  <text class="th" x="50" y="1490" font-size="14" fill="#993556">阶段5：大师 · 实战精进</text>
+  <text class="ts" x="50" y="1507" font-size="11" fill="#666">4大实战技巧 + 3大陷阱 + 3个完整案例</text>
+
+  <!-- 第九章 -->
+  <rect x="50" y="1523" width="282" height="130" rx="6" fill="#fff" stroke="#D4537E" stroke-width="0.5"/>
+  <text class="th" x="65" y="1543" font-size="13" fill="#993556">第九章：实战技巧与陷阱</text>
+  <line x1="65" y1="1551" x2="317" y2="1551" stroke="#FBEAF0" stroke-width="1"/>
+  <text class="ts" x="65" y="1568" font-size="11" fill="#444">技巧1：模板化生成+人工精修(省70min)</text>
+  <text class="ts" x="65" y="1584" font-size="11" fill="#444">技巧2：分批训练验证(300→600→750步)</text>
+  <text class="ts" x="65" y="1600" font-size="11" fill="#444">技巧3：多checkpoint对比(500/750/1000)</text>
+  <text class="ts" x="65" y="1616" font-size="11" fill="#444">技巧4：caption_dropout_rate=0.1</text>
+  <text class="ts" x="65" y="1636" font-size="10" fill="#666">陷阱：模板重复·位置固定·词频污染累积</text>
+
+  <!-- 第十章 -->
+  <rect x="348" y="1523" width="282" height="130" rx="6" fill="#fff" stroke="#D4537E" stroke-width="0.5"/>
+  <text class="th" x="363" y="1543" font-size="13" fill="#993556">第十章：案例学习（3个）</text>
+  <line x1="363" y1="1551" x2="615" y2="1551" stroke="#FBEAF0" stroke-width="1"/>
+  <text class="ts" x="363" y="1568" font-size="11" fill="#444">案例1：服装LoRA(17品3源,51图)</text>
+  <text class="ts" x="363" y="1584" font-size="11" fill="#444">  删除3张低质量→48张→100%通过</text>
+  <text class="ts" x="363" y="1600" font-size="11" fill="#444">  checkpoint-750最佳→17/17款正确</text>
+  <text class="ts" x="363" y="1616" font-size="11" fill="#444">案例2：词频污染修复(睡衣,green 45%)</text>
+  <text class="ts" x="363" y="1632" font-size="11" fill="#444">  替换同义词→降至15%→颜色正常</text>
+  <text class="ts" x="363" y="1648" font-size="10" fill="#666">案例3：触发词无效→WD14自动标注→重做</text>
+
+  <!-- 黄金参数 -->
+  <rect x="50" y="1667" width="580" height="46" rx="6" fill="#fff" stroke="#D4537E" stroke-width="0.5" stroke-dasharray="3"/>
+  <text class="th" x="65" y="1687" font-size="12" fill="#993556">训练黄金参数</text>
+  <text class="ts" x="65" y="1703" font-size="11" fill="#444">model=FLUX.2-klein-4B · LR=1e-3 · steps=750 · batch_size=2 · caption_dropout_rate=0.1 · trigger_word=ohwx person</text>
+
+  <!-- 案例结果数据 -->
+  <rect x="50" y="1723" width="580" height="80" rx="6" fill="#fff" stroke="#D4537E" stroke-width="0.5" stroke-dasharray="3"/>
+  <text class="th" x="65" y="1743" font-size="12" fill="#993556">案例1训练结果</text>
+  <rect x="65" y="1756" width="100" height="34" rx="4" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text class="ts" x="115" y="1778" text-anchor="middle" font-size="10" fill="#0F6E56">CP-300 触发词有效</text>
+  <text class="th" x="182" y="1776" font-size="12" fill="#888">→</text>
+  <rect x="195" y="1756" width="100" height="34" rx="4" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text class="ts" x="245" y="1778" text-anchor="middle" font-size="10" fill="#0F6E56">CP-600 特征完整</text>
+  <text class="th" x="312" y="1776" font-size="12" fill="#888">→</text>
+  <rect x="325" y="1756" width="100" height="34" rx="4" fill="#1D9E75"/>
+  <text class="ts" x="375" y="1778" text-anchor="middle" font-size="10" fill="#fff">CP-750 最佳 ⭐</text>
+  <text class="th" x="442" y="1776" font-size="12" fill="#888">→</text>
+  <rect x="455" y="1756" width="100" height="34" rx="4" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+  <text class="ts" x="505" y="1778" text-anchor="middle" font-size="10" fill="#854F0B">CP-1000 轻微过拟合</text>
+
+  <line x1="340" y1="1815" x2="340" y2="1831" stroke="#888" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ==================== 附录区域 ==================== -->
+  <rect x="30" y="1835" width="620" height="555" rx="10" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+  <text class="th" x="340" y="1860" text-anchor="middle" font-size="14" fill="#444">附录 · 快速参考</text>
+
+  <!-- 4个脚本 -->
+  <text class="th" x="50" y="1885" font-size="13" fill="#444">4个核心脚本</text>
+  <rect x="50" y="1898" width="282" height="88" rx="6" fill="#fff" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text class="th" x="65" y="1918" font-size="11" fill="#444">1. validation_script.py</text>
+  <text class="ts" x="65" y="1934" font-size="10" fill="#666">质量验收：长度、触发词、污染检查</text>
+  <text class="th" x="65" y="1952" font-size="11" fill="#444">2. caption_generator.py</text>
+  <text class="ts" x="65" y="1968" font-size="10" fill="#666">批量生成：15模板+CSV驱动</text>
+
+  <rect x="348" y="1898" width="282" height="88" rx="6" fill="#fff" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text class="th" x="363" y="1918" font-size="11" fill="#444">3. word_frequency_visualizer.py</text>
+  <text class="ts" x="363" y="1934" font-size="10" fill="#666">词频分析+污染检测+可视化柱状图</text>
+  <text class="th" x="363" y="1952" font-size="11" fill="#444">4. troubleshooting.py</text>
+  <text class="ts" x="363" y="1968" font-size="10" fill="#666">故障排查：5种失败现象诊断</text>
+
+  <!-- 训练参数 -->
+  <text class="th" x="50" y="2010" font-size="13" fill="#444">训练参数快速参考</text>
+  <rect x="50" y="2022" width="580" height="88" rx="6" fill="#fff" stroke="#B4B2A9" stroke-width="0.5"/>
+  <rect x="65" y="2034" width="80" height="22" rx="3" fill="#F1EFE8"/>
+  <text class="ts" x="105" y="2050" text-anchor="middle" font-size="10" fill="#444">参数</text>
+  <rect x="155" y="2034" width="120" height="22" rx="3" fill="#F1EFE8"/>
+  <text class="ts" x="215" y="2050" text-anchor="middle" font-size="10" fill="#444">推荐值</text>
+  <rect x="285" y="2034" width="140" height="22" rx="3" fill="#F1EFE8"/>
+  <text class="ts" x="355" y="2050" text-anchor="middle" font-size="10" fill="#444">说明</text>
+  <rect x="65" y="2058" width="80" height="20" rx="0"/>
+  <text class="ts" x="105" y="2073" text-anchor="middle" font-size="9" fill="#444">LR</text>
+  <rect x="155" y="2058" width="120" height="20" rx="0"/>
+  <text class="ts" x="215" y="2073" text-anchor="middle" font-size="9" fill="#444">1e-3</text>
+  <rect x="285" y="2058" width="140" height="20" rx="0"/>
+  <text class="ts" x="355" y="2073" text-anchor="middle" font-size="9" fill="#444">≥5e-4才有效</text>
+  <rect x="65" y="2078" width="80" height="20" rx="0"/>
+  <text class="ts" x="105" y="2093" text-anchor="middle" font-size="9" fill="#444">steps</text>
+  <rect x="155" y="2078" width="120" height="20" rx="0"/>
+  <text class="ts" x="215" y="2093" text-anchor="middle" font-size="9" fill="#444">750</text>
+  <rect x="285" y="2078" width="140" height="20" rx="0"/>
+  <text class="ts" x="355" y="2093" text-anchor="middle" font-size="9" fill="#444">500-1000</text>
+
+  <!-- 六要素 CHECKLIST -->
+  <text class="th" x="50" y="2135" font-size="13" fill="#444">六要素检查清单</text>
+  <rect x="50" y="2147" width="580" height="64" rx="6" fill="#fff" stroke="#B4B2A9" stroke-width="0.5"/>
+  <rect x="65" y="2159" width="80" height="22" rx="3" fill="#E1F5EE"/>
+  <text class="ts" x="105" y="2175" text-anchor="middle" font-size="9" fill="#0F6E56">人物 ✅必填</text>
+  <rect x="155" y="2159" width="80" height="22" rx="3" fill="#E1F5EE"/>
+  <text class="ts" x="195" y="2175" text-anchor="middle" font-size="9" fill="#0F6E56">服装 ✅必填</text>
+  <rect x="245" y="2159" width="80" height="22" rx="3" fill="#E1F5EE"/>
+  <text class="ts" x="285" y="2175" text-anchor="middle" font-size="9" fill="#0F6E56">场景 ✅必填</text>
+  <rect x="335" y="2159" width="80" height="22" rx="3" fill="#E1F5EE"/>
+  <text class="ts" x="375" y="2175" text-anchor="middle" font-size="9" fill="#0F6E56">光线 ✅必填</text>
+  <rect x="425" y="2159" width="80" height="22" rx="3" fill="#E1F5EE"/>
+  <text class="ts" x="465" y="2175" text-anchor="middle" font-size="9" fill="#0F6E56">角度 ✅必填</text>
+  <rect x="515" y="2159" width="80" height="22" rx="3" fill="#FAEEDA"/>
+  <text class="ts" x="555" y="2175" text-anchor="middle" font-size="9" fill="#854F0B">情绪 ⭐推荐</text>
+
+  <!-- 标注标准 -->
+  <text class="th" x="50" y="2235" font-size="13" fill="#444">标注质量标准与词频污染阈值</text>
+  <rect x="50" y="2247" width="282" height="64" rx="6" fill="#fff" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text class="ts" x="65" y="2265" font-size="10" fill="#444">标注长度: 40-100词</text>
+  <text class="ts" x="65" y="2280" font-size="10" fill="#444">触发词次数: 2-3次/条</text>
+  <text class="ts" x="65" y="2295" font-size="10" fill="#444">触发词密度: 2-5%</text>
+  <text class="ts" x="65" y="2310" font-size="10" fill="#444">禁止: 所有格/连字符</text>
+
+  <rect x="348" y="2247" width="282" height="64" rx="6" fill="#fff" stroke="#B4B2A9" stroke-width="0.5"/>
+  <rect x="363" y="2259" width="48" height="16" rx="2" fill="#E1F5EE"/>
+  <text class="ts" x="387" y="2271" text-anchor="middle" font-size="8" fill="#0F6E56">&lt;20%</text>
+  <text class="ts" x="415" y="2271" font-size="9" fill="#444">安全</text>
+  <rect x="363" y="2280" width="48" height="16" rx="2" fill="#FAEEDA"/>
+  <text class="ts" x="387" y="2292" text-anchor="middle" font-size="8" fill="#854F0B">20-30%</text>
+  <text class="ts" x="415" y="2292" font-size="9" fill="#444">注意</text>
+  <rect x="363" y="2301" width="48" height="16" rx="2" fill="#FAECE7"/>
+  <text class="ts" x="387" y="2313" text-anchor="middle" font-size="8" fill="#993C1D">30-40%</text>
+  <text class="ts" x="415" y="2313" font-size="9" fill="#444">建议替换</text>
+
+  <!-- 底部 -->
+  <text class="ts" x="340" y="2372" text-anchor="middle" font-size="10" fill="#888">包含：10章完整结构 · 实验数据 · 触发词规范 · 工程流程 · 批量生成 · 词频污染 · 故障排查 · 3案例 · 4脚本 · 6快速参考表</text>
+</svg>

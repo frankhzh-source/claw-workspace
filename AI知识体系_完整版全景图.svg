@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 740" width="100%" role="img">
+  <title>AI知识体系 2026 完整版全景图</title>
+  <desc>基础层(40%) - 技术层(30%) - 中间层(10%) - 应用层(20%)，含8大章节、5大趋势、9组关键数据</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <text x="340" y="30" text-anchor="middle" font-size="16" font-weight="500" fill="#2C2C2A" font-family="sans-serif">AI知识体系 · 2026 完整版</text>
+  <text x="340" y="48" text-anchor="middle" font-size="11" fill="#888780" font-family="sans-serif">8大章节 · 31+细分领域 · 完整知识树</text>
+
+  <rect x="40" y="64" width="600" height="32" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <rect x="40" y="64" width="4" height="32" rx="2" fill="#378ADD"/>
+  <text x="56" y="85" font-size="13" font-weight="500" fill="#0C447C" font-family="sans-serif">基础层 · 算力与数据底座  40%</text>
+  <text x="600" y="85" text-anchor="end" font-size="10" fill="#185FA5" font-family="sans-serif">英伟达 / AMD / 华为 / 云厂商</text>
+
+  <rect x="40" y="102" width="118" height="20" rx="4" fill="#B5D4F4"/>
+  <text x="99" y="116" text-anchor="middle" font-size="10" fill="#0C447C" font-family="sans-serif">通用GPU H100/B200</text>
+  <rect x="164" y="102" width="118" height="20" rx="4" fill="#B5D4F4"/>
+  <text x="223" y="116" text-anchor="middle" font-size="10" fill="#0C447C" font-family="sans-serif">国产替代 昇腾/寒武纪</text>
+  <rect x="288" y="102" width="118" height="20" rx="4" fill="#B5D4F4"/>
+  <text x="347" y="116" text-anchor="middle" font-size="10" fill="#0C447C" font-family="sans-serif">端侧芯片 高通/苹果</text>
+  <rect x="412" y="102" width="118" height="20" rx="4" fill="#B5D4F4"/>
+  <text x="471" y="116" text-anchor="middle" font-size="10" fill="#0C447C" font-family="sans-serif">专用ASIC TPU/Trainium</text>
+  <rect x="536" y="102" width="104" height="20" rx="4" fill="#B5D4F4"/>
+  <text x="588" y="116" text-anchor="middle" font-size="10" fill="#0C447C" font-family="sans-serif">AI服务器 浪潮/超微</text>
+
+  <rect x="40" y="126" width="118" height="20" rx="4" fill="#B5D4F4"/>
+  <text x="99" y="140" text-anchor="middle" font-size="10" fill="#0C447C" font-family="sans-serif">智算中心 阿里/腾讯/火山</text>
+  <rect x="164" y="126" width="118" height="20" rx="4" fill="#B5D4F4"/>
+  <text x="223" y="140" text-anchor="middle" font-size="10" fill="#0C447C" font-family="sans-serif">云IaaS ECS/AWS EC2</text>
+  <rect x="288" y="126" width="118" height="20" rx="4" fill="#B5D4F4"/>
+  <text x="347" y="140" text-anchor="middle" font-size="10" fill="#0C447C" font-family="sans-serif">云PaaS 百炼/火山方舟</text>
+  <rect x="412" y="126" width="118" height="20" rx="4" fill="#B5D4F4"/>
+  <text x="471" y="140" text-anchor="middle" font-size="10" fill="#0C447C" font-family="sans-serif">云SaaS 钉钉AI/飞书</text>
+  <rect x="536" y="126" width="104" height="20" rx="4" fill="#B5D4F4"/>
+  <text x="588" y="140" text-anchor="middle" font-size="10" fill="#0C447C" font-family="sans-serif">数据基础设施</text>
+
+  <rect x="40" y="150" width="228" height="20" rx="4" fill="#B5D4F4"/>
+  <text x="154" y="164" text-anchor="middle" font-size="10" fill="#0C447C" font-family="sans-serif">网络互联 InfiniBand/NVLink/800G</text>
+  <rect x="274" y="150" width="170" height="20" rx="4" fill="#B5D4F4"/>
+  <text x="359" y="164" text-anchor="middle" font-size="10" fill="#0C447C" font-family="sans-serif">向量存储 Milvus/Chroma/Qdrant</text>
+
+  <rect x="40" y="182" width="600" height="32" rx="6" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+  <rect x="40" y="182" width="4" height="32" rx="2" fill="#7F77DD"/>
+  <text x="56" y="203" font-size="13" font-weight="500" fill="#3C3489" font-family="sans-serif">技术层 · 智能引擎  30%</text>
+  <text x="600" y="203" text-anchor="end" font-size="10" fill="#534AB7" font-family="sans-serif">OpenAI / Anthropic / Google / 字节 / 阿里</text>
+
+  <rect x="40" y="220" width="138" height="20" rx="4" fill="#CECBF6"/>
+  <text x="109" y="234" text-anchor="middle" font-size="10" fill="#3C3489" font-family="sans-serif">闭源LLM GPT/Claude/豆包</text>
+  <rect x="184" y="220" width="118" height="20" rx="4" fill="#CECBF6"/>
+  <text x="243" y="234" text-anchor="middle" font-size="10" fill="#3C3489" font-family="sans-serif">开源LLM Llama/Qwen</text>
+  <rect x="308" y="220" width="108" height="20" rx="4" fill="#CECBF6"/>
+  <text x="362" y="234" text-anchor="middle" font-size="10" fill="#3C3489" font-family="sans-serif">推理模型 R1/o3</text>
+  <rect x="422" y="220" width="108" height="20" rx="4" fill="#CECBF6"/>
+  <text x="476" y="234" text-anchor="middle" font-size="10" fill="#3C3489" font-family="sans-serif">行业垂类 盘古/通义</text>
+  <rect x="536" y="220" width="104" height="20" rx="4" fill="#CECBF6"/>
+  <text x="588" y="234" text-anchor="middle" font-size="10" fill="#3C3489" font-family="sans-serif">端侧小模型 Phi/Llama</text>
+
+  <rect x="40" y="244" width="128" height="20" rx="4" fill="#CECBF6"/>
+  <text x="104" y="258" text-anchor="middle" font-size="10" fill="#3C3489" font-family="sans-serif">多模态 GPT-4o/Gemini</text>
+  <rect x="174" y="244" width="148" height="20" rx="4" fill="#CECBF6"/>
+  <text x="248" y="258" text-anchor="middle" font-size="10" fill="#3C3489" font-family="sans-serif">Agent框架 LangGraph/Dify/HiAgent</text>
+  <rect x="328" y="244" width="118" height="20" rx="4" fill="#CECBF6"/>
+  <text x="387" y="258" text-anchor="middle" font-size="10" fill="#3C3489" font-family="sans-serif">Agent协议 MCP/A2A</text>
+  <rect x="452" y="244" width="108" height="20" rx="4" fill="#CECBF6"/>
+  <text x="506" y="258" text-anchor="middle" font-size="10" fill="#3C3489" font-family="sans-serif">计算机视觉 YOLO/SAM</text>
+  <rect x="566" y="244" width="74" height="20" rx="4" fill="#CECBF6"/>
+  <text x="603" y="258" text-anchor="middle" font-size="10" fill="#3C3489" font-family="sans-serif">语音TTS</text>
+
+  <rect x="40" y="268" width="148" height="20" rx="4" fill="#CECBF6"/>
+  <text x="114" y="282" text-anchor="middle" font-size="10" fill="#3C3489" font-family="sans-serif">视频生成 Seedance/可灵</text>
+  <rect x="194" y="268" width="108" height="20" rx="4" fill="#CECBF6"/>
+  <text x="248" y="282" text-anchor="middle" font-size="10" fill="#3C3489" font-family="sans-serif">数字人 HeyGen</text>
+  <rect x="308" y="268" width="108" height="20" rx="4" fill="#CECBF6"/>
+  <text x="362" y="282" text-anchor="middle" font-size="10" fill="#3C3489" font-family="sans-serif">代码 Cursor/Copilot</text>
+  <rect x="422" y="268" width="108" height="20" rx="4" fill="#CECBF6"/>
+  <text x="476" y="282" text-anchor="middle" font-size="10" fill="#3C3489" font-family="sans-serif">NLP BERT/RoBERTa</text>
+
+  <rect x="40" y="300" width="600" height="32" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+  <rect x="40" y="300" width="4" height="32" rx="2" fill="#888780"/>
+  <text x="56" y="321" font-size="13" font-weight="500" fill="#444441" font-family="sans-serif">中间层 · 协议与工具链  10%</text>
+  <text x="600" y="321" text-anchor="end" font-size="10" fill="#5F5E5A" font-family="sans-serif">LangChain / Dify / 向量数据库 / n8n</text>
+
+  <rect x="40" y="338" width="128" height="20" rx="4" fill="#D3D1C7"/>
+  <text x="104" y="352" text-anchor="middle" font-size="10" fill="#444441" font-family="sans-serif">LLMOps LangSmith/Langfuse</text>
+  <rect x="174" y="338" width="108" height="20" rx="4" fill="#D3D1C7"/>
+  <text x="228" y="352" text-anchor="middle" font-size="10" fill="#444441" font-family="sans-serif">RAG LangChain/LLamaIndex</text>
+  <rect x="288" y="338" width="118" height="20" rx="4" fill="#D3D1C7"/>
+  <text x="347" y="352" text-anchor="middle" font-size="10" fill="#444441" font-family="sans-serif">工作流 n8n/Make/Dify</text>
+  <rect x="412" y="338" width="108" height="20" rx="4" fill="#D3D1C7"/>
+  <text x="466" y="352" text-anchor="middle" font-size="10" fill="#444441" font-family="sans-serif">向量库 Milvus/Pinecone</text>
+  <rect x="526" y="338" width="114" height="20" rx="4" fill="#D3D1C7"/>
+  <text x="583" y="352" text-anchor="middle" font-size="10" fill="#444441" font-family="sans-serif">训练 PyTorch/DeepSpeed</text>
+
+  <rect x="40" y="362" width="158" height="20" rx="4" fill="#D3D1C7"/>
+  <text x="119" y="376" text-anchor="middle" font-size="10" fill="#444441" font-family="sans-serif">微调 LoRA/LLaMA-Factory/Unsloth</text>
+  <rect x="204" y="362" width="158" height="20" rx="4" fill="#D3D1C7"/>
+  <text x="283" y="376" text-anchor="middle" font-size="10" fill="#444441" font-family="sans-serif">推理 vLLM/TensorRT-LLM/Ollama</text>
+  <rect x="368" y="362" width="138" height="20" rx="4" fill="#D3D1C7"/>
+  <text x="437" y="376" text-anchor="middle" font-size="10" fill="#444441" font-family="sans-serif">评估 HumanEval/MMLU/Arena</text>
+
+  <rect x="40" y="394" width="600" height="32" rx="6" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+  <rect x="40" y="394" width="4" height="32" rx="2" fill="#639922"/>
+  <text x="56" y="415" font-size="13" font-weight="500" fill="#27500A" font-family="sans-serif">应用层 · 垂直场景出口  20%</text>
+  <text x="600" y="415" text-anchor="end" font-size="10" fill="#3B6D11" font-family="sans-serif">行业解决方案商 / SaaS公司</text>
+
+  <rect x="40" y="432" width="108" height="20" rx="4" fill="#C0DD97"/>
+  <text x="94" y="446" text-anchor="middle" font-size="10" fill="#27500A" font-family="sans-serif">制造业 排产/质检/PHM</text>
+  <rect x="154" y="432" width="128" height="20" rx="4" fill="#C0DD97"/>
+  <text x="218" y="446" text-anchor="middle" font-size="10" fill="#27500A" font-family="sans-serif">电商零售 客服/AIGC/直播</text>
+  <rect x="288" y="432" width="108" height="20" rx="4" fill="#C0DD97"/>
+  <text x="342" y="446" text-anchor="middle" font-size="10" fill="#27500A" font-family="sans-serif">金融科技 风控/投研</text>
+  <rect x="402" y="432" width="108" height="20" rx="4" fill="#C0DD97"/>
+  <text x="456" y="446" text-anchor="middle" font-size="10" fill="#27500A" font-family="sans-serif">医疗 影像/药物研发</text>
+  <rect x="516" y="432" width="124" height="20" rx="4" fill="#C0DD97"/>
+  <text x="578" y="446" text-anchor="middle" font-size="10" fill="#27500A" font-family="sans-serif">教育 个性化/AI助教</text>
+
+  <rect x="40" y="456" width="108" height="20" rx="4" fill="#C0DD97"/>
+  <text x="94" y="470" text-anchor="middle" font-size="10" fill="#27500A" font-family="sans-serif">法律 合同/合规/文书</text>
+  <rect x="154" y="456" width="128" height="20" rx="4" fill="#C0DD97"/>
+  <text x="218" y="470" text-anchor="middle" font-size="10" fill="#27500A" font-family="sans-serif">自动驾驶 FSD/Apollo/Huawei</text>
+  <rect x="288" y="456" width="108" height="20" rx="4" fill="#C0DD97"/>
+  <text x="342" y="470" text-anchor="middle" font-size="10" fill="#27500A" font-family="sans-serif">游戏娱乐 NPC/剧情/AIGC</text>
+  <rect x="402" y="456" width="108" height="20" rx="4" fill="#C0DD97"/>
+  <text x="456" y="470" text-anchor="middle" font-size="10" fill="#27500A" font-family="sans-serif">内容创作 写作/绘画/视频</text>
+  <rect x="516" y="456" width="124" height="20" rx="4" fill="#C0DD97"/>
+  <text x="578" y="470" text-anchor="middle" font-size="10" fill="#27500A" font-family="sans-serif">通用提效 Chat/Cursor/办公</text>
+
+  <line x1="40" y1="492" x2="640" y2="492" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4"/>
+
+  <text x="340" y="512" text-anchor="middle" font-size="13" font-weight="500" fill="#444441" font-family="sans-serif">2026 行业关键数据</text>
+
+  <rect x="40" y="524" width="144" height="36" rx="6" fill="#EEEDFE" stroke="#CECBF6" stroke-width="0.5"/>
+  <text x="112" y="540" text-anchor="middle" font-size="14" font-weight="500" fill="#3C3489" font-family="sans-serif">77%</text>
+  <text x="112" y="553" text-anchor="middle" font-size="9" fill="#5F5E5A" font-family="sans-serif">英伟达训练市场份额</text>
+
+  <rect x="194" y="524" width="144" height="36" rx="6" fill="#E6F1FB" stroke="#B5D4F4" stroke-width="0.5"/>
+  <text x="266" y="540" text-anchor="middle" font-size="14" font-weight="500" fill="#0C447C" font-family="sans-serif">49.5%</text>
+  <text x="266" y="553" text-anchor="middle" font-size="9" fill="#5F5E5A" font-family="sans-serif">豆包MaaS Token份额</text>
+
+  <rect x="348" y="524" width="144" height="36" rx="6" fill="#EAF3DE" stroke="#C0DD97" stroke-width="0.5"/>
+  <text x="420" y="540" text-anchor="middle" font-size="14" font-weight="500" fill="#27500A" font-family="sans-serif">88%</text>
+  <text x="420" y="553" text-anchor="middle" font-size="9" fill="#5F5E5A" font-family="sans-serif">部署Agent获正ROI</text>
+
+  <rect x="502" y="524" width="138" height="36" rx="6" fill="#FAEEDA" stroke="#FAC775" stroke-width="0.5"/>
+  <text x="571" y="540" text-anchor="middle" font-size="14" font-weight="500" fill="#633806" font-family="sans-serif">95%</text>
+  <text x="571" y="553" text-anchor="middle" font-size="9" fill="#5F5E5A" font-family="sans-serif">推理成本两年降幅</text>
+
+  <rect x="40" y="566" width="144" height="36" rx="6" fill="#FBEAF0" stroke="#D4537E" stroke-width="0.5"/>
+  <text x="112" y="582" text-anchor="middle" font-size="14" font-weight="500" fill="#993556" font-family="sans-serif">90%</text>
+  <text x="112" y="595" text-anchor="middle" font-size="9" fill="#5F5E5A" font-family="sans-serif">字节代码AI生成率</text>
+
+  <rect x="194" y="566" width="144" height="36" rx="6" fill="#FAECE7" stroke="#D85A30" stroke-width="0.5"/>
+  <text x="266" y="582" text-anchor="middle" font-size="14" font-weight="500" fill="#993C1D" font-family="sans-serif">180万亿</text>
+  <text x="266" y="595" text-anchor="middle" font-size="9" fill="#5F5E5A" font-family="sans-serif">豆包日Token调用量</text>
+
+  <rect x="348" y="566" width="144" height="36" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text x="420" y="582" text-anchor="middle" font-size="14" font-weight="500" fill="#0F6E56" font-family="sans-serif">30-40%</text>
+  <text x="420" y="595" text-anchor="middle" font-size="9" fill="#5F5E5A" font-family="sans-serif">退货率降至15-20%</text>
+
+  <rect x="502" y="566" width="138" height="36" rx="6" fill="#FAEEDA" stroke="#EF9F27" stroke-width="0.5"/>
+  <text x="571" y="582" text-anchor="middle" font-size="14" font-weight="500" fill="#854F0B" font-family="sans-serif">70%</text>
+  <text x="571" y="595" text-anchor="middle" font-size="9" fill="#5F5E5A" font-family="sans-serif">海底捞人工跟进减少</text>
+
+  <line x1="40" y1="616" x2="640" y2="616" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4"/>
+  <text x="340" y="634" text-anchor="middle" font-size="13" font-weight="500" fill="#444441" font-family="sans-serif">2026年五大趋势</text>
+
+  <rect x="40" y="646" width="112" height="36" rx="6" fill="#FAECE7" stroke="#D85A30" stroke-width="0.5"/>
+  <text x="96" y="662" text-anchor="middle" font-size="11" font-weight="500" fill="#993C1D" font-family="sans-serif">Agent替代Chatbot</text>
+  <text x="96" y="676" text-anchor="middle" font-size="9" fill="#5F5E5A" font-family="sans-serif">从回答到执行</text>
+
+  <rect x="162" y="646" width="112" height="36" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <text x="218" y="662" text-anchor="middle" font-size="11" font-weight="500" fill="#185FA5" font-family="sans-serif">推理算力爆发</text>
+  <text x="218" y="676" text-anchor="middle" font-size="9" fill="#5F5E5A" font-family="sans-serif">成本两年降95%</text>
+
+  <rect x="284" y="646" width="112" height="36" rx="6" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+  <text x="340" y="662" text-anchor="middle" font-size="11" font-weight="500" fill="#3B6D11" font-family="sans-serif">开源生态成熟</text>
+  <text x="340" y="676" text-anchor="middle" font-size="9" fill="#5F5E5A" font-family="sans-serif">开源逼近闭源</text>
+
+  <rect x="406" y="646" width="112" height="36" rx="6" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+  <text x="462" y="662" text-anchor="middle" font-size="11" font-weight="500" fill="#534AB7" font-family="sans-serif">多模态标配化</text>
+  <text x="462" y="676" text-anchor="middle" font-size="9" fill="#5F5E5A" font-family="sans-serif">文图音视频统一</text>
+
+  <rect x="528" y="646" width="112" height="36" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+  <text x="584" y="662" text-anchor="middle" font-size="11" font-weight="500" fill="#854F0B" font-family="sans-serif">Agent商用元年</text>
+  <text x="584" y="676" text-anchor="middle" font-size="9" fill="#5F5E5A" font-family="sans-serif">88%获正ROI</text>
+
+  <text x="40" y="712" font-size="10" fill="#888780" font-family="sans-serif">文档结构：一.产业全景 | 二.基础层 | 三.技术层 | 四.中间层 | 五.应用层 | 六.趋势 | 七.术语 | 八.关键数据</text>
+</svg>

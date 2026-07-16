@@ -1,0 +1,54 @@
+<svg viewBox="0 0 680 620" width="100%" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>数据飞轮系统架构总览 六层闭环设计</title>
+  <desc>从感知层到正反馈循环的六层数据飞轮架构</desc>
+  <defs>
+    <marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#BA7517" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="a4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <text x="340" y="32" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1A1A1A">数据飞轮系统架构总览</text>
+  <text x="340" y="52" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">六层数据闭环 人力资本 x Token 资本复利增长</text>
+  <rect x="30" y="72" width="620" height="530" rx="16" fill="#F5F4F0" stroke="#B4B2A9" stroke-width="1"/>
+  <text x="50" y="94" font-family="sans-serif" font-size="13" font-weight="bold" fill="#444441">数据飞轮核心闭环</text>
+  <line x1="40" y1="104" x2="640" y2="104" stroke="#D3D1C7" stroke-width="1" stroke-dasharray="4,4"/>
+  <rect x="50" y="118" width="580" height="60" rx="10" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text x="340" y="144" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#185FA5">感知层</text>
+  <text x="340" y="162" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0C447C">外部信号捕获：WebSearch / 飞书订阅 / 客户反馈入口</text>
+  <line x1="340" y1="178" x2="340" y2="196" stroke="#378ADD" stroke-width="2" marker-end="url(#a4)"/>
+  <rect x="50" y="200" width="580" height="60" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="1"/>
+  <text x="340" y="226" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#3C3489">反馈层</text>
+  <text x="340" y="244" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3C3489">信号采集与分类：公众号 / LoRA训练 / 客户项目 正+负反馈</text>
+  <line x1="340" y1="260" x2="340" y2="278" stroke="#534AB7" stroke-width="2" marker-end="url(#a1)"/>
+  <rect x="50" y="282" width="580" height="60" rx="10" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text x="340" y="308" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#085041">记忆层（Elite）</text>
+  <text x="340" y="326" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#085041">L1寄存器 L2向量库 L3冷存储 L4文件 L5压缩 L6图谱（含TTL衰减）</text>
+  <line x1="340" y1="342" x2="340" y2="360" stroke="#BA7517" stroke-width="2" marker-end="url(#a2)"/>
+  <rect x="50" y="364" width="265" height="60" rx="10" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
+  <rect x="365" y="364" width="265" height="60" rx="10" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
+  <text x="182" y="390" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#633806">SOP 层</text>
+  <text x="182" y="408" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#633806">怎么做 标准化流程</text>
+  <text x="497" y="390" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#633806">标准层</text>
+  <text x="497" y="408" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#633806">做成什么样算好 验收体系</text>
+  <line x1="315" y1="394" x2="365" y2="394" stroke="#BA7517" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="182" y1="424" x2="182" y2="440" stroke="#BA7517" stroke-width="2" marker-end="url(#a2)"/>
+  <line x1="497" y1="424" x2="497" y2="440" stroke="#BA7517" stroke-width="2" marker-end="url(#a2)"/>
+  <rect x="50" y="444" width="580" height="44" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="1"/>
+  <text x="340" y="470" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#3C3489">数据库层</text>
+  <text x="340" y="486" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3C3489">持久化存储（SQLite / LanceDB / 文件系统）</text>
+  <line x1="340" y1="488" x2="340" y2="508" stroke="#1D9E75" stroke-width="2" marker-end="url(#a3)"/>
+  <rect x="200" y="512" width="280" height="44" rx="22" fill="#E1F5EE" stroke="#1D9E75" stroke-width="2"/>
+  <text x="340" y="538" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#085041">正反馈循环 下一轮</text>
+  <path d="M480 534 Q642 534 642 100 Q642 78 630 78" stroke="#1D9E75" stroke-width="2" stroke-dasharray="6,4" fill="none" marker-end="url(#a3)"/>
+  <text x="648" y="300" font-family="sans-serif" font-size="12" fill="#1D9E75" transform="rotate(90,648,300)">复利效应累积</text>
+  <rect x="30" y="578" width="620" height="22" rx="6" fill="#F5F4F0" stroke="#D3D1C7" stroke-width="0.5"/>
+  <text x="340" y="593" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">每轮循环 经验沉淀 SOP优化 标准提升 下一轮效率更高</text>
+</svg>

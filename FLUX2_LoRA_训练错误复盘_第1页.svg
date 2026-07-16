@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1130" width="210mm" height="297mm">
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+    .ttl { font-size: 18px; font-weight: 600; fill: #fff; }
+    .sub { font-size: 12px; fill: #94a3b8; }
+    .h2 { font-size: 12px; font-weight: 600; }
+    .bd11 { font-size: 11px; fill: #374151; }
+    .bd10 { font-size: 10px; fill: #6b7280; }
+    .tag-txt { font-size: 10px; font-weight: 600; fill: #fff; }
+    .stbl-v { font-size: 10px; font-weight: 600; }
+    .stbl-d { font-size: 10px; fill: #6b7280; }
+  </style>
+  <rect x="0" y="0" width="800" height="1130" fill="#fff"/>
+<rect x="0" y="40" width="800" height="140" fill="#1e293b"/>
+  <text class="sub" x="40" y="72">2026-06-02 至 2026-06-06</text>
+  <text class="ttl" x="40" y="105">LoRA 训练过程错误与问题复盘</text>
+  <text class="sub" x="40" y="135">达芬奇密码 家居服/内衣 FLUX.2 LoRA 训练资料工程</text>
+  <text class="sub" x="40" y="158">标注语料：120 张图片 (4组x30) | 训练平台：Codex/AI-ToolKit | 模型基座：FLUX.2 Klein 4B</text>
+  <rect x="40" y="170" width="14" height="4" rx="2" fill="#3b82f6"/>
+  <rect x="58" y="170" width="14" height="4" rx="2" fill="#22c55e"/>
+  <rect x="76" y="170" width="14" height="4" rx="2" fill="#eab308"/>
+  <rect x="40" y="208" width="168" height="36" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="0.5"/>
+  <text x="124" y="227" text-anchor="middle" font-size="14" font-weight="700" fill="#dc2626">4 项</text>
+  <text x="124" y="240" text-anchor="middle" font-size="10" fill="#dc2626">致命级错误</text>
+  <rect x="224" y="208" width="168" height="36" rx="8" fill="#fffbeb" stroke="#fde68a" stroke-width="0.5"/>
+  <text x="308" y="227" text-anchor="middle" font-size="14" font-weight="700" fill="#d97706">2 项</text>
+  <text x="308" y="240" text-anchor="middle" font-size="10" fill="#d97706">严重级错误</text>
+  <rect x="408" y="208" width="168" height="36" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="0.5"/>
+  <text x="492" y="227" text-anchor="middle" font-size="14" font-weight="700" fill="#16a34a">3 项</text>
+  <text x="492" y="240" text-anchor="middle" font-size="10" fill="#16a34a">轻微级错误</text>
+  <rect x="592" y="208" width="168" height="36" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="0.5"/>
+  <text x="676" y="227" text-anchor="middle" font-size="14" font-weight="700" fill="#6b7280">1 项</text>
+  <text x="676" y="240" text-anchor="middle" font-size="10" fill="#6b7280">待解决</text>
+  <rect x="30" y="260" width="740" height="90" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="0.5"/>
+  <rect x="30" y="260" width="4" height="85" rx="2" fill="#2563eb"/>
+  <text x="46" y="282" font-size="12" font-weight="600" fill="#1e40af">核心结论</text>
+  <text x="46" y="304" font-size="11" fill="#1e40af">过去五天最大的问题不是单个脚本错误，而是前期没有把 LoRA 训练资料当成完整工程闭环处理。</text>
+  <text x="46" y="322" font-size="11" fill="#374151">已完成修正：120 条自然语言 caption 已重写通过质检 · 新数据集已建立 · 配置/脚本已生成</text>
+  <text x="46" y="340" font-size="11" fill="#dc2626">仍阻塞：脚本旧 output 路径残留 + 模型格式需确认</text>
+  <rect x="30" y="365" width="740" height="28" rx="6" fill="#374151"/>
+  <text x="46" y="384" font-size="12" font-weight="600" fill="#fff">四大根因聚类</text>
+  <rect x="30" y="400" width="365" height="80" rx="6" fill="#faf5ff" stroke="#e9d5ff" stroke-width="0.5"/>
+  <rect x="30" y="400" width="365" height="22" rx="6" fill="#a855f7"/>
+  <rect x="30" y="416" width="365" height="6" fill="#a855f7"/>
+  <text x="212" y="416" class="tag-txt" text-anchor="middle">A. 标注工程未闭环 [致命]</text>
+  <text x="42" y="438" font-size="11" fill="#374151">涉及：Caption 范式 / 分类不严谨 / 图源混入</text>
+  <text x="42" y="456" font-size="11" fill="#374151">影响：模型学错 → 效果归零</text>
+  <rect x="425" y="400" width="365" height="80" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="0.5"/>
+  <rect x="425" y="400" width="365" height="22" rx="6" fill="#ef4444"/>
+  <rect x="425" y="416" width="365" height="6" fill="#ef4444"/>
+  <text x="607" y="416" class="tag-txt" text-anchor="middle">B. 工程管线未固化 [致命]</text>
+  <text x="437" y="438" font-size="11" fill="#374151">涉及：过早判断 / config 不同步 / 无进度表</text>
+  <text x="437" y="456" font-size="11" fill="#374151">影响：局部≠整体，反复返工</text>
+  <rect x="30" y="485" width="365" height="80" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="0.5"/>
+  <rect x="30" y="485" width="365" height="22" rx="6" fill="#22c55e"/>
+  <rect x="30" y="501" width="365" height="6" fill="#22c55e"/>
+  <text x="212" y="501" class="tag-txt" text-anchor="middle">C. 脚本/工具链缺陷 [轻微]</text>
+  <text x="42" y="523" font-size="11" fill="#374151">涉及：迁移脚本 / 质检误判 / 模型格式</text>
+  <text x="42" y="541" font-size="11" fill="#374151">影响：工具不可靠 → 信任破裂</text>
+  <rect x="425" y="485" width="365" height="80" rx="6" fill="#fffbeb" stroke="#fde68a" stroke-width="0.5"/>
+  <rect x="425" y="485" width="365" height="22" rx="6" fill="#eab308"/>
+  <rect x="425" y="501" width="365" height="6" fill="#eab308"/>
+  <text x="607" y="501" class="tag-txt" text-anchor="middle">D. 流程沟通断层 [轻微]</text>
+  <text x="437" y="523" font-size="11" fill="#374151">涉及：503 不主动 / 无状态同步</text>
+  <text x="437" y="541" font-size="11" fill="#374151">影响：信息不对称，反复追问</text>
+  <rect x="30" y="580" width="740" height="28" rx="6" fill="#374151"/>
+  <text x="46" y="599" font-size="12" font-weight="600" fill="#fff">错误清单详尽分析（10 项）</text>
+  <!-- Error 1 -->
+  <rect x="30" y="618" width="740" height="91" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="0.5"/>
+  <rect x="30" y="618" width="4" height="91" rx="2" fill="#dc2626"/>
+  <rect x="40" y="623" width="50" height="16" rx="4" fill="#fef2f2" stroke="#fecaca" stroke-width="0.5"/>
+  <text x="65" y="634" text-anchor="middle" font-size="9" font-weight="700" fill="致命">致命</text>
+  <text x="98" y="635" font-size="12" font-weight="600" fill="#dc2626">#1 Caption 标注范式错误</text>
+  <text x="42" y="654" font-size="11" fill="#374151">问题：生成了短标签/模板句，FLUX.2 需要自然语言句子。120 张图仅 4 条唯一 caption，每组</text>
+  <text x="42" y="667" font-size="11" fill="#374151"> 30 张完全重复，词数仅 15-18，远低于 40-100 词标准。</text>
+  <text x="42" y="680" font-size="11" fill="#059669">修正：已新建 dvc_lora_v5_strict_caption_rework_v1，120 条</text>
+  <text x="42" y="693" font-size="11" fill="#059669"> caption 已重写为自然语言并通过全量质检。</text>
+  <!-- Error 2 -->
+  <rect x="30" y="719" width="740" height="78" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="0.5"/>
+  <rect x="30" y="719" width="4" height="78" rx="2" fill="#dc2626"/>
+  <rect x="40" y="724" width="50" height="16" rx="4" fill="#fef2f2" stroke="#fecaca" stroke-width="0.5"/>
+  <text x="65" y="735" text-anchor="middle" font-size="9" font-weight="700" fill="致命">致命</text>
+  <text x="98" y="736" font-size="12" font-weight="600" fill="#dc2626">#2 过早判断训练数据基本合格</text>
+  <text x="42" y="755" font-size="11" fill="#374151">问题：图片筛选、目录齐全误判为训练数据接近完成，未先确认 caption 是否符合 FLUX.2 标准。</text>
+  <text x="42" y="768" font-size="11" fill="#059669">修正：后续改为分层判断：图片合格 → caption 合格 → 训练包完整 → 模型可加载 →</text>
+  <text x="42" y="781" font-size="11" fill="#059669"> precheck 通过，必须逐层确认。</text>
+  <!-- Error 3 -->
+  <rect x="30" y="807" width="740" height="78" rx="6" fill="#fffbeb" stroke="#fde68a" stroke-width="0.5"/>
+  <rect x="30" y="807" width="4" height="78" rx="2" fill="#d97706"/>
+  <rect x="40" y="812" width="50" height="16" rx="4" fill="#fffbeb" stroke="#fde68a" stroke-width="0.5"/>
+  <text x="65" y="823" text-anchor="middle" font-size="9" font-weight="700" fill="严重">严重</text>
+  <text x="98" y="824" font-size="12" font-weight="600" fill="#d97706">#3 消费者视角分类标准不够严谨</text>
+  <text x="42" y="843" font-size="11" fill="#374151">问题：国风、甜美、纯欲/吊带、轻奢等分类偏视觉直觉，规则未固化，容易把道具/场景误当作服装风格。</text>
+  <text x="42" y="856" font-size="11" fill="#059669">修正：按服装结构描述：frog buttons、contrast piping、satin、velvet、</text>
+  <text x="42" y="869" font-size="11" fill="#059669">lace trim 等，减少风格污染。</text>
+  <!-- Error 4 -->
+  <rect x="30" y="895" width="740" height="78" rx="6" fill="#fffbeb" stroke="#fde68a" stroke-width="0.5"/>
+  <rect x="30" y="895" width="4" height="78" rx="2" fill="#d97706"/>
+  <rect x="40" y="900" width="50" height="16" rx="4" fill="#fffbeb" stroke="#fde68a" stroke-width="0.5"/>
+  <text x="65" y="911" text-anchor="middle" font-size="9" font-weight="700" fill="严重">严重</text>
+  <text x="98" y="912" font-size="12" font-weight="600" fill="#d97706">#4 礼盒图/平铺图/挂拍图混入主训练</text>
+  <text x="42" y="931" font-size="11" fill="#374151">问题：礼盒、平铺、挂拍、细节图有参考价值但不适合作为 LoRA 主训练图，混入影响真人穿着/服装贴合/姿态学习。</text>
+  <text x="42" y="944" font-size="11" fill="#059669">修正：真人穿着入 train_ready；礼盒/平铺/挂拍/细节入 control_refs 或 review，</text>
+  <text x="42" y="957" font-size="11" fill="#059669">不作为主训练图。</text>
+  <!-- Error 5 -->
+  <rect x="30" y="983" width="740" height="78" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="0.5"/>
+  <rect x="30" y="983" width="4" height="78" rx="2" fill="#dc2626"/>
+  <rect x="40" y="988" width="50" height="16" rx="4" fill="#fef2f2" stroke="#fecaca" stroke-width="0.5"/>
+  <text x="65" y="999" text-anchor="middle" font-size="9" font-weight="700" fill="致命">致命</text>
+  <text x="98" y="1000" font-size="12" font-weight="600" fill="#dc2626">#5 Caption 完成后未立即闭环 config/script</text>
+  <text x="42" y="1019" font-size="11" fill="#374151">问题：Caption 重写完成后原训练配置仍指向旧 dataset，若直接训练会读取旧标注。</text>
+  <text x="42" y="1032" font-size="11" fill="#059669">修正：已生成新训练包 config/scripts/output：dvc_lora_v5_strict_cap</text>
+  <text x="400" y="1110" text-anchor="middle" font-size="10" fill="#9ca3af" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">FLUX.2 LoRA 训练错误复盘 - 1/3</text>
+</svg>

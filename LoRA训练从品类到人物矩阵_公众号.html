@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>126K图片→三层重分：我为什么把LoRA训练从品类思维换成人物矩阵</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f8f8f8;padding:20px}
+.article{max-width:660px;margin:0 auto;background:#fff;padding:30px 20px;line-height:1.75;color:#333;font-size:15px;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+h1{font-size:20px;font-weight:600;color:#000;line-height:1.5;margin-bottom:15px;letter-spacing:0.5px}
+h2{font-size:18px;font-weight:600;color:#000;margin:28px 0 12px;line-height:1.5}
+h3{font-size:16px;font-weight:600;color:#000;margin:22px 0 10px}
+p{margin:0 0 1.5em;text-align:justify}
+p.quote{padding:12px 16px;background:#f5f5f5;border-left:3px solid #1D9E75;margin:16px 0;color:#555;font-size:14px}
+ul{margin:0 0 1.5em;padding-left:2em}
+li{margin-bottom:6px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+table th{background:#EEEDFE;padding:10px 12px;text-align:left;font-weight:600;color:#3C3489;border:1px solid #ddd}
+table td{padding:8px 12px;border:1px solid #ddd;color:#333}
+table tr:nth-child(even){background:#fafafa}
+.divider{height:1px;background:#e0e0e0;margin:30px 0}
+.interact{margin:30px 0;padding:20px;background:#f9f9fb;border-radius:6px;font-size:14px;color:#555;text-align:center}
+.interact b{color:#000}
+.links{margin:20px 0}
+.links a{display:block;padding:8px 0;color:#378ADD;text-decoration:none;font-size:14px;border-bottom:1px solid #eee}
+.links a:last-child{border-bottom:none}
+.author{margin:30px 0 10px;padding-top:20px;border-top:1px solid #e0e0e0;font-size:14px;color:#555;text-align:center;line-height:2}
+.author strong{color:#000}
+</style>
+</head>
+<body>
+<div class="article">
+
+<h1>126K图片→三层重分：我为什么把LoRA训练从品类思维换成人物矩阵</h1>
+
+<p>做LoRA训练的朋友几乎都会遇到一个问题：训练出来的模型，衣服特征和模特人脸绑死了。换个模特，同样的衣服生成效果就不对了。</p>
+
+<p>我之前也踩了这个坑。126K图的大库，按品类分类清洗、精选、训练——逻辑上没错，衣服品类确实是电商的核心组织维度。但训练完一测就发现问题了：<b>"模特A穿这件"和"模特B穿这件"，LoRA分不出来。</b></p>
+
+<p>它学到的是"这件衣服+某个人脸"的绑定特征，不是"这件衣服本身"的特征。</p>
+
+<h2>问题出在哪？</h2>
+
+<p>旧方案的完整链路是这样的：</p>
+
+<p style="text-align:center;background:#f5f5f5;padding:12px;border-radius:6px;font-size:14px;color:#555">
+126K大库 → CLIP聚类 → 按品类精选 → 训练
+</p>
+
+<p>这个链路在"品类"维度上没毛病，但它忽略了一个电商核心场景：<b>同一件衣服穿在不同人身上</b>。126K图里混着不同模特、不同体型、不同肤色的人，LoRA在训练时把所有人物特征和衣服特征打包学习了。结果就是——你让LoRA生成"模特B穿这件"，它输出的是"模特A的脸+这件衣服"。</p>
+
+<p>这是一个<b>数据组织问题</b>，不是模型参数问题。</p>
+
+<h2>新方案：从"品类"到"人物矩阵"</h2>
+
+<p>核心转变只有一句话：<b>不再以品类为训练单元，而是以"商品×人物×场景"三维矩阵为训练单元。</b></p>
+
+<p style="text-align:center;background:#E1F5EE;padding:12px;border-radius:6px;font-size:14px;color:#085041">
+商品正反图 → 人物三视图（按人划分）→ 多模特多场景
+</p>
+
+<p>具体拆成三层：</p>
+
+<h3>L1 商品正反图（2-4张/SKU，占15%工作量）</h3>
+
+<p>每件商品的正反面平铺拍摄，不上模特，纯白背景。正面+背面，有套装的上下装分开拍。这个阶段的图不参与LoRA训练主体——它只用来做ControlNet参考和结构学习基线。</p>
+
+<p class="quote"><b>关键判断</b>：L1只占15%工作量，但它的质量决定后面两层的天花板。商品正反图拍得不清晰、有遮挡，后面的所有ControlNet生成都会带着这个缺陷。</p>
+
+<h3>L2 人物三视图（21-55张/SKU，占50%工作量）</h3>
+
+<p>这是新方案的<b>核心变动</b>——按人物划分数据。</p>
+
+<p>每个模特独立拍一组三视图：正面3-5张（站姿/微侧）、侧面2-3张（左/右侧45°）、背面2-3张。每人总计7-11张。3-5个模特覆盖主流客群，整层21-55张/SKU。</p>
+
+<table>
+<tr><th>人物</th><th>正面</th><th>侧面</th><th>背面</th><th>小计</th></tr>
+<tr><td>模特A（主模特）</td><td>3-5张</td><td>2-3张</td><td>2-3张</td><td>7-11张</td></tr>
+<tr><td>模特B（不同体型）</td><td>3-5张</td><td>2-3张</td><td>2-3张</td><td>7-11张</td></tr>
+<tr><td>模特C/D/E（按需）</td><td colspan="3">同上</td><td>7-11张/人</td></tr>
+<tr><td colspan="4" style="text-align:right"><b>Layer 2 总计</b></td><td><b>21-55张/SKU</b></td></tr>
+</table>
+
+<p class="quote"><b>最关键的决策</b>：同一人物=同一LoRA触发词。模特A用trigger_A，模特B用trigger_B。这样训练出来的LoRA不是学会"衣服+某张脸"，而是学会"trigger_A=模特A穿着这件衣服"作为一个独立概念。</p>
+
+<p>Caption也按这个逻辑：每张图40-100词自然语言描述（衣服材质+版型+人物特征+姿态），不把人物特征和衣服特征混在一起描述。</p>
+
+<h3>L3 多场景扩展（45-150张/SKU，占35%工作量）</h3>
+
+<p>每人扩展三个维度：</p>
+
+<ul>
+<li><b>多角度姿态</b>：特写+坐姿+动态（6-9张/人）</li>
+<li><b>场景环境</b>：纯白棚拍→卧室→客厅→自然光（4-8张/人）</li>
+<li><b>颜色变体</b>：同款不同色（每色板2-3张正面展示）</li>
+</ul>
+
+<p>L3可以分批迭代，先做姿态，有余力再做场景，最后补色板。单SKU总计68-209张，推荐<b>100-150张</b>。</p>
+
+<h2>这个方案解决了什么</h2>
+
+<p>最直接的效果：生成"穿这件衣服的模特B"时，ControlNet拿L1的正反图约束衣服结构，LoRA拿L2的trigger_B激活"模特B穿这件"的特征表达——<b>两个信号不打架</b>。</p>
+
+<p>间接效果是训练数据可复用。换季上新款，只需要换L1的正反图，L2的人物三视图不用重新拍（只要模特还是那几个人）。人物档案积累越多，后续每个SKU的新增拍摄量越小。</p>
+
+<h2>从这次重构中学到的</h2>
+
+<p>LoRA训练到一定程度，瓶颈不在模型参数怎么调，在<b>数据怎么组织</b>。"品类思维"是电商行业的肌肉记忆——商家天然按品类管理商品。但LoRA学习的是视觉特征，视觉特征的组织维度应该是"谁穿的×在什么场景穿的"，不是"它属于哪个品类"。</p>
+
+<p>这个思路适用于所有服装品类LoRA训练。品类管库存，人物矩阵管训练——两套逻辑各管各的，别混。</p>
+
+<div class="divider"></div>
+
+<div class="interact">
+<b>📮 聊两句</b><br>
+你现在做LoRA训练用的是品类分类还是人物分类？遇到过衣服和人脸绑死的问题吗？留言聊聊你的解法。
+</div>
+
+<div class="links">
+<b>往期精选：</b><br>
+<a href="https://cp8z7brjmy.feishu.cn/docx/EtNPdyFmyowNC7xQWF7cWTaKnLd">AI何时能处理超复杂任务——以LoRA调试为标尺的深度推演</a>
+<a href="https://cp8z7brjmy.feishu.cn/docx/NjZcdCIoFoCzLPxgcwxcg0yintf">端侧AI是嵌入式人的黄金十年——但前提是你能熬到2028</a>
+<a href="https://cp8z7brjmy.feishu.cn/docx/M4NxdqSqEooAkKxIbZgc39wAnke">从提示词到循环工程：AI编码的第三个时代已经到来</a>
+</div>
+
+<div class="author">
+<strong>海风老师</strong><br>
+AI技术咨询 / LoRA模型训练 / 电商AI落地<br>
+微信：frankhzheng
+</div>
+
+</div>
+</body>
+</html>
