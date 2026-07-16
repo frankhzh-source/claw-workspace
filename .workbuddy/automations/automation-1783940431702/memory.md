@@ -1,5 +1,14 @@
 # 记忆系统自动备份到 GitHub — 执行记录
 
+## 2026-07-16 21:40
+
+- **PULL workbuddy-sync**: Already up to date，恢复 5 个用户文件 + skills/（0 个技能）
+- **PULL claw-workspace**: Already up to date
+- **PUSH workbuddy-sync**: LF/CRLF 警告（旧 libtv-cli skills 文件，良性），script 标记完成
+- **PUSH claw-workspace**: pull --rebase 因 unstaged changes 报错（已知 __pycache__ 瞬时差异），无待推送 commit
+- **路径问题**: Git Bash 需用 `/c/Users/...` 格式，`C:\Users\...` 会报 command not found
+- **状态**: 全部同步完成 ✓（两侧均无新变更）
+
 ## 2026-07-16 20:44
 
 - **PULL workbuddy-sync**: Already up to date，恢复 5 个用户文件 + skills/（0 个技能）
