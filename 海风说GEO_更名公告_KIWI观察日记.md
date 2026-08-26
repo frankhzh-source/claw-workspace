@@ -159,3 +159,10 @@ GEO / AEO / LLMO / AIO / AIEO / AAO……术语至今没有统一标准，不同
 「海风说GEO」从这里开始。
 
 *挑战类内容，结果仅供参考。*
+
+---
+
+作者信息
+海风老师 ｜ AI 技术咨询 / LoRA 模型训练 / 电商 AI 落地 / GEO 优化
+微信：frankhzheng
+内容资产库（GitHub 开源）：https://github.com/frankhzh-source/claw-workspace
