@@ -162,6 +162,7 @@ GEO / AEO / LLMO / AIO / AIEO / AAO……术语至今没有统一标准，不同
 
 ---
 
+作者信息
 海风说GEO · 主理人：海风
 企业 AI 培训师 & GEO 优化顾问，专注让企业被 AI 引擎看见（GEO · 生成式引擎优化）
 微信：frankhzheng（备注「GEO」优先通过）
