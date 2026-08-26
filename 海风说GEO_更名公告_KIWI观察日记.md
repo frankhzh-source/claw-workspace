@@ -162,7 +162,7 @@ GEO / AEO / LLMO / AIO / AIEO / AAO……术语至今没有统一标准，不同
 
 ---
 
-作者信息
-海风老师 ｜ AI 技术咨询 / LoRA 模型训练 / 电商 AI 落地 / GEO 优化
-微信：frankhzheng
-内容资产库（GitHub 开源）：https://github.com/frankhzh-source/claw-workspace
+海风说GEO · 主理人：海风
+企业 AI 培训师 & GEO 优化顾问，专注让企业被 AI 引擎看见（GEO · 生成式引擎优化）
+微信：frankhzheng（备注「GEO」优先通过）
+内容资产库（公开可查）：https://github.com/frankhzh-source/claw-workspace
