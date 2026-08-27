@@ -98,7 +98,10 @@ GEO 没有"搜索控制台"，你只能自己造一个：
 
 ---
 
-> **海风** · AI 落地咨询 & GEO 优化
-> 专注：企业 AI 培训 / GEO 内容策略 / AI 可见性监测
-> 微信：加微信请备注「GEO」来源
-> GitHub：https://github.com/frankhzh-source/claw-workspace
+## 作者信息
+
+**海风** · AI 落地咨询 & GEO 优化
+
+微信：frankhzheng
+
+开源：https://github.com/frankhzh-source/claw-workspace
