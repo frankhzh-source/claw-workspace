@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 566" width="680" height="566">
+  <defs>
+    <marker id="ar2" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <path d="M0,0 L9,3.5 L0,7 Z" fill="#4A5A8A"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="680" height="566" fill="#F7F8FC"/>
+  <rect x="0" y="0" width="680" height="38" fill="#2B3A67"/>
+  <text x="16" y="25" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="15" font-weight="bold" fill="#FFFFFF">RAG 命中率压力测试 · 原理与衰减诊断</text>
+  <text x="664" y="25" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="10" fill="#9AA8C8" text-anchor="end">机制层 · 不引用任何第三方自报数据</text>
+
+  <text x="16" y="58" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11.5" font-weight="bold" fill="#2B3A67">① 什么是「命中」——它发生在检索环节，不是生成环节</text>
+
+  <rect x="16" y="66" width="150" height="46" rx="5" fill="#FFFFFF" stroke="#C9D2E8" stroke-width="1"/>
+  <text x="91" y="86" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#2B3A67" text-anchor="middle">用户提问</text>
+  <text x="91" y="102" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#7A88AA" text-anchor="middle">「油敏肌面霜推荐」</text>
+
+  <line x1="172" y1="89" x2="204" y2="89" stroke="#4A5A8A" stroke-width="1.5" marker-end="url(#ar2)"/>
+
+  <rect x="210" y="66" width="180" height="46" rx="5" fill="#FFF6E9" stroke="#E58B2A" stroke-width="1.8"/>
+  <text x="300" y="86" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#B25A00" text-anchor="middle">检索 Retrieval</text>
+  <text x="300" y="102" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#8A5A20" text-anchor="middle">从向量库召回候选内容 ← 命中在这里</text>
+
+  <line x1="396" y1="89" x2="428" y2="89" stroke="#4A5A8A" stroke-width="1.5" marker-end="url(#ar2)"/>
+
+  <rect x="434" y="66" width="150" height="46" rx="5" fill="#FFFFFF" stroke="#C9D2E8" stroke-width="1"/>
+  <text x="509" y="86" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#2B3A67" text-anchor="middle">生成 Generation</text>
+  <text x="509" y="102" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#7A88AA" text-anchor="middle">基于召回内容作答</text>
+
+  <rect x="600" y="66" width="64" height="46" rx="5" fill="#2B3A67"/>
+  <text x="632" y="86" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#FFD98E" text-anchor="middle">引用</text>
+  <text x="632" y="102" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#C9D6F2" text-anchor="middle">被采信</text>
+  <line x1="590" y1="89" x2="596" y2="89" stroke="#4A5A8A" stroke-width="1.5"/>
+
+  <text x="16" y="128" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" fill="#4A5A7A">命中率 ＝ 在一组测试问题中，你的内容「进入检索召回集」的比例。注意：被召回 ≠ 被引用，被引用 ≠ 被正面引用。三层要分开测。</text>
+
+  <text x="16" y="152" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11.5" font-weight="bold" fill="#2B3A67">② 三类对抗样本：把「碰巧被检索到」和「真的被采信」分开</text>
+
+  <rect x="16" y="162" width="212" height="106" rx="6" fill="#FFFFFF" stroke="#E58B2A" stroke-width="1.5"/>
+  <rect x="16" y="162" width="212" height="22" rx="6" fill="#FFF1DE"/>
+  <text x="122" y="177" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="10.5" font-weight="bold" fill="#B25A00" text-anchor="middle">A 语义干扰样本</text>
+  <text x="28" y="197" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#4A5A7A">怎么打：同义替换 / 插无关实体 / 换语序</text>
+  <text x="28" y="210" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#4A5A7A">「油敏肌面霜推荐」→「脸上爱出油</text>
+  <text x="28" y="221" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#4A5A7A">又容易红的，抹什么面霜不闷痘」</text>
+  <text x="28" y="238" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" font-weight="bold" fill="#B25A00">测什么：语义覆盖广度</text>
+  <text x="28" y="253" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#7A88AA">关键词只有词面，语义资产有邻域</text>
+  <text x="28" y="264" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="8.5" fill="#7A88AA">依据：3.1「语义表达…优化」</text>
+
+  <rect x="234" y="162" width="212" height="106" rx="6" fill="#FFFFFF" stroke="#E58B2A" stroke-width="1.5"/>
+  <rect x="234" y="162" width="212" height="22" rx="6" fill="#FFF1DE"/>
+  <text x="340" y="177" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="10.5" font-weight="bold" fill="#B25A00" text-anchor="middle">B 时序敏感样本</text>
+  <text x="246" y="197" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#4A5A7A">怎么打：加时间限定 / 用过期数据反问</text>
+  <text x="246" y="210" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#4A5A7A">「2026 年最新的敏感肌面霜」/</text>
+  <text x="246" y="221" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#4A5A7A">「这个牌子去年出过问题吗」</text>
+  <text x="246" y="238" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" font-weight="bold" fill="#B25A00">测什么：时效标记的真实性</text>
+  <text x="246" y="253" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#7A88AA">无时效标记的内容在此类查询被降权</text>
+  <text x="246" y="264" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="8.5" fill="#7A88AA">依据：6.2 采集/核验时间 + 有效期</text>
+
+  <rect x="452" y="162" width="212" height="106" rx="6" fill="#FFFFFF" stroke="#E58B2A" stroke-width="1.5"/>
+  <rect x="452" y="162" width="212" height="22" rx="6" fill="#FFF1DE"/>
+  <text x="558" y="177" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="10.5" font-weight="bold" fill="#B25A00" text-anchor="middle">C 多模态混淆样本</text>
+  <text x="464" y="197" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#4A5A7A">怎么打：图文混问 / 上传 PDF 或表格</text>
+  <text x="464" y="210" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#4A5A7A">把问题放进截图、PDF 文字层、</text>
+  <text x="464" y="221" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#4A5A7A">商品参数表里再问</text>
+  <text x="464" y="238" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" font-weight="bold" fill="#B25A00">测什么：结构化完整度</text>
+  <text x="464" y="253" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#7A88AA">只做网页正文的，跨模态直接失效</text>
+  <text x="464" y="264" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="8.5" fill="#7A88AA">依据：7.4 多模态内容安全</text>
+
+  <text x="16" y="294" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11.5" font-weight="bold" fill="#2B3A67">③ 衰减形态比单点数值更有诊断价值（核心）</text>
+
+  <rect x="16" y="304" width="648" height="22" fill="#EEF3FB"/>
+  <text x="28" y="319" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" font-weight="bold" fill="#2B3A67">形态</text>
+  <text x="210" y="319" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" font-weight="bold" fill="#2B3A67">精确</text>
+  <text x="290" y="319" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" font-weight="bold" fill="#2B3A67">语义</text>
+  <text x="370" y="319" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" font-weight="bold" fill="#2B3A67">时序</text>
+  <text x="450" y="319" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" font-weight="bold" fill="#2B3A67">多模态</text>
+  <text x="560" y="319" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" font-weight="bold" fill="#2B3A67">诊断结论</text>
+
+  <rect x="16" y="326" width="648" height="30" fill="#FFFFFF" stroke="#DDE3F0" stroke-width="0.8"/>
+  <text x="28" y="345" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" fill="#4A5A7A">形态 1</text>
+  <text x="210" y="345" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#1F5C40" text-anchor="middle">高</text>
+  <text x="290" y="345" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#C0392B" text-anchor="middle">暴跌</text>
+  <text x="370" y="345" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="10" fill="#7A88AA" text-anchor="middle">—</text>
+  <text x="450" y="345" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="10" fill="#7A88AA" text-anchor="middle">—</text>
+  <text x="560" y="345" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" font-weight="bold" fill="#C0392B">关键词堆砌，无语义资产</text>
+
+  <rect x="16" y="356" width="648" height="30" fill="#FFFFFF" stroke="#DDE3F0" stroke-width="0.8"/>
+  <text x="28" y="375" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" fill="#4A5A7A">形态 2</text>
+  <text x="210" y="375" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#1F5C40" text-anchor="middle">高</text>
+  <text x="290" y="375" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#1F5C40" text-anchor="middle">稳</text>
+  <text x="370" y="375" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#C0392B" text-anchor="middle">暴跌</text>
+  <text x="450" y="375" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="10" fill="#7A88AA" text-anchor="middle">—</text>
+  <text x="560" y="375" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" font-weight="bold" fill="#C0392B">未做时效标记（违反 6.2）</text>
+
+  <rect x="16" y="386" width="648" height="30" fill="#FFFFFF" stroke="#DDE3F0" stroke-width="0.8"/>
+  <text x="28" y="405" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" fill="#4A5A7A">形态 3</text>
+  <text x="210" y="405" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#1F5C40" text-anchor="middle">高</text>
+  <text x="290" y="405" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#1F5C40" text-anchor="middle">稳</text>
+  <text x="370" y="405" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#1F5C40" text-anchor="middle">稳</text>
+  <text x="450" y="405" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#C0392B" text-anchor="middle">暴跌</text>
+  <text x="560" y="405" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" font-weight="bold" fill="#C0392B">只做网页文本，未结构化（违反 7.4）</text>
+
+  <rect x="16" y="416" width="648" height="30" fill="#EAF6EF" stroke="#1F5C40" stroke-width="1.2"/>
+  <text x="28" y="435" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" fill="#1F5C40">形态 4</text>
+  <text x="210" y="435" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#1F5C40" text-anchor="middle">高</text>
+  <text x="290" y="435" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#1F5C40" text-anchor="middle">稳</text>
+  <text x="370" y="435" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#1F5C40" text-anchor="middle">稳</text>
+  <text x="450" y="435" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="11" font-weight="bold" fill="#1F5C40" text-anchor="middle">稳</text>
+  <text x="560" y="435" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" font-weight="bold" fill="#1F5C40">真采信（白帽建设到位）</text>
+
+  <rect x="16" y="456" width="648" height="46" rx="5" fill="#FFF6E9" stroke="#E58B2A" stroke-width="1.5"/>
+  <text x="28" y="474" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="10" font-weight="bold" fill="#B25A00">采样纪律（不遵守则数据全部作废）</text>
+  <text x="28" y="491" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9" fill="#8A5A20">① 每次用新会话，禁止多轮追问（上下文会诱供）　② 无痕窗口或新账号（引擎有个性化推荐）　③ 全程固定提问词</text>
+
+  <rect x="16" y="512" width="648" height="42" rx="5" fill="#2B3A67"/>
+  <text x="340" y="530" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="10.5" font-weight="bold" fill="#FFD98E" text-anchor="middle">这套方法不在标准里 —— 标准 8.5 只要求「做红队测试」，没说「怎么测」</text>
+  <text x="340" y="546" font-family="SimHei,Microsoft YaHei,sans-serif" font-size="9.5" fill="#C9D6F2" text-anchor="middle">标准 8.5 测安全性（有没有违规操作）· 本方法测有效性（内容是不是真被采信）· 两者互补</text>
+</svg>
