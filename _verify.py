@@ -36,6 +36,10 @@ BLACKLIST = {
     'YD/T 3980': '错误编号 → 正确为 AIIA/T 0277—2026',
 }
 
+# 转折/否定词：与「黑名单 + 白名单」同时出现时，判定为对比说明句式
+TURN_MARKS = ['但', '然而', '实际', '实为', '正确为', '应为',
+              '笔误', '并非', '而非', '误写', '错写']
+
 # ============================================================
 # 已核实信息（白名单）—— 命中即放行
 # ============================================================
@@ -105,9 +109,20 @@ def check_blacklist(text: str):
                 continue
             has_note_mark = any(m in line for m in note_marks)
             has_whitelist = any(w in line for w in WHITELIST_TERMS)
-            # 表格行（含 |）且同行有正确说法 → 也是对比说明
             is_table = '|' in line
-            if has_note_mark or has_whitelist or (is_table and has_whitelist):
+            # 转折/否定词：说明这行是在做「A 是错的，B 才对」的对比
+            has_turn = any(m in line for m in TURN_MARKS)
+
+            # ── 豁免判定（三选一，缺一不可地严格）────────────
+            #   ① 有明确否证/修订标记 → 正常引用
+            #   ② 表格行 + 同行有白名单 → 「错误 vs 正确」对比表
+            #   ③ 非表格行 + 白名单 + 转折词 → 「公告写 X，但实际是 Y」句式
+            #   其余一律视为误用（收紧原则：宁可多报，不可漏报）
+            if has_note_mark:
+                notes.append((term, i, reason, line.strip()[:70]))
+            elif is_table and has_whitelist:
+                notes.append((term, i, reason, line.strip()[:70]))
+            elif has_whitelist and has_turn:
                 notes.append((term, i, reason, line.strip()[:70]))
             else:
                 hits.append((term, i, reason, line.strip()[:70]))
