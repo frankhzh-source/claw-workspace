@@ -36,6 +36,13 @@ BLACKLIST = {
     'YD/T 3980': '错误编号 → 正确为 AIIA/T 0277—2026',
 }
 
+# 来源线索词：数字附近出现这些词，说明标注了出处（保险原则）
+SOURCE_HINTS = ['来源', '据', '引自', '来自', '出处', '数据', '统计', '报告',
+                '白皮书', '官方', 'L0', 'L1', 'L2', 'L3',
+                'Gartner', 'IDC', 'CNNIC', 'QuestMobile', '信通院', '中广协',
+                '国资委', '国家统计局', '艾瑞', '易观', '沙利文', '标准第',
+                '页', '条', '章', '见附', '参见']
+
 # 转折/否定词：与「黑名单 + 白名单」同时出现时，判定为对比说明句式
 TURN_MARKS = ['但', '然而', '实际', '实为', '正确为', '应为',
               '笔误', '并非', '而非', '误写', '错写']
@@ -145,7 +152,7 @@ def check_blacklist(text: str):
 
 
 def extract_numbers(text: str):
-    """提取数字类断言，过滤白名单上下文"""
+    """提取数字类断言，过滤白名单上下文，并标注是否带来源（保险原则）"""
     results = []
     lines = text.split('\n')
     for i, line in enumerate(lines, 1):
@@ -157,7 +164,14 @@ def extract_numbers(text: str):
                 ctx = line.strip()
                 if len(ctx) > 90:
                     ctx = ctx[:90] + '…'
-                results.append((kind, m.group(), i, ctx))
+                # 保险原则：数字是否伴随来源标注？
+                near = line
+                if i >= 2:
+                    near += ' ' + lines[i - 2]      # 看前两行
+                if i < len(lines):
+                    near += ' ' + lines[i]          # 看后一行
+                has_src = any(h in near for h in SOURCE_HINTS)
+                results.append((kind, m.group(), i, ctx, has_src))
     return results
 
 
@@ -206,6 +220,34 @@ def extract_urls(text: str):
     return results
 
 
+def check_required_sections(text: str):
+    """检查文档必备章节（复制原则 · 防呆）
+
+    新建文档应套用 `_doc_template.md`，其中两个章节不可删除：
+    - 数据来源分级：让读者能判断哪些能信
+    - 作者信息：含实际微信号
+
+    缺失时给出警告（软卡点，不阻塞）。
+    """
+    missing = []
+    # 匹配章节标题（宽松）：形如「## 8 数据来源与免责」「## 数据来源分级」
+    # 只要标题里出现「数据来源」或「来源分级」即视为具备
+    # （第 5 次调整：原判定要求精确匹配"数据来源分级"，
+    #   对「数据来源与免责」等合理变体产生误报）
+    has_source = (
+        re.search(r'^#{1,4}\s*[\d\.]*\s*数据来源', text, re.M) is not None
+        or re.search(r'^#{1,4}\s*[\d\.]*\s*来源分级', text, re.M) is not None
+    )
+    if not has_source:
+        missing.append(('数据来源分级',
+                        '读者无法判断哪些内容能信、哪些要核。'
+                        '请套用 _doc_template.md 补上该章节。'))
+    if 'frankhzheng' not in text:
+        missing.append(('作者区（含 frankhzheng）',
+                        '所有交付物必须带作者区，且含实际微信号。'))
+    return missing
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -252,16 +294,41 @@ def main():
     print(f'⚠️  【待核】数字类断言 {len(nums)} 处')
     print('-' * 72)
     if nums:
+        # 保险原则分级：
+        #   高优先级 = 百分比 / 金额规模（最需要来源，且最易被质疑）
+        #   低优先级 = 计数 / 时间长度（常为自指描述或任务周期，噪音高）
+        high = [x for x in nums if x[0] in ('百分比', '金额/规模')]
+        low = [x for x in nums if x[0] not in ('百分比', '金额/规模')]
+
+        no_src_high = [x for x in high if not x[4]]
+        no_src_low = [x for x in low if not x[4]]
+
+        if no_src_high:
+            print(f'  🔴 无来源标注·高优先级 {len(no_src_high)} 处'
+                  f'（★百分比/金额：单一来源自动降级为"待核实"）')
+            for kind, val, line, ctx, _ in no_src_high[:10]:
+                print(f'      行 {line:>4}  [{kind}] {val:<14} | {ctx}')
+            if len(no_src_high) > 10:
+                print(f'      … 还有 {len(no_src_high) - 10} 处')
+        else:
+            print('  ✅ 百分比/金额类数字均已标注来源')
+
+        if no_src_low:
+            print(f'  ⚪ 无来源标注·次要 {len(no_src_low)} 处'
+                  f'（计数/时间，常为自指描述，可忽略）')
+            for kind, val, line, ctx, _ in no_src_low[:4]:
+                print(f'      行 {line:>4}  [{kind}] {val:<14} | {ctx}')
+            if len(no_src_low) > 4:
+                print(f'      … 还有 {len(no_src_low) - 4} 处（已折叠）')
+
         by_kind = {}
-        for kind, val, line, ctx in nums:
-            by_kind.setdefault(kind, []).append((val, line, ctx))
-        for kind, items in by_kind.items():
-            print(f'  ▸ {kind}（{len(items)} 处）')
-            for val, line, ctx in items[:8]:
-                print(f'      行 {line:>4}  {val:<14} | {ctx}')
-            if len(items) > 8:
-                print(f'      … 还有 {len(items) - 8} 处')
+        for kind, val, line, ctx, has_src in nums:
+            by_kind.setdefault(kind, []).append(has_src)
+        print()
+        print('  ▸ 汇总：' + ' / '.join(
+            f'{k} {len(v)}处(标注来源 {sum(v)}处)' for k, v in by_kind.items()))
     print('  核验要求：① 谁测的 ② 怎么测的 ③ 有无利益关系')
+    print('  ★保险原则：无来源标注的百分比/金额，默认降级为「待核实」，不可当结论用')
 
     # 3. 标准条款引用
     clauses = extract_clauses(text)
@@ -305,16 +372,32 @@ def main():
         print(f'  行 {line:>4}  {u}')
     print('  核验要求（四重）：状态码 + 标题 + 关键词 + PDF 文件头')
 
-    # 6. 总结
+    # 6. 必备章节（复制原则）
+    miss = check_required_sections(text)
+    print()
+    if miss:
+        print(f'📋 【结构】缺失必备章节 {len(miss)} 项（软卡点，建议补齐）')
+        print('-' * 72)
+        for name, why in miss:
+            print(f'  ✗ {name}')
+            print(f'      → {why}')
+        print('  模板：_doc_template.md（新建文档请套用）')
+    else:
+        print('✅ 【结构】必备章节完整（数据来源分级 + 作者区）')
+
+    # 7. 总结
     print()
     print('=' * 72)
     total = len(bl) + len(nums) + len(clauses) + len(uniq) + len(uniq_urls)
     if bl:
         print(f'❌ 不可交付：黑名单实际误用 {len(bl)} 处，必须先修正')
-    elif total == 0:
-        print('✅ 未发现待核实项')
+    elif total == 0 and not miss:
+        print('✅ 未发现待核实项，结构完整')
     else:
-        print(f'⚠️  共 {total} 项需核验。核验后请更新「已核实信息库」')
+        print(f'⚠️  共 {total} 项需核验'
+              + (f'，另有 {len(miss)} 项结构缺失' if miss else '')
+              + '。')
+        print('   核验后请更新「已核实信息库」（信息核验规范与已核实信息库_v1.md）')
     print()
     print('口诀：数字问出处，条款翻原文，公司查工商，链接点一遍。')
     print('=' * 72)
