@@ -103,7 +103,22 @@ def check_blacklist(text: str):
                   '二手源污染', '一手源读取失误', '判断摇摆', '类型']
     # 白名单词出现即视为「同行有正确说法」→ 判定为对比说明
     lines = text.split('\n')
+    in_code = False          # Markdown 代码块状态
     for i, line in enumerate(lines, 1):
+        # 代码块切换（``` 或 ~~~ 开头）
+        stripped = line.lstrip()
+        if stripped.startswith('```') or stripped.startswith('~~~'):
+            in_code = not in_code
+            continue
+        # 代码块内一律视为「示例」，不算实际引用
+        # （例如本文档自己会举例演示错误写法，这些示例不应被判为误用）
+        if in_code:
+            for term, reason in BLACKLIST.items():
+                if term in line:
+                    notes.append((term, i, '代码块内示例，非实际引用',
+                                  line.strip()[:70]))
+            continue
+
         for term, reason in BLACKLIST.items():
             if term not in line:
                 continue
